@@ -59,7 +59,7 @@ export default function App(props) {
             initialState={initialNavigationState}
           >
             <Stack.Navigator>
-              <Stack.Screen name="Root" component={BottomTabNavigator} />
+              <Stack.Screen name="Supfam" component={BottomTabNavigator} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>

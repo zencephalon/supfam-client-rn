@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '~/components/TabBarIcon';
 import HomeScreen from '~/screens/HomeScreen';
-import LinksScreen from '~/screens/LinksScreen';
+import MapScreen from '~/screens/MapScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 
 import {
@@ -36,22 +36,22 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          title: 'Map',
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-map" />
+          ),
+        }}
+      />
+      <BottomTab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} name="md-home" />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="Map"
-        component={LinksScreen}
-        options={{
-          title: 'Map',
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="md-map" />
           ),
         }}
       />
@@ -76,7 +76,9 @@ function getHeaderTitle(route) {
   switch (routeName) {
     case 'Home':
       return 'Home';
-    case 'Links':
-      return 'Links to learn more';
+    case 'Map':
+      return 'Map';
+    case 'Settings':
+      return 'Settings';
   }
 }
