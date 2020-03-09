@@ -1,8 +1,9 @@
-import * as React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
+import * as React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import TabBarIcon from '~/components/TabBarIcon';
+import HomeScreen from '~/screens/HomeScreen';
+import LinksScreen from '~/screens/LinksScreen';
+import SettingsScreen from '~/screens/SettingsScreen';
 
 import {
   Image,
@@ -10,11 +11,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
-} from "react-native";
+  View,
+} from 'react-native';
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = "Home";
+const INITIAL_ROUTE_NAME = 'Home';
 
 function LogoTitle() {
   return <Text>Hello</Text>;
@@ -27,9 +28,9 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({
     headerTitle: getHeaderTitle(route),
     headerStyle: {
-      backgroundColor: "#f4511e",
-      height: 40
-    }
+      backgroundColor: '#f4511e',
+      height: 40,
+    },
   });
 
   return (
@@ -38,20 +39,30 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Home"
         component={HomeScreen}
         options={{
-          title: "Home",
+          title: 'Home',
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} name="md-home" />
-          )
+          ),
         }}
       />
       <BottomTab.Screen
-        name="Links"
+        name="Map"
         component={LinksScreen}
         options={{
-          title: "Map",
+          title: 'Map',
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} name="md-map" />
-          )
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-settings" />
+          ),
         }}
       />
     </BottomTab.Navigator>
@@ -63,9 +74,9 @@ function getHeaderTitle(route) {
     route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case "Home":
-      return "Home";
-    case "Links":
-      return "Links to learn more";
+    case 'Home':
+      return 'Home';
+    case 'Links':
+      return 'Links to learn more';
   }
 }

@@ -39,7 +39,7 @@ const RegistrationForm = ({
       />
       <SfButton
         title="Register"
-        disabled={password !== passwordConfirmation}
+        disabled={password != passwordConfirmation}
         onPress={register}
       />
     </View>
@@ -125,7 +125,7 @@ class AuthGate extends React.Component {
 
   register = () => {
     const { name, password, passwordConfirmation } = this.state;
-    if (password !== passwordConfirmation) {
+    if (password != passwordConfirmation) {
       return;
     }
     this.setState({ loggingIn: true });
