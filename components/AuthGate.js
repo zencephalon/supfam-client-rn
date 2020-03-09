@@ -13,24 +13,51 @@ import SfText from '~/components/SfText';
 import { API_URL } from '~/lib/constants';
 import { debounce } from 'lodash';
 
-const RegistrationForm = props => {
+const RegistrationForm = ({
+  password,
+  passwordConfirmation,
+  setPassword,
+  setPasswordConfirmation,
+  register,
+}) => {
   return (
     <View>
-      <SfText>Password:</SfText>
-      <SfTextInput />
-      <SfText>Password confirmation:</SfText>
-      <SfTextInput />
-      <SfButton title="Register" />
+      <SfTextInput
+        placeholder="password"
+        value={password}
+        onChangeText={setPassword}
+        textContentType="newPassword"
+        secureTextEntry
+      />
+      <SfTextInput
+        placeholder="password confirmation"
+        value={passwordConfirmation}
+        onChangeText={setPasswordConfirmation}
+        textContentType="newPassword"
+        secureTextEntry
+        onSubmitEditing={register}
+      />
+      <SfButton
+        title="Register"
+        disabled={password !== passwordConfirmation}
+        onPress={register}
+      />
     </View>
   );
 };
 
-const LoginForm = props => {
+const LoginForm = ({ password, setPassword, login }) => {
   return (
     <View>
-      <SfText>Password:</SfText>
-      <SfTextInput />
-      <SfButton title="Login" />
+      <SfTextInput
+        placeholder="password"
+        value={password}
+        onChangeText={setPassword}
+        textContentType="password"
+        onSubmitEditing={login}
+        secureTextEntry
+      />
+      <SfButton title="Login" disabled={!password} onPress={login} />
     </View>
   );
 };
@@ -44,6 +71,8 @@ class AuthGate extends React.Component {
       nameAvailable: undefined,
       token: AuthToken.get(),
       username: '',
+      password: '',
+      passwordConfirmation: '',
     };
   }
 
@@ -52,7 +81,6 @@ class AuthGate extends React.Component {
     fetch(`${API_URL}available/${username}`)
       .then(resp => resp.json())
       .then(available => {
-        console.log(available, 'hello');
         this.setState({
           nameAvailable: available,
           fetchingNameAvailable: false,
@@ -66,6 +94,56 @@ class AuthGate extends React.Component {
     this.fetchNameAvailable(username);
   };
 
+  setPassword = password => {
+    this.setState({ password });
+  };
+
+  setPasswordConfirmation = passwordConfirmation => {
+    this.setState({ passwordConfirmation });
+  };
+
+  login = () => {
+    const { name, password } = this.state;
+    this.setState({ loggingIn: true });
+    fetch(`${API_URL}login`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, password }),
+    })
+      .then(res => {
+        console.log('Got here');
+        return res.json();
+      })
+      .then(json => {
+        console.log(json);
+        this.setState({ loggingIn: false, token: json.token });
+        AuthToken.set(json.token);
+      });
+  };
+
+  register = () => {
+    const { name, password, passwordConfirmation } = this.state;
+    if (password !== passwordConfirmation) {
+      return;
+    }
+    this.setState({ loggingIn: true });
+    fetch(`${API_URL}register`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, password, passwordConfirmation }),
+    })
+      .then(res => res.json())
+      .then(({ id }) => {
+        if (id) {
+          this.login();
+        }
+      });
+  };
+
   render() {
     const {
       token,
@@ -73,22 +151,36 @@ class AuthGate extends React.Component {
       fetchingNameAvailable,
       nameAvailable,
       firstChecked,
+      password,
+      passwordConfirmation,
     } = this.state;
 
     return !token ? (
       <SafeAreaView>
-        <SfText>Username:</SfText>
+        <SfText>Welcome to Supfam</SfText>
         <SfTextInput
           placeholder="User name"
           onChangeText={this.handleUsername}
           value={username}
+          autoCapitalize="none"
+          textContentType="username"
         />
         {!firstChecked || fetchingNameAvailable ? (
           <SfText>{firstChecked ? 'Checking name...' : ''}</SfText>
         ) : nameAvailable ? (
-          <RegistrationForm />
+          <RegistrationForm
+            password={password}
+            passwordConfirmation={passwordConfirmation}
+            setPassword={this.setPassword}
+            setPasswordConfirmation={this.setPasswordConfirmation}
+            register={this.register}
+          />
         ) : (
-          <LoginForm />
+          <LoginForm
+            setPassword={this.setPassword}
+            login={this.login}
+            password={password}
+          />
         )}
       </SafeAreaView>
     ) : (
