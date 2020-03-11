@@ -13,6 +13,10 @@ import useLinking from './navigation/useLinking';
 import AuthToken from '~/lib/AuthToken';
 import AuthGate from '~/components/AuthGate';
 
+import configureStore from '~/store/configureStore';
+
+const store = configureStore();
+
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -54,7 +58,7 @@ export default function App(props) {
     return (
       <AuthGate>
         <View style={styles.container}>
-          <Provider>
+          <Provider store={store}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
             <NavigationContainer
               ref={containerRef}
