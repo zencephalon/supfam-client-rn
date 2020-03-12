@@ -39,7 +39,7 @@ const RegistrationForm = ({
       />
       <SfButton
         title="Register"
-        disabled={password != passwordConfirmation}
+        disabled={password !== passwordConfirmation}
         onPress={register}
       />
     </View>
@@ -70,15 +70,15 @@ class AuthGate extends React.Component {
       fetchingNameAvailable: false,
       nameAvailable: undefined,
       token: AuthToken.get(),
-      username: '',
+      name: '',
       password: '',
       passwordConfirmation: '',
     };
   }
 
-  fetchNameAvailable = debounce(username => {
+  fetchNameAvailable = debounce(name => {
     this.setState({ fetchingNameAvailable: true });
-    fetch(`${API_URL}available/${username}`)
+    fetch(`${API_URL}available/${name}`)
       .then(resp => resp.json())
       .then(available => {
         this.setState({
@@ -89,9 +89,9 @@ class AuthGate extends React.Component {
       });
   }, 300);
 
-  handleUsername = username => {
-    this.setState({ username });
-    this.fetchNameAvailable(username);
+  handleUsername = name => {
+    this.setState({ name });
+    this.fetchNameAvailable(name);
   };
 
   setPassword = password => {
@@ -118,14 +118,14 @@ class AuthGate extends React.Component {
       })
       .then(json => {
         console.log(json);
-        this.setState({ loggingIn: false, token: json.token });
+        this.setState({ loggingIn: false, token: json });
         AuthToken.set(json.token);
       });
   };
 
   register = () => {
     const { name, password, passwordConfirmation } = this.state;
-    if (password != passwordConfirmation) {
+    if (password !== passwordConfirmation) {
       return;
     }
     this.setState({ loggingIn: true });
@@ -147,7 +147,7 @@ class AuthGate extends React.Component {
   render() {
     const {
       token,
-      username,
+      name,
       fetchingNameAvailable,
       nameAvailable,
       firstChecked,
@@ -161,7 +161,7 @@ class AuthGate extends React.Component {
         <SfTextInput
           placeholder="User name"
           onChangeText={this.handleUsername}
-          value={username}
+          value={name}
           autoCapitalize="none"
           textContentType="username"
         />
