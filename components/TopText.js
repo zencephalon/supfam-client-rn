@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { Ionicons } from '@expo/vector-icons';
-
-import Colors from '../constants/Colors';
-import UserIcon from './UserIcon';
+import formatAgo from '~/lib/timeAgo';
 
 import { View, Text } from 'react-native';
 
@@ -25,7 +22,9 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
       >
         {locationState}
       </Text> */}
-      <Text style={{ flexGrow: 1, textAlign: 'right' }}>{lastUpdate}</Text>
+      <Text style={{ flexGrow: 1, textAlign: 'right' }}>
+        {`${formatAgo(lastUpdate)} ago`}
+      </Text>
     </View>
   );
 }

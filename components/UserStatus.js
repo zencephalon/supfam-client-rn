@@ -26,7 +26,7 @@ export default function UserStatus({ user }) {
         <View style={{ flexDirection: 'row' }}>
           <UserIcon uri={user.avatar_url} />
           <View style={{ flexDirection: 'column', flexGrow: 1 }}>
-            <Text>{user.statusText}</Text>
+            <Text style={{ fontSize: 18 }}>{user.current_status.message}</Text>
             <Text style={{ textAlign: 'right', alignSelf: 'stretch' }}>
               {user.messagePreview}
             </Text>
