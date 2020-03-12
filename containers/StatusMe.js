@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as FriendActions from '~/apis/friend/actions';
+import * as StatusActions from '~/apis/status/actions';
 
-class FriendsContainer extends Component {
+class StatusMeContainer extends Component {
   componentDidMount() {
     const {
-      actions: { INDEX },
+      actions: { GET },
     } = this.props;
-    INDEX('friends');
+    GET('me');
   }
 
   render() {
-    const { confirmed, requested, failed, friends, children } = this.props;
+    const { confirmed, requested, failed, status, children } = this.props;
     return (
       <React.Fragment>
         {React.Children.map(children, child =>
           React.cloneElement(child, {
-            friends,
+            status,
             confirmed,
             requested,
             failed,
@@ -29,14 +29,20 @@ class FriendsContainer extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { data: friends, confirmed, requested, failed } = state.friends.http
-    .collections['friends'] || {
-    data: [],
-    confirmed: false,
+  const {
+    data: status,
+    GET: { confirmed, requested, failed },
+  } = state.statuses.http.things['me'] || {
+    data: {},
+    GET: {
+      confirmed: false,
+      requested: true,
+      failed: false,
+    },
   };
 
   return {
-    friends,
+    status,
     confirmed,
     requested,
     failed,
@@ -45,8 +51,8 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(FriendActions, dispatch),
+    actions: bindActionCreators(StatusActions, dispatch),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FriendsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(StatusMeContainer);
