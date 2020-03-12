@@ -16,7 +16,7 @@ export default function UserStatus({ user }) {
         alignSelf: 'stretch',
       }}
     >
-      <StatusStripe statusState={user.current_status.color} />
+      <StatusStripe statusColor={user.current_status.color} />
       <View style={{ flexGrow: 1 }}>
         <TopText
           displayName={user.name}

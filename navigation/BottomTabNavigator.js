@@ -7,12 +7,10 @@ import SettingsScreen from '~/screens/SettingsScreen';
 
 import StatusMe from '~/containers/StatusMe';
 
-import Colors from '~/constants/Colors';
+import statusColors from '~/constants/statusColors';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
-
-const backgroundColors = [Colors.AWAY, Colors.BUSY, Colors.FREE, Colors.OPEN];
 
 function BottomTabNavigator({ navigation, route, status }) {
   // Set the header title on the parent stack navigator depending on the
@@ -21,7 +19,7 @@ function BottomTabNavigator({ navigation, route, status }) {
   navigation.setOptions({
     headerTitle: getHeaderTitle(route),
     headerStyle: {
-      backgroundColor: backgroundColors[status.color || 0],
+      backgroundColor: statusColors[status.color || 0],
       height: 40,
     },
   });

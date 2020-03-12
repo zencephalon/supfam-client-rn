@@ -37,6 +37,7 @@ class StatusCenter extends React.Component {
 
   render() {
     const { message } = this.state;
+    const { status } = this.props;
     return (
       <View>
         <SfTextInput
@@ -46,25 +47,37 @@ class StatusCenter extends React.Component {
         />
         <View style={styles.tabBarInfoContainer}>
           <TouchableOpacity
-            style={{ ...styles.statusButton, backgroundColor: Colors.AWAY }}
+            style={{
+              ...styles.statusButton,
+              backgroundColor: Colors.AWAY,
+            }}
             onPress={this.setAway}
           >
             <MonoText>Away</MonoText>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ ...styles.statusButton, backgroundColor: Colors.BUSY }}
+            style={{
+              ...styles.statusButton,
+              backgroundColor: Colors.BUSY,
+            }}
             onPress={this.setBusy}
           >
             <MonoText>Busy</MonoText>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ ...styles.statusButton, backgroundColor: Colors.FREE }}
+            style={{
+              ...styles.statusButton,
+              backgroundColor: Colors.FREE,
+            }}
             onPress={this.setFree}
           >
             <MonoText>Free</MonoText>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ ...styles.statusButton, backgroundColor: Colors.OPEN }}
+            style={{
+              ...styles.statusButton,
+              backgroundColor: Colors.OPEN,
+            }}
             onPress={this.setOpen}
           >
             <MonoText>Open</MonoText>

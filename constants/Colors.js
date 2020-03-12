@@ -1,6 +1,6 @@
 const tintColor = '#2f95dc';
 
-export default {
+const colors = {
   bottomBarColor: '#20232A',
   skyBlue: '#36AECC',
   accentColor: '#36AECC',
@@ -23,3 +23,5 @@ export default {
   FREE: '#23A061',
   OPEN: '#4F8EF1',
 };
+
+export default colors;
