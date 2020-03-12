@@ -15,30 +15,57 @@ const statusStates = {
 class StatusCenter extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { message: '' };
   }
 
+  editMessage = message => {
+    this.setState({ message });
+  };
+
+  setAway = () => {
+    this.props.PUT('me', { color: 0 });
+  };
+  setBusy = () => {
+    this.props.PUT('me', { color: 1 });
+  };
+  setFree = () => {
+    this.props.PUT('me', { color: 2 });
+  };
+  setOpen = () => {
+    this.props.PUT('me', { color: 3 });
+  };
+
   render() {
+    const { message } = this.state;
     return (
       <View>
-        <SfTextInput defaultValue={this.props.status.message} />
+        <SfTextInput
+          placeholder={this.props.status.message}
+          value={message}
+          onChangeText={this.editMessage}
+        />
         <View style={styles.tabBarInfoContainer}>
           <TouchableOpacity
             style={{ ...styles.statusButton, backgroundColor: Colors.AWAY }}
+            onPress={this.setAway}
           >
             <MonoText>Away</MonoText>
           </TouchableOpacity>
           <TouchableOpacity
             style={{ ...styles.statusButton, backgroundColor: Colors.BUSY }}
+            onPress={this.setBusy}
           >
             <MonoText>Busy</MonoText>
           </TouchableOpacity>
           <TouchableOpacity
             style={{ ...styles.statusButton, backgroundColor: Colors.FREE }}
+            onPress={this.setFree}
           >
             <MonoText>Free</MonoText>
           </TouchableOpacity>
           <TouchableOpacity
             style={{ ...styles.statusButton, backgroundColor: Colors.OPEN }}
+            onPress={this.setOpen}
           >
             <MonoText>Open</MonoText>
           </TouchableOpacity>

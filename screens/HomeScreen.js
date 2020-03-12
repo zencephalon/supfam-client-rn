@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+} from 'react-native';
 
 import Friends from '~/containers/Friends';
 import StatusMe from '~/containers/StatusMe';
@@ -8,7 +14,12 @@ import StatusCenter from '~/components/StatusCenter';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+      enabled
+      keyboardVerticalOffset={40}
+    >
       <Friends>
         <FriendList />
       </Friends>
@@ -16,7 +27,7 @@ export default function HomeScreen() {
       <StatusMe>
         <StatusCenter />
       </StatusMe>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

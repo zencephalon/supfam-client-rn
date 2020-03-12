@@ -5,21 +5,10 @@ import HomeScreen from '~/screens/HomeScreen';
 import MapScreen from '~/screens/MapScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+// import StatusMe from '~/containers/StatusMe';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
-
-function LogoTitle() {
-  return <Text>Hello</Text>;
-}
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the

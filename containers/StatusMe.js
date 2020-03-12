@@ -12,7 +12,14 @@ class StatusMeContainer extends Component {
   }
 
   render() {
-    const { confirmed, requested, failed, status, children } = this.props;
+    const {
+      confirmed,
+      requested,
+      failed,
+      status,
+      children,
+      actions,
+    } = this.props;
     return (
       <React.Fragment>
         {React.Children.map(children, child =>
@@ -21,6 +28,7 @@ class StatusMeContainer extends Component {
             confirmed,
             requested,
             failed,
+            PUT: actions.PUT,
           })
         )}
       </React.Fragment>
