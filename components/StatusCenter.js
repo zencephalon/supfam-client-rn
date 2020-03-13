@@ -34,6 +34,17 @@ class StatusCenter extends React.Component {
   setOpen = () => {
     this.props.PUT('me', { color: 3 });
   };
+  setMessage = () => {
+    this.props
+      .PUT('me', {
+        color: this.props.status.color,
+        message: this.state.message,
+      })
+      .then(() => {
+        this.setState({ message: '' });
+      })
+      .catch(e => {});
+  };
 
   render() {
     const { message } = this.state;
@@ -44,6 +55,7 @@ class StatusCenter extends React.Component {
           placeholder={this.props.status.message}
           value={message}
           onChangeText={this.editMessage}
+          onSubmitEditing={this.setMessage}
         />
         <View style={styles.tabBarInfoContainer}>
           <TouchableOpacity
