@@ -34,10 +34,21 @@ export default function UserStatus({ user }) {
           locationState={user.name}
           lastUpdate={user.current_status.updated_at}
         />
-        <View style={{ flexDirection: 'row', marginTop: 6 }}>
+        <View style={{ flexDirection: 'row', marginTop: 6, flex: 1 }}>
           <UserIcon uri={user.avatar_url} />
-          <View style={{ flexDirection: 'column', flexGrow: 1 }}>
-            <Text style={{ fontSize: 18, color: '#2E3440' }}>
+          <View
+            style={{
+              flexDirection: 'column',
+              flexGrow: 1,
+              width: 0, // hack to get text to wrap
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                color: '#2E3440',
+              }}
+            >
               {user.current_status.message}
             </Text>
             <Text style={{ textAlign: 'right', alignSelf: 'stretch' }}>
