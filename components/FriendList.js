@@ -1,19 +1,23 @@
 import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
 
 import UserStatus from '~/components/UserStatus';
 
+const renderUserStatus = ({ item: user }) => {
+  console.log(user);
+  return <UserStatus user={user} />;
+};
+
 const FriendList = props => {
   return (
-    <ScrollView
+    <FlatList
+      inverted
+      data={props.friends}
       style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-    >
-      {props.friends.map(user => (
-        <UserStatus key={user.id} user={user} />
-      ))}
-    </ScrollView>
+      renderItem={renderUserStatus}
+      keyExtractor={user => `${user.id}`}
+    />
   );
 };
 
