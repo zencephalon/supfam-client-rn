@@ -17,7 +17,7 @@ export default function UserStatus({ user }) {
         flexDirection: 'row',
         alignSelf: 'stretch',
         borderLeftColor: statusColors[user.current_status.color],
-        borderLeftWidth: 4,
+        borderLeftWidth: 6,
         paddingLeft: 6,
         paddingTop: 3,
         paddingBottom: 3,

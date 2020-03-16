@@ -1,6 +1,8 @@
 import * as React from 'react';
 import formatAgo from '~/lib/timeAgo';
 
+import TimeAgo from '~/components/TimeAgo';
+
 import { View, Text } from 'react-native';
 
 export default function TopText({ displayName, locationState, lastUpdate }) {
@@ -23,7 +25,7 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
         {locationState}
       </Text> */}
       <Text style={{ flexGrow: 1, textAlign: 'right', color: '#4C566A' }}>
-        {`${formatAgo(lastUpdate)} ago`}
+        <TimeAgo time={lastUpdate} suffix="ago" />
       </Text>
     </View>
   );
