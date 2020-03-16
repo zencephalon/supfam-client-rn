@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FriendActions from '~/apis/friend/actions';
 
-import { sortBy } from 'lodash';
+import { orderBy } from 'lodash';
 
 class FriendsContainer extends Component {
   componentDidMount() {
@@ -38,7 +38,7 @@ function mapStateToProps(state, props) {
     confirmed: false,
   };
 
-  const friends = sortBy(data, [f => f.current_status.updated_at]);
+  const friends = orderBy(data, ['current_status.updated_at'], ['desc']);
 
   return {
     friends,
