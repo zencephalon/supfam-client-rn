@@ -12,7 +12,6 @@ import AuthToken from '~/lib/AuthToken';
 
 const setAuthHeader = headers => {
   const token = AuthToken.get();
-  console.log({ token });
   return { ...headers, Authorization: `${token}` };
 };
 

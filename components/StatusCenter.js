@@ -56,6 +56,7 @@ class StatusCenter extends React.Component {
           value={message}
           onChangeText={this.editMessage}
           onSubmitEditing={this.setMessage}
+          style={{ padding: 12, fontSize: 20 }}
         />
         <View style={styles.tabBarInfoContainer}>
           <TouchableOpacity

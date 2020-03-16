@@ -113,11 +113,9 @@ class AuthGate extends React.Component {
       body: JSON.stringify({ name, password }),
     })
       .then(res => {
-        console.log('Got here');
         return res.json();
       })
       .then(json => {
-        console.log(json);
         this.setState({ loggingIn: false, token: json });
         AuthToken.set(json.token);
       });

@@ -1,4 +1,4 @@
-const tintColor = '#2f95dc';
+const tintColor = '#81A1C1';
 
 const colors = {
   bottomBarColor: '#20232A',
@@ -18,10 +18,10 @@ const colors = {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
-  AWAY: '#DC544B',
-  BUSY: '#FECD52',
-  FREE: '#23A061',
-  OPEN: '#4F8EF1',
+  AWAY: '#BF616A',
+  BUSY: '#EBCB8B',
+  FREE: '#A3BE8C',
+  OPEN: '#5E81AC',
 };
 
 export default colors;

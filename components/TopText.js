@@ -13,7 +13,7 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
         flexGrow: 1,
       }}
     >
-      <Text style={{ width: '25%' }}>{displayName}</Text>
+      <Text style={{ width: '25%', color: '#434C5E' }}>{displayName}</Text>
       {/* <Text
         style={{
           width: "50%",
@@ -22,7 +22,7 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
       >
         {locationState}
       </Text> */}
-      <Text style={{ flexGrow: 1, textAlign: 'right' }}>
+      <Text style={{ flexGrow: 1, textAlign: 'right', color: '#4C566A' }}>
         {`${formatAgo(lastUpdate)} ago`}
       </Text>
     </View>

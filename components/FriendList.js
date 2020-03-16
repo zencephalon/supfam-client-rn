@@ -5,7 +5,6 @@ import { StyleSheet } from 'react-native';
 import UserStatus from '~/components/UserStatus';
 
 const FriendList = props => {
-  console.log({ props });
   return (
     <ScrollView
       style={styles.container}
@@ -23,7 +22,7 @@ export default FriendList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E5E9F0',
   },
   contentContainer: {
     paddingTop: 0,

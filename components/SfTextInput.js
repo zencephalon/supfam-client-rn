@@ -10,7 +10,7 @@ const SfTextInput = props => {
 const SfTextInputStyle = {
   fontSize: 30,
   alignSelf: 'stretch',
-  borderColor: 'gray',
+  borderColor: '#D8DEE9',
   borderWidth: 1,
 };
 

@@ -7,7 +7,11 @@ import { View } from 'react-native';
 export default function StatusStripe(props) {
   return (
     <View
-      style={{ width: 5, backgroundColor: statusColors[props.statusColor] }}
+      style={{
+        width: 6,
+        backgroundColor: statusColors[props.statusColor],
+        marginRight: 6,
+      }}
     ></View>
   );
 }

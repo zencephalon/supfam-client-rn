@@ -15,6 +15,8 @@ import AuthGate from '~/components/AuthGate';
 
 import configureStore from '~/store/configureStore';
 
+import CableContainer from '~/containers/Cable';
+
 const store = configureStore();
 
 const Stack = createStackNavigator();
@@ -59,6 +61,7 @@ export default function App(props) {
       <AuthGate>
         <View style={styles.container}>
           <Provider store={store}>
+            <CableContainer />
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
             <NavigationContainer
               ref={containerRef}

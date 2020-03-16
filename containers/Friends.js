@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FriendActions from '~/apis/friend/actions';
 
+import { sortBy } from 'lodash';
+
 class FriendsContainer extends Component {
   componentDidMount() {
     const {
@@ -29,11 +31,14 @@ class FriendsContainer extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { data: friends, confirmed, requested, failed } = state.friends.http
-    .collections['friends'] || {
+  const { data, confirmed, requested, failed } = state.friends.http.collections[
+    'friends'
+  ] || {
     data: [],
     confirmed: false,
   };
+
+  const friends = sortBy(data, [f => f.current_status.updated_at]);
 
   return {
     friends,
