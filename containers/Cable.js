@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import AuthToken from '~/lib/AuthToken';
 
+import { API_URL } from '~/lib/constants';
+
 import { connect } from 'react-redux';
 
 import { ActionCable, Cable } from '@kesha-antonov/react-native-action-cable';
@@ -11,8 +13,8 @@ class CableContainer extends React.Component {
   constructor(props) {
     super(props);
     ActionCable.startDebugging();
-    const URL = `https://polar-peak-82709.herokuapp.com/cable?token=${AuthToken.get()}`;
-    console.log('Trying to connect to ', URL);
+    const URL = `${API_URL}cable?token=${AuthToken.get()}`;
+
     this.consumer = ActionCable.createConsumer(URL);
     this.cable = new Cable({});
     this.channel = this.cable.setChannel(
