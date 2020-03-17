@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import MapView, { Marker } from 'react-native-maps';
-import SfText from '~/components/SfText';
-import * as Colors from '~/constants/Colors';
 
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+
+import * as Colors from '~/constants/Colors';
 
 export default function LinksScreen() {
   return (
