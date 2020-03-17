@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import AuthToken from '~/lib/AuthToken';
-// import ActionCable from 'actioncable';
 
 import { connect } from 'react-redux';
 

@@ -9,7 +9,7 @@ import UserStatus from '~/components/UserStatus';
 import { nord6 } from '~/constants/Colors';
 
 import { useQuery } from 'react-query';
-import { getFriends } from '~/apis/friend/api';
+import { getFriends } from '~/apis/api';
 
 const renderUserStatus = ({ item: user }) => {
   return <UserStatus user={user} />;
