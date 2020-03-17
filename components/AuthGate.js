@@ -1,33 +1,17 @@
 import * as React from 'react';
-import AuthToken from '~/lib/AuthToken';
-import { View, SafeAreaView } from 'react-native';
-import SfTextInput from '~/components/SfTextInput';
-import SfButton from '~/components/SfButton';
-import SfText from '~/components/SfText';
-import { API_URL } from '~/lib/constants';
+import { SafeAreaView } from 'react-native';
+import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 
+import { API_URL } from '~/lib/constants';
+
 import { LOGIN } from '~/apis/auth/actions';
+import AuthToken from '~/lib/AuthToken';
 
-import { connect } from 'react-redux';
-
+import SfTextInput from '~/components/SfTextInput';
+import SfText from '~/components/SfText';
 import RegistrationForm from '~/components/RegistrationForm';
-
-const LoginForm = ({ password, setPassword, login }) => {
-  return (
-    <View>
-      <SfTextInput
-        placeholder="password"
-        value={password}
-        onChangeText={setPassword}
-        textContentType="password"
-        onSubmitEditing={login}
-        secureTextEntry
-      />
-      <SfButton title="Login" disabled={!password} onPress={login} />
-    </View>
-  );
-};
+import LoginForm from '~/components/LoginForm';
 
 const fetchNameAvailable = name => {
   return fetch(`${API_URL}available/${name}`).then(resp => resp.json());
