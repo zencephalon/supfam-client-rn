@@ -13,7 +13,7 @@ import SfText from '~/components/SfText';
 import RegistrationForm from '~/components/RegistrationForm';
 import LoginForm from '~/components/LoginForm';
 
-const fetchNameAvailable = name => {
+const getNameAvailable = name => {
   return fetch(`${API_URL}available/${name}`).then(resp => resp.json());
 };
 
@@ -43,7 +43,6 @@ class AuthGate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstChecked: false,
       fetchingNameAvailable: false,
       nameAvailable: undefined,
       name: '',
@@ -53,12 +52,15 @@ class AuthGate extends React.Component {
   }
 
   fetchNameAvailable = debounce(name => {
+    if (name === '') {
+      this.setState({ fetchingNameAvailable: false });
+      return;
+    }
     this.setState({ fetchingNameAvailable: true });
     getNameAvailable(name).then(available => {
       this.setState({
         nameAvailable: available,
         fetchingNameAvailable: false,
-        firstChecked: true,
       });
     });
   }, 300);
@@ -107,13 +109,18 @@ class AuthGate extends React.Component {
       name,
       fetchingNameAvailable,
       nameAvailable,
-      firstChecked,
       password,
       passwordConfirmation,
     } = this.state;
     const { token } = this.props;
 
-    return !token ? (
+    const emptyName = name === '';
+
+    if (token) {
+      return this.props.children;
+    }
+
+    return (
       <SafeAreaView>
         <SfText>Welcome to Supfam</SfText>
         <SfTextInput
@@ -123,8 +130,8 @@ class AuthGate extends React.Component {
           autoCapitalize="none"
           textContentType="username"
         />
-        {!firstChecked || fetchingNameAvailable ? (
-          <SfText>{firstChecked ? 'Checking name...' : ''}</SfText>
+        {emptyName || fetchingNameAvailable ? (
+          <SfText>{!emptyName ? 'Checking name...' : ''}</SfText>
         ) : nameAvailable ? (
           <RegistrationForm
             password={password}
@@ -141,8 +148,6 @@ class AuthGate extends React.Component {
           />
         )}
       </SafeAreaView>
-    ) : (
-      this.props.children
     );
   }
 }
