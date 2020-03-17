@@ -4,6 +4,8 @@ import { StyleSheet } from 'react-native';
 
 import UserStatus from '~/components/UserStatus';
 
+import { nord6 } from '~/constants/Colors';
+
 const renderUserStatus = ({ item: user }) => {
   return <UserStatus user={user} />;
 };
@@ -24,8 +26,7 @@ export default FriendList;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#E5E9F0',
-    opacity: 0.8,
+    backgroundColor: nord6,
   },
   contentContainer: {
     paddingTop: 0,

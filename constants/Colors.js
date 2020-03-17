@@ -1,22 +1,43 @@
-export const tintColor = '#81A1C1';
+// https://www.nordtheme.com/docs/colors-and-palettes
+// Polar Night series, darkest to lightest
+export const nord0 = '#2E3440';
+export const nord1 = '#3B4252';
+export const nord2 = '#434C5E';
+export const nord3 = '#4C566A';
+// Snow storm series, darkest to lightest
+export const nord4 = '#D8DEE9';
+export const nord5 = '#E5E9F0';
+export const nord6 = '#ECEFF4';
+// Frost series
+export const nord7 = '#8FBCBB';
+export const nord8 = '#88C0D0';
+export const nord9 = '#81A1C1';
+export const nord10 = '#5E81AC';
+// Aurora series
+export const nord11 = '#BF616A'; //red
+export const nord12 = '#D08770'; //orange
+export const nord13 = '#EBCB8B'; //yellow
+export const nord14 = '#A3BE8C'; //green
+export const nord15 = '#B48EAD'; //purple
 
-export const bottomBarColor = '#20232A';
-export const skyBlue = '#36AECC';
-export const accentColor = '#36AECC';
-export const moneyGreen = '#45bc38';
-export const dullGrey = '#999';
-export const highlightGreen = 'rgb(100; 255; 100)';
-export const highlightRed = 'rgb(255; 100; 100)';
+export const textPrimary = nord0;
+export const textSecondary = nord2;
+export const textTertiary = nord3;
+
+export const red = nord11;
+export const orange = nord12;
+export const yellow = nord13;
+export const green = nord14;
+export const purple = nord15;
+
+export const tintColor = nord9;
+
+export const accentColor = nord8;
 export const tabIconDefault = '#ccc';
 export const tabIconSelected = tintColor;
 export const tabBar = '#fefefe';
-export const errorBackground = 'red';
-export const errorText = '#fff';
-export const warningBackground = '#EAEB5E';
-export const warningText = '#666804';
-export const noticeBackground = tintColor;
-export const noticeText = '#fff';
-export const AWAY = '#BF616A';
-export const BUSY = '#EBCB8B';
-export const FREE = '#A3BE8C';
-export const OPEN = '#5E81AC';
+
+export const AWAY = red;
+export const BUSY = yellow;
+export const FREE = green;
+export const OPEN = nord10;

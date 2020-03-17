@@ -6,7 +6,9 @@ import TopText from './TopText';
 
 import { View, Text } from 'react-native';
 
-import statusColors from '../constants/statusColors';
+import { textPrimary } from '~/constants/Colors';
+
+import statusColors from '~/constants/statusColors';
 
 export default function UserStatus({ user }) {
   return (
@@ -44,7 +46,7 @@ export default function UserStatus({ user }) {
             <Text
               style={{
                 fontSize: 18,
-                color: '#2E3440',
+                color: textPrimary,
               }}
             >
               {user.current_status.message}

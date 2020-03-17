@@ -1,9 +1,10 @@
 import * as React from 'react';
-import formatAgo from '~/lib/timeAgo';
 
 import TimeAgo from '~/components/TimeAgo';
 
 import { View, Text } from 'react-native';
+
+import { textSecondary, textTertiary } from '~/constants/Colors';
 
 export default function TopText({ displayName, locationState, lastUpdate }) {
   return (
@@ -15,7 +16,7 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
         flexGrow: 1,
       }}
     >
-      <Text style={{ width: '25%', color: '#434C5E' }}>{displayName}</Text>
+      <Text style={{ width: '25%', color: textSecondary }}>{displayName}</Text>
       {/* <Text
         style={{
           width: "50%",
@@ -24,7 +25,7 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
       >
         {locationState}
       </Text> */}
-      <Text style={{ flexGrow: 1, textAlign: 'right', color: '#4C566A' }}>
+      <Text style={{ flexGrow: 1, textAlign: 'right', color: textTertiary }}>
         <TimeAgo time={lastUpdate} suffix="ago" />
       </Text>
     </View>

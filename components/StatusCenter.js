@@ -49,7 +49,7 @@ class StatusCenter extends React.Component {
           value={message}
           onChangeText={this.editMessage}
           onSubmitEditing={this.setMessage}
-          style={{ padding: 12, fontSize: 20 }}
+          style={{ padding: 12, fontSize: 18 }}
         />
         <View style={styles.tabBarInfoContainer}>
           <TouchableOpacity
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   contentContainer: {
     paddingTop: 0,
@@ -120,7 +119,6 @@ const styles = StyleSheet.create({
       },
     }),
     alignItems: 'center',
-    backgroundColor: '#fbfbfb',
     paddingVertical: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
