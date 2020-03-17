@@ -1,9 +1,9 @@
 import React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
-import { AWAY, BUSY, FREE, OPEN } from '../constants/Colors';
-import { MonoText } from '../components/StyledText';
 import SfTextInput from './SfTextInput';
+
+import StatusButton from '~/components/StatusButton';
 
 class StatusCenter extends React.Component {
   constructor(props) {
@@ -15,18 +15,10 @@ class StatusCenter extends React.Component {
     this.setState({ message });
   };
 
-  setAway = () => {
-    this.props.PUT('me', { color: 0 });
+  setColor = color => {
+    this.props.PUT('me', { color });
   };
-  setBusy = () => {
-    this.props.PUT('me', { color: 1 });
-  };
-  setFree = () => {
-    this.props.PUT('me', { color: 2 });
-  };
-  setOpen = () => {
-    this.props.PUT('me', { color: 3 });
-  };
+
   setMessage = () => {
     this.props
       .PUT('me', {
@@ -43,53 +35,26 @@ class StatusCenter extends React.Component {
     const { message } = this.state;
     const { status } = this.props;
     return (
-      <View>
+      <React.Fragment>
         <SfTextInput
           placeholder={status.message}
           value={message}
           onChangeText={this.editMessage}
           onSubmitEditing={this.setMessage}
-          style={{ padding: 12, fontSize: 18 }}
+          style={styles.statusInput}
         />
         <View style={styles.tabBarInfoContainer}>
-          <TouchableOpacity
-            style={{
-              ...styles.statusButton,
-              backgroundColor: AWAY,
-            }}
-            onPress={this.setAway}
-          >
-            <MonoText>Away</MonoText>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              ...styles.statusButton,
-              backgroundColor: BUSY,
-            }}
-            onPress={this.setBusy}
-          >
-            <MonoText>Busy</MonoText>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              ...styles.statusButton,
-              backgroundColor: FREE,
-            }}
-            onPress={this.setFree}
-          >
-            <MonoText>Free</MonoText>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              ...styles.statusButton,
-              backgroundColor: OPEN,
-            }}
-            onPress={this.setOpen}
-          >
-            <MonoText>Open</MonoText>
-          </TouchableOpacity>
+          {[0, 1, 2, 3].map(color => {
+            return (
+              <StatusButton
+                color={color}
+                setColor={this.setColor}
+                key={`${color}`}
+              />
+            );
+          })}
         </View>
-      </View>
+      </React.Fragment>
     );
   }
 }
@@ -105,6 +70,10 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 0,
+  },
+  statusInput: {
+    padding: 12,
+    fontSize: 18,
   },
   tabBarInfoContainer: {
     ...Platform.select({
