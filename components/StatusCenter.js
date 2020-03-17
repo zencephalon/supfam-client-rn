@@ -26,10 +26,10 @@ const StatusCenter = props => {
 
   const postMessage = React.useCallback(async () => {
     if (status === 'success') {
-      await mutateStatus({ color: statusMe.color, message });
+      await mutateStatus({ color: statusMe?.color, message });
       setMessage('');
     }
-  }, [statusMe.color, message, status]);
+  }, [statusMe, message, status]);
 
   return (
     <React.Fragment>

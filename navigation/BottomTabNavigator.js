@@ -5,21 +5,23 @@ import HomeScreen from '~/screens/HomeScreen';
 import MapScreen from '~/screens/MapScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 
-import StatusMe from '~/containers/StatusMe';
-
 import statusColors from '~/constants/statusColors';
+
+import { getStatusMe } from '~/apis/api';
+import { useQuery } from 'react-query';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
-function BottomTabNavigator({ navigation, route, status }) {
+export default function BottomTabNavigator({ navigation, route }) {
+  const { data: statusMe } = useQuery('statusMe', getStatusMe);
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
   navigation.setOptions({
     headerTitle: getHeaderTitle(route),
     headerStyle: {
-      backgroundColor: statusColors[status.color || 0],
+      backgroundColor: statusColors[statusMe?.color || 0],
       height: 40,
     },
   });
@@ -59,12 +61,6 @@ function BottomTabNavigator({ navigation, route, status }) {
     </BottomTab.Navigator>
   );
 }
-
-export default props => (
-  <StatusMe>
-    <BottomTabNavigator {...props} />
-  </StatusMe>
-);
 
 function getHeaderTitle(route) {
   const routeName =

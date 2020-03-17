@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
-import StatusMe from '~/containers/StatusMe';
 import FriendList from '~/components/FriendList';
 import StatusCenter from '~/components/StatusCenter';
 
