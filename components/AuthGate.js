@@ -3,41 +3,14 @@ import { SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 
-import { API_URL } from '~/lib/constants';
-
 import { LOGIN } from '~/apis/auth/actions';
+import { getNameAvailable, postLogin, postRegister } from '~/apis/auth/api';
 import AuthToken from '~/lib/AuthToken';
 
 import SfTextInput from '~/components/SfTextInput';
 import SfText from '~/components/SfText';
 import RegistrationForm from '~/components/RegistrationForm';
 import LoginForm from '~/components/LoginForm';
-
-const getNameAvailable = name => {
-  return fetch(`${API_URL}available/${name}`).then(resp => resp.json());
-};
-
-const postLogin = ({ name, password }) => {
-  return fetch(`${API_URL}login`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, password }),
-  }).then(res => {
-    return res.json();
-  });
-};
-
-const postRegister = ({ name, password, passwordConfirmation }) => {
-  return fetch(`${API_URL}register`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, password, passwordConfirmation }),
-  }).then(res => res.json());
-};
 
 class AuthGate extends React.Component {
   constructor(props) {
