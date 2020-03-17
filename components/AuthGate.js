@@ -11,40 +11,7 @@ import { LOGIN } from '~/apis/auth/actions';
 
 import { connect } from 'react-redux';
 
-import { useQuery } from 'react-query';
-
-const RegistrationForm = ({
-  password,
-  passwordConfirmation,
-  setPassword,
-  setPasswordConfirmation,
-  register,
-}) => {
-  return (
-    <View>
-      <SfTextInput
-        placeholder="password"
-        value={password}
-        onChangeText={setPassword}
-        textContentType="newPassword"
-        secureTextEntry
-      />
-      <SfTextInput
-        placeholder="password confirmation"
-        value={passwordConfirmation}
-        onChangeText={setPasswordConfirmation}
-        textContentType="newPassword"
-        secureTextEntry
-        onSubmitEditing={register}
-      />
-      <SfButton
-        title="Register"
-        disabled={password !== passwordConfirmation}
-        onPress={register}
-      />
-    </View>
-  );
-};
+import RegistrationForm from '~/components/RegistrationForm';
 
 const LoginForm = ({ password, setPassword, login }) => {
   return (
