@@ -103,6 +103,7 @@ class AuthGate extends React.Component {
           autoCapitalize="none"
           textContentType="username"
         />
+
         {emptyName || fetchingNameAvailable ? (
           <SfText>{!emptyName ? 'Checking name...' : ''}</SfText>
         ) : nameAvailable ? (

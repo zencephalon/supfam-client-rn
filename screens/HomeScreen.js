@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import Friends from '~/containers/Friends';
 import StatusMe from '~/containers/StatusMe';
