@@ -5,6 +5,7 @@ const ColorMode = props => {
   const colorScheme = useColorScheme();
 
   const { children, ...rest } = props;
+  // TODO get these from ~/constants/Colors
   const color = colorScheme === 'dark' ? '#F7F7F7' : '#282C34';
   const backgroundColor = colorScheme === 'dark' ? '#282C34' : '#F7F7F7';
   return children({ ...rest, color, backgroundColor });
