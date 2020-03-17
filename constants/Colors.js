@@ -33,6 +33,7 @@ export const purple = nord15;
 export const tintColor = nord9;
 
 export const accentColor = nord8;
+export const disabledColor = nord4;
 export const tabIconDefault = '#ccc';
 export const tabIconSelected = tintColor;
 export const tabBar = '#fefefe';

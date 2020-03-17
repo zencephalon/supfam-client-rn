@@ -2,5 +2,4 @@
 
 ## TODO
 
-- Clean up the Nord colors I added
-- Make the AuthGate look pretty
+- Try out React Query in the Friends container

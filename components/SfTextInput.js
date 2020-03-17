@@ -4,9 +4,7 @@ import { TextInput } from 'react-native';
 import { nord4, nord6 } from '~/constants/Colors';
 
 const SfTextInput = props => {
-  return (
-    <TextInput style={{ ...SfTextInputStyle, ...props.style }} {...props} />
-  );
+  return <TextInput style={[SfTextInputStyle, props.style]} {...props} />;
 };
 
 const SfTextInputStyle = {

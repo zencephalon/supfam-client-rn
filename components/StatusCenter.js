@@ -5,6 +5,8 @@ import SfTextInput from './SfTextInput';
 
 import StatusButton from '~/components/StatusButton';
 
+import { nord5 } from '~/constants/Colors';
+
 class StatusCenter extends React.Component {
   constructor(props) {
     super(props);
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
   statusInput: {
     padding: 12,
     fontSize: 18,
+    backgroundColor: nord5,
   },
   tabBarInfoContainer: {
     ...Platform.select({

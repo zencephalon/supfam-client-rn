@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView } from 'react-native';
+import { View, SafeAreaView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 
@@ -11,6 +11,8 @@ import SfTextInput from '~/components/SfTextInput';
 import SfText from '~/components/SfText';
 import RegistrationForm from '~/components/RegistrationForm';
 import LoginForm from '~/components/LoginForm';
+
+import * as Colors from '~/constants/Colors';
 
 class AuthGate extends React.Component {
   constructor(props) {
@@ -53,6 +55,9 @@ class AuthGate extends React.Component {
 
   login = () => {
     const { name, password } = this.state;
+    if (!password) {
+      return;
+    }
     this.setState({ loggingIn: true });
 
     postLogin({ name, password }).then(json => {
@@ -94,37 +99,64 @@ class AuthGate extends React.Component {
     }
 
     return (
-      <SafeAreaView>
-        <SfText>Welcome to Supfam</SfText>
-        <SfTextInput
-          placeholder="User name"
-          onChangeText={this.handleUsername}
-          value={name}
-          autoCapitalize="none"
-          textContentType="username"
-        />
+      <SafeAreaView style={styles.container}>
+        <View style={styles.contentContainer}>
+          <SfText style={styles.welcomeText}>Welcome to Supfam</SfText>
+          <SfTextInput
+            placeholder="User name"
+            onChangeText={this.handleUsername}
+            value={name}
+            autoCapitalize="none"
+            textContentType="username"
+            style={styles.textInput}
+          />
 
-        {emptyName || fetchingNameAvailable ? (
-          <SfText>{!emptyName ? 'Checking name...' : ''}</SfText>
-        ) : nameAvailable ? (
-          <RegistrationForm
-            password={password}
-            passwordConfirmation={passwordConfirmation}
-            setPassword={this.setPassword}
-            setPasswordConfirmation={this.setPasswordConfirmation}
-            register={this.register}
-          />
-        ) : (
-          <LoginForm
-            setPassword={this.setPassword}
-            login={this.login}
-            password={password}
-          />
-        )}
+          {emptyName || fetchingNameAvailable ? (
+            <SfText>{!emptyName ? 'Checking name...' : ''}</SfText>
+          ) : nameAvailable ? (
+            <RegistrationForm
+              password={password}
+              passwordConfirmation={passwordConfirmation}
+              setPassword={this.setPassword}
+              setPasswordConfirmation={this.setPasswordConfirmation}
+              register={this.register}
+            />
+          ) : (
+            <LoginForm
+              setPassword={this.setPassword}
+              login={this.login}
+              password={password}
+            />
+          )}
+        </View>
       </SafeAreaView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textInput: {
+    padding: 12,
+    fontSize: 32,
+    backgroundColor: Colors.nord6,
+    borderColor: Colors.nord4,
+    borderWidth: 1,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.nord5,
+  },
+  contentContainer: {
+    marginLeft: 6,
+    marginRight: 6,
+  },
+  welcomeText: {
+    marginTop: 12,
+    marginBottom: 18,
+    color: Colors.nord10,
+    fontSize: 32,
+  },
+});
 
 function mapStateToProps(state) {
   const { token } = state.auth;
