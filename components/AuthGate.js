@@ -1,17 +1,15 @@
 import * as React from 'react';
 import AuthToken from '~/lib/AuthToken';
-import {
-  View,
-  TextInput,
-  Picker,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import SfTextInput from '~/components/SfTextInput';
 import SfButton from '~/components/SfButton';
 import SfText from '~/components/SfText';
 import { API_URL } from '~/lib/constants';
 import { debounce } from 'lodash';
+
+import { LOGIN } from '~/apis/auth/actions';
+
+import { connect } from 'react-redux';
 
 const RegistrationForm = ({
   password,
@@ -69,7 +67,6 @@ class AuthGate extends React.Component {
       firstChecked: false,
       fetchingNameAvailable: false,
       nameAvailable: undefined,
-      token: AuthToken.get(),
       name: '',
       password: '',
       passwordConfirmation: '',
@@ -116,9 +113,8 @@ class AuthGate extends React.Component {
         return res.json();
       })
       .then(json => {
-        AuthToken.set(json.token).then(() => {
-          this.setState({ loggingIn: false, token: json.token });
-        });
+        AuthToken.set(json.token);
+        this.props.dispatch(LOGIN(json.token));
       });
   };
 
@@ -145,7 +141,6 @@ class AuthGate extends React.Component {
 
   render() {
     const {
-      token,
       name,
       fetchingNameAvailable,
       nameAvailable,
@@ -153,6 +148,7 @@ class AuthGate extends React.Component {
       password,
       passwordConfirmation,
     } = this.state;
+    const { token } = this.props;
 
     return !token ? (
       <SafeAreaView>
@@ -188,4 +184,10 @@ class AuthGate extends React.Component {
   }
 }
 
-export default AuthGate;
+function mapStateToProps(state) {
+  const { token } = state.auth;
+
+  return { token };
+}
+
+export default connect(mapStateToProps)(AuthGate);

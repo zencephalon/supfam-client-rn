@@ -5,7 +5,6 @@ import { StyleSheet } from 'react-native';
 import UserStatus from '~/components/UserStatus';
 
 const renderUserStatus = ({ item: user }) => {
-  console.log(user);
   return <UserStatus user={user} />;
 };
 
@@ -25,8 +24,8 @@ export default FriendList;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#E5E9F0',
+    opacity: 0.8,
   },
   contentContainer: {
     paddingTop: 0,

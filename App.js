@@ -17,8 +17,6 @@ import configureStore from '~/store/configureStore';
 
 import CableContainer from '~/containers/Cable';
 
-const store = configureStore();
-
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -58,9 +56,9 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <AuthGate>
-        <View style={styles.container}>
-          <Provider store={store}>
+      <Provider store={configureStore({ auth: { token: AuthToken.get() } })}>
+        <AuthGate>
+          <View style={styles.container}>
             <CableContainer />
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
             <NavigationContainer
@@ -71,9 +69,9 @@ export default function App(props) {
                 <Stack.Screen name="Supfam" component={BottomTabNavigator} />
               </Stack.Navigator>
             </NavigationContainer>
-          </Provider>
-        </View>
-      </AuthGate>
+          </View>
+        </AuthGate>
+      </Provider>
     );
   }
 }

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
+import AuthToken from '~/lib/AuthToken';
+import { LOGOUT } from '~/apis/auth/actions';
+import { connect } from 'react-redux';
 
-export default function LinksScreen() {
+export default connect()(function LinksScreen(props) {
   return (
     <ScrollView
       style={styles.container}
@@ -14,11 +15,14 @@ export default function LinksScreen() {
       <OptionButton
         icon="md-exit"
         label="Log out"
-        onPress={() => AsyncStorage.removeItem('auth_token')}
+        onPress={() => {
+          AuthToken.remove();
+          props.dispatch(LOGOUT());
+        }}
       />
     </ScrollView>
   );
-}
+});
 
 function OptionButton({ icon, label, onPress, isLastOption }) {
   return (
