@@ -17,6 +17,28 @@ const fetchNameAvailable = name => {
   return fetch(`${API_URL}available/${name}`).then(resp => resp.json());
 };
 
+const fetchLogin = ({ name, password }) => {
+  return fetch(`${API_URL}login`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, password }),
+  }).then(res => {
+    return res.json();
+  });
+};
+
+const postRegister = ({ name, password, passwordConfirmation }) => {
+  return fetch(`${API_URL}register`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, password, passwordConfirmation }),
+  }).then(res => res.json());
+};
+
 class AuthGate extends React.Component {
   constructor(props) {
     super(props);
@@ -57,41 +79,27 @@ class AuthGate extends React.Component {
   login = () => {
     const { name, password } = this.state;
     this.setState({ loggingIn: true });
-    fetch(`${API_URL}login`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, password }),
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(json => {
-        AuthToken.set(json.token);
-        this.props.dispatch(LOGIN(json.token));
-      });
+
+    fetchLogin({ name, password }).then(json => {
+      AuthToken.set(json.token);
+      this.props.dispatch(LOGIN(json.token));
+    });
   };
 
   register = () => {
     const { name, password, passwordConfirmation } = this.state;
     if (password !== passwordConfirmation) {
+      // actually do something here to indicate the problem
+      // or just prevent this from even happening
       return;
     }
     this.setState({ loggingIn: true });
-    fetch(`${API_URL}register`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, password, passwordConfirmation }),
-    })
-      .then(res => res.json())
-      .then(({ id }) => {
-        if (id) {
-          this.login();
-        }
-      });
+
+    postRegister({ name, password, passwordConfirmation }).then(({ id }) => {
+      if (id) {
+        this.login();
+      }
+    });
   };
 
   render() {
