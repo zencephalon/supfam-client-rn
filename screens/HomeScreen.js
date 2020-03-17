@@ -15,9 +15,7 @@ export default function HomeScreen() {
     >
       <FriendList />
 
-      <StatusMe>
-        <StatusCenter />
-      </StatusMe>
+      <StatusCenter />
     </KeyboardAvoidingView>
   );
 }

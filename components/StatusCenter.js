@@ -7,59 +7,49 @@ import StatusButton from '~/components/StatusButton';
 
 import { nord5 } from '~/constants/Colors';
 
-class StatusCenter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { message: '' };
-  }
+import { getStatusMe, putStatusMe } from '~/apis/api';
 
-  editMessage = message => {
-    this.setState({ message });
-  };
+import { useQuery, useMutation, queryCache } from 'react-query';
 
-  setColor = color => {
-    this.props.PUT('me', { color });
-  };
+const StatusCenter = props => {
+  const [message, setMessage] = React.useState('');
+  const [mutateStatus] = useMutation(putStatusMe, {
+    onSuccess: () => {
+      queryCache.refetchQueries('statusMe');
+    },
+  });
+  const { data: statusMe, status } = useQuery('statusMe', getStatusMe);
 
-  setMessage = () => {
-    this.props
-      .PUT('me', {
-        color: this.props.status.color,
-        message: this.state.message,
-      })
-      .then(() => {
-        this.setState({ message: '' });
-      })
-      .catch(e => {});
-  };
+  const setColor = React.useCallback(async color => {
+    await mutateStatus({ color });
+  });
 
-  render() {
-    const { message } = this.state;
-    const { status } = this.props;
-    return (
-      <React.Fragment>
-        <SfTextInput
-          placeholder={status.message}
-          value={message}
-          onChangeText={this.editMessage}
-          onSubmitEditing={this.setMessage}
-          style={styles.statusInput}
-        />
-        <View style={styles.tabBarInfoContainer}>
-          {[0, 1, 2, 3].map(color => {
-            return (
-              <StatusButton
-                color={color}
-                setColor={this.setColor}
-                key={`${color}`}
-              />
-            );
-          })}
-        </View>
-      </React.Fragment>
-    );
-  }
-}
+  const postMessage = React.useCallback(async () => {
+    if (status === 'success') {
+      await mutateStatus({ color: statusMe.color, message });
+      setMessage('');
+    }
+  }, [statusMe.color, message, status]);
+
+  return (
+    <React.Fragment>
+      <SfTextInput
+        placeholder={statusMe?.message || 'Loading...'}
+        value={message}
+        onChangeText={setMessage}
+        onSubmitEditing={postMessage}
+        style={styles.statusInput}
+      />
+      <View style={styles.tabBarInfoContainer}>
+        {[0, 1, 2, 3].map(color => {
+          return (
+            <StatusButton color={color} setColor={setColor} key={`${color}`} />
+          );
+        })}
+      </View>
+    </React.Fragment>
+  );
+};
 
 const styles = StyleSheet.create({
   statusButton: {

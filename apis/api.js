@@ -13,4 +13,14 @@ export const getFriends = () => {
   return api.fetchFromAPI('friends');
 };
 
+export const getStatusMe = () => {
+  return api.fetchFromAPI('statuses/me');
+};
+
+export const putStatusMe = data => {
+  return api.putToAPI('statuses/me', {
+    body: JSON.stringify(data),
+  });
+};
+
 export default api;
