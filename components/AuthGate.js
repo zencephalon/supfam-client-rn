@@ -17,7 +17,7 @@ const fetchNameAvailable = name => {
   return fetch(`${API_URL}available/${name}`).then(resp => resp.json());
 };
 
-const fetchLogin = ({ name, password }) => {
+const postLogin = ({ name, password }) => {
   return fetch(`${API_URL}login`, {
     method: 'post',
     headers: {
@@ -54,7 +54,7 @@ class AuthGate extends React.Component {
 
   fetchNameAvailable = debounce(name => {
     this.setState({ fetchingNameAvailable: true });
-    fetchNameAvailable(name).then(available => {
+    getNameAvailable(name).then(available => {
       this.setState({
         nameAvailable: available,
         fetchingNameAvailable: false,
@@ -80,7 +80,7 @@ class AuthGate extends React.Component {
     const { name, password } = this.state;
     this.setState({ loggingIn: true });
 
-    fetchLogin({ name, password }).then(json => {
+    postLogin({ name, password }).then(json => {
       AuthToken.set(json.token);
       this.props.dispatch(LOGIN(json.token));
     });
