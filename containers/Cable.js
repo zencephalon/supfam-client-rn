@@ -1,19 +1,20 @@
 import React, { Fragment } from 'react';
 import AuthToken from '~/lib/AuthToken';
 // import ActionCable from 'actioncable';
-import * as FriendActions from '~/apis/friend/actions';
 
 import { connect } from 'react-redux';
 
 import { ActionCable, Cable } from '@kesha-antonov/react-native-action-cable';
 
+import { queryCache } from 'react-query';
+
 class CableContainer extends React.Component {
   constructor(props) {
     super(props);
     ActionCable.startDebugging();
-    this.consumer = ActionCable.createConsumer(
-      `https://polar-peak-82709.herokuapp.com/cable?token=${AuthToken.get()}`
-    );
+    const URL = `https://polar-peak-82709.herokuapp.com/cable?token=${AuthToken.get()}`;
+    console.log('Trying to connect to ', URL);
+    this.consumer = ActionCable.createConsumer(URL);
     this.cable = new Cable({});
     this.channel = this.cable.setChannel(
       'family',
@@ -25,9 +26,10 @@ class CableContainer extends React.Component {
 
     this.channel.on('received', data => {
       console.log('received', data);
-      this.props.dispatch(
-        FriendActions.action.GET.CONFIRM(data.user.id, data.user)
-      );
+      const { user } = data;
+      queryCache.setQueryData('friends', friends => {
+        return friends.map(friend => (user.id === friend.id ? user : friend));
+      });
     });
     this.channel.on('connected', data => {
       console.log('connected', data);

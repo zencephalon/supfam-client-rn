@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
-import Friends from '~/containers/Friends';
 import StatusMe from '~/containers/StatusMe';
 import FriendList from '~/components/FriendList';
 import StatusCenter from '~/components/StatusCenter';
@@ -14,9 +13,7 @@ export default function HomeScreen() {
       enabled
       keyboardVerticalOffset={40}
     >
-      <Friends>
-        <FriendList />
-      </Friends>
+      <FriendList />
 
       <StatusMe>
         <StatusCenter />
