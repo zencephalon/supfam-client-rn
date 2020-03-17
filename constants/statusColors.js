@@ -1,3 +1,3 @@
-import Colors from '~/constants/Colors';
+import { AWAY, BUSY, FREE, OPEN } from '~/constants/Colors';
 
-export default [Colors.AWAY, Colors.BUSY, Colors.FREE, Colors.OPEN];
+export default [AWAY, BUSY, FREE, OPEN];

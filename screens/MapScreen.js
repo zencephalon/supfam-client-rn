@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import MapView, { Marker } from 'react-native-maps';
 import SfText from '~/components/SfText';
-import Colors from '~/constants/Colors';
+import * as Colors from '~/constants/Colors';
 
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 

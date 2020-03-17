@@ -1,27 +1,22 @@
-const tintColor = '#81A1C1';
+export const tintColor = '#81A1C1';
 
-const colors = {
-  bottomBarColor: '#20232A',
-  skyBlue: '#36AECC',
-  accentColor: '#36AECC',
-  moneyGreen: '#45bc38',
-  dullGrey: '#999',
-  highlightGreen: 'rgb(100, 255, 100)',
-  highlightRed: 'rgb(255, 100, 100)',
-  tintColor,
-  tabIconDefault: '#ccc',
-  tabIconSelected: tintColor,
-  tabBar: '#fefefe',
-  errorBackground: 'red',
-  errorText: '#fff',
-  warningBackground: '#EAEB5E',
-  warningText: '#666804',
-  noticeBackground: tintColor,
-  noticeText: '#fff',
-  AWAY: '#BF616A',
-  BUSY: '#EBCB8B',
-  FREE: '#A3BE8C',
-  OPEN: '#5E81AC',
-};
-
-export default colors;
+export const bottomBarColor = '#20232A';
+export const skyBlue = '#36AECC';
+export const accentColor = '#36AECC';
+export const moneyGreen = '#45bc38';
+export const dullGrey = '#999';
+export const highlightGreen = 'rgb(100; 255; 100)';
+export const highlightRed = 'rgb(255; 100; 100)';
+export const tabIconDefault = '#ccc';
+export const tabIconSelected = tintColor;
+export const tabBar = '#fefefe';
+export const errorBackground = 'red';
+export const errorText = '#fff';
+export const warningBackground = '#EAEB5E';
+export const warningText = '#666804';
+export const noticeBackground = tintColor;
+export const noticeText = '#fff';
+export const AWAY = '#BF616A';
+export const BUSY = '#EBCB8B';
+export const FREE = '#A3BE8C';
+export const OPEN = '#5E81AC';

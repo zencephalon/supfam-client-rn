@@ -1,16 +1,9 @@
 import React from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import Colors from '../constants/Colors';
+import { AWAY, BUSY, FREE, OPEN } from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
 import SfTextInput from './SfTextInput';
-
-const statusStates = {
-  AWAY: 'AWAY',
-  BUSY: 'BUSY',
-  FREE: 'FREE',
-  OPEN: 'OPEN',
-};
 
 class StatusCenter extends React.Component {
   constructor(props) {
@@ -52,7 +45,7 @@ class StatusCenter extends React.Component {
     return (
       <View>
         <SfTextInput
-          placeholder={this.props.status.message}
+          placeholder={status.message}
           value={message}
           onChangeText={this.editMessage}
           onSubmitEditing={this.setMessage}
@@ -62,7 +55,7 @@ class StatusCenter extends React.Component {
           <TouchableOpacity
             style={{
               ...styles.statusButton,
-              backgroundColor: Colors.AWAY,
+              backgroundColor: AWAY,
             }}
             onPress={this.setAway}
           >
@@ -71,7 +64,7 @@ class StatusCenter extends React.Component {
           <TouchableOpacity
             style={{
               ...styles.statusButton,
-              backgroundColor: Colors.BUSY,
+              backgroundColor: BUSY,
             }}
             onPress={this.setBusy}
           >
@@ -80,7 +73,7 @@ class StatusCenter extends React.Component {
           <TouchableOpacity
             style={{
               ...styles.statusButton,
-              backgroundColor: Colors.FREE,
+              backgroundColor: FREE,
             }}
             onPress={this.setFree}
           >
@@ -89,7 +82,7 @@ class StatusCenter extends React.Component {
           <TouchableOpacity
             style={{
               ...styles.statusButton,
-              backgroundColor: Colors.OPEN,
+              backgroundColor: OPEN,
             }}
             onPress={this.setOpen}
           >

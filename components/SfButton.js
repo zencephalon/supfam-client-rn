@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import withColorMode from '~/components/ColorMode';
-import Colors from '~/constants/Colors';
+import { accentColor } from '~/constants/Colors';
 
 const ExButton = props => {
   const { title, style, color, ...rest } = props;
@@ -16,7 +16,7 @@ const ExButton = props => {
 
 const styles = StyleSheet.create({
   exButton: {
-    backgroundColor: Colors.accentColor,
+    backgroundColor: accentColor,
     marginBottom: 10,
     alignItems: 'center',
     borderRadius: 10,

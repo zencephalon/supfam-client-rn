@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import Colors from '../constants/Colors';
 import UserIcon from './UserIcon';
-import StatusStripe from './StatusStripe';
 import TopText from './TopText';
 
 import { View, Text } from 'react-native';
