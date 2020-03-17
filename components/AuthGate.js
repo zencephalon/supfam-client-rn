@@ -11,6 +11,8 @@ import { LOGIN } from '~/apis/auth/actions';
 
 import { connect } from 'react-redux';
 
+import { useQuery } from 'react-query';
+
 const RegistrationForm = ({
   password,
   passwordConfirmation,
@@ -60,6 +62,10 @@ const LoginForm = ({ password, setPassword, login }) => {
   );
 };
 
+const fetchNameAvailable = name => {
+  return fetch(`${API_URL}available/${name}`).then(resp => resp.json());
+};
+
 class AuthGate extends React.Component {
   constructor(props) {
     super(props);
@@ -75,15 +81,13 @@ class AuthGate extends React.Component {
 
   fetchNameAvailable = debounce(name => {
     this.setState({ fetchingNameAvailable: true });
-    fetch(`${API_URL}available/${name}`)
-      .then(resp => resp.json())
-      .then(available => {
-        this.setState({
-          nameAvailable: available,
-          fetchingNameAvailable: false,
-          firstChecked: true,
-        });
+    fetchNameAvailable(name).then(available => {
+      this.setState({
+        nameAvailable: available,
+        fetchingNameAvailable: false,
+        firstChecked: true,
       });
+    });
   }, 300);
 
   handleUsername = name => {
