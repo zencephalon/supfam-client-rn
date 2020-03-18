@@ -19,33 +19,30 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
       }}
     >
       <View style={{ flexDirection: 'row' }}>
+        <Text
+          style={{
+            color: textSecondary,
+            fontWeight: '500',
+          }}
+        >
+          {displayName}
+        </Text>
+        <Text
+          style={{
+            textAlign: 'left',
+            color: '#BBB',
+            marginLeft: 6,
+          }}
+        >
+          <TimeAgo time={lastUpdate} suffix="ago" />
+        </Text>
         <MaterialCommunityIcons
           name="eye-outline"
           style={{ alignSelf: 'center' }}
           size={14}
           color="#BBB"
         />
-        <Text
-          style={{
-            textAlign: 'left',
-            color: '#BBB',
-            marginLeft: 1,
-          }}
-        >
-          <TimeAgo time={lastUpdate} suffix="ago" />
-        </Text>
       </View>
-
-      <Text
-        style={{
-          color: textSecondary,
-          textAlign: 'center',
-          width: '30%',
-          fontWeight: '500',
-        }}
-      >
-        {displayName}
-      </Text>
 
       <View style={{ flexDirection: 'row' }}>
         <Text

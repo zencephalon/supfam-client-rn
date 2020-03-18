@@ -33,10 +33,8 @@ const TimeAgo = ({ time, suffix }) => {
   }, interval);
 
   const isNow = timeDisplay === 'now';
-  return (
-    <React.Fragment>
-      {timeDisplay + `${isNow ? '' : ` ${suffix}`}`}
-    </React.Fragment>
-  );
+  // const suffixEnding = isNow ? '' : ` ${suffix}`;
+  const suffixEnding = '';
+  return <React.Fragment>{timeDisplay + suffixEnding}</React.Fragment>;
 };
 export default TimeAgo;
