@@ -4,7 +4,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Colors from '~/constants/Colors';
 
 function BatteryStatus({ battery, batteryState }) {
-  console.log({ battery, batteryState });
   // batteryState 0 is unknown, so ok to skip here
   if (!battery || !batteryState) {
     return null;
@@ -43,7 +42,7 @@ function BatteryStatus({ battery, batteryState }) {
     } else if (battery < 0.5) {
       color = Colors.yellow;
     } else {
-      color = '#BBB';
+      color = '#CCC';
     }
   }
   if (batteryState === 2) {
@@ -76,7 +75,7 @@ function BatteryStatus({ battery, batteryState }) {
 
   return (
     <MaterialCommunityIcons
-      style={{ marginRight: charging ? 0 : -2 }}
+      style={{ marginRight: charging ? 0 : -2, marginLeft: charging ? 2 : 0 }}
       name={icon}
       size={14}
       color={color}

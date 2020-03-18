@@ -10,6 +10,7 @@ import { textSecondary } from '~/constants/Colors';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
 import BatteryStatus from '~/components/BatteryStatus';
+import NetworkStatus from '~/components/NetworkStatus';
 
 export default function TopText({
   displayName,
@@ -40,7 +41,11 @@ export default function TopText({
           battery={user?.current_seen?.battery}
           batteryState={user?.current_seen?.battery_state}
         />
-        <MaterialCommunityIcons name="wifi-strength-2" size={14} color="#BBB" />
+        <NetworkStatus
+          networkType={user?.current_seen?.network_type}
+          networkStrength={user?.current_seen?.network_strength}
+          cellularGeneration={user?.current_seen?.cellular_generation}
+        />
       </View>
 
       <View style={{ flexDirection: 'row' }}>
