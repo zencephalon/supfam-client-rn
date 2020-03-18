@@ -5,16 +5,18 @@ import TimeAgoOnline from '~/components/TimeAgoOnline';
 
 import { View, Text } from 'react-native';
 
-import { textSecondary, textTertiary } from '~/constants/Colors';
+import { textSecondary } from '~/constants/Colors';
 
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
-import { nord10 } from '~/constants/Colors';
+
+import BatteryStatus from '~/components/BatteryStatus';
 
 export default function TopText({
   displayName,
   locationState,
   lastUpdate,
   lastSeen,
+  user,
 }) {
   return (
     <View
@@ -34,6 +36,11 @@ export default function TopText({
           {displayName}
         </Text>
         <TimeAgoOnline time={lastSeen} />
+        <BatteryStatus
+          battery={user?.current_seen?.battery}
+          batteryState={user?.current_seen?.battery_state}
+        />
+        <MaterialCommunityIcons name="wifi-strength-2" size={14} color="#BBB" />
       </View>
 
       <View style={{ flexDirection: 'row' }}>

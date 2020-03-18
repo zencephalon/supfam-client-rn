@@ -3,31 +3,21 @@ import * as React from 'react';
 import UserIcon from './UserIcon';
 import TopText from './TopText';
 
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-import TimeAgo from '~/components/TimeAgo';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
-
-import { textSecondary, textTertiary, textPrimary } from '~/constants/Colors';
-
+import { textPrimary } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
+
+import BatteryStatus from '~/components/BatteryStatus';
 
 export default function UserStatus({ user }) {
   return (
     <View
       style={{
-        flexDirection: 'row',
-        alignSelf: 'stretch',
+        ...styles.userStatus,
         borderLeftColor: statusColors[user.current_status.color],
-        borderLeftWidth: 6,
-        paddingLeft: 6,
-        paddingTop: 3,
-        paddingBottom: 3,
-        borderBottomColor: '#D8DEE9',
-        borderBottomWidth: 1,
-        paddingRight: 6,
-        paddingLeft: 6,
       }}
     >
       {/* <StatusStripe statusColor={user.current_status.color} /> */}
@@ -37,23 +27,12 @@ export default function UserStatus({ user }) {
           locationState={user.name}
           lastUpdate={user?.current_status?.updated_at}
           lastSeen={user?.current_seen?.updated_at}
+          user={user}
         />
         <View style={{ flexDirection: 'row', marginTop: 6, flex: 1 }}>
           <View style={{ flexDirection: 'column' }}>
             <UserIcon uri={user.avatar_url} />
-            <View style={{ flexDirection: 'row', marginTop: 3 }}>
-              <MaterialCommunityIcons
-                style={{ marginRight: -2 }}
-                name="battery-40"
-                size={14}
-                color="#BBB"
-              />
-              <MaterialCommunityIcons
-                name="wifi-strength-2"
-                size={14}
-                color="#BBB"
-              />
-            </View>
+            <View style={{ flexDirection: 'row', marginTop: 3 }}></View>
           </View>
           <View
             style={{
@@ -82,3 +61,18 @@ export default function UserStatus({ user }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  userStatus: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    borderLeftWidth: 6,
+    paddingLeft: 6,
+    paddingTop: 3,
+    paddingBottom: 3,
+    borderBottomColor: '#D8DEE9',
+    borderBottomWidth: 1,
+    paddingRight: 6,
+    paddingLeft: 6,
+  },
+});

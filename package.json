@@ -15,6 +15,7 @@
     "@expo/vector-icons": "~10.0.0",
     "@kesha-antonov/react-native-action-cable": "^1.0.5",
     "@react-native-community/masked-view": "0.1.5",
+    "@react-native-community/netinfo": "4.6.0",
     "@react-navigation/bottom-tabs": "^5.0.0",
     "@react-navigation/native": "^5.0.0",
     "@react-navigation/stack": "^5.0.0",
