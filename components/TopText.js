@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import TimeAgo from '~/components/TimeAgo';
+import TimeAgoOnline from '~/components/TimeAgoOnline';
 
 import { View, Text } from 'react-native';
 
@@ -9,7 +10,12 @@ import { textSecondary, textTertiary } from '~/constants/Colors';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { nord10 } from '~/constants/Colors';
 
-export default function TopText({ displayName, locationState, lastUpdate }) {
+export default function TopText({
+  displayName,
+  locationState,
+  lastUpdate,
+  lastSeen,
+}) {
   return (
     <View
       style={{
@@ -27,21 +33,7 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
         >
           {displayName}
         </Text>
-        <Text
-          style={{
-            textAlign: 'left',
-            color: '#BBB',
-            marginLeft: 6,
-          }}
-        >
-          <TimeAgo time={lastUpdate} suffix="ago" />
-        </Text>
-        <MaterialCommunityIcons
-          name="eye-outline"
-          style={{ alignSelf: 'center' }}
-          size={14}
-          color="#BBB"
-        />
+        <TimeAgoOnline time={lastSeen} />
       </View>
 
       <View style={{ flexDirection: 'row' }}>

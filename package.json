@@ -23,6 +23,7 @@
     "actioncable": "^5.2.4-1",
     "expo": "~36.0.0",
     "expo-asset": "~8.0.0",
+    "expo-battery": "~2.0.0",
     "expo-constants": "~8.0.0",
     "expo-font": "~8.0.0",
     "expo-web-browser": "~8.0.0",

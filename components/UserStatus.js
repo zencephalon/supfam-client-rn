@@ -35,7 +35,8 @@ export default function UserStatus({ user }) {
         <TopText
           displayName={user.name}
           locationState={user.name}
-          lastUpdate={user.current_status.updated_at}
+          lastUpdate={user?.current_status?.updated_at}
+          lastSeen={user?.current_seen?.updated_at}
         />
         <View style={{ flexDirection: 'row', marginTop: 6, flex: 1 }}>
           <View style={{ flexDirection: 'column' }}>
