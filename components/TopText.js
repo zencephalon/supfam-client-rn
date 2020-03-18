@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
 
 import { textSecondary, textTertiary } from '~/constants/Colors';
 
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { nord10 } from '~/constants/Colors';
 
 export default function TopText({ displayName, locationState, lastUpdate }) {
@@ -14,27 +14,61 @@ export default function TopText({ displayName, locationState, lastUpdate }) {
     <View
       style={{
         flexDirection: 'row',
-        // justifyContent: "space-between",
-        alignItems: 'flex-end',
         flexGrow: 1,
+        justifyContent: 'space-between',
       }}
     >
-      <Text style={{ color: textSecondary }}>{displayName}</Text>
-      <MaterialCommunityIcons name="battery-40" size={14} color="#BBB" />
-      <MaterialCommunityIcons name="wifi-strength-2" size={14} color="#BBB" />
-      {/* <MaterialCommunityIcons name="signal-3g" size={14} color="#BBB" /> */}
+      <View style={{ flexDirection: 'row' }}>
+        <MaterialCommunityIcons
+          name="eye-outline"
+          style={{ alignSelf: 'center' }}
+          size={14}
+          color="#BBB"
+        />
+        <Text
+          style={{
+            textAlign: 'left',
+            color: '#BBB',
+            marginLeft: 1,
+          }}
+        >
+          <TimeAgo time={lastUpdate} suffix="ago" />
+        </Text>
+      </View>
 
-      {/* <Text
+      <Text
         style={{
-          width: "50%",
-          textAlign: "center"
+          color: textSecondary,
+          textAlign: 'center',
+          width: '30%',
+          fontWeight: '500',
         }}
       >
-        {locationState}
-      </Text> */}
-      <Text style={{ flexGrow: 1, textAlign: 'right', color: textTertiary }}>
-        <TimeAgo time={lastUpdate} suffix="ago" />
+        {displayName}
       </Text>
+
+      <View style={{ flexDirection: 'row' }}>
+        <Text
+          style={{
+            textAlign: 'right',
+            color: '#BBB',
+            alignSelf: 'flex-end',
+            fontSize: 14,
+          }}
+        >
+          <TimeAgo time={lastUpdate} suffix="ago" />
+        </Text>
+        <FontAwesome
+          style={{
+            textAlign: 'right',
+            marginLeft: 3,
+            alignSelf: 'flex-end',
+          }}
+          name="pencil-square-o"
+          size={14}
+          color="#BBB"
+        />
+      </View>
     </View>
   );
 }

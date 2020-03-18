@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Ionicons } from '@expo/vector-icons';
 
 import UserIcon from './UserIcon';
 import TopText from './TopText';
 
 import { View, Text } from 'react-native';
 
-import { textPrimary } from '~/constants/Colors';
+import TimeAgo from '~/components/TimeAgo';
+
+import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+
+import { textSecondary, textTertiary, textPrimary } from '~/constants/Colors';
 
 import statusColors from '~/constants/statusColors';
 
@@ -35,7 +38,22 @@ export default function UserStatus({ user }) {
           lastUpdate={user.current_status.updated_at}
         />
         <View style={{ flexDirection: 'row', marginTop: 6, flex: 1 }}>
-          <UserIcon uri={user.avatar_url} />
+          <View style={{ flexDirection: 'column' }}>
+            <UserIcon uri={user.avatar_url} />
+            <View style={{ flexDirection: 'row', marginTop: 3 }}>
+              <MaterialCommunityIcons
+                style={{ marginRight: -2 }}
+                name="battery-40"
+                size={14}
+                color="#BBB"
+              />
+              <MaterialCommunityIcons
+                name="wifi-strength-2"
+                size={14}
+                color="#BBB"
+              />
+            </View>
+          </View>
           <View
             style={{
               flexDirection: 'column',
@@ -45,12 +63,15 @@ export default function UserStatus({ user }) {
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 14,
                 color: textPrimary,
+                flexGrow: 1,
+                flexShrink: 1,
               }}
             >
               {user.current_status.message}
             </Text>
+
             <Text style={{ textAlign: 'right', alignSelf: 'stretch' }}>
               {user.messagePreview}
             </Text>

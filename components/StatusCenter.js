@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   statusInput: {
     padding: 12,
-    fontSize: 18,
+    fontSize: 14,
     backgroundColor: nord5,
   },
   tabBarInfoContainer: {
