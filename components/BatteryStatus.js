@@ -72,6 +72,11 @@ function BatteryStatus({ battery, batteryState }) {
     color = Colors.green;
     charging = true;
   }
+  // full battery
+  if (batteryState === 3) {
+    color = Colors.green;
+    icon = 'battery';
+  }
 
   return (
     <MaterialCommunityIcons

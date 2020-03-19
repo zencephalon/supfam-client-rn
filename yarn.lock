@@ -2756,6 +2756,11 @@ expo-battery@~2.0.0:
   resolved "https://registry.yarnpkg.com/expo-battery/-/expo-battery-2.0.0.tgz#7ce4d50693d811c5b0d5d756f83a582ed8add0db"
   integrity sha512-lTkFWMt61bQ+rTdvykw0SSFGdFM3PIw/PIBvtaw+8F91AssBs6ZyUbMqzLq9kDPVtuVW/aV+20ixtb4Gz0Bddg==
 
+expo-cellular@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/expo-cellular/-/expo-cellular-2.0.0.tgz#4c23b831c2ca9d645044296f1c02830f2a5ebccd"
+  integrity sha512-Eu8SVOlqpO+usdThsEBaz4Gcp5qVc6jJ2TBMfx+87+RNAggnLwO2Ic6KDPdrHMLlWWZNRV94njsbVuYi43ik9A==
+
 expo-constants@~8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-8.0.0.tgz#e2c5a072dacb4263ccfc57dcb4835ca791960d48"
