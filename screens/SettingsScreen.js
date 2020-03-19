@@ -6,6 +6,18 @@ import AuthToken from '~/lib/AuthToken';
 import { LOGOUT } from '~/apis/auth/actions';
 import { connect } from 'react-redux';
 
+const downloadUpdate = async () => {
+  try {
+    const update = await Updates.checkForUpdateAsync();
+    if (update.isAvailable) {
+      await Updates.fetchUpdateAsync();
+      Updates.reloadFromCache();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export default connect()(function LinksScreen(props) {
   return (
     <ScrollView
@@ -19,6 +31,11 @@ export default connect()(function LinksScreen(props) {
           AuthToken.remove();
           props.dispatch(LOGOUT());
         }}
+      />
+      <OptionButton
+        icon="ios-cloud-download"
+        label="Download update"
+        onPress={downloadUpdate}
       />
     </ScrollView>
   );
