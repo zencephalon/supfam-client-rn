@@ -19,7 +19,9 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mutualflourishing.supfam",
+      "buildNumber": "0.0.1"
     }
   }
 }
