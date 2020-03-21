@@ -1,6 +1,7 @@
 import { configureAPI } from 'redux-rest-reducer';
 import { API_URL } from '~/lib/constants';
 import AuthToken from '~/lib/AuthToken';
+import Cable from '~/lib/Cable';
 
 const setAuthHeader = headers => {
   const token = AuthToken.get();
@@ -18,9 +19,10 @@ export const getStatusMe = () => {
 };
 
 export const putStatusMe = data => {
-  return api.putToAPI('statuses/me', {
-    body: JSON.stringify(data),
-  });
+  return Cable.updateStatus(data);
+  // return api.putToAPI('statuses/me', {
+  //   body: JSON.stringify(data),
+  // });
 };
 
 export default api;

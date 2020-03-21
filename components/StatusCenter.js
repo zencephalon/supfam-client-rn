@@ -15,7 +15,7 @@ const StatusCenter = props => {
   const [message, setMessage] = React.useState('');
   const [mutateStatus] = useMutation(putStatusMe, {
     onSuccess: () => {
-      queryCache.refetchQueries('statusMe');
+      // queryCache.refetchQueries('statusMe');
     },
   });
   const { data: statusMe, status } = useQuery('statusMe', getStatusMe);
