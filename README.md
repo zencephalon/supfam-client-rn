@@ -2,6 +2,8 @@
 
 ## TODO
 
+- Let's make DMs
+
 ### Features
 
 - MESSAGING. Let's do DMs first and then groups.

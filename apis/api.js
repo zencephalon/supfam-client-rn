@@ -23,10 +23,4 @@ export const putStatusMe = data => {
   });
 };
 
-export const putSeenMe = data => {
-  return api.putToAPI('seens/me', {
-    body: JSON.stringify(data),
-  });
-};
-
 export default api;
