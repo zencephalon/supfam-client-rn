@@ -1,23 +1,21 @@
 import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
-import { useColorScheme } from 'react-native-appearance';
+import { useLight } from '~/hooks/useLight';
 
 import FriendList from '~/components/FriendList';
 import StatusCenter from '~/components/StatusCenter';
 
-import * as Colors from '~/constants/Colors';
-
 export default function HomeScreen({ navigation }) {
-  const colorScheme = useColorScheme();
+  const { foregrounds, backgrounds } = useLight();
   navigation.setOptions({
     headerTitle: 'Home',
     headerStyle: {
       // backgroundColor: statusColors[statusMe?.color || 0],
-      backgroundColor: colorScheme === 'light' ? Colors.nord5 : Colors.nord1,
+      backgroundColor: backgrounds[1],
       height: 50,
     },
     headerTitleStyle: {
-      color: colorScheme === 'light' ? Colors.nord2 : Colors.nord4,
+      color: foregrounds[1],
     },
   });
   return (

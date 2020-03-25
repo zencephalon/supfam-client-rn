@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import withColorMode from '~/components/ColorMode';
 import * as Colors from '~/constants/Colors';
 
 const ExButton = props => {
@@ -16,6 +15,8 @@ const ExButton = props => {
     </TouchableOpacity>
   );
 };
+
+export default ExButton;
 
 const styles = StyleSheet.create({
   exButton: {
@@ -45,5 +46,3 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
 });
-
-export default withColorMode(ExButton);
