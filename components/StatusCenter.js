@@ -5,8 +5,6 @@ import SfTextInput from './SfTextInput';
 
 import StatusButton from '~/components/StatusButton';
 
-import { nord5 } from '~/constants/Colors';
-
 import { getStatusMe, putStatusMe } from '~/apis/api';
 
 import { useQuery, useMutation, queryCache } from 'react-query';
@@ -43,7 +41,12 @@ const StatusCenter = props => {
       <View style={styles.tabBarInfoContainer}>
         {[0, 1, 2, 3].map(color => {
           return (
-            <StatusButton color={color} setColor={setColor} key={`${color}`} />
+            <StatusButton
+              color={color}
+              setColor={setColor}
+              key={`${color}`}
+              selected={statusMe?.color === color}
+            />
           );
         })}
       </View>
@@ -52,11 +55,6 @@ const StatusCenter = props => {
 };
 
 const styles = StyleSheet.create({
-  statusButton: {
-    padding: 10,
-    flexGrow: 1,
-    alignItems: 'center',
-  },
   container: {
     flex: 1,
   },

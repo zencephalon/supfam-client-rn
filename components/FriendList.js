@@ -1,19 +1,20 @@
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import { StyleSheet } from 'react-native';
 
 import { orderBy } from 'lodash';
 
 import UserStatus from '~/components/UserStatus';
 
-import { nord6 } from '~/constants/Colors';
-
 import { useQuery } from 'react-query';
 import { getFriends } from '~/apis/api';
+
+import useLight from '~/hooks/useLight';
 
 const FriendList = props => {
   const { status, data, error } = useQuery('friends', getFriends);
   const friends = orderBy(data, ['current_status.updated_at'], ['desc']);
+
+  const { backgrounds } = useLight();
 
   const renderUserStatus = React.useCallback(
     ({ item: user }) => {
@@ -26,7 +27,7 @@ const FriendList = props => {
     <FlatList
       inverted
       data={friends}
-      style={styles.container}
+      style={{ backgroundColor: backgrounds[0] }}
       renderItem={renderUserStatus}
       keyExtractor={user => `${user.id}`}
     />
@@ -34,12 +35,3 @@ const FriendList = props => {
 };
 
 export default FriendList;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: nord6,
-  },
-  contentContainer: {
-    paddingTop: 0,
-  },
-});

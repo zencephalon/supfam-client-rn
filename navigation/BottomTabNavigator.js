@@ -8,18 +8,22 @@ import HomeStack from '~/navigation/HomeStack';
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
-import * as Colors from '~/constants/Colors';
+import useLight from '~/hooks/useLight';
 
 export default function BottomTabNavigator() {
+  const { backgrounds, foregrounds } = useLight();
   return (
     <React.Fragment>
       <BottomTab.Navigator
         initialRouteName={INITIAL_ROUTE_NAME}
         tabBarOptions={{
-          activeTintColor: Colors.tabIconSelected,
-          inactiveTintColor: Colors.tabIconDefault,
-          inactiveBackgroundColor: Colors.nord5, //statusColors[statusMe?.color || 0],
-          activeBackgroundColor: Colors.nord5, //statusColors[statusMe?.color || 0],
+          activeTintColor: foregrounds[0],
+          inactiveTintColor: foregrounds[2],
+          inactiveBackgroundColor: backgrounds[0], //statusColors[statusMe?.color || 0],
+          activeBackgroundColor: backgrounds[0], //statusColors[statusMe?.color || 0],
+          style: {
+            borderTopWidth: 0,
+          },
         }}
       >
         <BottomTab.Screen

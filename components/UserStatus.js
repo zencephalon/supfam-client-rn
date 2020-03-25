@@ -5,15 +5,21 @@ import TopText from './TopText';
 
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
+import SfText from '~/components/SfText';
+
 import { textPrimary, nord4 } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
+import useLight from '~/hooks/useLight';
+
 export default function UserStatus({ user, navigation }) {
+  const { backgrounds } = useLight();
   return (
     <TouchableOpacity
       style={{
         ...styles.userStatus,
         borderLeftColor: statusColors[user.current_status.color],
+        // borderBottomColor: backgrounds[1],
       }}
       onPress={() => {
         navigation.navigate('Conversation', { user });
@@ -36,16 +42,15 @@ export default function UserStatus({ user, navigation }) {
               width: 0, // hack to get text to wrap
             }}
           >
-            <Text
+            <SfText
               style={{
                 fontSize: 14,
-                color: textPrimary,
                 flexGrow: 1,
                 flexShrink: 1,
               }}
             >
               {user.current_status.message}
-            </Text>
+            </SfText>
 
             <Text style={{ textAlign: 'right', alignSelf: 'stretch' }}>
               {user.messagePreview}
@@ -61,13 +66,12 @@ const styles = StyleSheet.create({
   userStatus: {
     flexDirection: 'row',
     alignSelf: 'stretch',
-    borderLeftWidth: 6,
-    paddingLeft: 6,
-    paddingTop: 3,
-    paddingBottom: 3,
-    borderBottomColor: nord4,
-    borderBottomWidth: 1,
-    paddingRight: 6,
-    paddingLeft: 6,
+    borderLeftWidth: 4,
+    paddingLeft: 8,
+    paddingTop: 8,
+    paddingBottom: 8,
+    // borderBottomWidth: 1,
+    paddingRight: 8,
+    paddingLeft: 8,
   },
 });

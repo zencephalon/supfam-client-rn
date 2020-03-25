@@ -12,6 +12,8 @@ import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import BatteryStatus from '~/components/BatteryStatus';
 import NetworkStatus from '~/components/NetworkStatus';
 
+import useLight from '~/hooks/useLight';
+
 export default function TopText({
   displayName,
   locationState,
@@ -19,6 +21,8 @@ export default function TopText({
   lastSeen,
   user,
 }) {
+  const { foregrounds } = useLight();
+
   return (
     <View
       style={{
@@ -30,7 +34,7 @@ export default function TopText({
       <View style={{ flexDirection: 'row' }}>
         <Text
           style={{
-            color: textSecondary,
+            color: foregrounds[1],
             fontWeight: '500',
           }}
         >
@@ -52,7 +56,7 @@ export default function TopText({
         <Text
           style={{
             textAlign: 'right',
-            color: textTertiary,
+            color: foregrounds[3],
             alignSelf: 'flex-end',
             fontSize: 14,
           }}
@@ -67,7 +71,7 @@ export default function TopText({
           }}
           name="pencil-square-o"
           size={14}
-          color={textTertiary}
+          color={foregrounds[3]}
         />
       </View>
     </View>

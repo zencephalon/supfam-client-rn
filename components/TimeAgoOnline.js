@@ -3,9 +3,11 @@ import formatAgo from '~/lib/timeAgo';
 import useInterval from '@use-it/interval';
 
 import { Text } from 'react-native';
-import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { nord10, textTertiary } from '~/constants/Colors';
+import { nord8 } from '~/constants/Colors';
+
+import useLight from '~/hooks/useLight';
 
 const getDisplay = time => {
   const human = formatAgo(time);
@@ -28,10 +30,13 @@ const getInterval = timeDisplay => {
   return 1000 * 60 * 60 * 24;
 };
 
-const TimeAgo = ({ time, suffix }) => {
+const TimeAgo = ({ time }) => {
   const [timeDisplay, setTimeDisplay] = useState(getDisplay(time));
 
   const interval = useMemo(() => getInterval(getDisplay(time)), [time]);
+
+  const { foregrounds } = useLight();
+  const textTertiary = foregrounds[3];
 
   useInterval(() => {
     setTimeDisplay(getDisplay(time));
@@ -56,7 +61,7 @@ const TimeAgo = ({ time, suffix }) => {
         name="eye-outline"
         style={{ alignSelf: 'center', marginLeft: 6 }}
         size={14}
-        color={nord10}
+        color={foregrounds[1]}
       />
     );
   }
