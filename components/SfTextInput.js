@@ -7,7 +7,7 @@ const SfTextInput = props => {
   const { foregrounds, backgrounds } = useLight();
   const color = foregrounds[1];
   const backgroundColor = backgrounds[1];
-  const placeholderTextColor = foregrounds[3];
+  const placeholderTextColor = foregrounds[2];
   const borderColor = backgrounds[2];
 
   const style = {
@@ -29,7 +29,6 @@ const SfTextInput = props => {
 const SfTextInputStyle = {
   fontSize: 30,
   alignSelf: 'stretch',
-  // borderColor: Colors.nord4,
   borderWidth: 1,
   borderRadius: 10,
   padding: 12,

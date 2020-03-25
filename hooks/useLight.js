@@ -7,8 +7,16 @@ import {
 } from '~/constants/Colors';
 
 export default function useColors() {
-  const colorScheme = useColorScheme;
+  const colorScheme = useColorScheme();
   return colorScheme === 'light'
-    ? { foregrounds: lightThemeForegrounds, backgrounds: lightThemeBackgrounds }
-    : { foregrounds: darkThemeForegrounds, backgrounds: darkThemeBackgrounds };
+    ? {
+        foregrounds: lightThemeForegrounds,
+        backgrounds: lightThemeBackgrounds,
+        light: true,
+      }
+    : {
+        foregrounds: darkThemeForegrounds,
+        backgrounds: darkThemeBackgrounds,
+        light: false,
+      };
 }

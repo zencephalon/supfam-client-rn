@@ -37,12 +37,14 @@ export const lightThemeForegrounds = [
   neutrals[2],
   neutrals[4],
   neutrals[6],
+  neutrals[8],
 ];
 export const lightThemeBackgrounds = [
   neutrals[9],
   neutrals[7],
   neutrals[5],
   neutrals[3],
+  neutrals[1],
 ];
 export const darkThemeForegrounds = lightThemeBackgrounds;
 export const darkThemeBackgrounds = lightThemeForegrounds;

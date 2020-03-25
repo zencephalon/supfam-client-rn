@@ -2,11 +2,20 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as Colors from '~/constants/Colors';
 
+import useLight from '~/hooks/useLight';
+
 const ExButton = props => {
   const { disabled, title, style, color, ...rest } = props;
+  const { light, foregrounds } = useLight();
 
-  const stateStyle = disabled ? styles.disabled : styles.enabled;
-  const textColor = disabled ? Colors.nord5 : color;
+  const stateStyle = light
+    ? disabled
+      ? styles.lightDisabled
+      : styles.lightEnabled
+    : disabled
+    ? styles.darkDisabled
+    : styles.darkEnabled;
+  const textColor = disabled ? foregrounds[3] : foregrounds[4];
 
   const mergedStyle = { ...styles.exButton, ...stateStyle, ...style };
   return (
@@ -24,21 +33,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
   },
-  enabled: {
-    backgroundColor: Colors.accentColor,
+  lightEnabled: {
+    backgroundColor: Colors.lightThemeBackgrounds[3],
     shadowColor: Colors.nord0,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
   },
-  disabled: {
-    backgroundColor: Colors.disabledColor,
-    // shadowColor: Colors.nord5,
+  lightDisabled: {
+    backgroundColor: Colors.lightThemeBackgrounds[1],
     shadowColor: Colors.nord0,
     color: Colors.nord4,
-    // shadowOffset: { width: 0, height: 0 },
-    // shadowOpacity: 0.8,
-    // shadowRadius: 2,
+  },
+  darkEnabled: {
+    backgroundColor: Colors.darkThemeBackgrounds[3],
+    shadowColor: Colors.nord0,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+  },
+  darkDisabled: {
+    backgroundColor: Colors.darkThemeBackgrounds[1],
+    shadowColor: Colors.nord0,
+    color: Colors.nord4,
   },
   buttonText: {
     fontSize: 24,

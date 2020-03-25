@@ -66,7 +66,9 @@ const styles = StyleSheet.create({
   statusInput: {
     padding: 12,
     fontSize: 14,
-    backgroundColor: nord5,
+    borderRadius: 0,
+    borderWidth: 0,
+    marginBottom: -1,
   },
   tabBarInfoContainer: {
     ...Platform.select({
