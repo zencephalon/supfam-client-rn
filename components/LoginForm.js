@@ -28,12 +28,7 @@ const LoginForm = ({ password, setPassword, login }) => {
 
 const styles = StyleSheet.create({
   textInput: {
-    marginTop: 6,
-    padding: 12,
-    fontSize: 32,
-    backgroundColor: Colors.nord6,
-    borderColor: Colors.nord4,
-    borderWidth: 1,
+    marginTop: 8,
   },
   button: {
     marginTop: 12,

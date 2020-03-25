@@ -136,20 +136,14 @@ class AuthGate extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  textInput: {
-    padding: 12,
-    fontSize: 32,
-    // backgroundColor: Colors.nord6,
-    // borderColor: Colors.nord4,
-    borderWidth: 1,
-  },
+  textInput: {},
   container: {
     flex: 1,
     backgroundColor: Colors.nord5,
   },
   contentContainer: {
-    marginLeft: 6,
-    marginRight: 6,
+    marginLeft: 12,
+    marginRight: 12,
   },
   welcomeText: {
     marginTop: 12,

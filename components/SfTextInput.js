@@ -45,6 +45,8 @@ const SfTextInputStyle = {
   // borderColor: Colors.nord4,
   borderWidth: 1,
   borderRadius: 10,
+  padding: 12,
+  fontSize: 32,
 };
 
 export default SfTextInput;
