@@ -5,7 +5,7 @@ import TopText from './TopText';
 
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { textPrimary } from '~/constants/Colors';
+import { textPrimary, nord4 } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
 export default function UserStatus({ user, navigation }) {
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     paddingLeft: 6,
     paddingTop: 3,
     paddingBottom: 3,
-    borderBottomColor: '#D8DEE9',
+    borderBottomColor: nord4,
     borderBottomWidth: 1,
     paddingRight: 6,
     paddingLeft: 6,

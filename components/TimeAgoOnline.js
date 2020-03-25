@@ -5,7 +5,7 @@ import useInterval from '@use-it/interval';
 import { Text } from 'react-native';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
-import { nord10 } from '~/constants/Colors';
+import { nord10, textTertiary } from '~/constants/Colors';
 
 const getDisplay = time => {
   const human = formatAgo(time);
@@ -43,7 +43,7 @@ const TimeAgo = ({ time, suffix }) => {
         name="eye-off-outline"
         style={{ alignSelf: 'center', marginLeft: 6 }}
         size={14}
-        color="#BBB"
+        color={textTertiary}
       />
     );
   }
@@ -70,7 +70,7 @@ const TimeAgo = ({ time, suffix }) => {
       <Text
         style={{
           textAlign: 'left',
-          color: '#BBB',
+          color: textTertiary,
           marginLeft: 6,
         }}
       >
@@ -80,7 +80,7 @@ const TimeAgo = ({ time, suffix }) => {
         name="eye-off-outline"
         style={{ alignSelf: 'center' }}
         size={14}
-        color="#BBB"
+        color={textTertiary}
       />
     </React.Fragment>
   );

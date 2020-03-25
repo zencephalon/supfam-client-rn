@@ -5,6 +5,7 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { AppearanceProvider } from 'react-native-appearance';
 import { Provider } from 'react-redux';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
@@ -56,20 +57,22 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <Provider store={configureStore({ auth: { token: AuthToken.get() } })}>
-        <AuthGate>
-          <View style={styles.container}>
-            <CableContainer />
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <NavigationContainer
-              ref={containerRef}
-              initialState={initialNavigationState}
-            >
-              <BottomTabNavigator />
-            </NavigationContainer>
-          </View>
-        </AuthGate>
-      </Provider>
+      <AppearanceProvider>
+        <Provider store={configureStore({ auth: { token: AuthToken.get() } })}>
+          <AuthGate>
+            <View style={styles.container}>
+              <CableContainer />
+              {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+              <NavigationContainer
+                ref={containerRef}
+                initialState={initialNavigationState}
+              >
+                <BottomTabNavigator />
+              </NavigationContainer>
+            </View>
+          </AuthGate>
+        </Provider>
+      </AppearanceProvider>
     );
   }
 }

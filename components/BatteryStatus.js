@@ -42,7 +42,7 @@ function BatteryStatus({ battery, batteryState }) {
     } else if (battery < 0.5) {
       color = Colors.yellow;
     } else {
-      color = '#CCC';
+      color = Colors.green;
     }
   }
   if (batteryState === 2) {

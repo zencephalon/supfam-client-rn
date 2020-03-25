@@ -5,7 +5,7 @@ import TimeAgoOnline from '~/components/TimeAgoOnline';
 
 import { View, Text } from 'react-native';
 
-import { textSecondary } from '~/constants/Colors';
+import { textSecondary, textTertiary } from '~/constants/Colors';
 
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
@@ -52,7 +52,7 @@ export default function TopText({
         <Text
           style={{
             textAlign: 'right',
-            color: '#BBB',
+            color: textTertiary,
             alignSelf: 'flex-end',
             fontSize: 14,
           }}
@@ -67,7 +67,7 @@ export default function TopText({
           }}
           name="pencil-square-o"
           size={14}
-          color="#BBB"
+          color={textTertiary}
         />
       </View>
     </View>

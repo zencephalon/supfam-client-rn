@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, StatusBar } from 'react-native';
+import { useColorScheme, Appearance } from 'react-native-appearance';
 
 import FriendList from '~/components/FriendList';
 import StatusCenter from '~/components/StatusCenter';
@@ -7,15 +8,16 @@ import StatusCenter from '~/components/StatusCenter';
 import * as Colors from '~/constants/Colors';
 
 export default function HomeScreen({ navigation }) {
+  const colorScheme = useColorScheme();
   navigation.setOptions({
     headerTitle: 'Home',
     headerStyle: {
       // backgroundColor: statusColors[statusMe?.color || 0],
-      backgroundColor: Colors.nord5,
+      backgroundColor: colorScheme === 'light' ? Colors.nord5 : Colors.nord1,
       height: 50,
     },
     headerTitleStyle: {
-      color: Colors.nord3,
+      color: colorScheme === 'light' ? Colors.nord2 : Colors.nord4,
     },
   });
   return (

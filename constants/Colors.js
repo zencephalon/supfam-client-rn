@@ -21,8 +21,8 @@ export const nord14 = '#A3BE8C'; //green
 export const nord15 = '#B48EAD'; //purple
 
 export const textPrimary = nord0;
-export const textSecondary = nord2;
-export const textTertiary = nord3;
+export const textSecondary = nord1;
+export const textTertiary = nord2;
 
 export const red = nord11;
 export const orange = nord12;
