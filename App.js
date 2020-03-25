@@ -65,9 +65,7 @@ export default function App(props) {
               ref={containerRef}
               initialState={initialNavigationState}
             >
-              <Stack.Navigator>
-                <Stack.Screen name="Supfam" component={BottomTabNavigator} />
-              </Stack.Navigator>
+              <BottomTabNavigator />
             </NavigationContainer>
           </View>
         </AuthGate>

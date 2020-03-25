@@ -1,33 +1,26 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '~/components/TabBarIcon';
-import HomeScreen from '~/screens/HomeScreen';
 import MapScreen from '~/screens/MapScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
-
-import statusColors from '~/constants/statusColors';
-
-import { getStatusMe } from '~/apis/api';
-import { useQuery } from 'react-query';
+import HomeStack from '~/navigation/HomeStack';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
-export default function BottomTabNavigator({ navigation, route }) {
-  const { data: statusMe } = useQuery('statusMe', getStatusMe);
-  // Set the header title on the parent stack navigator depending on the
-  // currently active tab. Learn more in the documentation:
-  // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({
-    headerTitle: getHeaderTitle(route),
-    headerStyle: {
-      backgroundColor: statusColors[statusMe?.color || 0],
-      height: 40,
-    },
-  });
+import * as Colors from '~/constants/Colors';
 
+export default function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator
+      initialRouteName={INITIAL_ROUTE_NAME}
+      tabBarOptions={{
+        activeTintColor: Colors.tabIconSelected,
+        inactiveTintColor: Colors.tabIconDefault,
+        inactiveBackgroundColor: Colors.nord5, //statusColors[statusMe?.color || 0],
+        activeBackgroundColor: Colors.nord5, //statusColors[statusMe?.color || 0],
+      }}
+    >
       <BottomTab.Screen
         name="Map"
         component={MapScreen}
@@ -40,7 +33,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStack}
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => (
@@ -60,18 +53,4 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
     </BottomTab.Navigator>
   );
-}
-
-function getHeaderTitle(route) {
-  const routeName =
-    route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-
-  switch (routeName) {
-    case 'Home':
-      return 'Home';
-    case 'Map':
-      return 'Map';
-    case 'Settings':
-      return 'Settings';
-  }
 }

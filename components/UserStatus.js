@@ -3,24 +3,22 @@ import * as React from 'react';
 import UserIcon from './UserIcon';
 import TopText from './TopText';
 
-import { View, Text, StyleSheet } from 'react-native';
-
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { textPrimary } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
-import BatteryStatus from '~/components/BatteryStatus';
-
-export default function UserStatus({ user }) {
+export default function UserStatus({ user, navigation }) {
   return (
-    <View
+    <TouchableOpacity
       style={{
         ...styles.userStatus,
         borderLeftColor: statusColors[user.current_status.color],
       }}
+      onPress={() => {
+        navigation.navigate('Conversation', { user });
+      }}
     >
-      {/* <StatusStripe statusColor={user.current_status.color} /> */}
       <View style={{ flexGrow: 1 }}>
         <TopText
           displayName={user.name}
@@ -30,10 +28,7 @@ export default function UserStatus({ user }) {
           user={user}
         />
         <View style={{ flexDirection: 'row', marginTop: 6, flex: 1 }}>
-          <View style={{ flexDirection: 'column' }}>
-            <UserIcon uri={user.avatar_url} />
-            <View style={{ flexDirection: 'row', marginTop: 3 }}></View>
-          </View>
+          <UserIcon uri={user.avatar_url} />
           <View
             style={{
               flexDirection: 'column',
@@ -58,7 +53,7 @@ export default function UserStatus({ user }) {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

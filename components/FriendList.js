@@ -11,13 +11,16 @@ import { nord6 } from '~/constants/Colors';
 import { useQuery } from 'react-query';
 import { getFriends } from '~/apis/api';
 
-const renderUserStatus = ({ item: user }) => {
-  return <UserStatus user={user} />;
-};
-
 const FriendList = props => {
   const { status, data, error } = useQuery('friends', getFriends);
   const friends = orderBy(data, ['current_status.updated_at'], ['desc']);
+
+  const renderUserStatus = React.useCallback(
+    ({ item: user }) => {
+      return <UserStatus user={user} navigation={props.navigation} />;
+    },
+    [props.navigation]
+  );
 
   return (
     <FlatList
