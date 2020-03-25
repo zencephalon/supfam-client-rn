@@ -20,9 +20,36 @@ export const nord13 = '#EBCB8B'; //yellow
 export const nord14 = '#A3BE8C'; //green
 export const nord15 = '#B48EAD'; //purple
 
+export const neutrals = [
+  '#102A43',
+  '#243B53',
+  '#334E68',
+  '#486581',
+  '#627D98',
+  '#829AB1',
+  '#9FB3C8',
+  '#BCCCDC',
+  '#D9E2EC',
+  '#F0F4F8',
+];
+export const lightThemeForegroundColors = [
+  neutrals[0],
+  neutrals[2],
+  neutrals[4],
+  neutrals[6],
+];
+export const lightThemeBackgroundColors = [
+  neutrals[9],
+  neutrals[7],
+  neutrals[5],
+  neutrals[3],
+];
+export const darkThemeForegroundColors = lightThemeBackgroundColors;
+export const darkThemeBackgroundColors = lightThemeForegroundColors;
+
 export const textPrimary = nord0;
 export const textSecondary = nord1;
-export const textTertiary = nord2;
+export const textTertiary = neutrals[6];
 
 export const red = nord11;
 export const orange = nord12;
