@@ -1,14 +1,40 @@
 import React from 'react';
 import { TextInput } from 'react-native';
 
-import { nord3, nord4, nord6, nord0 } from '~/constants/Colors';
+import * as Colors from '~/constants/Colors';
+
+import { useColorScheme } from 'react-native-appearance';
 
 const SfTextInput = props => {
+  const colorScheme = useColorScheme();
+  const color =
+    colorScheme === 'light'
+      ? Colors.lightThemeForegrounds[1]
+      : Colors.darkThemeForegrounds[1];
+  const backgroundColor =
+    colorScheme === 'light'
+      ? Colors.lightThemeBackgrounds[1]
+      : Colors.darkThemeBackgrounds[1];
+  const placeholderTextColor =
+    colorScheme === 'light'
+      ? Colors.lightThemeForegrounds[3]
+      : Colors.darkThemeForegrounds[3];
+  const borderColor =
+    colorScheme === 'light'
+      ? Colors.lightThemeBackgrounds[2]
+      : Colors.darkThemeBackgrounds[2];
+  const style = {
+    backgroundColor,
+    color,
+    borderColor,
+    ...SfTextInputStyle,
+    ...props.style,
+  };
   return (
     <TextInput
-      placeholderTextColor={nord3}
-      style={{ ...SfTextInputStyle, ...props.style }}
+      placeholderTextColor={placeholderTextColor}
       {...props}
+      style={style}
     />
   );
 };
@@ -16,10 +42,9 @@ const SfTextInput = props => {
 const SfTextInputStyle = {
   fontSize: 30,
   alignSelf: 'stretch',
-  borderColor: nord4,
+  // borderColor: Colors.nord4,
   borderWidth: 1,
-  backgroundColor: nord6,
-  placeholderTextColor: nord0,
+  borderRadius: 10,
 };
 
 export default SfTextInput;

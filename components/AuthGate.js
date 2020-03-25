@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
   textInput: {
     padding: 12,
     fontSize: 32,
-    backgroundColor: Colors.nord6,
-    borderColor: Colors.nord4,
+    // backgroundColor: Colors.nord6,
+    // borderColor: Colors.nord4,
     borderWidth: 1,
   },
   container: {

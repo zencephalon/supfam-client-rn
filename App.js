@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { AppearanceProvider } from 'react-native-appearance';
 import { Provider } from 'react-redux';
 
@@ -13,12 +12,11 @@ import useLinking from './navigation/useLinking';
 
 import AuthToken from '~/lib/AuthToken';
 import AuthGate from '~/components/AuthGate';
+import ThemeAwareStatusBar from '~/components/ThemeAwareStatusBar';
 
 import configureStore from '~/store/configureStore';
 
 import CableContainer from '~/containers/Cable';
-
-const Stack = createStackNavigator();
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -58,6 +56,7 @@ export default function App(props) {
   } else {
     return (
       <AppearanceProvider>
+        <ThemeAwareStatusBar />
         <Provider store={configureStore({ auth: { token: AuthToken.get() } })}>
           <AuthGate>
             <View style={styles.container}>

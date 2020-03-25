@@ -4,9 +4,6 @@ import TabBarIcon from '~/components/TabBarIcon';
 import MapScreen from '~/screens/MapScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 import HomeStack from '~/navigation/HomeStack';
-import { StatusBar } from 'react-native';
-
-import { useColorScheme } from 'react-native-appearance';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -14,12 +11,8 @@ const INITIAL_ROUTE_NAME = 'Home';
 import * as Colors from '~/constants/Colors';
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
   return (
     <React.Fragment>
-      <StatusBar
-        barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'}
-      />
       <BottomTab.Navigator
         initialRouteName={INITIAL_ROUTE_NAME}
         tabBarOptions={{
