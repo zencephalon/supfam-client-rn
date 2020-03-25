@@ -18,7 +18,7 @@ export default function HomeScreen({ navigation }) {
     headerStyle: {
       backgroundColor: statusColors[statusMe?.color || 0],
       // backgroundColor: backgrounds[1],
-      height: 50,
+      height: 20,
       shadowColor: 'black',
       shadowOpacity: 0.1,
       shadowRadius: 3,
@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation }) {
       style={styles.container}
       behavior="padding"
       enabled
-      keyboardVerticalOffset={50}
+      keyboardVerticalOffset={20}
     >
       <FriendList navigation={navigation} />
 
