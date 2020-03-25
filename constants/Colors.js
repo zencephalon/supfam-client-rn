@@ -32,20 +32,20 @@ export const neutrals = [
   '#D9E2EC',
   '#F0F4F8',
 ];
-export const lightThemeForegroundColors = [
+export const lightThemeForegrounds = [
   neutrals[0],
   neutrals[2],
   neutrals[4],
   neutrals[6],
 ];
-export const lightThemeBackgroundColors = [
+export const lightThemeBackgrounds = [
   neutrals[9],
   neutrals[7],
   neutrals[5],
   neutrals[3],
 ];
-export const darkThemeForegroundColors = lightThemeBackgroundColors;
-export const darkThemeBackgroundColors = lightThemeForegroundColors;
+export const darkThemeForegrounds = lightThemeBackgrounds;
+export const darkThemeBackgrounds = lightThemeForegrounds;
 
 export const textPrimary = nord0;
 export const textSecondary = nord1;

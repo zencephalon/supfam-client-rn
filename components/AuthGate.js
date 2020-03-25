@@ -9,6 +9,7 @@ import AuthToken from '~/lib/AuthToken';
 
 import SfTextInput from '~/components/SfTextInput';
 import SfText from '~/components/SfText';
+import SfContainer from '~/components/SfContainer';
 import RegistrationForm from '~/components/RegistrationForm';
 import LoginForm from '~/components/LoginForm';
 
@@ -99,7 +100,7 @@ class AuthGate extends React.Component {
     }
 
     return (
-      <SafeAreaView style={styles.container}>
+      <SfContainer>
         <View style={styles.contentContainer}>
           <SfText style={styles.welcomeText}>Welcome to Supfam</SfText>
           <SfTextInput
@@ -129,7 +130,7 @@ class AuthGate extends React.Component {
             />
           )}
         </View>
-      </SafeAreaView>
+      </SfContainer>
     );
   }
 }
@@ -153,7 +154,6 @@ const styles = StyleSheet.create({
   welcomeText: {
     marginTop: 12,
     marginBottom: 18,
-    color: Colors.nord10,
     fontSize: 32,
   },
 });

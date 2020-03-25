@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, KeyboardAvoidingView, StatusBar } from 'react-native';
-import { useColorScheme, Appearance } from 'react-native-appearance';
+import { StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { useColorScheme } from 'react-native-appearance';
 
 import FriendList from '~/components/FriendList';
 import StatusCenter from '~/components/StatusCenter';

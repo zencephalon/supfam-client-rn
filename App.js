@@ -62,7 +62,6 @@ export default function App(props) {
           <AuthGate>
             <View style={styles.container}>
               <CableContainer />
-              {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
               <NavigationContainer
                 ref={containerRef}
                 initialState={initialNavigationState}

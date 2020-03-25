@@ -1,10 +1,19 @@
 import React from 'react';
+
+import { useColorScheme } from 'react-native-appearance';
 import { Text, StyleSheet } from 'react-native';
 
-const ExText = props => {
-  const { children, style, ...rest } = props;
+import * as Colors from '~/constants/Colors';
 
-  const mergedStyle = { ...styles.exText, ...style };
+const ExText = props => {
+  colorScheme = useColorScheme();
+  const { children, style, ...rest } = props;
+  color =
+    colorScheme === 'light'
+      ? Colors.lightThemeForegrounds[0]
+      : Colors.darkThemeForegrounds[0];
+
+  const mergedStyle = { color, ...styles.exText, ...style };
   return (
     <Text style={mergedStyle} {...rest}>
       {children}
