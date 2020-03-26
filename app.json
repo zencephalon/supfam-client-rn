@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "supfam",
@@ -22,7 +22,8 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mutualflourishing.supfam",
-      "buildNumber": "0.0.2"
-    }
+      "buildNumber": "0.0.4"
+    },
+    "description": ""
   }
 }

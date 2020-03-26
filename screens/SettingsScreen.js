@@ -6,6 +6,8 @@ import AuthToken from '~/lib/AuthToken';
 import { LOGOUT } from '~/apis/auth/actions';
 import { connect } from 'react-redux';
 
+import { Updates } from 'expo';
+
 const downloadUpdate = async () => {
   try {
     const update = await Updates.checkForUpdateAsync();
