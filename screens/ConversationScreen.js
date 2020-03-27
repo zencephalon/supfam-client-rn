@@ -17,9 +17,9 @@ export default function ConversationScreen({ navigation, route }) {
   );
   const [sendMessage] = useMutation(sendUserDmMessage);
 
-  const me = useSelector(store => store.auth.user);
+  // subscribe to conversationId
 
-  console.log({ me });
+  const me = useSelector(store => store.auth.user);
 
   const messages = (_messages || [])
     .map(m => ({
