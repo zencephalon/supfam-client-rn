@@ -4,7 +4,7 @@ import AuthToken from '~/lib/AuthToken';
 import Cable from '~/lib/Cable';
 
 const setAuthHeader = headers => {
-  const token = AuthToken.get();
+  const { token } = AuthToken.get();
   return { ...headers, Authorization: `${token}` };
 };
 
@@ -16,6 +16,16 @@ export const getFriends = () => {
 
 export const getStatusMe = () => {
   return api.fetchFromAPI('statuses/me');
+};
+
+export const getUserDmMessages = (key, { userId }) => {
+  return api.fetchFromAPI(`messages/user/${userId}`);
+};
+
+export const sendUserDmMessage = ({ userId, data }) => {
+  return api.postToAPI(`messages/user/${userId}`, {
+    body: JSON.stringify(data),
+  });
 };
 
 export const putStatusMe = data => {

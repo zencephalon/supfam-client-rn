@@ -1,15 +1,33 @@
 import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView, Text } from 'react-native';
 
-import { useQuery } from 'react-query';
-import { getStatusMe } from '~/apis/api';
+import { useQuery, useMutation } from 'react-query';
+import { getStatusMe, getUserDmMessages, sendUserDmMessage } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 import { GiftedChat } from 'react-native-gifted-chat';
 
+import { useSelector } from 'react-redux';
+
 export default function ConversationScreen({ navigation, route }) {
-  // const { data: statusMe } = useQuery('statusMe', getStatusMe);
   const { user } = route.params;
+  const { data: _messages } = useQuery(
+    ['dm_messages', { userId: user.id }],
+    getUserDmMessages
+  );
+  const [sendMessage] = useMutation(sendUserDmMessage);
+
+  const me = useSelector(store => store.auth.user);
+
+  console.log({ me });
+
+  const messages = (_messages || [])
+    .map(m => ({
+      user: { _id: m.user.id, name: m.user.name, avatar: m.user.avatar_url },
+      text: m.message,
+      _id: m.id,
+    }))
+    .reverse();
 
   navigation.setOptions({
     headerTitle: user.name,
@@ -21,49 +39,32 @@ export default function ConversationScreen({ navigation, route }) {
   });
 
   return (
-    <GiftedChat
-      messages={[
-        {
-          _id: 2,
-          text: 'Hey, just want U to know I care about U.',
-          createdAt: new Date(),
-          user: {
-            _id: 1,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-        {
-          _id: 3,
-          text: 'This is a system message',
-          createdAt: new Date(Date.UTC(2016, 5, 11, 17, 20, 0)),
-          system: true,
-          // Any additional custom parameters are passed through
-        },
-      ]}
-      user={{
-        _id: 1,
-      }}
-      isTyping={true}
-    />
-    // <KeyboardAvoidingView
-    //   style={styles.container}
-    //   behavior="padding"
-    //   enabled
-    //   keyboardVerticalOffset={40}
-    // >
-    //   <Text>CONVERSATION SCREEN</Text>
-    // </KeyboardAvoidingView>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+      enabled
+      keyboardVerticalOffset={40}
+    >
+      <GiftedChat
+        messages={messages}
+        user={{
+          _id: me.id,
+        }}
+        showAvatarForEveryMessage={true}
+        isTyping={true}
+        isKeyboardInternallyHandled={false}
+        onSend={messages => {
+          // console.log(messages);
+          messages.forEach(message => {
+            sendMessage({
+              userId: user.id,
+              data: { message: { message: message.text, type: 0 } },
+            });
+          });
+          // sendMessage(user.id, messages)
+        }}
+      />
+    </KeyboardAvoidingView>
   );
 }
 

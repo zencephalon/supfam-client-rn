@@ -57,7 +57,7 @@ export default function App(props) {
     return (
       <AppearanceProvider>
         <ThemeAwareStatusBar />
-        <Provider store={configureStore({ auth: { token: AuthToken.get() } })}>
+        <Provider store={configureStore({ auth: AuthToken.get() })}>
           <AuthGate>
             <View style={styles.container}>
               <CableContainer />

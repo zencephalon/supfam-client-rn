@@ -62,8 +62,8 @@ class AuthGate extends React.Component {
     this.setState({ loggingIn: true });
 
     postLogin({ name, password }).then(json => {
-      AuthToken.set(json.token);
-      this.props.dispatch(LOGIN(json.token));
+      AuthToken.set(json);
+      this.props.dispatch(LOGIN(json));
     });
   };
 

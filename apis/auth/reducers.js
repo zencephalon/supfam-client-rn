@@ -6,11 +6,13 @@ export default function reducer(state = { token: undefined }, action) {
       return {
         ...state,
         token: action.token,
+        user: action.user,
       };
     case t.LOGOUT:
       return {
         ...state,
-        token: undefined,
+        token: null,
+        user: null,
       };
     default:
       return state;
