@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { StyleSheet, KeyboardAvoidingView, Text } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import { useQuery, useMutation } from 'react-query';
-import { getStatusMe, getUserDmMessages, sendUserDmMessage } from '~/apis/api';
+import { getUserDmMessages, sendUserDmMessage } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 import { GiftedChat } from 'react-native-gifted-chat';
@@ -19,10 +19,6 @@ export default function ConversationScreen({ navigation, route }) {
   );
   const [sendMessage] = useMutation(sendUserDmMessage);
 
-  // subscribe to conversationId
-  // if (_messages[0]?.conversation_id) {
-  //   Cable.subscribeToConversation()
-  // }
   const conversationId = _messages?.[0]?.conversation_id;
   React.useEffect(() => {
     Cable.subscribeConversation(conversationId, user.id);
@@ -35,7 +31,7 @@ export default function ConversationScreen({ navigation, route }) {
 
   const messages = (_messages || [])
     .map(m => ({
-      user: { _id: m.user.id, name: m.user.name, avatar: m.user.avatar_url },
+      user: m.user_summary,
       text: m.message,
       _id: m.id,
     }))
@@ -45,7 +41,6 @@ export default function ConversationScreen({ navigation, route }) {
     headerTitle: user.name,
     headerStyle: {
       backgroundColor: statusColors[user.current_status.color || 0],
-      // backgroundColor: Colors.nord5,
       height: 50,
     },
   });
