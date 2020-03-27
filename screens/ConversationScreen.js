@@ -9,6 +9,8 @@ import { GiftedChat } from 'react-native-gifted-chat';
 
 import { useSelector } from 'react-redux';
 
+import Cable from '~/lib/Cable';
+
 export default function ConversationScreen({ navigation, route }) {
   const { user } = route.params;
   const { data: _messages } = useQuery(
@@ -18,6 +20,16 @@ export default function ConversationScreen({ navigation, route }) {
   const [sendMessage] = useMutation(sendUserDmMessage);
 
   // subscribe to conversationId
+  // if (_messages[0]?.conversation_id) {
+  //   Cable.subscribeToConversation()
+  // }
+  const conversationId = _messages?.[0]?.conversation_id;
+  React.useEffect(() => {
+    Cable.subscribeConversation(conversationId, user.id);
+    return () => {
+      Cable.unsubscribeConversation(conversationId);
+    };
+  }, [conversationId]);
 
   const me = useSelector(store => store.auth.user);
 
