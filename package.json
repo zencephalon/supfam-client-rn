@@ -46,7 +46,8 @@
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-rest-reducer": "git+ssh://git@github.com/zencephalon/redux-rest-reducer.git#9ccbc3dea0dbaf125a929d6380743fecd0203234",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sentry-expo": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

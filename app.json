@@ -24,6 +24,18 @@
       "bundleIdentifier": "com.mutualflourishing.supfam",
       "buildNumber": "0.0.4"
     },
-    "description": ""
+    "description": "",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "mutual-flourishing-inc",
+            "project": "supfam",
+            "authToken": "ff24c5b69e1c43879fdfc246fb4a73ac190956a17a3546708a11b046d0bbac58"
+          }
+        }
+      ]
+    }
   }
 }

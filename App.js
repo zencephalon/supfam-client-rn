@@ -18,6 +18,16 @@ import configureStore from '~/store/configureStore';
 
 import CableContainer from '~/containers/Cable';
 
+import * as Sentry from 'sentry-expo';
+import Constants from 'expo-constants';
+
+Sentry.init({
+  dsn: 'https://5798596b010948678b643700db20d942@sentry.io/5178537',
+  enableInExpoDevelopment: true,
+  debug: true,
+});
+Sentry.setRelease(Constants.manifest.revisionId);
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
