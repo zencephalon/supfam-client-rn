@@ -153,9 +153,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  const { token } = state.auth;
-
-  return { token };
+  return { token: state.auth?.token };
 }
 
 export default connect(mapStateToProps)(AuthGate);
