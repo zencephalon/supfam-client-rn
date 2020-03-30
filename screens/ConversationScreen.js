@@ -11,11 +11,27 @@ import { useSelector } from 'react-redux';
 
 import Cable from '~/lib/Cable';
 
+import { throttle } from 'lodash';
+
+const sendInstant = throttle((conversationId, data) => {
+  Cable.sendInstant(conversationId, data);
+}, 50);
+
 export default function ConversationScreen({ navigation, route }) {
   const { user } = route.params;
   const { data: _messages } = useQuery(
     ['dm_messages', { userId: user.id }],
     getUserDmMessages
+  );
+  const { data: instantMessage } = useQuery(
+    ['instant_messages', { userId: user.id }],
+    () => {
+      return Promise.resolve({
+        text: null,
+        _id: 'instant',
+        user: null,
+      });
+    }
   );
   const [sendMessage] = useMutation(sendUserDmMessage);
 
@@ -29,13 +45,18 @@ export default function ConversationScreen({ navigation, route }) {
 
   const me = useSelector(store => store.auth.user);
 
-  const messages = (_messages || [])
+  let messages = (_messages || [])
     .map(m => ({
       user: m.user_summary,
       text: m.message,
       _id: m.id,
     }))
     .reverse();
+
+  if (instantMessage?.text && instantMessage?.user?._id !== me.id) {
+    // messages.push(instantMessage);
+    messages = [instantMessage, ...messages];
+  }
 
   navigation.setOptions({
     headerTitle: user.name,
@@ -69,6 +90,17 @@ export default function ConversationScreen({ navigation, route }) {
             });
           });
           // sendMessage(user.id, messages)
+        }}
+        onInputTextChanged={text => {
+          sendInstant(conversationId, {
+            text,
+            _id: 'instant',
+            user: {
+              _id: me.id,
+              name: me.name,
+              avatar: me.avatar_url,
+            },
+          });
         }}
       />
     </KeyboardAvoidingView>
