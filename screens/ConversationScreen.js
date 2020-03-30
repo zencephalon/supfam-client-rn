@@ -50,6 +50,8 @@ export default function ConversationScreen({ navigation, route }) {
       user: m.user_summary,
       text: m.message,
       _id: m.id,
+      sent: true,
+      received: true,
     }))
     .reverse();
 
@@ -78,7 +80,7 @@ export default function ConversationScreen({ navigation, route }) {
         user={{
           _id: me.id,
         }}
-        showAvatarForEveryMessage={true}
+        showAvatarForEveryMessage={false}
         isTyping={true}
         isKeyboardInternallyHandled={false}
         onSend={messages => {
