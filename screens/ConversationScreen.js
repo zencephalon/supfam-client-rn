@@ -65,7 +65,7 @@ export default function ConversationScreen({ navigation, route }) {
       enabled
       keyboardVerticalOffset={40}
     >
-      <MessageList messages={messages} />
+      <MessageList messages={messages} me={me} />
     </KeyboardAvoidingView>
   );
 }

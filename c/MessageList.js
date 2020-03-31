@@ -10,8 +10,15 @@ class MessageList extends React.Component {
   }
 
   renderMessage = ({ item, index }) => {
-    console.log(item);
-    return <Message message={item} />;
+    const nextItem = this.props.messages[index + 1];
+
+    return (
+      <Message
+        message={item}
+        isOwnMessage={item.user_summary.id === this.props.me.id}
+        fromSameUser={item.user_summary.id === nextItem?.user_summary?.id}
+      />
+    );
   };
 
   render() {

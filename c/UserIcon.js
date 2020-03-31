@@ -6,10 +6,10 @@ export default UserIcon = props => {
     <Image
       source={{ uri: props.uri }}
       style={{
-        width: 30,
-        height: 30,
+        width: props.size,
+        height: props.size,
         borderRadius: 50,
-        marginRight: 6,
+        marginRight: 8,
         borderWidth: 1,
         borderColor: '#434C5E',
       }}

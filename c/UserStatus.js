@@ -34,7 +34,7 @@ export default function UserStatus({ user, navigation }) {
           user={user}
         />
         <View style={{ flexDirection: 'row', marginTop: 6, flex: 1 }}>
-          <UserIcon uri={user.avatar_url} />
+          <UserIcon uri={user.avatar_url} size={32} />
           <View
             style={{
               flexDirection: 'column',
