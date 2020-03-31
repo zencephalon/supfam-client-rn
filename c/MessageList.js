@@ -28,6 +28,7 @@ class MessageList extends React.Component {
         renderItem={this.renderMessage}
         style={{ flex: 1 }}
         keyExtractor={m => `${m.id}`}
+        inverted
       />
     );
   }

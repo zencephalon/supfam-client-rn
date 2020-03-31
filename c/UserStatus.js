@@ -33,7 +33,7 @@ export default function UserStatus({ user, navigation }) {
           lastSeen={user?.current_seen?.updated_at}
           user={user}
         />
-        <View style={{ flexDirection: 'row', marginTop: 6, flex: 1 }}>
+        <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
           <UserIcon uri={user.avatar_url} size={32} />
           <View
             style={{
@@ -47,6 +47,10 @@ export default function UserStatus({ user, navigation }) {
                 fontSize: 14,
                 flexGrow: 1,
                 flexShrink: 1,
+                backgroundColor: backgrounds[1],
+                padding: 8,
+                borderRadius: 10,
+                overflow: 'hidden',
               }}
             >
               {user.current_status.message}
@@ -69,7 +73,6 @@ const styles = StyleSheet.create({
     borderLeftWidth: 4,
     paddingLeft: 8,
     paddingTop: 8,
-    paddingBottom: 8,
     // borderBottomWidth: 1,
     paddingRight: 8,
     paddingLeft: 8,
