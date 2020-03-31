@@ -5,13 +5,15 @@ import { useQuery, useMutation } from 'react-query';
 import { getUserDmMessages, sendUserDmMessage } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
-import { GiftedChat } from 'react-native-gifted-chat';
 
 import { useSelector } from 'react-redux';
 
 import Cable from '~/lib/Cable';
 
 import { throttle } from 'lodash';
+import MessageList from '~/components/MessageList';
+
+import useLight from '~/hooks/useLight';
 
 const sendInstant = throttle((conversationId, data) => {
   Cable.sendInstant(conversationId, data);
@@ -25,13 +27,7 @@ export default function ConversationScreen({ navigation, route }) {
   );
   const { data: instantMessage } = useQuery(
     ['instant_messages', { userId: user.id }],
-    () => {
-      return Promise.resolve({
-        text: null,
-        _id: 'instant',
-        user: null,
-      });
-    }
+    () => {}
   );
   const [sendMessage] = useMutation(sendUserDmMessage);
 
@@ -45,19 +41,13 @@ export default function ConversationScreen({ navigation, route }) {
 
   const me = useSelector(store => store.auth.user);
 
-  let messages = (_messages || [])
-    .map(m => ({
-      user: m.user_summary,
-      text: m.message,
-      _id: m.id,
-      sent: true,
-      received: true,
-    }))
-    .reverse();
+  const { backgrounds } = useLight();
 
-  if (instantMessage?.text && instantMessage?.user?._id !== me.id) {
+  let messages = _messages;
+
+  if (instantMessage?.text) {
     // messages.push(instantMessage);
-    messages = [instantMessage, ...messages];
+    messages.push(instantMessage);
   }
 
   navigation.setOptions({
@@ -70,41 +60,12 @@ export default function ConversationScreen({ navigation, route }) {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={{ ...styles.container, backgroundColor: backgrounds[0] }}
       behavior="padding"
       enabled
       keyboardVerticalOffset={40}
     >
-      <GiftedChat
-        messages={messages}
-        user={{
-          _id: me.id,
-        }}
-        showAvatarForEveryMessage={false}
-        isTyping={true}
-        isKeyboardInternallyHandled={false}
-        onSend={messages => {
-          // console.log(messages);
-          messages.forEach(message => {
-            sendMessage({
-              userId: user.id,
-              data: { message: { message: message.text, type: 0 } },
-            });
-          });
-          // sendMessage(user.id, messages)
-        }}
-        onInputTextChanged={text => {
-          sendInstant(conversationId, {
-            text,
-            _id: 'instant',
-            user: {
-              _id: me.id,
-              name: me.name,
-              avatar: me.avatar_url,
-            },
-          });
-        }}
-      />
+      <MessageList messages={messages} />
     </KeyboardAvoidingView>
   );
 }

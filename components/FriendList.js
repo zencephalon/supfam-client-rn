@@ -12,7 +12,11 @@ import useLight from '~/hooks/useLight';
 
 const FriendList = props => {
   const { status, data, error } = useQuery('friends', getFriends);
-  const friends = orderBy(data, ['current_status.updated_at'], ['desc']);
+  const friends = orderBy(
+    data,
+    ['current_status.color', 'current_status.updated_at'],
+    ['desc', 'desc']
+  );
 
   const { backgrounds } = useLight();
 
