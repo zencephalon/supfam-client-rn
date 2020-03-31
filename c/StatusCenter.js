@@ -3,7 +3,7 @@ import { Platform, StyleSheet, View } from 'react-native';
 
 import SfTextInput from './SfTextInput';
 
-import StatusButton from '~/components/StatusButton';
+import StatusButton from '~/c/StatusButton';
 
 import { getStatusMe, putStatusMe } from '~/apis/api';
 

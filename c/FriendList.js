@@ -3,7 +3,7 @@ import { FlatList } from 'react-native-gesture-handler';
 
 import { orderBy } from 'lodash';
 
-import UserStatus from '~/components/UserStatus';
+import UserStatus from '~/c/UserStatus';
 
 import { useQuery } from 'react-query';
 import { getFriends } from '~/apis/api';

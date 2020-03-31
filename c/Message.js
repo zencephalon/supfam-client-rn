@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View, Text } from 'react-native';
-import SfText from '~/components/SfText';
+import SfText from '~/c/SfText';
 
 import useLight from '~/hooks/useLight';
 

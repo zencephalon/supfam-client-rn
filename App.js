@@ -11,8 +11,8 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 
 import AuthToken from '~/lib/AuthToken';
-import AuthGate from '~/components/AuthGate';
-import ThemeAwareStatusBar from '~/components/ThemeAwareStatusBar';
+import AuthGate from '~/c/AuthGate';
+import ThemeAwareStatusBar from '~/c/ThemeAwareStatusBar';
 
 import configureStore from '~/store/configureStore';
 

@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import Cable from '~/lib/Cable';
 
 import { throttle } from 'lodash';
-import MessageList from '~/components/MessageList';
+import MessageList from '~/c/MessageList';
 
 import useLight from '~/hooks/useLight';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import SfTextInput from '~/components/SfTextInput';
-import SfButton from '~/components/SfButton';
+import SfTextInput from '~/c/SfTextInput';
+import SfButton from '~/c/SfButton';
 import * as Colors from '~/constants/Colors';
 
 const RegistrationForm = ({

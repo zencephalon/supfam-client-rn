@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import statusColors from '~/constants/statusColors';
 
-import SfText from '~/components/SfText';
+import SfText from '~/c/SfText';
 
 const colorLabels = ['Away', 'Busy', 'Free', 'Open'];
 

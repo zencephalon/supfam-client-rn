@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import TimeAgo from '~/components/TimeAgo';
-import TimeAgoOnline from '~/components/TimeAgoOnline';
+import TimeAgo from '~/c/TimeAgo';
+import TimeAgoOnline from '~/c/TimeAgoOnline';
 
 import { View, Text } from 'react-native';
 
@@ -9,8 +9,8 @@ import { textSecondary, textTertiary } from '~/constants/Colors';
 
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
-import BatteryStatus from '~/components/BatteryStatus';
-import NetworkStatus from '~/components/NetworkStatus';
+import BatteryStatus from '~/c/BatteryStatus';
+import NetworkStatus from '~/c/NetworkStatus';
 
 import useLight from '~/hooks/useLight';
 

@@ -5,7 +5,7 @@ import TopText from './TopText';
 
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import SfText from '~/components/SfText';
+import SfText from '~/c/SfText';
 
 import { textPrimary, nord4 } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';

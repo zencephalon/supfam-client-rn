@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import useLight from '~/hooks/useLight';
 
-import FriendList from '~/components/FriendList';
-import StatusCenter from '~/components/StatusCenter';
+import FriendList from '~/c/FriendList';
+import StatusCenter from '~/c/StatusCenter';
 
 import { getStatusMe } from '~/apis/api';
 import { useQuery } from 'react-query';

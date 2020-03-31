@@ -7,11 +7,11 @@ import { LOGIN } from '~/apis/auth/actions';
 import { getNameAvailable, postLogin, postRegister } from '~/apis/auth/api';
 import AuthToken from '~/lib/AuthToken';
 
-import SfTextInput from '~/components/SfTextInput';
-import SfText from '~/components/SfText';
-import SfContainer from '~/components/SfContainer';
-import RegistrationForm from '~/components/RegistrationForm';
-import LoginForm from '~/components/LoginForm';
+import SfTextInput from '~/c/SfTextInput';
+import SfText from '~/c/SfText';
+import SfContainer from '~/c/SfContainer';
+import RegistrationForm from '~/c/RegistrationForm';
+import LoginForm from '~/c/LoginForm';
 
 import * as Colors from '~/constants/Colors';
 
