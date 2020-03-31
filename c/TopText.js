@@ -31,7 +31,11 @@ export default function TopText({
         justifyContent: 'space-between',
       }}
     >
-      <View style={{ flexDirection: 'row' }}>
+      <View
+        style={{
+          flexDirection: 'row',
+        }}
+      >
         <Text
           style={{
             color: foregrounds[1],

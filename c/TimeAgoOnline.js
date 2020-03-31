@@ -72,21 +72,20 @@ const TimeAgo = ({ time }) => {
 
   return (
     <React.Fragment>
+      <MaterialCommunityIcons
+        name="eye-off-outline"
+        style={{ alignSelf: 'center', marginLeft: 4 }}
+        size={14}
+        color={textTertiary}
+      />
       <Text
         style={{
           textAlign: 'left',
           color: textTertiary,
-          marginLeft: 6,
         }}
       >
         {timeDisplay + suffixEnding}
       </Text>
-      <MaterialCommunityIcons
-        name="eye-off-outline"
-        style={{ alignSelf: 'center' }}
-        size={14}
-        color={textTertiary}
-      />
     </React.Fragment>
   );
 };
