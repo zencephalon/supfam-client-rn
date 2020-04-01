@@ -56,12 +56,21 @@ export default function ConversationScreen({ navigation, route }) {
   const { backgrounds } = useLight();
 
   const submitMessage = React.useCallback(async () => {
+    if (text === '') {
+      return;
+    }
     setText('');
-    await sendMessage({
+    sendInstant(conversationId, {
+      message: '',
+      type: 0,
+      id: 'instant',
+      user_summary: pick(me, ['id', 'name', 'avatar_url']),
+    });
+    sendMessage({
       userId: user.id,
       data: { message: { message: text, type: 0 } },
     });
-  }, [text, user.id]);
+  }, [text, user.id, me]);
 
   const setMessage = React.useCallback(
     text => {

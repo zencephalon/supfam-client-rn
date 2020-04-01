@@ -12,8 +12,8 @@ function Message(props) {
     <View
       style={{
         flexDirection: 'row',
-        marginTop: 4,
-        marginBottom: props.fromSameUser ? 0 : 8,
+        marginBottom: 4,
+        marginTop: props.fromSameUser ? 0 : 12,
         alignItems: 'flex-end',
         justifyContent: props.isOwnMessage ? 'flex-end' : 'flex-start',
         marginLeft: 8,
@@ -36,6 +36,9 @@ function Message(props) {
         }}
       >
         {props.message.message}
+        <SfText style={{ fontSize: 10 }}>
+          {props.message.id === 'instant' ? ` ...typing` : null}
+        </SfText>
       </SfText>
     </View>
   );
