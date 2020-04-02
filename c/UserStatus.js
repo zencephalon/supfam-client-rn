@@ -22,7 +22,7 @@ export default function UserStatus({ user, navigation }) {
         // borderBottomColor: backgrounds[1],
       }}
       onPress={() => {
-        navigation.navigate('Conversation', { user });
+        navigation.navigate('Conversation', { userId: user.id });
       }}
     >
       <View style={{ flexGrow: 1 }}>

@@ -19,8 +19,8 @@ export default function BottomTabNavigator() {
         tabBarOptions={{
           activeTintColor: foregrounds[0],
           inactiveTintColor: foregrounds[2],
-          inactiveBackgroundColor: backgrounds[0], //statusColors[statusMe?.color || 0],
-          activeBackgroundColor: backgrounds[0], //statusColors[statusMe?.color || 0],
+          inactiveBackgroundColor: backgrounds[0],
+          activeBackgroundColor: backgrounds[0],
           style: {
             borderTopWidth: 0,
           },

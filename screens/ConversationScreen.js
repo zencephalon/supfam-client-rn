@@ -16,6 +16,7 @@ import MessageList from '~/c/MessageList';
 import SfTextInput from '~/c/SfTextInput';
 
 import useLight from '~/hooks/useLight';
+import useCachedUser from '../hooks/useCachedUser';
 
 const sendInstant = throttle((conversationId, message) => {
   Cable.sendInstant(conversationId, message);
@@ -23,9 +24,11 @@ const sendInstant = throttle((conversationId, message) => {
 
 export default function ConversationScreen({ navigation, route }) {
   const [text, setText] = React.useState('');
-  const { user } = route.params;
+  const { userId } = route.params;
 
   const me = useSelector(store => store.auth.user);
+
+  const user = useCachedUser(userId);
 
   const { data: _messages } = useQuery(
     ['dm_messages', { userId: user.id }],
@@ -63,14 +66,14 @@ export default function ConversationScreen({ navigation, route }) {
       userId: user.id,
       data: { message: { message: text, type: 0 } },
     });
-  }, [text, user.id, me]);
+  }, [text, user.id]);
 
   const setMessage = React.useCallback(
     text => {
       setText(text);
       sendInstant(conversationId, text);
     },
-    [me, conversationId]
+    [conversationId]
   );
 
   navigation.setOptions({
