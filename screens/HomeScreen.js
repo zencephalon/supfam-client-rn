@@ -10,14 +10,11 @@ import { useQuery } from 'react-query';
 import statusColors from '~/constants/statusColors';
 
 export default function HomeScreen({ navigation }) {
-  const { data: statusMe } = useQuery('statusMe', getStatusMe);
-
   const { foregrounds, backgrounds } = useLight();
   navigation.setOptions({
     headerTitle: 'Home',
     headerStyle: {
-      backgroundColor: statusColors[statusMe?.color || 0],
-      // backgroundColor: backgrounds[1],
+      backgroundColor: backgrounds[0],
       height: 20,
       shadowColor: 'black',
       shadowOpacity: 0.1,

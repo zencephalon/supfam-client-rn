@@ -2,12 +2,10 @@ import * as React from 'react';
 import { Image } from 'react-native';
 import statusColors from '~/constants/statusColors';
 
-import { useQuery } from 'react-query';
+import useCachedUser from '~/hooks/useCachedUser';
 
 export default UserIcon = props => {
-  const { data: user } = useQuery(['friend', props.userId], () => {}, {
-    staleTime: Infinity,
-  });
+  const user = useCachedUser(props.userId);
   const color = user?.current_status?.color;
 
   return (

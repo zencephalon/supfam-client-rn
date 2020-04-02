@@ -1,28 +1,13 @@
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 
-import { orderBy } from 'lodash';
-
 import UserStatus from '~/c/UserStatus';
 
-import { useQuery, queryCache } from 'react-query';
-import { getFriends } from '~/apis/api';
-
 import useLight from '~/hooks/useLight';
+import useFriends from '~/hooks/useFriends';
 
 const FriendList = props => {
-  const { status, data, error } = useQuery('friends', getFriends, {
-    onSuccess: friends => {
-      friends.map(friend => {
-        queryCache.setQueryData(['friend', friend.id], friend);
-      });
-    },
-  });
-  const friends = orderBy(
-    data,
-    ['current_status.color', 'current_status.updated_at'],
-    ['desc', 'desc']
-  );
+  const { status, friends, error } = useFriends();
 
   const { backgrounds } = useLight();
 
