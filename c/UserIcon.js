@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Image } from 'react-native';
+import statusColors from '~/constants/statusColors';
 
 export default UserIcon = props => {
   return (
@@ -10,8 +11,8 @@ export default UserIcon = props => {
         height: props.size,
         borderRadius: 50,
         marginRight: 8,
-        borderWidth: 1,
-        borderColor: '#434C5E',
+        borderWidth: props.color ? 3 : 1,
+        borderColor: props.color ? statusColors[props.color] : '#434C5E',
       }}
     />
   );

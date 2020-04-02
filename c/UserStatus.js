@@ -34,7 +34,11 @@ export default function UserStatus({ user, navigation }) {
           user={user}
         />
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
-          <UserIcon uri={user.avatar_url} size={32} />
+          <UserIcon
+            uri={user.avatar_url}
+            size={40}
+            color={user.current_status.color}
+          />
           <View
             style={{
               flexDirection: 'column',
@@ -44,7 +48,7 @@ export default function UserStatus({ user, navigation }) {
           >
             <SfText
               style={{
-                fontSize: 14,
+                fontSize: 16,
                 flexGrow: 1,
                 flexShrink: 1,
                 backgroundColor: backgrounds[1],
