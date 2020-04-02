@@ -8,10 +8,9 @@
 ### Features
 
 - MESSAGING. Let's do DMs first and then groups.
-  - DMs, create an endpoint that gets the conversation between two users, if it doesn't already exist
-  - Conversations between users have the short ID, "userId:userId" where we've sorted the userIds
   - read receipts, keep an index counter of the last message read, per user. Calculate unread count based on that
 - FAMILIES
+- PROFILES
 - Push notifications
 
 - twilio phone number verification to log in?
