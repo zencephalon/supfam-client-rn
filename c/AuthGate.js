@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 
@@ -101,7 +101,7 @@ class AuthGate extends React.Component {
 
     return (
       <SfContainer>
-        <View style={styles.contentContainer}>
+        <SafeAreaView style={styles.contentContainer}>
           <SfText style={styles.welcomeText}>Welcome to Supfam</SfText>
           <SfTextInput
             placeholder="User name"
@@ -129,7 +129,7 @@ class AuthGate extends React.Component {
               password={password}
             />
           )}
-        </View>
+        </SafeAreaView>
       </SfContainer>
     );
   }

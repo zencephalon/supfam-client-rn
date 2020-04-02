@@ -31,11 +31,11 @@ export default function ConversationScreen({ navigation, route }) {
   const user = useCachedUser(userId);
 
   const { data: _messages } = useQuery(
-    ['dm_messages', { userId: user.id }],
+    ['dm_messages', { userId }],
     getUserDmMessages
   );
   const { data: instantMessage } = useQuery(
-    ['instant_messages', { userId: user.id }],
+    ['instant_messages', { userId }],
     () => {}
   );
 
@@ -48,7 +48,7 @@ export default function ConversationScreen({ navigation, route }) {
 
   const conversationId = _messages?.[0]?.conversation_id;
   React.useEffect(() => {
-    Cable.subscribeConversation(conversationId, user.id);
+    Cable.subscribeConversation(conversationId, userId);
     return () => {
       Cable.unsubscribeConversation(conversationId);
     };
@@ -63,10 +63,10 @@ export default function ConversationScreen({ navigation, route }) {
     setText('');
     sendInstant(conversationId, text);
     sendMessage({
-      userId: user.id,
+      userId: userId,
       data: { message: { message: text, type: 0 } },
     });
-  }, [text, user.id]);
+  }, [text, userId]);
 
   const setMessage = React.useCallback(
     text => {
@@ -80,7 +80,6 @@ export default function ConversationScreen({ navigation, route }) {
     headerTitle: user.name,
     headerStyle: {
       backgroundColor: statusColors[user.current_status.color || 0],
-      height: 50,
     },
   });
 

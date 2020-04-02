@@ -2,7 +2,8 @@
 
 ## TODO
 
-- Let's make DMs
+- Initial message doesn't work, maybe the conversation doesn't exist?
+  - janky
 
 ### Features
 

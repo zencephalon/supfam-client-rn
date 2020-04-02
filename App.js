@@ -68,15 +68,13 @@ export default function App(props) {
         <ThemeAwareStatusBar />
         <Provider store={configureStore({ auth: AuthToken.get() })}>
           <AuthGate>
-            <View style={styles.container}>
-              <CableContainer />
-              <NavigationContainer
-                ref={containerRef}
-                initialState={initialNavigationState}
-              >
-                <BottomTabNavigator />
-              </NavigationContainer>
-            </View>
+            <CableContainer />
+            <NavigationContainer
+              ref={containerRef}
+              initialState={initialNavigationState}
+            >
+              <BottomTabNavigator />
+            </NavigationContainer>
           </AuthGate>
         </Provider>
       </AppearanceProvider>
@@ -87,6 +85,6 @@ export default function App(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
   },
 });
