@@ -15,7 +15,7 @@ export const getFriends = () => {
 };
 
 export const getStatusMe = () => {
-  return api.fetchFromAPI('statuses/me');
+  return api.fetchFromAPI('users/me');
 };
 
 export const getUserDmMessages = (key, { userId }) => {
@@ -29,10 +29,10 @@ export const sendUserDmMessage = ({ userId, data }) => {
 };
 
 export const putStatusMe = data => {
-  return Cable.updateStatus(data);
-  // return api.putToAPI('statuses/me', {
-  //   body: JSON.stringify(data),
-  // });
+  // return Cable.updateStatus(data);
+  return api.putToAPI('statuses/me', {
+    body: JSON.stringify(data),
+  });
 };
 
 export default api;

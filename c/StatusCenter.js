@@ -16,7 +16,9 @@ const StatusCenter = props => {
       // queryCache.refetchQueries('statusMe');
     },
   });
-  const { data: statusMe, status } = useQuery('statusMe', getStatusMe);
+  const { data: user, status } = useQuery('statusMe', getStatusMe);
+
+  const statusMe = user?.current_status;
 
   const setColor = React.useCallback(async color => {
     await mutateStatus({ color });

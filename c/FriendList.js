@@ -5,13 +5,19 @@ import { orderBy } from 'lodash';
 
 import UserStatus from '~/c/UserStatus';
 
-import { useQuery } from 'react-query';
+import { useQuery, queryCache } from 'react-query';
 import { getFriends } from '~/apis/api';
 
 import useLight from '~/hooks/useLight';
 
 const FriendList = props => {
-  const { status, data, error } = useQuery('friends', getFriends);
+  const { status, data, error } = useQuery('friends', getFriends, {
+    onSuccess: friends => {
+      friends.foreach(friend => {
+        queryCache.setQueryData(['friend', friend.id], friend);
+      });
+    },
+  });
   const friends = orderBy(
     data,
     ['current_status.color', 'current_status.updated_at'],
