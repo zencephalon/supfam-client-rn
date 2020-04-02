@@ -6,6 +6,8 @@ import UserIcon from '~/c/UserIcon';
 
 import useLight from '~/hooks/useLight';
 
+import TypingText from '~/c/TypingText';
+
 function Message(props) {
   const { backgrounds } = useLight();
   return (
@@ -14,7 +16,7 @@ function Message(props) {
         flexDirection: 'row',
         marginBottom: 4,
         marginTop: props.fromSameUser ? 0 : 12,
-        alignItems: 'flex-end',
+        alignItems: 'flex-start',
         justifyContent: props.isOwnMessage ? 'flex-end' : 'flex-start',
         marginLeft: 8,
         marginRight: 8,
@@ -25,21 +27,33 @@ function Message(props) {
           <UserIcon uri={props.message.user_summary.avatar_url} size={24} />
         )}
       </View>
-      <SfText
+      <View
         style={{
-          fontSize: 16,
-          backgroundColor: props.isOwnMessage ? backgrounds[2] : backgrounds[1],
-          borderRadius: 10,
-          overflow: 'hidden',
-          padding: 8,
+          flexDirection: 'column',
+          alignItems: 'flex-end',
           maxWidth: '80%',
         }}
       >
-        {props.message.message}
-        <SfText style={{ fontSize: 10 }}>
-          {props.message.id === 'instant' ? ` ...typing` : null}
+        <SfText
+          style={{
+            fontSize: 16,
+            backgroundColor: props.isOwnMessage
+              ? backgrounds[2]
+              : backgrounds[1],
+            borderRadius: 10,
+            overflow: 'hidden',
+            padding: 8,
+          }}
+        >
+          {props.message.message}
         </SfText>
-      </SfText>
+        {props.message.id === 'instant' ? (
+          <SfText style={{ fontSize: 10 }}>
+            ...
+            <TypingText time={props.message.receivedAt} />
+          </SfText>
+        ) : null}
+      </View>
     </View>
   );
 }
