@@ -17,10 +17,8 @@ import SfTextInput from '~/c/SfTextInput';
 
 import useLight from '~/hooks/useLight';
 
-import { pick } from 'lodash';
-
-const sendInstant = throttle((conversationId, data) => {
-  Cable.sendInstant(conversationId, data);
+const sendInstant = throttle((conversationId, message) => {
+  Cable.sendInstant(conversationId, message);
 }, 50);
 
 export default function ConversationScreen({ navigation, route }) {
@@ -60,12 +58,7 @@ export default function ConversationScreen({ navigation, route }) {
       return;
     }
     setText('');
-    sendInstant(conversationId, {
-      message: '',
-      type: 0,
-      id: 'instant',
-      user_summary: pick(me, ['id', 'name', 'avatar_url']),
-    });
+    sendInstant(conversationId, text);
     sendMessage({
       userId: user.id,
       data: { message: { message: text, type: 0 } },
@@ -75,12 +68,7 @@ export default function ConversationScreen({ navigation, route }) {
   const setMessage = React.useCallback(
     text => {
       setText(text);
-      sendInstant(conversationId, {
-        message: text,
-        type: 0,
-        id: 'instant',
-        user_summary: pick(me, ['id', 'name', 'avatar_url']),
-      });
+      sendInstant(conversationId, text);
     },
     [me, conversationId]
   );
