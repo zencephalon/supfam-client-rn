@@ -2,17 +2,27 @@ import * as React from 'react';
 import { Image } from 'react-native';
 import statusColors from '~/constants/statusColors';
 
+import { useQuery } from 'react-query';
+
 export default UserIcon = props => {
+  const { data: user } = useQuery(['friend', props.userId], () => {}, {
+    staleTime: Infinity,
+  });
+  const color = user?.current_status?.color;
+
   return (
     <Image
-      source={{ uri: props.uri }}
+      source={{ uri: user?.avatar_url }}
       style={{
         width: props.size,
         height: props.size,
         borderRadius: 50,
         marginRight: 8,
-        borderWidth: props.color ? 3 : 1,
-        borderColor: props.color ? statusColors[props.color] : '#434C5E',
+        borderWidth: color !== undefined ? 3 : 1,
+        borderColor:
+          color !== undefined
+            ? statusColors[user.current_status.color]
+            : '#434C5E',
       }}
     />
   );

@@ -34,11 +34,7 @@ export default function UserStatus({ user, navigation }) {
           user={user}
         />
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
-          <UserIcon
-            uri={user.avatar_url}
-            size={40}
-            color={user.current_status.color}
-          />
+          <UserIcon userId={user.id} size={40} />
           <View
             style={{
               flexDirection: 'column',

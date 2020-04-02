@@ -24,7 +24,7 @@ function Message(props) {
     >
       <View style={{ width: 32 }}>
         {!props.isOwnMessage && !props.fromSameUser && (
-          <UserIcon uri={props.message.user_summary.avatar_url} size={24} />
+          <UserIcon userId={props.message.user_summary.id} size={24} />
         )}
       </View>
       <View

@@ -13,7 +13,7 @@ import useLight from '~/hooks/useLight';
 const FriendList = props => {
   const { status, data, error } = useQuery('friends', getFriends, {
     onSuccess: friends => {
-      friends.foreach(friend => {
+      friends.map(friend => {
         queryCache.setQueryData(['friend', friend.id], friend);
       });
     },
