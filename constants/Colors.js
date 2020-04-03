@@ -12,7 +12,7 @@ export const nord6 = '#ECEFF4';
 export const nord7 = '#8FBCBB';
 export const nord8 = '#88C0D0';
 export const nord9 = '#81A1C1';
-export const nord10 = '#5E81AC';
+export const nord10 = '#5E81AC'; // blue
 // Aurora series
 export const nord11 = '#BF616A'; //red
 export const nord12 = '#D08770'; //orange
