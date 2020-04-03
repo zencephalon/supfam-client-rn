@@ -1,21 +1,18 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
 import cable from '~/lib/Cable';
 
-class CableContainer extends React.Component {
-  componentDidMount() {
+function CableContainer() {
+  useEffect(() => {
     cable.init();
-  }
+    return () => {
+      cable.disconnect();
+    };
+  }, []);
 
-  componentWillUnmount() {
-    cable.disconnect();
-  }
-
-  render() {
-    return <Fragment />;
-  }
+  return null;
 }
 
 export default connect()(CableContainer);
