@@ -22,7 +22,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mutualflourishing.supfam",
-      "buildNumber": "0.0.6"
+      "buildNumber": "0.0.7"
     },
     "description": "",
     "hooks": {
