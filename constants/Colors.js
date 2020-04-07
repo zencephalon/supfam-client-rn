@@ -67,7 +67,36 @@ export const tabIconDefault = nord3;
 export const tabIconSelected = nord9;
 export const tabBar = '#fefefe';
 
-export const AWAY = red;
-export const BUSY = yellow;
-export const FREE = green;
-export const OPEN = nord10;
+const RGB_Linear_Shade = (p, c) => {
+  var i = parseInt,
+    r = Math.round,
+    [a, b, c, d] = c.split(','),
+    P = p < 0,
+    t = P ? 0 : 255 * p,
+    P = P ? 1 + p : 1 - p;
+  return (
+    'rgb' +
+    (d ? 'a(' : '(') +
+    r(i(a[3] == 'a' ? a.slice(5) : a.slice(4)) * P + t) +
+    ',' +
+    r(i(b) * P + t) +
+    ',' +
+    r(i(c) * P + t) +
+    (d ? ',' + d : ')')
+  );
+};
+
+export const AWAY = 'rgb(255,89,74)';
+export const BUSY = 'rgb(255,199,82)';
+export const FREE = 'rgb(102,217,143)';
+export const OPEN = 'rgb(47,166,255)';
+
+export const AWAY_DEEP = RGB_Linear_Shade(-0.6, AWAY);
+export const BUSY_DEEP = RGB_Linear_Shade(-0.6, BUSY);
+export const FREE_DEEP = RGB_Linear_Shade(-0.6, FREE);
+export const OPEN_DEEP = RGB_Linear_Shade(-0.6, OPEN);
+
+export const AWAY_LIGHT = RGB_Linear_Shade(-0.3, AWAY);
+export const BUSY_LIGHT = RGB_Linear_Shade(-0.3, BUSY);
+export const FREE_LIGHT = RGB_Linear_Shade(-0.3, FREE);
+export const OPEN_LIGHT = RGB_Linear_Shade(-0.3, OPEN);

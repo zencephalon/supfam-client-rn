@@ -71,17 +71,17 @@ const styles = StyleSheet.create({
     marginBottom: -1,
   },
   tabBarInfoContainer: {
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
+    // ...Platform.select({
+    //   ios: {
+    //     shadowColor: 'black',
+    //     shadowOffset: { width: 0, height: -3 },
+    //     shadowOpacity: 0.1,
+    //     shadowRadius: 3,
+    //   },
+    //   android: {
+    //     elevation: 20,
+    //   },
+    // }),
     alignItems: 'center',
     paddingVertical: 0,
     flexDirection: 'row',
