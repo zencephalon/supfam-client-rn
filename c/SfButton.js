@@ -4,7 +4,7 @@ import * as Colors from '~/constants/Colors';
 
 import useLight from '~/hooks/useLight';
 
-const ExButton = props => {
+const ExButton = (props) => {
   const { disabled, title, style, color, ...rest } = props;
   const { light, foregrounds } = useLight();
 
@@ -31,14 +31,16 @@ const styles = StyleSheet.create({
   exButton: {
     marginBottom: 10,
     alignItems: 'center',
-    borderRadius: 10,
+    // borderRadius: 10,
   },
   lightEnabled: {
-    backgroundColor: Colors.lightThemeBackgrounds[3],
+    backgroundColor: Colors.lightThemeBackgrounds[2],
     shadowColor: Colors.nord0,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    borderBottomWidth: 3,
+    borderBottomColor: Colors.lightThemeBackgrounds[3],
   },
   lightDisabled: {
     backgroundColor: Colors.lightThemeBackgrounds[1],
@@ -51,6 +53,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    borderBottomWidth: 3,
+    borderBottomColor: Colors.darkThemeBackgrounds[2],
   },
   darkDisabled: {
     backgroundColor: Colors.darkThemeBackgrounds[1],

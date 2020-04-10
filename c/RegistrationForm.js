@@ -4,6 +4,49 @@ import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
 import * as Colors from '~/constants/Colors';
 
+// handleUsername = (name) => {
+//   this.setState({ name });
+//   this.fetchNameAvailable(name);
+// };
+
+// setPassword = (password) => {
+//   this.setState({ password });
+// };
+
+// setPasswordConfirmation = (passwordConfirmation) => {
+//   this.setState({ passwordConfirmation });
+// };
+
+// fetchNameAvailable = debounce((name) => {
+//   if (name === '') {
+//     this.setState({ fetchingNameAvailable: false });
+//     return;
+//   }
+//   this.setState({ fetchingNameAvailable: true });
+//   getNameAvailable(name).then((available) => {
+//     this.setState({
+//       nameAvailable: available,
+//       fetchingNameAvailable: false,
+//     });
+//   });
+// }, 300);
+
+// register = () => {
+//   const { name, password, passwordConfirmation } = this.state;
+//   if (password !== passwordConfirmation) {
+//     // actually do something here to indicate the problem
+//     // or just prevent this from even happening
+//     return;
+//   }
+//   this.setState({ loggingIn: true });
+
+//   postRegister({ name, password, passwordConfirmation }).then(({ id }) => {
+//     if (id) {
+//       this.login();
+//     }
+//   });
+// };
+
 const RegistrationForm = ({
   password,
   passwordConfirmation,

@@ -4,6 +4,19 @@ import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
 import * as Colors from '~/constants/Colors';
 
+// login = () => {
+//   const { name, password } = this.state;
+//   if (!password) {
+//     return;
+//   }
+//   this.setState({ loggingIn: true });
+
+//   postLogin({ name, password }).then((json) => {
+//     AuthToken.set(json);
+//     this.props.dispatch(LOGIN(json));
+//   });
+// };
+
 const LoginForm = ({ password, setPassword, login }) => {
   return (
     <View>

@@ -30,6 +30,7 @@
     "expo-font": "~8.0.0",
     "expo-web-browser": "~8.0.0",
     "javascript-time-ago": "^2.0.7",
+    "libphonenumber-js": "^1.7.50",
     "lodash": "^4.17.15",
     "react": "~16.9.0",
     "react-actioncable-provider": "^2.0.0",

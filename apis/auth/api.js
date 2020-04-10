@@ -1,7 +1,7 @@
 import { API_URL } from '~/lib/constants';
 
-export const getNameAvailable = name => {
-  return fetch(`${API_URL}available/${name}`).then(resp => resp.json());
+export const getNameAvailable = (name) => {
+  return fetch(`${API_URL}available/${name}`).then((resp) => resp.json());
 };
 
 export const postLogin = ({ name, password }) => {
@@ -11,7 +11,7 @@ export const postLogin = ({ name, password }) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name, password }),
-  }).then(res => {
+  }).then((res) => {
     return res.json();
   });
 };
@@ -23,5 +23,5 @@ export const postRegister = ({ name, password, passwordConfirmation }) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name, password, passwordConfirmation }),
-  }).then(res => res.json());
+  }).then((res) => res.json());
 };
