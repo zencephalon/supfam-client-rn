@@ -4,7 +4,7 @@ import * as Colors from '~/constants/Colors';
 
 import useLight from '~/hooks/useLight';
 
-const ExButton = (props) => {
+const SfButton = (props) => {
   const { disabled, title, style, color, ...rest } = props;
   const { light, foregrounds } = useLight();
 
@@ -17,7 +17,12 @@ const ExButton = (props) => {
     : styles.darkEnabled;
   const textColor = disabled ? foregrounds[3] : foregrounds[4];
 
-  const mergedStyle = { ...styles.exButton, ...stateStyle, ...style };
+  const mergedStyle = [
+    styles.exButton,
+    ...(disabled ? [] : [styles.enabled]),
+    stateStyle,
+    style,
+  ];
   return (
     <TouchableOpacity {...rest} style={mergedStyle}>
       <Text style={{ ...styles.buttonText, color: textColor }}>{title}</Text>
@@ -25,7 +30,7 @@ const ExButton = (props) => {
   );
 };
 
-export default ExButton;
+export default SfButton;
 
 const styles = StyleSheet.create({
   exButton: {
@@ -33,32 +38,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // borderRadius: 10,
   },
-  lightEnabled: {
-    backgroundColor: Colors.lightThemeBackgrounds[2],
-    shadowColor: Colors.nord0,
+  enabled: {
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
     borderBottomWidth: 3,
+  },
+  lightEnabled: {
+    backgroundColor: Colors.lightThemeBackgrounds[2],
     borderBottomColor: Colors.lightThemeBackgrounds[3],
   },
   lightDisabled: {
     backgroundColor: Colors.lightThemeBackgrounds[1],
-    shadowColor: Colors.nord0,
     color: Colors.nord4,
   },
   darkEnabled: {
     backgroundColor: Colors.darkThemeBackgrounds[3],
-    shadowColor: Colors.nord0,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    borderBottomWidth: 3,
     borderBottomColor: Colors.darkThemeBackgrounds[2],
   },
   darkDisabled: {
     backgroundColor: Colors.darkThemeBackgrounds[1],
-    shadowColor: Colors.nord0,
     color: Colors.nord4,
   },
   buttonText: {

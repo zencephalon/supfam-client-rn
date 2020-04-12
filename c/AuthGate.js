@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+
 import { debounce } from 'lodash';
 
 import { LOGIN } from '~/apis/auth/actions';
@@ -8,15 +9,15 @@ import { getNameAvailable, postLogin, postRegister } from '~/apis/auth/api';
 import AuthToken from '~/lib/AuthToken';
 
 import SfTextInput from '~/c/SfTextInput';
+
 import SfText from '~/c/SfText';
 import SfContainer from '~/c/SfContainer';
 import RegistrationForm from '~/c/RegistrationForm';
 import LoginForm from '~/c/LoginForm';
 import SfButton from '~/c/SfButton';
 
-import PhoneVerifyFlow from '~/c/PhoneVerifyFlow';
-
-import * as Colors from '~/constants/Colors';
+import CheckInviteFlow from '~/c/CheckInviteFlow';
+import VerifyCodeFlow from '~/c/VerifyCodeFlow';
 
 function Welcome(props) {
   return (
@@ -37,7 +38,11 @@ const AuthGate = function (props) {
   const renders = {
     default: <Welcome setSelection={setSelection} />,
     login: <LoginForm />,
-    register: <PhoneVerifyFlow />,
+    register: (
+      <CheckInviteFlow
+        render={({ token }) => <VerifyCodeFlow token={token} />}
+      />
+    ),
   };
 
   if (props.token) {

@@ -2,33 +2,43 @@ import React from 'react';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
+
 import { Platform } from 'react-native';
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js';
-import { useMutation } from 'react-query';
 
-import { postVerify2 as postVerify } from '~/apis/api';
+import { postVerify } from '~/apis/api';
 
-function PhoneVerifyFlow() {
+function CheckInviteFlow(props) {
   const [phone, setPhone] = React.useState('');
   const phoneNumber = parsePhoneNumberFromString(phone, 'US');
   const [errored, setErrored] = React.useState(false);
-  const [verifying, setVerifying] = React.useState(false);
+  const [checking, setchecking] = React.useState(false);
+  const [token, setToken] = React.useState(null);
 
   const checkInvite = async () => {
-    setVerifying(true);
+    setchecking(true);
+    setErrored(false);
     postVerify({ phone: phoneNumber?.number })
       .then((data) => {
-        console.log(data);
+        setchecking(false);
         if (data.error) {
           setErrored(true);
+        } else {
+          setErrored(false);
+          setToken(data.token);
         }
-        setVerifying(false);
       })
       .catch((e) => {
         setErrored(true);
-        setVerifying(false);
+        setchecking(false);
       });
   };
+
+  if (token) {
+    return props.render({ token });
+  }
+
+  const checkDisabled = !phoneNumber?.isValid() || checking;
 
   return (
     <React.Fragment>
@@ -50,14 +60,12 @@ function PhoneVerifyFlow() {
         onChangeText={setPhone}
         placeholder="your phone number"
       />
-      {phoneNumber?.isValid() && (
-        <SfButton
-          style={{ marginTop: 8 }}
-          title={verifying ? 'Checking...' : 'Check for invite'}
-          disabled={verifying}
-          onPress={verifying ? () => {} : checkInvite}
-        />
-      )}
+      <SfButton
+        style={{ marginTop: 8 }}
+        title={checking ? 'Checking...' : 'Check for invite'}
+        disabled={checkDisabled}
+        onPress={checkDisabled ? () => {} : checkInvite}
+      />
       {errored && (
         <SfText>
           Sorry, we couldn't find an invitation for your phone number.
@@ -67,4 +75,4 @@ function PhoneVerifyFlow() {
   );
 }
 
-export default PhoneVerifyFlow;
+export default CheckInviteFlow;
