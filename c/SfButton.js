@@ -6,26 +6,48 @@ import useLight from '~/hooks/useLight';
 
 const SfButton = (props) => {
   const { disabled, title, style, color, ...rest } = props;
-  const { light, foregrounds } = useLight();
+  const { light, foregrounds, backgrounds } = useLight();
 
-  const stateStyle = light
-    ? disabled
-      ? styles.lightDisabled
-      : styles.lightEnabled
-    : disabled
-    ? styles.darkDisabled
-    : styles.darkEnabled;
-  const textColor = disabled ? foregrounds[3] : foregrounds[4];
+  // const stateStyle = light
+  //   ? disabled
+  //     ? styles.lightDisabled
+  //     : styles.lightEnabled
+  //   : disabled
+  //   ? styles.darkDisabled
+  //   : styles.darkEnabled;
+  // const textColor = disabled ? foregrounds[3] : foregrounds[4];
+  const textColor = foregrounds[0];
+  const backgroundColor = Colors.RGB_Linear_Shade(
+    disabled ? (light ? 0.4 : -0.4) : 0,
+    color || Colors.OPEN
+  );
+  const stateStyle = {
+    backgroundColor,
+    borderBottomWidth: 4,
+    borderBottomColor: disabled
+      ? backgroundColor
+      : Colors.RGB_Linear_Shade(-0.4, backgroundColor),
+  };
 
-  const mergedStyle = [
-    styles.exButton,
-    ...(disabled ? [] : [styles.enabled]),
-    stateStyle,
-    style,
-  ];
+  const mergedStyle = {
+    ...styles.exButton,
+    ...(disabled ? {} : styles.enabled),
+    ...stateStyle,
+    ...style,
+  };
   return (
     <TouchableOpacity {...rest} style={mergedStyle}>
-      <Text style={{ ...styles.buttonText, color: textColor }}>{title}</Text>
+      <Text
+        style={{
+          ...styles.buttonText,
+          color: textColor,
+          marginTop: disabled ? 3 : 0,
+          marginBottom: disabled ? 0 : 3,
+          opacity: disabled ? 0.5 : 1,
+        }}
+      >
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };

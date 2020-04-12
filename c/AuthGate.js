@@ -2,14 +2,6 @@ import * as React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import { debounce } from 'lodash';
-
-import { LOGIN } from '~/apis/auth/actions';
-import { getNameAvailable, postLogin, postRegister } from '~/apis/auth/api';
-import AuthToken from '~/lib/AuthToken';
-
-import SfTextInput from '~/c/SfTextInput';
-
 import SfText from '~/c/SfText';
 import SfContainer from '~/c/SfContainer';
 import RegistrationForm from '~/c/RegistrationForm';
@@ -19,12 +11,19 @@ import SfButton from '~/c/SfButton';
 import CheckInviteFlow from '~/c/CheckInviteFlow';
 import VerifyCodeFlow from '~/c/VerifyCodeFlow';
 
+import { FREE, OPEN } from '~/constants/Colors';
+
 function Welcome(props) {
   return (
     <React.Fragment>
       <SfText style={styles.welcomeText}>Welcome to Supfam</SfText>
-      <SfButton title="Login" onPress={() => props.setSelection('login')} />
       <SfButton
+        color={OPEN}
+        title="Login"
+        onPress={() => props.setSelection('login')}
+      />
+      <SfButton
+        color={FREE}
         title="Register"
         onPress={() => props.setSelection('register')}
       />

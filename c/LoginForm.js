@@ -17,6 +17,12 @@ import * as Colors from '~/constants/Colors';
 //   });
 // };
 
+import { debounce } from 'lodash';
+
+import { LOGIN } from '~/apis/auth/actions';
+import { getNameAvailable, postLogin, postRegister } from '~/apis/auth/api';
+import AuthToken from '~/lib/AuthToken';
+
 const LoginForm = ({ password, setPassword, login }) => {
   return (
     <View>

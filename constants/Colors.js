@@ -67,7 +67,7 @@ export const tabIconDefault = nord3;
 export const tabIconSelected = nord9;
 export const tabBar = '#fefefe';
 
-const RGB_Linear_Shade = (p, c) => {
+export const RGB_Linear_Shade = (p, c) => {
   var i = parseInt,
     r = Math.round,
     [a, b, c, d] = c.split(','),

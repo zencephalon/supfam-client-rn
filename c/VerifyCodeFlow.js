@@ -2,7 +2,7 @@ import React from 'react';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
-import { OPEN } from '~/constants/Colors';
+import { OPEN, FREE, OPEN_LIGHT } from '~/constants/Colors';
 
 function VerifyCodeFlow(props) {
   const { token } = props;
@@ -13,11 +13,8 @@ function VerifyCodeFlow(props) {
         Enter your verification code:
       </SfText>
       <SfTextInput />
-      <SfButton
-        style={{ marginTop: 8, backgroundColor: OPEN }}
-        title="Verify"
-      />
-      <SfButton title="Resend code" />
+      <SfButton color={OPEN} style={{ marginTop: 16 }} title="Verify" />
+      <SfButton color={OPEN_LIGHT} title="Resend code" />
     </React.Fragment>
   );
 }

@@ -13,7 +13,7 @@ import useLight from '~/hooks/useLight';
 
 const StatusButton = ({ color, setColor, selected }) => {
   const { foregrounds, backgrounds, light } = useLight();
-  const shadowColors = light ? statusColorsLight : statusColorsLight;
+  const shadowColors = statusColorsLight;
   return (
     <React.Fragment>
       <TouchableOpacity
