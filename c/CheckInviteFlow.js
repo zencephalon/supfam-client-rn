@@ -8,37 +8,62 @@ import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js';
 
 import { postVerify } from '~/apis/api';
 
+function useApi(api, { onConfirm, onError } = {}) {
+  const [requested, setRequested] = React.useState(false);
+  const [confirmed, setConfirmed] = React.useState(false);
+  const [failed, setFailed] = React.useState(false);
+  const [data, setData] = React.useState(undefined);
+  const [error, setError] = React.useState(undefined);
+
+  return {
+    call: async (params) => {
+      setRequested(true);
+
+      api(params)
+        .then((json) => {
+          setRequested(false);
+          if (json.error) {
+            setFailed(true);
+            setError(json.error);
+            onError?.(json.error);
+          } else {
+            setError(undefined);
+            setFailed(false);
+            setConfirmed(true);
+            setData(json);
+            onConfirm?.(json);
+          }
+        })
+        .catch((e) => {
+          setError(e);
+          setFailed(true);
+          setRequested(false);
+          setConfirmed(false);
+          onError?.(e);
+        });
+    },
+    req: {
+      requested,
+      confirmed,
+      failed,
+      data,
+      error,
+    },
+  };
+}
+
 function CheckInviteFlow(props) {
   const [phone, setPhone] = React.useState('');
   const phoneNumber = parsePhoneNumberFromString(phone, 'US');
-  const [errored, setErrored] = React.useState(false);
-  const [checking, setchecking] = React.useState(false);
-  const [token, setToken] = React.useState(null);
 
-  const checkInvite = async () => {
-    setchecking(true);
-    setErrored(false);
-    postVerify({ phone: phoneNumber?.number })
-      .then((data) => {
-        setchecking(false);
-        if (data.error) {
-          setErrored(true);
-        } else {
-          setErrored(false);
-          setToken(data.token);
-        }
-      })
-      .catch((e) => {
-        setErrored(true);
-        setchecking(false);
-      });
-  };
+  const { call: checkInvite, req: checkInviteReq } = useApi(postVerify);
 
+  const token = checkInviteReq.data?.token;
   if (token) {
     return props.render({ token });
   }
 
-  const checkDisabled = !phoneNumber?.isValid() || checking;
+  const checkDisabled = !phoneNumber?.isValid() || checkInviteReq.requested;
 
   return (
     <React.Fragment>
@@ -62,11 +87,17 @@ function CheckInviteFlow(props) {
       />
       <SfButton
         style={{ marginTop: 8 }}
-        title={checking ? 'Checking...' : 'Check for invite'}
+        title={checkInviteReq.requested ? 'Checking...' : 'Check for invite'}
         disabled={checkDisabled}
-        onPress={checkDisabled ? () => {} : checkInvite}
+        onPress={
+          checkDisabled
+            ? () => {}
+            : () => {
+                checkInvite({ phone: phoneNumber?.number });
+              }
+        }
       />
-      {errored && (
+      {checkInviteReq.failed && (
         <SfText>
           Sorry, we couldn't find an invitation for your phone number.
         </SfText>
