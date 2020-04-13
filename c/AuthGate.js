@@ -39,7 +39,12 @@ const AuthGate = function (props) {
     login: <LoginForm />,
     register: (
       <CheckInviteFlow
-        render={({ token }) => <VerifyCodeFlow token={token} />}
+        render={({ token }) => (
+          <VerifyCodeFlow
+            token={token}
+            render={({ token }) => <RegistrationForm token={token} />}
+          />
+        )}
       />
     ),
   };
