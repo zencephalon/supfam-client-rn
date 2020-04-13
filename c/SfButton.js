@@ -8,14 +8,6 @@ const SfButton = (props) => {
   const { disabled, title, style, color, ...rest } = props;
   const { light, foregrounds, backgrounds } = useLight();
 
-  // const stateStyle = light
-  //   ? disabled
-  //     ? styles.lightDisabled
-  //     : styles.lightEnabled
-  //   : disabled
-  //   ? styles.darkDisabled
-  //   : styles.darkEnabled;
-  // const textColor = disabled ? foregrounds[3] : foregrounds[4];
   const textColor = foregrounds[0];
   const backgroundColor = Colors.RGB_Linear_Shade(
     disabled ? (light ? 0.4 : -0.4) : 0,
@@ -66,22 +58,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     borderBottomWidth: 3,
-  },
-  lightEnabled: {
-    backgroundColor: Colors.lightThemeBackgrounds[2],
-    borderBottomColor: Colors.lightThemeBackgrounds[3],
-  },
-  lightDisabled: {
-    backgroundColor: Colors.lightThemeBackgrounds[1],
-    color: Colors.nord4,
-  },
-  darkEnabled: {
-    backgroundColor: Colors.darkThemeBackgrounds[3],
-    borderBottomColor: Colors.darkThemeBackgrounds[2],
-  },
-  darkDisabled: {
-    backgroundColor: Colors.darkThemeBackgrounds[1],
-    color: Colors.nord4,
   },
   buttonText: {
     fontSize: 24,
