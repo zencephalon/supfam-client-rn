@@ -45,4 +45,10 @@ export const postVerify = ({ token, code }) => {
   });
 };
 
+export const postResendCode = ({ token }) => {
+  return api.postToAPI('resend_code', {
+    body: JSON.stringify({ token }),
+  });
+};
+
 export default api;

@@ -8,9 +8,11 @@ import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js';
 
 import { postCheckInvite } from '~/apis/api';
 import useApi from '~/hooks/useApi';
+import useLight from '~/hooks/useLight';
 
 function CheckInviteFlow(props) {
   const [phone, setPhone] = React.useState('');
+  const { foregrounds } = useLight();
   const phoneNumber = parsePhoneNumberFromString(phone, 'US');
 
   const { call: checkInvite, req: checkInviteReq } = useApi(postCheckInvite);
@@ -24,11 +26,11 @@ function CheckInviteFlow(props) {
 
   return (
     <React.Fragment>
-      <SfText style={{ marginBottom: 16 }}>
-        Supfam allows invited users only. Please enter your phone to check for
+      <SfText style={{ marginBottom: 16, marginTop: 16 }}>
+        Supfam only allows invited users. Enter your phone number to look for
         your invitation.
       </SfText>
-      <SfText style={{ marginBottom: 4 }}>
+      <SfText style={{ height: 32, color: foregrounds[1] }}>
         {new AsYouType('US').input(phone)}
       </SfText>
       <SfTextInput
@@ -41,6 +43,7 @@ function CheckInviteFlow(props) {
         value={phone}
         onChangeText={setPhone}
         placeholder="your phone number"
+        ok={!checkDisabled}
       />
       <SfButton
         style={{ marginTop: 8 }}

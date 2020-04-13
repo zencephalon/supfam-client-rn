@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import SfText from '~/c/SfText';
@@ -16,7 +16,8 @@ import { FREE, OPEN } from '~/constants/Colors';
 function Welcome(props) {
   return (
     <React.Fragment>
-      <SfText style={styles.welcomeText}>Welcome to Supfam</SfText>
+      <SfText style={styles.welcomeText}>Supfam</SfText>
+      {/* <Image source={require('../assets/images/icon.png')} /> */}
       <SfButton
         color={OPEN}
         title="Login"
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 18,
     fontSize: 32,
+    textAlign: 'center',
   },
 });
 
