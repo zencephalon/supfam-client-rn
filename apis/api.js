@@ -33,20 +33,16 @@ export const putStatusMe = (data) => {
   });
 };
 
-export const postVerify = ({ phone }) => {
-  return api.postToAPI(`verify`, {
+export const postCheckInvite = ({ phone }) => {
+  return api.postToAPI(`check_invite`, {
     body: JSON.stringify({ phone }),
   });
 };
 
-export const postVerify2 = ({ phone }) => {
-  return fetch(`${API_URL}verify`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ phone }),
-  }).then((res) => res.json());
+export const postVerify = ({ token, code }) => {
+  return api.postToAPI('verify', {
+    body: JSON.stringify({ token, code }),
+  });
 };
 
 export default api;
