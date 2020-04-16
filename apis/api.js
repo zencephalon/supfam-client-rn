@@ -17,6 +17,10 @@ export const getStatusMe = () => {
   return api.fetchFromAPI('users/me');
 };
 
+export const getProfilesMe = () => {
+  return api.fetchFromAPI('profiles/me');
+};
+
 export const getUserDmMessages = (key, { userId }) => {
   return api.fetchFromAPI(`messages/user/${userId}`);
 };

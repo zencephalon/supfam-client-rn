@@ -54,21 +54,10 @@ const AuthGate = function (props) {
     return props.children;
   }
 
-  return (
-    <SfContainer>
-      <SafeAreaView style={styles.contentContainer}>
-        {renders[selection]}
-      </SafeAreaView>
-    </SfContainer>
-  );
+  return <SfContainer>{renders[selection]}</SfContainer>;
 };
 
 const styles = StyleSheet.create({
-  textInput: {},
-  contentContainer: {
-    marginLeft: 12,
-    marginRight: 12,
-  },
   welcomeText: {
     marginTop: 12,
     marginBottom: 18,

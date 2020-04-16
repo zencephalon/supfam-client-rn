@@ -12,6 +12,7 @@ import useLinking from './navigation/useLinking';
 
 import AuthToken from '~/lib/AuthToken';
 import AuthGate from '~/c/AuthGate';
+import ProfileGate from '~/c/ProfileGate';
 import ThemeAwareStatusBar from '~/c/ThemeAwareStatusBar';
 
 import configureStore from '~/store/configureStore';
@@ -68,13 +69,15 @@ export default function App(props) {
         <ThemeAwareStatusBar />
         <Provider store={configureStore({ auth: AuthToken.get() })}>
           <AuthGate>
-            <CableContainer />
-            <NavigationContainer
-              ref={containerRef}
-              initialState={initialNavigationState}
-            >
-              <BottomTabNavigator />
-            </NavigationContainer>
+            <ProfileGate>
+              <CableContainer />
+              <NavigationContainer
+                ref={containerRef}
+                initialState={initialNavigationState}
+              >
+                <BottomTabNavigator />
+              </NavigationContainer>
+            </ProfileGate>
           </AuthGate>
         </Provider>
       </AppearanceProvider>
