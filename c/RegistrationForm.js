@@ -8,8 +8,8 @@ import * as Colors from '~/constants/Colors';
 import { debounce } from 'lodash';
 
 import { LOGIN } from '~/apis/auth/actions';
-import { postLogin, postRegister } from '~/apis/auth/api';
-import { getNameAvailable } from '~/apis/api';
+import { postLogin } from '~/apis/auth/api';
+import { getNameAvailable, postRegister } from '~/apis/api';
 import AuthToken from '~/lib/AuthToken';
 
 import useApi from '~/hooks/useApi';

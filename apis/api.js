@@ -55,4 +55,15 @@ export const getNameAvailable = ({ name }) => {
   return api.fetchFromAPI(`username/available?name=${encodeURI(name)}`);
 };
 
+export const postRegister = ({
+  name,
+  password,
+  passwordConfirmation,
+  token,
+}) => {
+  return api.postToAPI(`register`, {
+    body: JSON.stringify({ name, password, passwordConfirmation, token }),
+  });
+};
+
 export default api;

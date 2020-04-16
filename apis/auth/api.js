@@ -11,13 +11,3 @@ export const postLogin = ({ name, password }) => {
     return res.json();
   });
 };
-
-export const postRegister = ({ name, password, passwordConfirmation }) => {
-  return fetch(`${API_URL}register`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, password, passwordConfirmation }),
-  }).then((res) => res.json());
-};
