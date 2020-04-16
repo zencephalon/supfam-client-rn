@@ -39,14 +39,15 @@ const AuthGate = function (props) {
     default: <Welcome setSelection={setSelection} />,
     login: <LoginForm />,
     register: (
-      <CheckInviteFlow
-        render={({ token }) => (
-          <VerifyCodeFlow
-            token={token}
-            render={({ token }) => <RegistrationForm token={token} />}
-          />
-        )}
-      />
+      <RegistrationForm token="GgiAB0i3jBeeA2OlcdzP7Qtt" />
+      // <CheckInviteFlow
+      //   render={({ token }) => (
+      //     <VerifyCodeFlow
+      //       token={token}
+      //       render={({ token }) => <RegistrationForm token={token} />}
+      //     />
+      //   )}
+      // />
     ),
   };
 

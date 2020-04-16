@@ -51,4 +51,8 @@ export const postResendCode = ({ token }) => {
   });
 };
 
+export const getNameAvailable = ({ name }) => {
+  return api.fetchFromAPI(`username/available?name=${encodeURI(name)}`);
+};
+
 export default api;

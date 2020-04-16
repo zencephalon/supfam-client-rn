@@ -1,9 +1,5 @@
 import { API_URL } from '~/lib/constants';
 
-export const getNameAvailable = (name) => {
-  return fetch(`${API_URL}available/${name}`).then((resp) => resp.json());
-};
-
 export const postLogin = ({ name, password }) => {
   return fetch(`${API_URL}login`, {
     method: 'post',

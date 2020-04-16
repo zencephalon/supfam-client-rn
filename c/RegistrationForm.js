@@ -8,8 +8,11 @@ import * as Colors from '~/constants/Colors';
 import { debounce } from 'lodash';
 
 import { LOGIN } from '~/apis/auth/actions';
-import { getNameAvailable, postLogin, postRegister } from '~/apis/auth/api';
+import { postLogin, postRegister } from '~/apis/auth/api';
+import { getNameAvailable } from '~/apis/api';
 import AuthToken from '~/lib/AuthToken';
+
+import useApi from '~/hooks/useApi';
 
 // const login = () => {
 //   const { name, password } = this.state;
@@ -32,6 +35,7 @@ const RegistrationForm = ({ token }) => {
   const [fetchingNameAvailable, setFetchingNameAvailable] = React.useState(
     false
   );
+  const PostRegister = useApi(postRegister);
 
   const handleUsername = (name) => {
     setName(name);
@@ -44,27 +48,32 @@ const RegistrationForm = ({ token }) => {
       return;
     }
     setFetchingNameAvailable(true);
-    getNameAvailable(name).then((available) => {
+    getNameAvailable({ name }).then((available) => {
+      console.log(JSON.stringify(available));
       setNameAvailable(available);
       setFetchingNameAvailable(false);
     });
   }, 300);
 
   const register = () => {
-    const { name, password, passwordConfirmation } = this.state;
-    if (password !== passwordConfirmation) {
-      // actually do something here to indicate the problem
-      // or just prevent this from even happening
-      return;
-    }
-    this.setState({ loggingIn: true });
-
-    postRegister({ name, password, passwordConfirmation }).then(({ id }) => {
-      if (id) {
-        this.login();
-      }
-    });
+    PostRegister.call({ name, password, passwordConfirmation, token });
   };
+
+  // const register = () => {
+  //   const { name, password, passwordConfirmation } = this.state;
+  //   if (password !== passwordConfirmation) {
+  //     // actually do something here to indicate the problem
+  //     // or just prevent this from even happening
+  //     return;
+  //   }
+  //   this.setState({ loggingIn: true });
+
+  //   postRegister({ name, password, passwordConfirmation }).then(({ id }) => {
+  //     if (id) {
+  //       this.login();
+  //     }
+  //   });
+  // };
 
   return (
     <View>
