@@ -3,30 +3,32 @@ import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
-import * as Colors from '~/constants/Colors';
+import { connect } from 'react-redux';
 
 import { debounce } from 'lodash';
 
 import { LOGIN } from '~/apis/auth/actions';
-import { getNameAvailable, postRegister, postLogin } from '~/apis/api';
+import { getNameAvailable, postRegister } from '~/apis/api';
 import AuthToken from '~/lib/AuthToken';
 
 import useApi from '~/hooks/useApi';
 
-// const login = () => {
-//   const { name, password } = this.state;
-//   if (!password) {
-//     return;
-//   }
-//   this.setState({ loggingIn: true });
+const debounced = debounce(
+  ({ name, setFetchingNameAvailable, getNameAvailable, setNameAvailable }) => {
+    if (name === '') {
+      setFetchingNameAvailable(false);
+      return;
+    }
+    setFetchingNameAvailable(true);
+    getNameAvailable({ name }).then((available) => {
+      setNameAvailable(available);
+      setFetchingNameAvailable(false);
+    });
+  },
+  300
+);
 
-//   postLogin({ name, password }).then((json) => {
-//     AuthToken.set(json);
-//     this.props.dispatch(LOGIN(json));
-//   });
-// };
-
-const RegistrationForm = ({ token }) => {
+const RegistrationForm = ({ token, dispatch }) => {
   const [password, setPassword] = React.useState('');
   const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
   const [name, setName] = React.useState('');
@@ -41,38 +43,31 @@ const RegistrationForm = ({ token }) => {
     fetchNameAvailable(name);
   };
 
-  const fetchNameAvailable = debounce((name) => {
-    if (name === '') {
-      setFetchingNameAvailable(false);
-      return;
-    }
-    setFetchingNameAvailable(true);
-    getNameAvailable({ name }).then((available) => {
-      console.log(JSON.stringify(available));
-      setNameAvailable(available);
-      setFetchingNameAvailable(false);
+  const fetchNameAvailable = () => {
+    debounced({
+      name,
+      setFetchingNameAvailable,
+      getNameAvailable,
+      setNameAvailable,
     });
-  }, 300);
-
-  const register = () => {
-    PostRegister.call({ name, password, passwordConfirmation, token });
   };
 
-  // const register = () => {
-  //   const { name, password, passwordConfirmation } = this.state;
-  //   if (password !== passwordConfirmation) {
-  //     // actually do something here to indicate the problem
-  //     // or just prevent this from even happening
-  //     return;
-  //   }
-  //   this.setState({ loggingIn: true });
+  const nameAndFetched = !fetchingNameAvailable && !!name;
+  const nameOk = nameAndFetched && nameAvailable;
+  const nameBad = nameAndFetched && !nameAvailable;
 
-  //   postRegister({ name, password, passwordConfirmation }).then(({ id }) => {
-  //     if (id) {
-  //       this.login();
-  //     }
-  //   });
-  // };
+  const register = () => {
+    if (password !== passwordConfirmation || nameBad) {
+      return;
+    }
+
+    PostRegister.call({ name, password, passwordConfirmation, token }).then(
+      (json) => {
+        AuthToken.set(json);
+        dispatch(LOGIN(json));
+      }
+    );
+  };
 
   return (
     <View>
@@ -81,8 +76,8 @@ const RegistrationForm = ({ token }) => {
       </SfText>
       <SfTextInput
         working={fetchingNameAvailable}
-        ok={!fetchingNameAvailable && !!name && nameAvailable}
-        bad={!fetchingNameAvailable && !!name && !nameAvailable}
+        ok={nameOk}
+        bad={nameBad}
         placeholder="username"
         autoCapitalize="none"
         value={name}
@@ -129,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistrationForm;
+export default connect()(RegistrationForm);
