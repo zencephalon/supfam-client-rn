@@ -11,7 +11,7 @@ function useApi(api, { onConfirm, onError } = {}) {
     call: async (params) => {
       setRequested(true);
 
-      api(params)
+      return api(params)
         .then((json) => {
           setRequested(false);
           if (json.error) {
@@ -25,6 +25,7 @@ function useApi(api, { onConfirm, onError } = {}) {
             setData(json);
             onConfirm?.(json);
           }
+          return json;
         })
         .catch((e) => {
           setError(e);

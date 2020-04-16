@@ -2,30 +2,42 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
-import * as Colors from '~/constants/Colors';
 
-// login = () => {
-//   const { name, password } = this.state;
-//   if (!password) {
-//     return;
-//   }
-//   this.setState({ loggingIn: true });
-
-//   postLogin({ name, password }).then((json) => {
-//     AuthToken.set(json);
-//     this.props.dispatch(LOGIN(json));
-//   });
-// };
-
-import { debounce } from 'lodash';
+import { connect } from 'react-redux';
 
 import { LOGIN } from '~/apis/auth/actions';
-import { getNameAvailable, postLogin, postRegister } from '~/apis/auth/api';
 import AuthToken from '~/lib/AuthToken';
 
-const LoginForm = ({ password, setPassword, login }) => {
+import useApi from '~/hooks/useApi';
+import { postLogin } from '~/apis/api';
+
+const LoginForm = ({ dispatch }) => {
+  const [name, setName] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const PostLogin = useApi(postLogin);
+
+  const login = () => {
+    if (!password) {
+      return;
+    }
+
+    PostLogin.call({ name, password }).then((json) => {
+      console.log(json);
+      AuthToken.set(json);
+      dispatch(LOGIN(json));
+    });
+  };
+
   return (
     <View>
+      <SfTextInput
+        placeholder="username"
+        autoCapitalize="none"
+        value={name}
+        onChangeText={setName}
+        textContentType="username"
+        style={styles.textInput}
+      />
       <SfTextInput
         placeholder="password"
         value={password}
@@ -36,8 +48,8 @@ const LoginForm = ({ password, setPassword, login }) => {
         style={styles.textInput}
       />
       <SfButton
-        title="Login"
-        disabled={!password}
+        title={PostLogin.req.requested ? 'Logging in...' : 'Log in'}
+        disabled={!password || !name || PostLogin.req.requested}
         onPress={login}
         style={styles.button}
       />
@@ -54,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginForm;
+export default connect()(LoginForm);

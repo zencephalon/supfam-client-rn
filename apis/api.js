@@ -66,4 +66,10 @@ export const postRegister = ({
   });
 };
 
+export const postLogin = ({ name, password }) => {
+  return api.postToAPI(`login`, {
+    body: JSON.stringify({ name, password }),
+  });
+};
+
 export default api;
