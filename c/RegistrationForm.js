@@ -28,6 +28,40 @@ const debounced = debounce(
   300
 );
 
+const useFetchNameAvailable = ({
+  setFetchingNameAvailable,
+  getNameAvailable,
+  setNameAvailable,
+  debounced,
+}) => {
+  return React.useCallback(
+    (name) => {
+      debounced({
+        name,
+        setFetchingNameAvailable,
+        getNameAvailable,
+        setNameAvailable,
+      });
+    },
+    [setFetchingNameAvailable, getNameAvailable, setNameAvailable, debounced]
+  );
+};
+
+const useHandleUsername = ({
+  setName,
+  setFetchingNameAvailable,
+  fetchNameAvailable,
+}) => {
+  return React.useCallback(
+    (name) => {
+      setName(name);
+      setFetchingNameAvailable(true);
+      fetchNameAvailable(name);
+    },
+    [setName, fetchNameAvailable, setFetchingNameAvailable]
+  );
+};
+
 const RegistrationForm = ({ token, dispatch }) => {
   const [password, setPassword] = React.useState('');
   const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
@@ -38,19 +72,18 @@ const RegistrationForm = ({ token, dispatch }) => {
   );
   const PostRegister = useApi(postRegister);
 
-  const handleUsername = (name) => {
-    setName(name);
-    fetchNameAvailable(name);
-  };
+  const fetchNameAvailable = useFetchNameAvailable({
+    setFetchingNameAvailable,
+    getNameAvailable,
+    setNameAvailable,
+    debounced,
+  });
 
-  const fetchNameAvailable = () => {
-    debounced({
-      name,
-      setFetchingNameAvailable,
-      getNameAvailable,
-      setNameAvailable,
-    });
-  };
+  const handleUsername = useHandleUsername({
+    setName,
+    setFetchingNameAvailable,
+    fetchNameAvailable,
+  });
 
   const nameAndFetched = !fetchingNameAvailable && !!name;
   const nameOk = nameAndFetched && nameAvailable;
