@@ -144,6 +144,9 @@ const RegistrationForm = ({ token, dispatch }) => {
         onPress={register}
         style={styles.button}
       />
+      <SfText style={{ fontSize: 16 }}>
+        By registering you agree to our Terms and Conditions
+      </SfText>
     </View>
   );
 };
