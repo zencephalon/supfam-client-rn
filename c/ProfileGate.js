@@ -4,7 +4,8 @@ import { getProfilesMe } from '~/apis/api';
 import { View } from 'react-native';
 import SfText from '~/c/SfText';
 import FullScreenLoader from '~/c/FullScreenLoader';
-import SfContainer from './SfContainer';
+import SfContainer from '~/c/SfContainer';
+import Camera from '~/c/Camera';
 
 const ProfileGate = (props) => {
   const { data: profiles, status } = useQuery('profilesMe', getProfilesMe);
@@ -17,6 +18,7 @@ const ProfileGate = (props) => {
 
   if (!profiles || profiles?.length === 0) {
     return (
+      // <Camera />
       <SfContainer>
         <SfText>Create your first profile</SfText>
       </SfContainer>
