@@ -76,4 +76,39 @@ export const postLogin = ({ name, password }) => {
   });
 };
 
+export const fetchPresigned = (filetype) => {
+  return api.fetchFromAPI(`uploads/presigned?filetype=${filetype}`);
+};
+
+async function getLocalBlob(uri) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function () {
+      reject(new TypeError('Network request failed'));
+    };
+    xhr.responseType = 'blob';
+    xhr.open('GET', uri, true);
+    xhr.send(null);
+  });
+}
+
+export const uploadImage = async (image) => {
+  const fileExtension = image.uri.split('.').pop();
+  const { url, key } = await fetchPresigned(fileExtension);
+
+  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+  const blob = await getLocalBlob(image.uri);
+
+  await fetch(url, {
+    method: 'PUT',
+    body: blob,
+  });
+
+  blob.close();
+  return { key };
+};
+
 export default api;

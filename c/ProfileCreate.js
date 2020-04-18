@@ -3,7 +3,6 @@ import SfContainer from '~/c/SfContainer';
 import SfText from '~/c/SfText';
 import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
-import { Image } from 'react-native';
 import { BareUserIcon } from '~/c/UserIcon';
 
 import { FREE } from '~/constants/Colors';
@@ -11,12 +10,10 @@ import { FREE } from '~/constants/Colors';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import { uploadImage } from '~/apis/api';
 
-function ProfileCreate(props) {
-  const [name, setName] = React.useState('');
-  const [image, setImage] = React.useState(null);
-
-  const snapImage = async () => {
+function useSnapImage({ setAvatarKey, setImage }) {
+  return async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status !== 'granted') {
@@ -26,23 +23,30 @@ function ProfileCreate(props) {
     }
 
     try {
-      let result = await ImagePicker.launchCameraAsync({
+      let image = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
       });
-      if (!result.cancelled) {
-        setImage(result.uri);
+      if (!image.cancelled) {
+        uploadImage(image)
+          .then((key) => {
+            setAvatarKey(key);
+            setImage(image.uri);
+          })
+          .catch((e) => {
+            console.log('uploadImage in component', e);
+          });
       }
-
-      console.log(result);
     } catch (E) {
       console.log(E);
     }
   };
+}
 
-  const pickImage = async () => {
+function usePickImage({ setAvatarKey, setImage }) {
+  return async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== 'granted') {
@@ -66,6 +70,15 @@ function ProfileCreate(props) {
       console.log(E);
     }
   };
+}
+
+function ProfileCreate(props) {
+  const [name, setName] = React.useState('');
+  const [image, setImage] = React.useState(null);
+  const [avatarKey, setAvatarKey] = React.useState(null);
+
+  const snapImage = useSnapImage({ setAvatarKey, setImage });
+  const pickImage = usePickImage({ setAvatarKey, setImage });
 
   return (
     <SfContainer>
@@ -82,15 +95,6 @@ function ProfileCreate(props) {
       <SfButton title="Camera roll" onPress={pickImage} color={FREE} />
       {!!image && (
         <BareUserIcon uri={image} size={100} style={{ alignSelf: 'center' }} />
-        // <Image
-        //   source={{ uri: image }}
-        //   style={{
-        //     width: 100,
-        //     height: 100,
-        //     marginTop: 16,
-        //     alignSelf: 'center',
-        //   }}
-        // />
       )}
       <SfButton title="Create profile" style={{ marginTop: 16 }} />
     </SfContainer>
