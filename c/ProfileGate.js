@@ -6,6 +6,8 @@ import SfText from '~/c/SfText';
 import FullScreenLoader from '~/c/FullScreenLoader';
 import SfContainer from '~/c/SfContainer';
 import Camera from '~/c/Camera';
+import ImagePicker from '~/c/ImagePicker';
+import ProfileCreate from '~/c/ProfileCreate';
 
 const ProfileGate = (props) => {
   const { data: profiles, status } = useQuery('profilesMe', getProfilesMe);
@@ -18,10 +20,12 @@ const ProfileGate = (props) => {
 
   if (!profiles || profiles?.length === 0) {
     return (
+      <ProfileCreate />
+      // <ImagePicker />
       // <Camera />
-      <SfContainer>
-        <SfText>Create your first profile</SfText>
-      </SfContainer>
+      // <SfContainer>
+      //   <SfText>Create your first profile</SfText>
+      // </SfContainer>
     );
   }
 
