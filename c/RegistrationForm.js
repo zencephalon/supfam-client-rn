@@ -13,6 +13,8 @@ import AuthToken from '~/lib/AuthToken';
 
 import useApi from '~/hooks/useApi';
 
+import useConstCallback from 'use-const-callback';
+
 const debounced = debounce(
   ({ name, setFetchingNameAvailable, getNameAvailable, setNameAvailable }) => {
     if (name === '') {
@@ -34,17 +36,14 @@ const useFetchNameAvailable = ({
   setNameAvailable,
   debounced,
 }) => {
-  return React.useCallback(
-    (name) => {
-      debounced({
-        name,
-        setFetchingNameAvailable,
-        getNameAvailable,
-        setNameAvailable,
-      });
-    },
-    [setFetchingNameAvailable, getNameAvailable, setNameAvailable, debounced]
-  );
+  return useConstCallback((name) => {
+    debounced({
+      name,
+      setFetchingNameAvailable,
+      getNameAvailable,
+      setNameAvailable,
+    });
+  });
 };
 
 const useHandleUsername = ({

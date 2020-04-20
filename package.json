@@ -50,7 +50,8 @@
     "redux": "^4.0.5",
     "redux-rest-reducer": "git+ssh://git@github.com/zencephalon/redux-rest-reducer.git#9ccbc3dea0dbaf125a929d6380743fecd0203234",
     "redux-thunk": "^2.3.0",
-    "sentry-expo": "^2.0.3"
+    "sentry-expo": "^2.0.3",
+    "use-const-callback": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

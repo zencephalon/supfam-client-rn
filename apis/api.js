@@ -111,4 +111,10 @@ export const uploadImage = async (uri) => {
   return { key };
 };
 
+export const postProfile = async ({ name, avatar_url }) => {
+  return api.postToAPI(`profiles`, {
+    body: JSON.stringify({ name, avatar_url }),
+  });
+};
+
 export default api;

@@ -7051,6 +7051,11 @@ url-parse@^1.4.4:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+use-const-callback@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-const-callback/-/use-const-callback-1.0.0.tgz#79a25f853a82d297610a7e77f083b21c863270b1"
+  integrity sha512-CgpGgVjLx+IcEcGg8HfJiATCqTpfj/YcwP6INH3C8RHYRReB5Fn63j47maWz0dwEv/p1v6wkM2qmQ16p4DB5bw==
+
 use-subscription@^1.0.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/use-subscription/-/use-subscription-1.4.0.tgz#c4e808cfed6fe6e1ac875df1369c63f3ddae9522"

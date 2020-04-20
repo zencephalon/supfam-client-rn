@@ -10,7 +10,11 @@ import { FREE } from '~/constants/Colors';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import { uploadImage } from '~/apis/api';
+import { uploadImage, postProfile } from '~/apis/api';
+
+import { queryCache } from 'react-query';
+
+import useApi from '~/hooks/useApi';
 
 function useSnapImage({ setImage }) {
   return async () => {
@@ -67,12 +71,27 @@ function ProfileCreate(props) {
   const [name, setName] = React.useState('');
   const [image, setImage] = React.useState(null);
   // const [avatarKey, setAvatarKey] = React.useState(null);
+  const PostProfile = useApi(postProfile, {
+    onConfirm: () => {
+      console.log('ILUVUUUUUU ONCONFIRM');
+      queryCache.refetchQueries('profilesMe');
+    },
+  });
+  const UploadImage = useApi(uploadImage);
 
   const snapImage = useSnapImage({ setImage });
   const pickImage = usePickImage({ setImage });
 
+  const profileBusy = PostProfile.req.requested || UploadImage.req.requested;
+  const cantCreateProfile = !name || !image;
   const createProfile = async () => {
-    const imageKey = await uploadImage(image.uri);
+    if (profileBusy) {
+      return;
+    }
+
+    const { key: avatar_url } = await UploadImage.call(image.uri);
+    // await postProfile({ name, avatar_url });
+    return PostProfile.call({ name, avatar_url });
   };
 
   return (
@@ -82,6 +101,7 @@ function ProfileCreate(props) {
         placeholder="Display name"
         value={name}
         onChangeText={setName}
+        ok={!!name}
       />
       <SfText style={{ marginTop: 16, marginBottom: 8 }}>
         Set profile photo from:
@@ -95,7 +115,12 @@ function ProfileCreate(props) {
           style={{ alignSelf: 'center' }}
         />
       )}
-      <SfButton title="Create profile" style={{ marginTop: 16 }} />
+      <SfButton
+        title={profileBusy ? 'Creating profile...' : 'Create profile'}
+        disabled={cantCreateProfile || profileBusy}
+        style={{ marginTop: 16 }}
+        onPress={createProfile}
+      />
     </SfContainer>
   );
 }

@@ -19,14 +19,7 @@ const ProfileGate = (props) => {
   }
 
   if (!profiles || profiles?.length === 0) {
-    return (
-      <ProfileCreate />
-      // <ImagePicker />
-      // <Camera />
-      // <SfContainer>
-      //   <SfText>Create your first profile</SfText>
-      // </SfContainer>
-    );
+    return <ProfileCreate />;
   }
 
   return props.children;
