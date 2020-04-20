@@ -9,7 +9,10 @@ import { getStatusMe, putStatusMe } from '~/apis/api';
 
 import { useQuery, useMutation, queryCache } from 'react-query';
 
-const StatusCenter = props => {
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { OPEN } from '~/constants/Colors';
+
+const StatusCenter = (props) => {
   const [message, setMessage] = React.useState('');
   const [mutateStatus] = useMutation(putStatusMe, {
     onSuccess: () => {
@@ -20,7 +23,7 @@ const StatusCenter = props => {
 
   const statusMe = user?.current_status;
 
-  const setColor = React.useCallback(async color => {
+  const setColor = React.useCallback(async (color) => {
     await mutateStatus({ color });
   });
 
@@ -33,15 +36,29 @@ const StatusCenter = props => {
 
   return (
     <React.Fragment>
-      <SfTextInput
-        placeholder={statusMe?.message || 'Loading...'}
-        value={message}
-        onChangeText={setMessage}
-        onSubmitEditing={postMessage}
-        style={styles.statusInput}
-      />
+      <View style={{ flexDirection: 'row' }}>
+        <SfTextInput
+          placeholder={statusMe?.message || 'Loading...'}
+          value={message}
+          onChangeText={setMessage}
+          onSubmitEditing={postMessage}
+          textInputStyle={styles.statusInput}
+          style={{ marginLeft: 4, marginBottom: 8, flexGrow: 1 }}
+        />
+        <MaterialCommunityIcons
+          name="send"
+          size={24}
+          color={statusMe?.color || OPEN}
+          style={{
+            alignSelf: 'center',
+            marginLeft: 4,
+            marginRight: 4,
+            marginBottom: 4,
+          }}
+        />
+      </View>
       <View style={styles.tabBarInfoContainer}>
-        {[0, 1, 2, 3].map(color => {
+        {[0, 1, 2, 3].map((color) => {
           return (
             <StatusButton
               color={color}
@@ -65,8 +82,8 @@ const styles = StyleSheet.create({
   },
   statusInput: {
     padding: 12,
-    fontSize: 14,
-    borderRadius: 0,
+    fontSize: 16,
+    borderRadius: 10,
     borderWidth: 0,
     marginBottom: -1,
   },

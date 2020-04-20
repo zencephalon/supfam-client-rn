@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
   });
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={{ ...styles.container, backgroundColor: backgrounds[0] }}
       behavior="padding"
       enabled
       keyboardVerticalOffset={20}

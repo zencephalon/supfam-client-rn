@@ -21,10 +21,16 @@ const LoginForm = ({ dispatch }) => {
       return;
     }
 
-    PostLogin.call({ name, password }).then((json) => {
-      AuthToken.set(json);
-      dispatch(LOGIN(json));
-    });
+    PostLogin.call({ name, password })
+      .then((json) => {
+        if (!json.error) {
+          AuthToken.set(json);
+          dispatch(LOGIN(json));
+        }
+      })
+      .catch((e) => {
+        console.log('WTF dude', e);
+      });
   };
 
   return (

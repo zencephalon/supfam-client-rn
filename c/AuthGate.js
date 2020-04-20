@@ -34,6 +34,9 @@ function Welcome(props) {
 
 const AuthGate = function (props) {
   const [selection, setSelection] = React.useState('default');
+  React.useEffect(() => {
+    setSelection('default');
+  }, [props.token]);
 
   const renders = {
     default: <Welcome setSelection={setSelection} />,
