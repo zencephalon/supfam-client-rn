@@ -95,12 +95,12 @@ async function getLocalBlob(uri) {
   });
 }
 
-export const uploadImage = async (image) => {
-  const fileExtension = image.uri.split('.').pop();
+export const uploadImage = async (uri) => {
+  const fileExtension = uri.split('.').pop();
   const { url, key } = await fetchPresigned(fileExtension);
 
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-  const blob = await getLocalBlob(image.uri);
+  const blob = await getLocalBlob(uri);
 
   await fetch(url, {
     method: 'PUT',

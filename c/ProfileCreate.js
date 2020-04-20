@@ -12,7 +12,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { uploadImage } from '~/apis/api';
 
-function useSnapImage({ setAvatarKey, setImage }) {
+function useSnapImage({ setImage }) {
   return async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -30,22 +30,15 @@ function useSnapImage({ setAvatarKey, setImage }) {
         quality: 1,
       });
       if (!image.cancelled) {
-        uploadImage(image)
-          .then((key) => {
-            setAvatarKey(key);
-            setImage(image.uri);
-          })
-          .catch((e) => {
-            console.log('uploadImage in component', e);
-          });
+        setImage(image);
       }
-    } catch (E) {
-      console.log(E);
+    } catch (e) {
+      console.log(e);
     }
   };
 }
 
-function usePickImage({ setAvatarKey, setImage }) {
+function usePickImage({ setImage }) {
   return async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -55,19 +48,17 @@ function usePickImage({ setAvatarKey, setImage }) {
     }
 
     try {
-      let result = await ImagePicker.launchImageLibraryAsync({
+      let image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
       });
-      if (!result.cancelled) {
-        setImage(result.uri);
+      if (!image.cancelled) {
+        setImage(image);
       }
-
-      console.log(result);
-    } catch (E) {
-      console.log(E);
+    } catch (e) {
+      console.log(e);
     }
   };
 }
@@ -75,10 +66,14 @@ function usePickImage({ setAvatarKey, setImage }) {
 function ProfileCreate(props) {
   const [name, setName] = React.useState('');
   const [image, setImage] = React.useState(null);
-  const [avatarKey, setAvatarKey] = React.useState(null);
+  // const [avatarKey, setAvatarKey] = React.useState(null);
 
-  const snapImage = useSnapImage({ setAvatarKey, setImage });
-  const pickImage = usePickImage({ setAvatarKey, setImage });
+  const snapImage = useSnapImage({ setImage });
+  const pickImage = usePickImage({ setImage });
+
+  const createProfile = async () => {
+    const imageKey = await uploadImage(image.uri);
+  };
 
   return (
     <SfContainer>
@@ -94,7 +89,11 @@ function ProfileCreate(props) {
       <SfButton title="Camera" onPress={snapImage} color={FREE} />
       <SfButton title="Camera roll" onPress={pickImage} color={FREE} />
       {!!image && (
-        <BareUserIcon uri={image} size={100} style={{ alignSelf: 'center' }} />
+        <BareUserIcon
+          uri={image.uri}
+          size={100}
+          style={{ alignSelf: 'center' }}
+        />
       )}
       <SfButton title="Create profile" style={{ marginTop: 16 }} />
     </SfContainer>
