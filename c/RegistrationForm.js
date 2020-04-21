@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { debounce } from 'lodash';
 
@@ -61,7 +61,8 @@ const useHandleUsername = ({
   );
 };
 
-const RegistrationForm = ({ token, dispatch }) => {
+const RegistrationForm = ({ token }) => {
+  const dispatch = useDispatch();
   const [password, setPassword] = React.useState('');
   const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
   const [name, setName] = React.useState('');
@@ -159,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(RegistrationForm);
+export default RegistrationForm;

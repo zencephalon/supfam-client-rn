@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
 
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { LOGIN } from '~/apis/auth/actions';
 import AuthToken from '~/lib/AuthToken';
@@ -11,7 +11,8 @@ import AuthToken from '~/lib/AuthToken';
 import useApi from '~/hooks/useApi';
 import { postLogin } from '~/apis/api';
 
-const LoginForm = ({ dispatch }) => {
+const LoginForm = () => {
+  const dispatch = useDispatch();
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const PostLogin = useApi(postLogin);
@@ -71,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(LoginForm);
+export default LoginForm;

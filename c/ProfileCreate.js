@@ -70,10 +70,8 @@ function usePickImage({ setImage }) {
 function ProfileCreate(props) {
   const [name, setName] = React.useState('');
   const [image, setImage] = React.useState(null);
-  // const [avatarKey, setAvatarKey] = React.useState(null);
   const PostProfile = useApi(postProfile, {
     onConfirm: () => {
-      console.log('ILUVUUUUUU ONCONFIRM');
       queryCache.refetchQueries('profilesMe');
     },
   });
@@ -85,7 +83,7 @@ function ProfileCreate(props) {
   const profileBusy = PostProfile.req.requested || UploadImage.req.requested;
   const cantCreateProfile = !name || !image;
   const createProfile = async () => {
-    if (profileBusy) {
+    if (profileBusy || cantCreateProfile) {
       return;
     }
 
