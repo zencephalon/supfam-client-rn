@@ -6,10 +6,10 @@ import cable from '~/lib/Cable';
 
 function CableContainer() {
   useEffect(() => {
-    cable.init();
-    return () => {
-      cable.disconnect();
-    };
+    // cable.init();
+    // return () => {
+    //   cable.disconnect();
+    // };
   }, []);
 
   return null;

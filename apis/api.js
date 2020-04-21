@@ -13,15 +13,15 @@ export const getFriends = () => {
   return api.fetchFromAPI('friends');
 };
 
-export const getStatusMe = () => {
-  return api.fetchFromAPI('users/me');
+export const getProfile = (_key, id) => {
+  return api.fetchFromAPI(`profiles/${id}`);
 };
 
 export const getProfilesMe = () => {
   return api.fetchFromAPI('profiles/me');
 };
 
-export const getUserDmMessages = (key, { userId }) => {
+export const getUserDmMessages = (_key, { userId }) => {
   return api.fetchFromAPI(`messages/user/${userId}`);
 };
 

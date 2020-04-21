@@ -5,31 +5,39 @@ import SfTextInput from './SfTextInput';
 
 import StatusButton from '~/c/StatusButton';
 
-import { getStatusMe, putStatusMe } from '~/apis/api';
+import { getProfile, putStatusMe } from '~/apis/api';
 
 import { useQuery, useMutation, queryCache } from 'react-query';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
+import statusColors from '~/constants/statusColors';
 
-const StatusCenter = (props) => {
+import { useSelector } from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+const StatusCenter = () => {
+  const profileId = useSelector((state) => state.profile.profileId);
   const [message, setMessage] = React.useState('');
   const [mutateStatus] = useMutation(putStatusMe, {
     onSuccess: () => {
-      // queryCache.refetchQueries('statusMe');
+      queryCache.refetchQueries(['profileMe', profileId]);
     },
   });
-  const { data: user, status } = useQuery('statusMe', getStatusMe);
+  const { data: profile, status } = useQuery(
+    ['profileMe', profileId],
+    getProfile
+  );
 
-  const statusMe = user?.current_status;
+  const statusMe = profile?.status;
 
   const setColor = React.useCallback(async (color) => {
-    await mutateStatus({ color });
+    await mutateStatus({ profileId, color });
   });
 
   const postMessage = React.useCallback(async () => {
     if (status === 'success') {
-      await mutateStatus({ color: statusMe?.color, message });
+      await mutateStatus({ profileId, color: statusMe?.color, message });
       setMessage('');
     }
   }, [statusMe, message, status]);
@@ -43,19 +51,24 @@ const StatusCenter = (props) => {
           onChangeText={setMessage}
           onSubmitEditing={postMessage}
           textInputStyle={styles.statusInput}
-          style={{ marginLeft: 4, marginBottom: 8, flexGrow: 1 }}
+          style={{ marginLeft: 4, marginBottom: 8, flexGrow: 1, flexShrink: 1 }}
         />
-        <MaterialCommunityIcons
-          name="send"
-          size={24}
-          color={statusMe?.color || OPEN}
+        <TouchableOpacity
+          onPress={postMessage}
           style={{
-            alignSelf: 'center',
+            alignSelf: 'flex-start',
             marginLeft: 4,
             marginRight: 4,
             marginBottom: 4,
+            marginTop: 10,
           }}
-        />
+        >
+          <MaterialCommunityIcons
+            name="send"
+            size={24}
+            color={statusColors[statusMe?.color] || OPEN}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.tabBarInfoContainer}>
         {[0, 1, 2, 3].map((color) => {
