@@ -87,9 +87,9 @@ function ProfileCreate(props) {
       return;
     }
 
-    const { key: avatar_url } = await UploadImage.call(image.uri);
+    const { key: avatar_key } = await UploadImage.call(image.uri);
     // await postProfile({ name, avatar_url });
-    return PostProfile.call({ name, avatar_url });
+    return PostProfile.call({ name, avatar_key });
   };
 
   return (
