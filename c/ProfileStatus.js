@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import UserIcon from './UserIcon';
+import ProfileIcon from './ProfileIcon';
 import TopText from './TopText';
 
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
@@ -12,29 +12,29 @@ import statusColors from '~/constants/statusColors';
 
 import useLight from '~/hooks/useLight';
 
-export default function UserStatus({ user, navigation }) {
+export default function ProfileStatus({ profile, navigation }) {
   const { backgrounds } = useLight();
   return (
     <TouchableOpacity
       style={{
-        ...styles.userStatus,
-        borderLeftColor: statusColors[user.status.color],
+        ...styles.profileStatus,
+        borderLeftColor: statusColors[profile.status.color],
         // borderBottomColor: backgrounds[1],
       }}
       onPress={() => {
-        navigation.navigate('Conversation', { userId: user.id });
+        navigation.navigate('Conversation', { profileId: profile.id });
       }}
     >
       <View style={{ flexGrow: 1 }}>
         <TopText
-          displayName={user.name}
-          locationState={user.name}
-          lastUpdate={user?.status?.updated_at}
-          lastSeen={user?.updated_at}
-          user={user}
+          displayName={profile.name}
+          locationState={profile.name}
+          lastUpdate={profile?.status?.updated_at}
+          lastSeen={profile?.updated_at}
+          profile={profile}
         />
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
-          <UserIcon userId={user.id} size={40} />
+          <ProfileIcon profileId={profile.id} size={48} />
           <View
             style={{
               flexDirection: 'column',
@@ -47,17 +47,17 @@ export default function UserStatus({ user, navigation }) {
                 fontSize: 16,
                 flexGrow: 1,
                 flexShrink: 1,
-                backgroundColor: backgrounds[1],
-                padding: 8,
-                borderRadius: 10,
+                // backgroundColor: backgrounds[1],
+                // padding: 8,
+                // borderRadius: 10,
                 overflow: 'hidden',
               }}
             >
-              {user.status.message}
+              {profile.status.message}
             </SfText>
 
             <Text style={{ textAlign: 'right', alignSelf: 'stretch' }}>
-              {user.messagePreview}
+              {profile.messagePreview}
             </Text>
           </View>
         </View>
@@ -67,14 +67,14 @@ export default function UserStatus({ user, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  userStatus: {
+  profileStatus: {
     flexDirection: 'row',
     alignSelf: 'stretch',
-    borderLeftWidth: 4,
+    // borderLeftWidth: 4,
     paddingLeft: 8,
-    paddingTop: 8,
     // borderBottomWidth: 1,
     paddingRight: 8,
     paddingLeft: 8,
+    marginBottom: 8,
   },
 });

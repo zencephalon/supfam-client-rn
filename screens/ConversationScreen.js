@@ -16,7 +16,7 @@ import MessageList from '~/c/MessageList';
 import SfTextInput from '~/c/SfTextInput';
 
 import useLight from '~/hooks/useLight';
-import useCachedUser from '../hooks/useCachedUser';
+import useCachedProfile from '~/hooks/useCachedProfile';
 
 const sendInstant = throttle((conversationId, message) => {
   Cable.sendInstant(conversationId, message);
@@ -28,7 +28,7 @@ export default function ConversationScreen({ navigation, route }) {
 
   const me = useSelector((store) => store.auth.user);
 
-  const user = useCachedUser(userId);
+  const user = useCachedProfile(userId);
 
   const { data: _messages } = useQuery(
     ['dm_messages', { userId }],

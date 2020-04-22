@@ -1,19 +1,19 @@
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 
-import UserStatus from '~/c/UserStatus';
+import ProfileStatus from '~/c/ProfileStatus';
 
 import useLight from '~/hooks/useLight';
 import useFriends from '~/hooks/useFriends';
 
-const FriendList = props => {
+const FriendList = (props) => {
   const { status, friends, error } = useFriends();
 
   const { backgrounds } = useLight();
 
-  const renderUserStatus = React.useCallback(
-    ({ item: user }) => {
-      return <UserStatus user={user} navigation={props.navigation} />;
+  const renderProfileStatus = React.useCallback(
+    ({ item: profile }) => {
+      return <ProfileStatus profile={profile} navigation={props.navigation} />;
     },
     [props.navigation]
   );
@@ -23,8 +23,8 @@ const FriendList = props => {
       inverted
       data={friends}
       style={{ backgroundColor: backgrounds[0] }}
-      renderItem={renderUserStatus}
-      keyExtractor={user => `${user.id}`}
+      renderItem={renderProfileStatus}
+      keyExtractor={(profile) => `${profile.id}`}
     />
   );
 };

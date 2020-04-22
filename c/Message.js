@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View, Text } from 'react-native';
 
 import SfText from '~/c/SfText';
-import UserIcon from '~/c/UserIcon';
+import ProfileIcon from '~/c/ProfileIcon';
 
 import useLight from '~/hooks/useLight';
 
@@ -24,7 +24,7 @@ function Message(props) {
     >
       <View style={{ width: 32 }}>
         {!props.isOwnMessage && !props.fromSameUser && (
-          <UserIcon userId={props.message.user_summary.id} size={24} />
+          <ProfileIcon userId={props.message.user_summary.id} size={24} />
         )}
       </View>
       <View

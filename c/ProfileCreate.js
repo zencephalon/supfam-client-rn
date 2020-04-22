@@ -3,7 +3,7 @@ import SfContainer from '~/c/SfContainer';
 import SfText from '~/c/SfText';
 import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
-import { BareUserIcon } from '~/c/UserIcon';
+import { BareProfileIcon } from '~/c/ProfileIcon';
 
 import { FREE } from '~/constants/Colors';
 
@@ -107,7 +107,7 @@ function ProfileCreate(props) {
       <SfButton title="Camera" onPress={snapImage} color={FREE} />
       <SfButton title="Camera roll" onPress={pickImage} color={FREE} />
       {!!image && (
-        <BareUserIcon
+        <BareProfileIcon
           uri={image.uri}
           size={100}
           style={{ alignSelf: 'center' }}

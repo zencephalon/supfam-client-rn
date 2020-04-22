@@ -16,8 +16,13 @@ import statusColors from '~/constants/statusColors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useProfileId from '~/hooks/useProfileId';
 
+import ProfileIcon from '~/c/ProfileIcon';
+
+import useLight from '~/hooks/useLight';
+
 const StatusCenter = () => {
   const profileId = useProfileId();
+  const [focused, setFocused] = React.useState(false);
   const [message, setMessage] = React.useState('');
   const [mutateStatus] = useMutation(putStatusMe, {
     onSuccess: () => {
@@ -26,7 +31,13 @@ const StatusCenter = () => {
   });
   const { data: profile, status } = useQuery(
     profileId && ['profileMe', profileId],
-    getProfile
+    getProfile,
+    {
+      onSuccess: (profile) => {
+        console.log('ILUVU', profile);
+        queryCache.setQueryData(['friend', profileId], profile);
+      },
+    }
   );
 
   const statusMe = profile?.status;
@@ -42,25 +53,37 @@ const StatusCenter = () => {
     }
   }, [statusMe, message, status]);
 
+  const { backgrounds } = useLight();
+
   return (
     <React.Fragment>
-      <View style={{ flexDirection: 'row' }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingLeft: 8,
+          paddingRight: 8,
+          marginBottom: 8,
+          borderTopColor: backgrounds[1],
+          borderTopWidth: 1,
+          paddingTop: 8,
+          alignItems: 'flex-end',
+        }}
+      >
+        <ProfileIcon profileId={profileId} size={48} />
         <SfTextInput
           placeholder={statusMe?.message || 'Loading...'}
           value={message}
           onChangeText={setMessage}
-          onSubmitEditing={postMessage}
+          // onSubmitEditing={postMessage}
           textInputStyle={styles.statusInput}
-          style={{ marginLeft: 4, marginBottom: 8, flexGrow: 1, flexShrink: 1 }}
+          style={{ flexGrow: 1, flexShrink: 1 }}
+          multiline={true}
         />
         <TouchableOpacity
           onPress={postMessage}
           style={{
             alignSelf: 'flex-start',
             marginLeft: 4,
-            marginRight: 4,
-            marginBottom: 4,
-            marginTop: 10,
           }}
         >
           <MaterialCommunityIcons
@@ -98,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderRadius: 10,
     borderWidth: 0,
-    marginBottom: -1,
+    paddingBottom: 4,
   },
   tabBarInfoContainer: {
     // ...Platform.select({

@@ -19,7 +19,7 @@ export default function TopText({
   locationState,
   lastUpdate,
   lastSeen,
-  user,
+  profile,
 }) {
   const { foregrounds } = useLight();
 
@@ -46,13 +46,13 @@ export default function TopText({
         </Text>
         <TimeAgoOnline time={lastSeen} />
         <BatteryStatus
-          battery={user?.seen?.battery}
-          batteryState={user?.seen?.battery_state}
+          battery={profile?.seen?.battery}
+          batteryState={profile?.seen?.battery_state}
         />
         <NetworkStatus
-          networkType={user?.seen?.network_type}
-          networkStrength={user?.seen?.network_strength}
-          cellularGeneration={user?.seen?.cellular_generation}
+          networkType={profile?.seen?.network_type}
+          networkStrength={profile?.seen?.network_strength}
+          cellularGeneration={profile?.seen?.cellular_generation}
         />
       </View>
 

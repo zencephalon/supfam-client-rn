@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Image } from 'react-native';
 import statusColors from '~/constants/statusColors';
 
-import useCachedUser from '~/hooks/useCachedUser';
+import useCachedProfile from '~/hooks/useCachedProfile';
 
-export function BareUserIcon(props) {
+export function BareProfileIcon(props) {
   return (
     <Image
       source={{ uri: props.uri }}
@@ -21,12 +21,16 @@ export function BareUserIcon(props) {
   );
 }
 
-export default UserIcon = (props) => {
-  const user = useCachedUser(props.userId);
-  const color = statusColors[user?.status?.color];
-  console.log({ color, status: user?.status });
+export default ProfileIcon = (props) => {
+  const profile = useCachedProfile(props.profileId);
+  const color = statusColors[profile?.status?.color];
+  console.log({ profile });
 
   return (
-    <BareUserIcon size={props.size} color={color} uri={user?.avatar_url} />
+    <BareProfileIcon
+      size={props.size}
+      color={color}
+      uri={profile?.avatar_url}
+    />
   );
 };

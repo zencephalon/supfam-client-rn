@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { getProfilesMe } from '~/apis/api';
 import FullScreenLoader from '~/c/FullScreenLoader';
 import ProfileCreate from '~/c/ProfileCreate';
+import AuthToken from '~/lib/AuthToken';
 
 import { SELECT } from '~/apis/profile/actions';
 
@@ -22,8 +23,12 @@ const ProfileGate = (props) => {
     return <FullScreenLoader />;
   }
 
-  if (!profiles || profiles?.length === 0) {
+  if (profiles?.length === 0) {
     return <ProfileCreate />;
+  }
+
+  if (!profiles) {
+    AuthToken.remove();
   }
 
   return props.children;
