@@ -14,10 +14,7 @@ export function BareUserIcon(props) {
         borderRadius: 50,
         marginRight: 8,
         borderWidth: props.color !== undefined ? 3 : 1,
-        borderColor:
-          props.color !== undefined
-            ? statusColors[user.current_status.color]
-            : '#434C5E',
+        borderColor: props.color,
         ...props.style,
       }}
     />
@@ -26,7 +23,8 @@ export function BareUserIcon(props) {
 
 export default UserIcon = (props) => {
   const user = useCachedUser(props.userId);
-  const color = user?.current_status?.color;
+  const color = statusColors[user?.status?.color];
+  console.log({ color, status: user?.status });
 
   return (
     <BareUserIcon size={props.size} color={color} uri={user?.avatar_url} />

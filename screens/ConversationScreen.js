@@ -26,7 +26,7 @@ export default function ConversationScreen({ navigation, route }) {
   const [text, setText] = React.useState('');
   const { userId } = route.params;
 
-  const me = useSelector(store => store.auth.user);
+  const me = useSelector((store) => store.auth.user);
 
   const user = useCachedUser(userId);
 
@@ -69,7 +69,7 @@ export default function ConversationScreen({ navigation, route }) {
   }, [text, userId]);
 
   const setMessage = React.useCallback(
-    text => {
+    (text) => {
       setText(text);
       sendInstant(conversationId, text);
     },
@@ -79,7 +79,7 @@ export default function ConversationScreen({ navigation, route }) {
   navigation.setOptions({
     headerTitle: user.name,
     headerStyle: {
-      backgroundColor: statusColors[user.current_status.color || 0],
+      backgroundColor: statusColors[user.status.color || 0],
     },
   });
 

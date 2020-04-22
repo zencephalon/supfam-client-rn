@@ -13,11 +13,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
-import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import useProfileId from '~/hooks/useProfileId';
 
 const StatusCenter = () => {
-  const profileId = useSelector((state) => state.profile.profileId);
+  const profileId = useProfileId();
   const [message, setMessage] = React.useState('');
   const [mutateStatus] = useMutation(putStatusMe, {
     onSuccess: () => {
@@ -25,7 +25,7 @@ const StatusCenter = () => {
     },
   });
   const { data: profile, status } = useQuery(
-    ['profileMe', profileId],
+    profileId && ['profileMe', profileId],
     getProfile
   );
 

@@ -18,7 +18,7 @@ export default function UserStatus({ user, navigation }) {
     <TouchableOpacity
       style={{
         ...styles.userStatus,
-        borderLeftColor: statusColors[user.current_status.color],
+        borderLeftColor: statusColors[user.status.color],
         // borderBottomColor: backgrounds[1],
       }}
       onPress={() => {
@@ -29,8 +29,8 @@ export default function UserStatus({ user, navigation }) {
         <TopText
           displayName={user.name}
           locationState={user.name}
-          lastUpdate={user?.current_status?.updated_at}
-          lastSeen={user?.current_seen?.updated_at}
+          lastUpdate={user?.status?.updated_at}
+          lastSeen={user?.updated_at}
           user={user}
         />
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
@@ -53,7 +53,7 @@ export default function UserStatus({ user, navigation }) {
                 overflow: 'hidden',
               }}
             >
-              {user.current_status.message}
+              {user.status.message}
             </SfText>
 
             <Text style={{ textAlign: 'right', alignSelf: 'stretch' }}>

@@ -46,17 +46,17 @@ export default function TopText({
         </Text>
         <TimeAgoOnline time={lastSeen} />
         <BatteryStatus
-          battery={user?.current_seen?.battery}
-          batteryState={user?.current_seen?.battery_state}
+          battery={user?.seen?.battery}
+          batteryState={user?.seen?.battery_state}
         />
         <NetworkStatus
-          networkType={user?.current_seen?.network_type}
-          networkStrength={user?.current_seen?.network_strength}
-          cellularGeneration={user?.current_seen?.cellular_generation}
+          networkType={user?.seen?.network_type}
+          networkStrength={user?.seen?.network_strength}
+          cellularGeneration={user?.seen?.cellular_generation}
         />
       </View>
 
-      <View style={{ flexDirection: 'row' }}>
+      {/* <View style={{ flexDirection: 'row' }}>
         <Text
           style={{
             textAlign: 'right',
@@ -77,7 +77,7 @@ export default function TopText({
           size={14}
           color={foregrounds[3]}
         />
-      </View>
+      </View> */}
     </View>
   );
 }

@@ -9,8 +9,8 @@ const setAuthHeader = (headers) => {
 
 const api = configureAPI(API_URL, { headerFunc: setAuthHeader });
 
-export const getFriends = () => {
-  return api.fetchFromAPI('friends');
+export const getFriends = (_key, profileId) => {
+  return api.fetchFromAPI(`friends/${profileId}`);
 };
 
 export const getProfile = (_key, id) => {

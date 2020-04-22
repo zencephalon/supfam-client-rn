@@ -2,17 +2,24 @@ import { useQuery, queryCache } from 'react-query';
 import { getFriends } from '~/apis/api';
 import { orderBy } from 'lodash';
 
+import useProfileId from '~/hooks/useProfileId';
+
 export default function useFriends() {
-  const { status, data, error } = useQuery('friends', getFriends, {
-    onSuccess: friends => {
-      friends.map(friend => {
-        queryCache.setQueryData(['friend', friend.id], friend);
-      });
-    },
-  });
+  const profileId = useProfileId();
+  const { status, data, error } = useQuery(
+    profileId && ['friends', profileId],
+    getFriends,
+    {
+      onSuccess: (friends) => {
+        friends.map((friend) => {
+          queryCache.setQueryData(['friend', friend.id], friend);
+        });
+      },
+    }
+  );
   const friends = orderBy(
     data,
-    ['current_status.color', 'current_status.updated_at'],
+    ['status.color', 'updated_at'],
     ['desc', 'desc']
   );
 
