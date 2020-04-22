@@ -13,9 +13,15 @@ const ProfileGate = (props) => {
   const dispatch = useDispatch();
   const { data: profiles, status } = useQuery('profilesMe', getProfilesMe);
 
+  console.log({ profiles });
+
   React.useEffect(() => {
     if ((profiles?.length || 0) > 0) {
-      dispatch(SELECT(profiles[0].id));
+      profiles.forEach((profile) => {
+        if (profile.is_default) {
+          dispatch(SELECT(profile.id));
+        }
+      });
     }
   }, [profiles]);
 

@@ -24,7 +24,6 @@ export function BareProfileIcon(props) {
 export default ProfileIcon = (props) => {
   const profile = useCachedProfile(props.profileId);
   const color = statusColors[profile?.status?.color];
-  console.log({ profile });
 
   return (
     <BareProfileIcon

@@ -33,7 +33,6 @@ const StatusCenter = () => {
     getProfile,
     {
       onSuccess: (profile) => {
-        console.log('ILUVU', profile);
         queryCache.setQueryData(['friend', profileId], profile);
       },
     }
@@ -41,16 +40,19 @@ const StatusCenter = () => {
 
   const statusMe = profile?.status;
 
-  const setColor = React.useCallback(async (color) => {
-    await mutateStatus({ profileId, color });
-  });
+  const setColor = React.useCallback(
+    async (color) => {
+      await mutateStatus({ profileId, color });
+    },
+    [profileId]
+  );
 
   const postMessage = React.useCallback(async () => {
     if (status === 'success') {
       await mutateStatus({ profileId, color: statusMe?.color, message });
       setMessage('');
     }
-  }, [statusMe, message, status]);
+  }, [statusMe, message, statusMe, profileId]);
 
   const { backgrounds } = useLight();
 

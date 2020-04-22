@@ -30,7 +30,7 @@ export default function ProfileStatus({ profile, navigation }) {
           displayName={profile.name}
           locationState={profile.name}
           lastUpdate={profile?.status?.updated_at}
-          lastSeen={profile?.updated_at}
+          lastSeen={profile?.seen?.updated_at}
           profile={profile}
         />
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
