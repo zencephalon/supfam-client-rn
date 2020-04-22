@@ -22,7 +22,6 @@ import useLight from '~/hooks/useLight';
 
 const StatusCenter = () => {
   const profileId = useProfileId();
-  const [focused, setFocused] = React.useState(false);
   const [message, setMessage] = React.useState('');
   const [mutateStatus] = useMutation(putStatusMe, {
     onSuccess: () => {
@@ -124,17 +123,6 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   tabBarInfoContainer: {
-    // ...Platform.select({
-    //   ios: {
-    //     shadowColor: 'black',
-    //     shadowOffset: { width: 0, height: -3 },
-    //     shadowOpacity: 0.1,
-    //     shadowRadius: 3,
-    //   },
-    //   android: {
-    //     elevation: 20,
-    //   },
-    // }),
     alignItems: 'center',
     paddingVertical: 0,
     flexDirection: 'row',

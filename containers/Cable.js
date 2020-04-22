@@ -1,18 +1,19 @@
 import React, { Fragment, useEffect } from 'react';
 
-import { connect } from 'react-redux';
-
 import cable from '~/lib/Cable';
+import useProfileId from '~/hooks/useProfileId';
 
 function CableContainer() {
+  const profileId = useProfileId();
+
   useEffect(() => {
-    // cable.init();
-    // return () => {
-    //   cable.disconnect();
-    // };
-  }, []);
+    cable.init(profileId);
+    return () => {
+      cable.disconnect();
+    };
+  }, [profileId]);
 
   return null;
 }
 
-export default connect()(CableContainer);
+export default CableContainer;
