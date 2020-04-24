@@ -13,7 +13,6 @@ import {
 
 import SfText from '~/c/SfText';
 
-import { textPrimary, nord4 } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
 import useLight from '~/hooks/useLight';
@@ -70,6 +69,7 @@ export default function ProfileStatus({ profile, navigation }) {
                 // backgroundColor: backgrounds[1],
                 // padding: 8,
                 // borderRadius: 10,
+                marginLeft: 8,
                 overflow: 'hidden',
               }}
             >

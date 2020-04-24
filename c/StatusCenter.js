@@ -23,11 +23,11 @@ import useLight from '~/hooks/useLight';
 const StatusCenter = () => {
   const profileId = useProfileId();
   const [message, setMessage] = React.useState('');
-  const [mutateStatus] = useMutation(putStatusMe, {
-    onSuccess: () => {
-      queryCache.refetchQueries(['profileMe', profileId]);
-    },
-  });
+  // const [mutateStatus] = useMutation(putStatusMe, {
+  //   onSuccess: () => {
+  //     queryCache.refetchQueries(['profileMe', profileId]);
+  //   },
+  // });
   const { data: profile, status } = useQuery(
     profileId && ['profileMe', profileId],
     getProfile,
@@ -42,14 +42,24 @@ const StatusCenter = () => {
 
   const setColor = React.useCallback(
     async (color) => {
-      await mutateStatus({ profileId, color });
+      try {
+        await putStatusMe({ profileId, color });
+        queryCache.refetchQueries(['profileMe', profileId]);
+      } catch (e) {
+        console.log(e);
+      }
     },
     [profileId]
   );
 
   const postMessage = React.useCallback(async () => {
     if (status === 'success') {
-      await mutateStatus({ profileId, color: statusMe?.color, message });
+      try {
+        await putStatusMe({ profileId, color: statusMe?.color, message });
+        queryCache.refetchQueries(['profileMe', profileId]);
+      } catch (e) {
+        console.log(e);
+      }
       setMessage('');
     }
   }, [statusMe, message, statusMe, profileId]);
