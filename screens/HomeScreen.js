@@ -4,6 +4,7 @@ import useLight from '~/hooks/useLight';
 
 import FriendList from '~/c/FriendList';
 import StatusCenter from '~/c/StatusCenter';
+import HomeTopBar from '~/c/HomeTopBar';
 
 import { getStatusMe } from '~/apis/api';
 import { useQuery } from 'react-query';
@@ -31,6 +32,7 @@ export default function HomeScreen({ navigation }) {
       enabled
       keyboardVerticalOffset={20}
     >
+      <HomeTopBar />
       <FriendList navigation={navigation} />
 
       <StatusCenter />
