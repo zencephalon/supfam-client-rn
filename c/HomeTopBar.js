@@ -4,7 +4,10 @@ import SfText from '~/c/SfText';
 import { MaterialIcons } from '@expo/vector-icons';
 import { View, TouchableOpacity } from 'react-native';
 
+import useLight from '~/hooks/useLight';
+
 export default function HomeTopBar(props) {
+  const { foregrounds } = useLight();
   return (
     <View
       style={{
@@ -16,11 +19,19 @@ export default function HomeTopBar(props) {
       }}
     >
       <TouchableOpacity>
-        <MaterialIcons name="settings" size={24} style={{ color: '#fff' }} />
+        <MaterialIcons
+          name="settings"
+          size={24}
+          style={{ color: foregrounds[1] }}
+        />
       </TouchableOpacity>
-      <SfText>Supfam</SfText>
+      <SfText style={{ color: foregrounds[1] }}>Supfam</SfText>
       <TouchableOpacity>
-        <MaterialIcons name="person-add" size={24} style={{ color: '#fff' }} />
+        <MaterialIcons
+          name="person-add"
+          size={24}
+          style={{ color: foregrounds[1] }}
+        />
       </TouchableOpacity>
     </View>
   );

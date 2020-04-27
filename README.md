@@ -2,20 +2,19 @@
 
 ## TODO
 
-- Initial message doesn't work, maybe the conversation doesn't exist?
-  - janky
-
 ### Features
 
-- MESSAGING. Let's do DMs first and then groups.
-  - read receipts, keep an index counter of the last message read, per user. Calculate unread count based on that
-- FAMILIES
-- PROFILES
+- CONTACTS import / inviting
 - Push notifications
 
-- twilio phone number verification to log in?
+We don't have to launch with this.
 
-  - I don't know if we actually need this
+- PROFILES
+  - We can launch with just the single profile for now
+- MESSAGING. Let's do DMs first and then groups.
+  - read receipts, keep an index counter of the last message read, per user. Calculate unread count based on that
+  - Need to figure out the schema again now that I've got profiles in the mix
+
 
 - some kind of script to auto-update people's statuses to make the app lively during testing
 - Finish making new seed data with more people in it

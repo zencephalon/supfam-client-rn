@@ -14,51 +14,50 @@ export default function BottomTabNavigator() {
   const { backgrounds, foregrounds } = useLight();
 
   return (
-    <HomeStack />
-    // <BottomTab.Navigator
-    //   initialRouteName={INITIAL_ROUTE_NAME}
-    //   tabBarOptions={{
-    //     activeTintColor: foregrounds[0],
-    //     inactiveTintColor: foregrounds[2],
-    //     inactiveBackgroundColor: backgrounds[0],
-    //     activeBackgroundColor: backgrounds[0],
-    //     style: {
-    //       borderTopWidth: 0,
-    //       backgroundColor: backgrounds[0],
-    //     },
-    //     safeAreaInset: { bottom: 'never' },
-    //   }}
-    // >
-    //   <BottomTab.Screen
-    //     name="Map"
-    //     component={MapScreen}
-    //     options={{
-    //       title: 'Map',
-    //       tabBarIcon: ({ focused }) => (
-    //         <TabBarIcon focused={focused} name="md-map" />
-    //       ),
-    //     }}
-    //   />
-    //   <BottomTab.Screen
-    //     name="Home"
-    //     component={HomeStack}
-    //     options={{
-    //       title: 'Home',
-    //       tabBarIcon: ({ focused }) => (
-    //         <TabBarIcon focused={focused} name="md-home" />
-    //       ),
-    //     }}
-    //   />
-    //   <BottomTab.Screen
-    //     name="Settings"
-    //     component={SettingsScreen}
-    //     options={{
-    //       title: 'Settings',
-    //       tabBarIcon: ({ focused }) => (
-    //         <TabBarIcon focused={focused} name="md-settings" />
-    //       ),
-    //     }}
-    //   />
-    // </BottomTab.Navigator>
+    <BottomTab.Navigator
+      initialRouteName={INITIAL_ROUTE_NAME}
+      tabBarOptions={{
+        activeTintColor: foregrounds[0],
+        inactiveTintColor: foregrounds[2],
+        inactiveBackgroundColor: backgrounds[0],
+        activeBackgroundColor: backgrounds[0],
+        style: {
+          borderTopWidth: 0,
+          backgroundColor: backgrounds[0],
+        },
+        safeAreaInset: { bottom: 'never' },
+      }}
+    >
+      <BottomTab.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          title: 'Map',
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-map" />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Home"
+        component={HomeStack}
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-home" />
+          ),
+        }}
+      />
+      {/* <BottomTab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-settings" />
+          ),
+        }}
+      /> */}
+    </BottomTab.Navigator>
   );
 }
