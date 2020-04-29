@@ -17,7 +17,10 @@ import statusColors from '~/constants/statusColors';
 
 import useLight from '~/hooks/useLight';
 
-export default function ProfileStatus({ profile, navigation }) {
+import { useNavigation } from '@react-navigation/native';
+
+export default function ProfileStatus({ profile }) {
+  const navigation = useNavigation();
   const { backgrounds } = useLight();
   return (
     <TouchableOpacity

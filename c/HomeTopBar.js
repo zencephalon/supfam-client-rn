@@ -5,8 +5,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { View, TouchableOpacity } from 'react-native';
 
 import useLight from '~/hooks/useLight';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomeTopBar(props) {
+  const navigation = useNavigation();
+
   const { foregrounds } = useLight();
   return (
     <View
@@ -26,7 +29,7 @@ export default function HomeTopBar(props) {
         />
       </TouchableOpacity>
       <SfText style={{ color: foregrounds[1] }}>Supfam</SfText>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Invite')}>
         <MaterialIcons
           name="person-add"
           size={24}

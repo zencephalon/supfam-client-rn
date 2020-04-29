@@ -11,12 +11,9 @@ const FriendList = (props) => {
 
   const { backgrounds } = useLight();
 
-  const renderProfileStatus = React.useCallback(
-    ({ item: profile }) => {
-      return <ProfileStatus profile={profile} navigation={props.navigation} />;
-    },
-    [props.navigation]
-  );
+  const renderProfileStatus = React.useCallback(({ item: profile }) => {
+    return <ProfileStatus profile={profile} />;
+  }, []);
 
   return (
     <FlatList
