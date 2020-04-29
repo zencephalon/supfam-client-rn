@@ -9,8 +9,8 @@ export function BareProfileIcon(props) {
     <Image
       source={{ uri: props.uri }}
       style={{
-        width: props.size,
-        height: props.size,
+        width: props.size || 32,
+        height: props.size || 32,
         borderRadius: 50,
         marginRight: 8,
         borderWidth: props.color !== undefined ? 3 : 1,
@@ -20,6 +20,22 @@ export function BareProfileIcon(props) {
     />
   );
 }
+
+export const ProfileIconFromProfile = (props) => {
+  const { profile } = props;
+  const color = statusColors[profile?.status?.color];
+
+  console.log({ profile });
+  console.log(profile?.avatar_url);
+
+  return (
+    <BareProfileIcon
+      size={props.size}
+      color={color}
+      uri={profile?.avatar_url}
+    />
+  );
+};
 
 export default ProfileIcon = (props) => {
   const profile = useCachedProfile(props.profileId);

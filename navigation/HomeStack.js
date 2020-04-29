@@ -4,13 +4,32 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '~/screens/HomeScreen';
 import ConversationScreen from '~/screens/ConversationScreen';
 import InviteScreen from '~/screens/InviteScreen';
+import useLight from '~/hooks/useLight';
 
 const Stack = createStackNavigator();
 
 function HomeStack() {
+  const { foregrounds, backgrounds } = useLight();
+
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerTitle: 'Home',
+          headerStyle: {
+            backgroundColor: backgrounds[0],
+            height: 20,
+            shadowColor: 'black',
+            shadowOpacity: 0.1,
+            shadowRadius: 3,
+          },
+          headerTitleStyle: {
+            color: foregrounds[0],
+          },
+        }}
+      />
       <Stack.Screen name="Conversation" component={ConversationScreen} />
       <Stack.Screen name="Invite" component={InviteScreen} />
     </Stack.Navigator>

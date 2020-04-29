@@ -16,7 +16,7 @@ import statusColors from '~/constants/statusColors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useProfileId from '~/hooks/useProfileId';
 
-import ProfileIcon from '~/c/ProfileIcon';
+import ProfileIcon, { ProfileIconFromProfile } from '~/c/ProfileIcon';
 
 import useLight from '~/hooks/useLight';
 
@@ -80,7 +80,7 @@ const StatusCenter = () => {
           alignItems: 'flex-end',
         }}
       >
-        <ProfileIcon profileId={profileId} size={48} />
+        <ProfileIconFromProfile profile={profile} size={48} />
         <SfTextInput
           placeholder={statusMe?.message || 'Loading...'}
           value={message}

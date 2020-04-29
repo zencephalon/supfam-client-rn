@@ -6,25 +6,8 @@ import FriendList from '~/c/FriendList';
 import StatusCenter from '~/c/StatusCenter';
 import HomeTopBar from '~/c/HomeTopBar';
 
-import { getStatusMe } from '~/apis/api';
-import { useQuery } from 'react-query';
-import statusColors from '~/constants/statusColors';
-
 export default function HomeScreen({ navigation }) {
-  const { foregrounds, backgrounds } = useLight();
-  navigation.setOptions({
-    headerTitle: 'Home',
-    headerStyle: {
-      backgroundColor: backgrounds[0],
-      height: 20,
-      shadowColor: 'black',
-      shadowOpacity: 0.1,
-      shadowRadius: 3,
-    },
-    headerTitleStyle: {
-      color: foregrounds[0],
-    },
-  });
+  const { backgrounds } = useLight();
   return (
     <KeyboardAvoidingView
       style={{ ...styles.container, backgroundColor: backgrounds[0] }}
