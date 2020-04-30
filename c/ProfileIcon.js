@@ -25,9 +25,6 @@ export const ProfileIconFromProfile = (props) => {
   const { profile } = props;
   const color = statusColors[profile?.status?.color];
 
-  console.log({ profile });
-  console.log(profile?.avatar_url);
-
   return (
     <BareProfileIcon
       size={props.size}
