@@ -31,7 +31,21 @@ function HomeStack() {
         }}
       />
       <Stack.Screen name="Conversation" component={ConversationScreen} />
-      <Stack.Screen name="Invite" component={InviteScreen} />
+      <Stack.Screen
+        name="Invite"
+        component={InviteScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: backgrounds[1],
+            shadowColor: 'black',
+            shadowOpacity: 0.1,
+            shadowRadius: 3,
+          },
+          headerTitleStyle: {
+            color: foregrounds[0],
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 }

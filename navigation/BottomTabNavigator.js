@@ -48,16 +48,16 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-      {/* <BottomTab.Screen
-        name="Settings"
+      <BottomTab.Screen
+        name="Chat"
         component={SettingsScreen}
         options={{
-          title: 'Settings',
+          title: 'Chats',
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="md-settings" />
+            <TabBarIcon focused={focused} name="md-chatboxes" />
           ),
         }}
-      /> */}
+      />
     </BottomTab.Navigator>
   );
 }
