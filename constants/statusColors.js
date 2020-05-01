@@ -22,5 +22,3 @@ export const statusColorsLight = [
   FREE_LIGHT,
   OPEN_LIGHT,
 ];
-
-console.log({ statusColorsDeep });

@@ -13,8 +13,6 @@ const ProfileGate = (props) => {
   const dispatch = useDispatch();
   const { data: profiles, status } = useQuery('profilesMe', getProfilesMe);
 
-  console.log({ profiles });
-
   React.useEffect(() => {
     if ((profiles?.length || 0) > 0) {
       profiles.forEach((profile) => {
