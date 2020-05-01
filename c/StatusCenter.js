@@ -4,24 +4,17 @@ import { StyleSheet, View } from 'react-native';
 import StatusButton from '~/c/StatusButton';
 import StatusInput from '~/c/StatusInput';
 
-import { getProfile, putStatusMe } from '~/apis/api';
-import { useQuery, queryCache } from 'react-query';
+import { putStatusMe } from '~/apis/api';
+import { queryCache } from 'react-query';
 
 import useProfileId from '~/hooks/useProfileId';
+import useProfileMe from '~/hooks/useProfileMe';
 
 const StatusCenter = () => {
-  const profileId = useProfileId();
   const [message, setMessage] = React.useState('');
 
-  const { data: profile, status } = useQuery(
-    profileId && ['profileMe', profileId],
-    getProfile,
-    {
-      onSuccess: (profile) => {
-        queryCache.setQueryData(['friend', profileId], profile);
-      },
-    }
-  );
+  const profileId = useProfileId();
+  const { profile, status } = useProfileMe();
 
   const statusMe = profile?.status;
 

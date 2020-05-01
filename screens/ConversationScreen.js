@@ -24,18 +24,20 @@ const sendInstant = throttle((conversationId, message) => {
 
 export default function ConversationScreen({ navigation, route }) {
   const [text, setText] = React.useState('');
-  const { userId } = route.params;
+  const { profileId } = route.params;
 
   const me = useSelector((store) => store.auth.user);
 
-  const user = useCachedProfile(userId);
+  const user = useCachedProfile(profileId);
+
+  console.log({ user, profileId });
 
   const { data: _messages } = useQuery(
-    ['dm_messages', { userId }],
+    ['dm_messages', { profileId }],
     getUserDmMessages
   );
   const { data: instantMessage } = useQuery(
-    ['instant_messages', { userId }],
+    ['instant_messages', { profileId }],
     () => {}
   );
 
@@ -48,7 +50,7 @@ export default function ConversationScreen({ navigation, route }) {
 
   const conversationId = _messages?.[0]?.conversation_id;
   React.useEffect(() => {
-    Cable.subscribeConversation(conversationId, userId);
+    Cable.subscribeConversation(conversationId, profileId);
     return () => {
       Cable.unsubscribeConversation(conversationId);
     };
@@ -63,10 +65,10 @@ export default function ConversationScreen({ navigation, route }) {
     setText('');
     sendInstant(conversationId, text);
     sendMessage({
-      userId: userId,
+      profileId: profileId,
       data: { message: { message: text, type: 0 } },
     });
-  }, [text, userId]);
+  }, [text, profileId]);
 
   const setMessage = React.useCallback(
     (text) => {
