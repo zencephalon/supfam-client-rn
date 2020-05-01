@@ -12,7 +12,7 @@ import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import BatteryStatus from '~/c/BatteryStatus';
 import NetworkStatus from '~/c/NetworkStatus';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 export default function TopText({
   displayName,

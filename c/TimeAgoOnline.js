@@ -7,14 +7,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { nord8 } from '~/constants/Colors';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
-const getDisplay = time => {
+const getDisplay = (time) => {
   const human = formatAgo(time);
   return human;
 };
 
-const getInterval = timeDisplay => {
+const getInterval = (timeDisplay) => {
   if (timeDisplay === 'now') {
     return 100;
   }

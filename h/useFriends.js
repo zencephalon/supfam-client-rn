@@ -2,7 +2,7 @@ import { useQuery, queryCache } from 'react-query';
 import { getFriends } from '~/apis/api';
 import { orderBy } from 'lodash';
 
-import useProfileId from '~/hooks/useProfileId';
+import useProfileId from '~/h/useProfileId';
 
 export default function useFriends() {
   const profileId = useProfileId();

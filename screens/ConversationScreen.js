@@ -15,8 +15,8 @@ import MessageList from '~/c/MessageList';
 
 import SfTextInput from '~/c/SfTextInput';
 
-import useLight from '~/hooks/useLight';
-import useCachedProfile from '~/hooks/useCachedProfile';
+import useLight from '~/h/useLight';
+import useCachedProfile from '~/h/useCachedProfile';
 
 const sendInstant = throttle((conversationId, message) => {
   Cable.sendInstant(conversationId, message);

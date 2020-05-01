@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 import FriendList from '~/c/FriendList';
 import StatusCenter from '~/c/StatusCenter';

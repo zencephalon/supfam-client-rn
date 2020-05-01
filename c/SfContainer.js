@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { View, SafeAreaView } from 'react-native';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 import { StyleSheet } from 'react-native';
 
 export default function SfContainer(props) {

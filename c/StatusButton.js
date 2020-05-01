@@ -9,7 +9,7 @@ import SfText from '~/c/SfText';
 
 const colorLabels = ['Away', 'Busy', 'Free', 'Open'];
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 const StatusButton = ({ color, setColor, selected }) => {
   const { foregrounds, backgrounds, light } = useLight();

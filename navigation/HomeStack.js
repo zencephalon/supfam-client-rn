@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '~/screens/HomeScreen';
 import ConversationScreen from '~/screens/ConversationScreen';
 import InviteScreen from '~/screens/InviteScreen';
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 const Stack = createStackNavigator();
 

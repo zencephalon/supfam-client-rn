@@ -3,8 +3,8 @@ import { FlatList } from 'react-native-gesture-handler';
 
 import ProfileStatus from '~/c/ProfileStatus';
 
-import useLight from '~/hooks/useLight';
-import useFriends from '~/hooks/useFriends';
+import useLight from '~/h/useLight';
+import useFriends from '~/h/useFriends';
 
 const FriendList = (props) => {
   const { status, friends, error } = useFriends();

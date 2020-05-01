@@ -14,7 +14,7 @@ import { uploadImage, postProfile } from '~/apis/api';
 
 import { queryCache } from 'react-query';
 
-import useApi from '~/hooks/useApi';
+import useApi from '~/h/useApi';
 
 function useSnapImage({ setImage }) {
   return async () => {

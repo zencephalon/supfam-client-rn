@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, View, ActivityIndicator } from 'react-native';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 import * as Colors from '~/constants/Colors';
 

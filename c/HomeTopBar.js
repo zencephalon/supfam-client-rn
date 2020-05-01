@@ -4,7 +4,7 @@ import SfText from '~/c/SfText';
 import { MaterialIcons } from '@expo/vector-icons';
 import { View, TouchableOpacity } from 'react-native';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 import { useNavigation } from '@react-navigation/native';
 
 export default function HomeTopBar(props) {

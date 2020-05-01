@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Image } from 'react-native';
 import statusColors from '~/constants/statusColors';
 
-import useCachedProfile from '~/hooks/useCachedProfile';
+import useCachedProfile from '~/h/useCachedProfile';
 
 export function BareProfileIcon(props) {
   return (

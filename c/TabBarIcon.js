@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { tabIconDefault, tabIconSelected } from '../constants/Colors';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 export default function TabBarIcon(props) {
   const { foregrounds } = useLight();

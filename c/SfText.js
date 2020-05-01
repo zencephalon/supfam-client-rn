@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Text, StyleSheet } from 'react-native';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
-const ExText = props => {
+const ExText = (props) => {
   const { foregrounds } = useLight();
   const { children, style, ...rest } = props;
   color = foregrounds[0];

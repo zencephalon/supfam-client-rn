@@ -8,7 +8,7 @@ import HomeStack from '~/navigation/HomeStack';
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 export default function BottomTabNavigator() {
   const { backgrounds, foregrounds } = useLight();

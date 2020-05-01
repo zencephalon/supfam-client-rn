@@ -15,7 +15,7 @@ import SfText from '~/c/SfText';
 
 import statusColors from '~/constants/statusColors';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 import { useNavigation } from '@react-navigation/native';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 const FullScreenLoader = () => {
   const { backgrounds } = useLight();

@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { LOGIN } from '~/apis/auth/actions';
 import AuthToken from '~/lib/AuthToken';
 
-import useApi from '~/hooks/useApi';
+import useApi from '~/h/useApi';
 import { postLogin } from '~/apis/api';
 
 const LoginForm = () => {

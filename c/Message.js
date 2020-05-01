@@ -4,7 +4,7 @@ import { FlatList, View, Text } from 'react-native';
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 import TypingText from '~/c/TypingText';
 

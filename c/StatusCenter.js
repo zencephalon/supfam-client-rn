@@ -7,8 +7,8 @@ import StatusInput from '~/c/StatusInput';
 import { putStatusMe } from '~/apis/api';
 import { queryCache } from 'react-query';
 
-import useProfileId from '~/hooks/useProfileId';
-import useProfileMe from '~/hooks/useProfileMe';
+import useProfileId from '~/h/useProfileId';
+import useProfileMe from '~/h/useProfileMe';
 
 const StatusCenter = () => {
   const [message, setMessage] = React.useState('');

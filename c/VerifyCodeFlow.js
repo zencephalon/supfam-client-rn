@@ -5,7 +5,7 @@ import SfButton from '~/c/SfButton';
 import { OPEN, OPEN_LIGHT } from '~/constants/Colors';
 
 import { postVerify, postResendCode } from '~/apis/api';
-import useApi from '~/hooks/useApi';
+import useApi from '~/h/useApi';
 
 function VerifyCodeFlow(props) {
   const { token } = props;

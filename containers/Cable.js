@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from 'react';
 
 import cable from '~/lib/Cable';
-import useProfileId from '~/hooks/useProfileId';
-import useFriends from '~/hooks/useFriends';
+import useProfileId from '~/h/useProfileId';
+import useFriends from '~/h/useFriends';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 function CableContainer() {

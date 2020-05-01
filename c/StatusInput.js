@@ -10,7 +10,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { ProfileIconFromProfile } from '~/c/ProfileIcon';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 export default function StatusInput({
   profile,

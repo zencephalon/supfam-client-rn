@@ -11,7 +11,7 @@ import { LOGIN } from '~/apis/auth/actions';
 import { getNameAvailable, postRegister } from '~/apis/api';
 import AuthToken from '~/lib/AuthToken';
 
-import useApi from '~/hooks/useApi';
+import useApi from '~/h/useApi';
 
 import useConstCallback from 'use-const-callback';
 

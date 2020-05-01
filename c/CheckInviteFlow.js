@@ -7,8 +7,8 @@ import { Platform } from 'react-native';
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js';
 
 import { postCheckInvite } from '~/apis/api';
-import useApi from '~/hooks/useApi';
-import useLight from '~/hooks/useLight';
+import useApi from '~/h/useApi';
+import useLight from '~/h/useLight';
 
 function CheckInviteFlow(props) {
   const [phone, setPhone] = React.useState('');

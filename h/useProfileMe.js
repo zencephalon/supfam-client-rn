@@ -1,5 +1,5 @@
 import { useQuery, queryCache } from 'react-query';
-import useProfileId from '~/hooks/useProfileId';
+import useProfileId from '~/h/useProfileId';
 import { getProfile } from '~/apis/api';
 
 export default function useProfileMe() {

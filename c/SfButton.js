@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as Colors from '~/constants/Colors';
 
-import useLight from '~/hooks/useLight';
+import useLight from '~/h/useLight';
 
 const SfButton = (props) => {
   const { disabled, title, style, color, ...rest } = props;
