@@ -77,9 +77,9 @@ export default function ConversationScreen({ navigation, route }) {
   );
 
   navigation.setOptions({
-    headerTitle: user.name,
+    headerTitle: user?.name,
     headerStyle: {
-      backgroundColor: statusColors[user.status.color || 0],
+      backgroundColor: statusColors[user?.status?.color || 0],
     },
   });
 
@@ -92,7 +92,7 @@ export default function ConversationScreen({ navigation, route }) {
     >
       <MessageList messages={messages} me={me} />
       <SfTextInput
-        style={styles.statusInput}
+        textInputStyle={styles.statusInput}
         value={text}
         onSubmitEditing={submitMessage}
         onChangeText={setMessage}
