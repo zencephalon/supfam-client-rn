@@ -1,6 +1,5 @@
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
-import SfText from '~/c/SfText';
+import { FlatList } from 'react-native';
 
 import Message from '~/c/Message';
 
@@ -15,7 +14,7 @@ class MessageList extends React.Component {
     return (
       <Message
         message={item}
-        isOwnMessage={item.user_summary?.id === this.props.me.id}
+        isOwnMessage={item.user_summary?.id === this.props.meProfileId}
         fromSameUser={item.user_summary?.id === nextItem?.user_summary?.id}
       />
     );
@@ -27,7 +26,7 @@ class MessageList extends React.Component {
         data={this.props.messages}
         renderItem={this.renderMessage}
         style={{ flex: 1 }}
-        keyExtractor={m => `${m.id}`}
+        keyExtractor={(m) => `${m.id}`}
         inverted
       />
     );

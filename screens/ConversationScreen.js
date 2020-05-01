@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import { useQuery, useMutation } from 'react-query';
-import { getUserDmMessages, sendUserDmMessage } from '~/apis/api';
+import { getProfileDmMessages, sendUserDmMessage } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 
@@ -17,6 +17,7 @@ import SfTextInput from '~/c/SfTextInput';
 
 import useLight from '~/h/useLight';
 import useCachedProfile from '~/h/useCachedProfile';
+import useProfileId from '~/h/useProfileId';
 
 const sendInstant = throttle((conversationId, message) => {
   Cable.sendInstant(conversationId, message);
@@ -26,15 +27,13 @@ export default function ConversationScreen({ navigation, route }) {
   const [text, setText] = React.useState('');
   const { profileId } = route.params;
 
-  const me = useSelector((store) => store.auth.user);
+  const meProfileId = useProfileId();
 
   const user = useCachedProfile(profileId);
 
-  console.log({ user, profileId });
-
   const { data: _messages } = useQuery(
     ['dm_messages', { profileId }],
-    getUserDmMessages
+    getProfileDmMessages
   );
   const { data: instantMessage } = useQuery(
     ['instant_messages', { profileId }],
@@ -42,7 +41,10 @@ export default function ConversationScreen({ navigation, route }) {
   );
 
   let messages = _messages;
-  if (instantMessage?.message && instantMessage?.user_summary?.id !== me.id) {
+  if (
+    instantMessage?.message &&
+    instantMessage?.user_summary?.id !== meProfileId
+  ) {
     messages = [instantMessage, ...messages];
   }
 
@@ -92,7 +94,7 @@ export default function ConversationScreen({ navigation, route }) {
       enabled
       keyboardVerticalOffset={50}
     >
-      <MessageList messages={messages} me={me} />
+      <MessageList messages={messages} meProfileId={meProfileId} />
       <SfTextInput
         textInputStyle={styles.statusInput}
         value={text}

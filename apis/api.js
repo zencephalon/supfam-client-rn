@@ -21,8 +21,8 @@ export const getProfilesMe = () => {
   return api.fetchFromAPI('profiles/me');
 };
 
-export const getUserDmMessages = (_key, { userId }) => {
-  return api.fetchFromAPI(`messages/user/${userId}`);
+export const getProfileDmMessages = (_key, { profileId }) => {
+  return api.fetchFromAPI(`messages/profile/${profileId}`);
 };
 
 export const sendUserDmMessage = ({ userId, data }) => {
