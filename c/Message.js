@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -10,6 +10,7 @@ import TypingText from '~/c/TypingText';
 
 function Message(props) {
   const { backgrounds } = useLight();
+  console.log(props.message);
   return (
     <View
       style={{
@@ -24,7 +25,7 @@ function Message(props) {
     >
       <View style={{ width: 32 }}>
         {!props.isOwnMessage && !props.fromSameUser && (
-          <ProfileIcon userId={props.message.user_summary.id} size={24} />
+          <ProfileIcon profileId={props.message.profile_summary.id} size={24} />
         )}
       </View>
       <View

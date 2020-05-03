@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 
-export default function useCachedUser(userId) {
-  const { data: user } = useQuery(['friend', userId], () => {}, {
+export default function useCachedProfile(profileId) {
+  const { data: profile } = useQuery(['friend', profileId], () => {}, {
     staleTime: Infinity,
   });
 
-  return user;
+  return profile;
 }
