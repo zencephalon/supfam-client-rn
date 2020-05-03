@@ -47,7 +47,7 @@ function Message(props) {
         >
           {props.message.message}
         </SfText>
-        {props.message.id === 'instant' ? (
+        {props.message.id === 'i' ? (
           <SfText style={{ fontSize: 10 }}>
             ...
             <TypingText time={props.message.receivedAt} />
