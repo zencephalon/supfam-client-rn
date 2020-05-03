@@ -21,7 +21,7 @@ export default function HomeTopBar(props) {
         justifyContent: 'space-between',
       }}
     >
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
         <MaterialIcons
           name="settings"
           size={24}
