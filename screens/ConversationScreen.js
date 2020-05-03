@@ -48,8 +48,6 @@ export default function ConversationScreen({ navigation, route }) {
     messages = [instantMessage, ...messages];
   }
 
-  const [sendMessage] = useMutation(sendUserDmMessage);
-
   const conversationId = _messages?.[0]?.conversation_id;
   React.useEffect(() => {
     Cable.subscribeConversation(conversationId, profileId);
@@ -64,11 +62,13 @@ export default function ConversationScreen({ navigation, route }) {
     if (text === '') {
       return;
     }
-    setText('');
     sendInstant(conversationId, text);
-    sendMessage({
-      profileId: profileId,
+    sendUserDmMessage({
+      meProfileId,
+      profileId,
       data: { message: { message: text, type: 0 } },
+    }).then(() => {
+      setText('');
     });
   }, [text, profileId]);
 

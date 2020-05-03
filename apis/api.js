@@ -25,10 +25,13 @@ export const getProfileDmMessages = (_key, { profileId }) => {
   return api.fetchFromAPI(`messages/profile/${profileId}`);
 };
 
-export const sendUserDmMessage = ({ userId, data }) => {
-  return api.postToAPI(`messages/user/${userId}`, {
-    body: JSON.stringify(data),
-  });
+export const sendUserDmMessage = ({ meProfileId, profileId, data }) => {
+  return api.postToAPI(
+    `profiles/${meProfileId}/messages/profile/${profileId}`,
+    {
+      body: JSON.stringify(data),
+    }
+  );
 };
 
 export const putStatusMe = (data) => {
