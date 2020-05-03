@@ -54,7 +54,7 @@ export default function ConversationScreen({ navigation, route }) {
     return () => {
       Cable.unsubscribeConversation(conversationId);
     };
-  }, [conversationId]);
+  }, [conversationId, profileId]);
 
   const { backgrounds } = useLight();
 
@@ -92,7 +92,7 @@ export default function ConversationScreen({ navigation, route }) {
       style={{ ...styles.container, backgroundColor: backgrounds[0] }}
       behavior="padding"
       enabled
-      keyboardVerticalOffset={50}
+      keyboardVerticalOffset={68}
     >
       <MessageList messages={messages} meProfileId={meProfileId} />
       <SfTextInput
