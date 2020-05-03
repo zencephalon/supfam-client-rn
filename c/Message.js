@@ -10,7 +10,6 @@ import TypingText from '~/c/TypingText';
 
 function Message(props) {
   const { backgrounds } = useLight();
-  console.log(props.message);
   return (
     <View
       style={{
