@@ -43,7 +43,7 @@ export default function ConversationScreen({ navigation, route }) {
   let messages = _messages;
   if (
     instantMessage?.message &&
-    instantMessage?.user_summary?.id !== meProfileId
+    instantMessage?.profile_summary?.id !== meProfileId
   ) {
     messages = [instantMessage, ...messages];
   }
@@ -62,7 +62,7 @@ export default function ConversationScreen({ navigation, route }) {
     if (text === '') {
       return;
     }
-    // sendInstant(conversationId, text);
+    sendInstant(conversationId, text);
     sendUserDmMessage({
       meProfileId,
       profileId,
@@ -75,7 +75,7 @@ export default function ConversationScreen({ navigation, route }) {
   const setMessage = React.useCallback(
     (text) => {
       setText(text);
-      // sendInstant(conversationId, text);
+      sendInstant(conversationId, text);
     },
     [conversationId]
   );
