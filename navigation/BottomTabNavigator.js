@@ -42,9 +42,9 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeStack}
         options={{
-          title: 'Home',
+          title: 'Fam',
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="md-home" />
+            <TabBarIcon focused={focused} name="ios-people" />
           ),
         }}
       />
