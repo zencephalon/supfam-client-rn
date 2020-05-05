@@ -9,15 +9,12 @@ import statusColors from '~/constants/statusColors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import useLight from '~/h/useLight';
+import useProfileMe from '~/h/useProfileMe';
 
-export default function StatusInput({
-  profile,
-  statusMe,
-  message,
-  setMessage,
-  postMessage,
-}) {
+export default function MessageInput({ message, setMessage, submitMessage }) {
   const { backgrounds } = useLight();
+  const { profile } = useProfileMe();
+  const statusMe = profile?.status;
 
   return (
     <View
@@ -35,13 +32,13 @@ export default function StatusInput({
       <SfTextInput
         value={message}
         onChangeText={setMessage}
-        // onSubmitEditing={postMessage}
         textInputStyle={styles.statusInput}
         style={{ flexGrow: 1, flexShrink: 1 }}
         multiline={true}
+        blurOnSubmit={false}
       />
       <TouchableOpacity
-        onPress={postMessage}
+        onPress={submitMessage}
         style={{
           alignSelf: 'flex-start',
           marginLeft: 4,

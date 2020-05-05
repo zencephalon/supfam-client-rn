@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
-import { useQuery, useMutation } from 'react-query';
+import { useQuery } from 'react-query';
 import { getProfileDmMessages, sendUserDmMessage } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 
-import { useSelector } from 'react-redux';
-
 import Cable from '~/lib/Cable';
 
 import { throttle } from 'lodash';
+
 import MessageList from '~/c/MessageList';
+import MessageInput from '~/c/MessageInput';
 
 import SfTextInput from '~/c/SfTextInput';
 
@@ -95,12 +95,10 @@ export default function ConversationScreen({ navigation, route }) {
       keyboardVerticalOffset={68}
     >
       <MessageList messages={messages} meProfileId={meProfileId} />
-      <SfTextInput
-        textInputStyle={styles.statusInput}
-        value={text}
-        onSubmitEditing={submitMessage}
-        onChangeText={setMessage}
-        blurOnSubmit={false}
+      <MessageInput
+        message={text}
+        setMessage={setMessage}
+        submitMessage={submitMessage}
       />
     </KeyboardAvoidingView>
   );
