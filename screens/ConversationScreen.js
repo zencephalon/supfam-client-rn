@@ -115,11 +115,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   statusInput: {
-    marginTop: 8,
     padding: 12,
     fontSize: 16,
-    borderRadius: 0,
+    borderRadius: 10,
     borderWidth: 0,
-    marginBottom: -1,
+    paddingBottom: 4,
   },
+  // statusInput: {
+  //   marginTop: 8,
+  //   padding: 12,
+  //   fontSize: 16,
+  //   borderRadius: 0,
+  //   borderWidth: 0,
+  //   marginBottom: -1,
+  // },
 });
