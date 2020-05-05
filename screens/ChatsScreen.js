@@ -2,11 +2,10 @@ import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import useLight from '~/h/useLight';
 
-import FriendList from '~/c/FriendList';
 import StatusCenter from '~/c/StatusCenter';
 import HomeTopBar from '~/c/HomeTopBar';
 
-export default function HomeScreen({ navigation }) {
+export default function ChatsScreen() {
   const { backgrounds } = useLight();
   return (
     <KeyboardAvoidingView
@@ -15,15 +14,16 @@ export default function HomeScreen({ navigation }) {
       enabled
       keyboardVerticalOffset={20}
     >
-      <HomeTopBar title="Supfam" />
-      <FriendList navigation={navigation} />
+      <HomeTopBar title="Chats" />
+
+      {/* <ChatsList /> */}
 
       <StatusCenter />
     </KeyboardAvoidingView>
   );
 }
 
-HomeScreen.navigationOptions = {
+ChatsScreen.navigationOptions = {
   header: null,
 };
 

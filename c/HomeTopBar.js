@@ -7,7 +7,7 @@ import { View, TouchableOpacity } from 'react-native';
 import useLight from '~/h/useLight';
 import { useNavigation } from '@react-navigation/native';
 
-export default function HomeTopBar(props) {
+export default function HomeTopBar({ title }) {
   const navigation = useNavigation();
 
   const { foregrounds } = useLight();
@@ -28,7 +28,7 @@ export default function HomeTopBar(props) {
           style={{ color: foregrounds[1] }}
         />
       </TouchableOpacity>
-      <SfText style={{ color: foregrounds[1] }}>Supfam</SfText>
+      <SfText style={{ color: foregrounds[1] }}>{title}</SfText>
       <TouchableOpacity onPress={() => navigation.navigate('Invite')}>
         <MaterialIcons
           name="person-add"
