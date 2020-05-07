@@ -23,6 +23,8 @@ class MessageList extends React.Component {
   render() {
     return (
       <FlatList
+        onEndReached={() => console.log('ILUVVVVUUUUUU end reached')}
+        onEndReachedThreshold={0.1}
         data={this.props.messages}
         renderItem={this.renderMessage}
         style={{ flex: 1 }}
