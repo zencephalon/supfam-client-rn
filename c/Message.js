@@ -24,7 +24,7 @@ function Message(props) {
     >
       <View style={{ width: 32 }}>
         {!props.isOwnMessage && !props.fromSameUser && (
-          <ProfileIcon profileId={props.message.profile_summary.id} size={24} />
+          <ProfileIcon profileId={props.message.profile_id} size={24} />
         )}
       </View>
       <View

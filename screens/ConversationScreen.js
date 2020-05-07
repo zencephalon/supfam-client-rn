@@ -41,10 +41,7 @@ export default function ConversationScreen({ navigation, route }) {
   );
 
   let messages = _messages;
-  if (
-    instantMessage?.message &&
-    instantMessage?.profile_summary?.id !== meProfileId
-  ) {
+  if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
     messages = [instantMessage, ...messages];
   }
 

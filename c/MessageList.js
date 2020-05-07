@@ -14,10 +14,8 @@ class MessageList extends React.Component {
     return (
       <Message
         message={item}
-        isOwnMessage={item.profile_summary?.id === this.props.meProfileId}
-        fromSameUser={
-          item.profile_summary?.id === nextItem?.profile_summary?.id
-        }
+        isOwnMessage={item.profile_id === this.props.meProfileId}
+        fromSameUser={item.profile_id === nextItem?.profile_id}
       />
     );
   };
