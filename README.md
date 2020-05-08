@@ -19,6 +19,13 @@ We don't have to launch with this.
 - some kind of script to auto-update people's statuses to make the app lively during testing
 - Finish making new seed data with more people in it
 
+
+### Crypto
+
+https://github.com/VirgilSecurity/react-native-virgil-crypto when we decide to eject and implement crypto.
+
+We'll have to get off of Expo's push notification service at some point anyway.
+
 ### Ops, infra
 
 - Upgrade postgres (have to migrate database to paid tier at some point)

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
-import { useQuery } from 'react-query';
+import { useQuery, useInfiniteQuery } from 'react-query';
 import { getProfileDmMessages, sendUserDmMessage } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 
 import Cable from '~/lib/Cable';
 
-import { throttle } from 'lodash';
+import { throttle, flatten } from 'lodash';
 
 import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
@@ -31,21 +31,36 @@ export default function ConversationScreen({ navigation, route }) {
 
   const user = useCachedProfile(profileId);
 
-  const { data: _messages } = useQuery(
-    ['dm_messages', { profileId }],
-    getProfileDmMessages
-  );
+  const {
+    data: message_groups,
+    isFetching,
+    isFetchingMore,
+    fetchMore,
+    canFetchMore,
+  } = useInfiniteQuery(['dm_messages', { profileId }], getProfileDmMessages, {
+    getFetchMore: (lastGroup) => {
+      return lastGroup.next_cursor;
+    },
+  });
   const { data: instantMessage } = useQuery(
     ['instant_messages', { profileId }],
     () => {}
   );
+  const { data: receivedMessages } = useQuery(
+    ['received_messages', { profileId }],
+    () => {}
+  );
 
-  let messages = _messages;
+  let messages = flatten(message_groups.map((group) => group.messages));
+  // console.log({ receivedMessages });
+  if (receivedMessages) {
+    messages = [...receivedMessages, ...messages];
+  }
   if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
     messages = [instantMessage, ...messages];
   }
 
-  const conversationId = _messages?.[0]?.conversation_id;
+  const conversationId = messages?.[0]?.conversation_id;
   React.useEffect(() => {
     Cable.subscribeConversation(conversationId, profileId);
     return () => {
@@ -91,7 +106,12 @@ export default function ConversationScreen({ navigation, route }) {
       enabled
       keyboardVerticalOffset={68}
     >
-      <MessageList messages={messages} meProfileId={meProfileId} />
+      <MessageList
+        messages={messages}
+        meProfileId={meProfileId}
+        fetchMore={fetchMore}
+        canFetchMore={canFetchMore}
+      />
       <MessageInput
         message={text}
         setMessage={setMessage}

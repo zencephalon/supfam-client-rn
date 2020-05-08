@@ -21,11 +21,12 @@ class MessageList extends React.Component {
   };
 
   render() {
+    const { fetchMore, canFetchMore, messages } = this.props;
     return (
       <FlatList
-        onEndReached={() => console.log('ILUVVVVUUUUUU end reached')}
+        onEndReached={() => canFetchMore && fetchMore()}
         onEndReachedThreshold={0.1}
-        data={this.props.messages}
+        data={messages}
         renderItem={this.renderMessage}
         style={{ flex: 1 }}
         keyExtractor={(m) => `${m.id}`}
