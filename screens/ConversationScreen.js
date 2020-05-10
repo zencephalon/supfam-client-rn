@@ -83,19 +83,4 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  statusInput: {
-    padding: 12,
-    fontSize: 16,
-    borderRadius: 10,
-    borderWidth: 0,
-    paddingBottom: 4,
-  },
-  // statusInput: {
-  //   marginTop: 8,
-  //   padding: 12,
-  //   fontSize: 16,
-  //   borderRadius: 0,
-  //   borderWidth: 0,
-  //   marginBottom: -1,
-  // },
 });
