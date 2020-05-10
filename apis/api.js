@@ -26,6 +26,10 @@ export const getProfileDmMessages = (_key, { profileId }, cursor) => {
   return api.fetchFromAPI(`messages/profile/${profileId}${cursorChunk}`);
 };
 
+export const getProfileDmConversation = (_key, { profileId }) => {
+  return api.fetchFromAPI(`conversations/profile/${profileId}`);
+};
+
 export const sendUserDmMessage = ({ meProfileId, profileId, data }) => {
   return api.postToAPI(
     `profiles/${meProfileId}/messages/profile/${profileId}`,

@@ -2,7 +2,11 @@ import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import { useQuery, useInfiniteQuery } from 'react-query';
-import { getProfileDmMessages, sendUserDmMessage } from '~/apis/api';
+import {
+  getProfileDmMessages,
+  sendUserDmMessage,
+  getProfileDmConversation,
+} from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 
@@ -30,6 +34,11 @@ export default function ConversationScreen({ navigation, route }) {
   const meProfileId = useProfileId();
 
   const user = useCachedProfile(profileId);
+
+  const { data: conversation } = useQuery(
+    ['dmWith', { profileId }],
+    getProfileDmConversation
+  );
 
   const {
     data: message_groups,
@@ -60,7 +69,8 @@ export default function ConversationScreen({ navigation, route }) {
     messages = [instantMessage, ...messages];
   }
 
-  const conversationId = messages?.[0]?.conversation_id;
+  const conversationId = conversation?.id;
+
   React.useEffect(() => {
     Cable.subscribeConversation(conversationId, profileId);
     return () => {
