@@ -28,13 +28,12 @@ export default function ConversationScreen({ navigation, route }) {
 
   const meProfileId = useProfileId();
 
-  const user = useCachedProfile(profileId);
+  const profile = useCachedProfile(profileId);
 
   const { data: conversation } = useQuery(
     ['dmWith', { profileId }],
     getProfileDmConversation
   );
-
   const conversationId = conversation?.id;
 
   const { fetchMore, canFetchMore, messages: _messages } = useMessages(
@@ -91,9 +90,9 @@ export default function ConversationScreen({ navigation, route }) {
   );
 
   navigation.setOptions({
-    headerTitle: user?.name,
+    headerTitle: profile?.name,
     headerStyle: {
-      backgroundColor: statusColors[user?.status?.color || 0],
+      backgroundColor: statusColors[profile?.status?.color || 0],
     },
   });
 
