@@ -32,9 +32,9 @@ export const getProfileDmConversation = (_key, { profileId }) => {
   return api.fetchFromAPI(`conversations/profile/${profileId}`);
 };
 
-export const sendUserDmMessage = ({ meProfileId, profileId, data }) => {
+export const sendMessage = ({ meProfileId, conversationId, data }) => {
   return api.postToAPI(
-    `profiles/${meProfileId}/messages/profile/${profileId}`,
+    `conversations/${conversationId}/messages/profile/${meProfileId}`,
     {
       body: JSON.stringify(data),
     }

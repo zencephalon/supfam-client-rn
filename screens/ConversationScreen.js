@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import { useQuery } from 'react-query';
-import { sendUserDmMessage, getProfileDmConversation } from '~/apis/api';
+import { sendMessage, getProfileDmConversation } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 
@@ -48,9 +48,9 @@ export default function ConversationScreen({ navigation, route }) {
       return;
     }
     sendInstant(conversationId, text);
-    sendUserDmMessage({
+    sendMessage({
       meProfileId,
-      profileId,
+      conversationId,
       data: { message: { message: text, type: 0 } },
     }).then(() => {
       setText('');
