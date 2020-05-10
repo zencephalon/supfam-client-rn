@@ -21,9 +21,11 @@ export const getProfilesMe = () => {
   return api.fetchFromAPI('profiles/me');
 };
 
-export const getProfileDmMessages = (_key, { profileId }, cursor) => {
+export const getConversationMessages = (_key, { conversationId }, cursor) => {
   const cursorChunk = cursor ? `\?cursor=${cursor}` : '';
-  return api.fetchFromAPI(`messages/profile/${profileId}${cursorChunk}`);
+  return api.fetchFromAPI(
+    `conversations/${conversationId}/messages${cursorChunk}`
+  );
 };
 
 export const getProfileDmConversation = (_key, { profileId }) => {

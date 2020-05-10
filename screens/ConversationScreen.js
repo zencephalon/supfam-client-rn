@@ -3,7 +3,7 @@ import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import { useQuery, useInfiniteQuery } from 'react-query';
 import {
-  getProfileDmMessages,
+  getConversationMessages,
   sendUserDmMessage,
   getProfileDmConversation,
 } from '~/apis/api';
@@ -40,17 +40,24 @@ export default function ConversationScreen({ navigation, route }) {
     getProfileDmConversation
   );
 
+  const conversationId = conversation?.id;
+
   const {
     data: message_groups,
     isFetching,
     isFetchingMore,
     fetchMore,
     canFetchMore,
-  } = useInfiniteQuery(['dm_messages', { profileId }], getProfileDmMessages, {
-    getFetchMore: (lastGroup) => {
-      return lastGroup.next_cursor;
-    },
-  });
+  } = useInfiniteQuery(
+    conversationId && ['dm_messages', { conversationId }],
+    getConversationMessages,
+    {
+      getFetchMore: (lastGroup) => {
+        return lastGroup.next_cursor;
+      },
+    }
+  );
+
   const { data: instantMessage } = useQuery(
     ['instant_messages', { profileId }],
     () => {}
@@ -68,8 +75,6 @@ export default function ConversationScreen({ navigation, route }) {
   if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
     messages = [instantMessage, ...messages];
   }
-
-  const conversationId = conversation?.id;
 
   React.useEffect(() => {
     Cable.subscribeConversation(conversationId, profileId);
