@@ -2,11 +2,9 @@ import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import { useQuery } from 'react-query';
-import { sendMessage, getProfileDmConversation } from '~/apis/api';
+import { getProfileDmConversation } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
-
-import { throttle } from 'lodash';
 
 import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
@@ -15,14 +13,11 @@ import useLight from '~/h/useLight';
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
-
-import Cable from '~/lib/Cable';
-
-const sendInstant = throttle((conversationId, message) => {
-  Cable.sendInstant(conversationId, message);
-}, 50);
+import useSubmitMessage from '~/h/useSubmitMessage';
+import sendInstant from '~/lib/sendInstant';
 
 export default function ConversationScreen({ navigation, route }) {
+  const { backgrounds } = useLight();
   const [text, setText] = React.useState('');
   const { profileId } = route.params;
 
@@ -41,21 +36,7 @@ export default function ConversationScreen({ navigation, route }) {
     meProfileId
   );
 
-  const { backgrounds } = useLight();
-
-  const submitMessage = React.useCallback(async () => {
-    if (text === '') {
-      return;
-    }
-    sendInstant(conversationId, text);
-    sendMessage({
-      meProfileId,
-      conversationId,
-      data: { message: { message: text, type: 0 } },
-    }).then(() => {
-      setText('');
-    });
-  }, [text, profileId]);
+  const submitMessage = useSubmitMessage(text, conversationId, meProfileId);
 
   const setMessage = React.useCallback(
     (text) => {
@@ -88,7 +69,7 @@ export default function ConversationScreen({ navigation, route }) {
       <MessageInput
         message={text}
         setMessage={setMessage}
-        submitMessage={submitMessage}
+        submitMessage={() => submitMessage().then(() => setText(''))}
       />
     </KeyboardAvoidingView>
   );
