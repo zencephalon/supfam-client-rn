@@ -6,8 +6,6 @@ import { sendUserDmMessage, getProfileDmConversation } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 
-import Cable from '~/lib/Cable';
-
 import { throttle } from 'lodash';
 
 import MessageList from '~/c/MessageList';
@@ -17,6 +15,8 @@ import useLight from '~/h/useLight';
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
+
+import Cable from '~/lib/Cable';
 
 const sendInstant = throttle((conversationId, message) => {
   Cable.sendInstant(conversationId, message);
@@ -36,34 +36,10 @@ export default function ConversationScreen({ navigation, route }) {
   );
   const conversationId = conversation?.id;
 
-  const { fetchMore, canFetchMore, messages: _messages } = useMessages(
-    conversationId
+  const { fetchMore, canFetchMore, messages } = useMessages(
+    conversationId,
+    meProfileId
   );
-
-  const { data: instantMessage } = useQuery(
-    ['instant_messages', { profileId }],
-    () => {}
-  );
-  const { data: receivedMessages } = useQuery(
-    ['received_messages', { profileId }],
-    () => {}
-  );
-
-  let messages = _messages;
-  // console.log({ receivedMessages });
-  if (receivedMessages) {
-    messages = [...receivedMessages, ...messages];
-  }
-  if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
-    messages = [instantMessage, ...messages];
-  }
-
-  React.useEffect(() => {
-    Cable.subscribeConversation(conversationId, profileId);
-    return () => {
-      Cable.unsubscribeConversation(conversationId);
-    };
-  }, [conversationId, profileId]);
 
   const { backgrounds } = useLight();
 
