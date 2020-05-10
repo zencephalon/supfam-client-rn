@@ -1,27 +1,22 @@
 import * as React from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
-import { useQuery, useInfiniteQuery } from 'react-query';
-import {
-  getConversationMessages,
-  sendUserDmMessage,
-  getProfileDmConversation,
-} from '~/apis/api';
+import { useQuery } from 'react-query';
+import { sendUserDmMessage, getProfileDmConversation } from '~/apis/api';
 
 import statusColors from '~/constants/statusColors';
 
 import Cable from '~/lib/Cable';
 
-import { throttle, flatten } from 'lodash';
+import { throttle } from 'lodash';
 
 import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
 
-import SfTextInput from '~/c/SfTextInput';
-
 import useLight from '~/h/useLight';
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
+import useMessages from '~/h/useMessages';
 
 const sendInstant = throttle((conversationId, message) => {
   Cable.sendInstant(conversationId, message);
@@ -42,20 +37,8 @@ export default function ConversationScreen({ navigation, route }) {
 
   const conversationId = conversation?.id;
 
-  const {
-    data: message_groups,
-    isFetching,
-    isFetchingMore,
-    fetchMore,
-    canFetchMore,
-  } = useInfiniteQuery(
-    conversationId && ['dm_messages', { conversationId }],
-    getConversationMessages,
-    {
-      getFetchMore: (lastGroup) => {
-        return lastGroup.next_cursor;
-      },
-    }
+  const { fetchMore, canFetchMore, messages: _messages } = useMessages(
+    conversationId
   );
 
   const { data: instantMessage } = useQuery(
@@ -67,7 +50,7 @@ export default function ConversationScreen({ navigation, route }) {
     () => {}
   );
 
-  let messages = flatten(message_groups.map((group) => group.messages));
+  let messages = _messages;
   // console.log({ receivedMessages });
   if (receivedMessages) {
     messages = [...receivedMessages, ...messages];
