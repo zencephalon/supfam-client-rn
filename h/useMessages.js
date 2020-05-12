@@ -8,7 +8,7 @@ import Cable from '~/lib/Cable';
 
 export default function useMessages(conversationId, meProfileId) {
   React.useEffect(() => {
-    Cable.subscribeConversation(conversationId);
+    Cable.subscribeConversation(conversationId, meProfileId);
     return () => {
       Cable.unsubscribeConversation(conversationId);
     };
