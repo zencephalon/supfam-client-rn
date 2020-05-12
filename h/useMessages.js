@@ -34,6 +34,10 @@ export default function useMessages(conversationId, meProfileId) {
     conversationId && ['instant_messages', { conversationId }],
     () => {}
   );
+  const { data: queuedMessages } = useQuery(
+    conversationId && ['queued_messages', { conversationId }],
+    () => {}
+  );
   const { data: receivedMessages } = useQuery(
     conversationId && ['received_messages', { conversationId }],
     () => {}
@@ -43,6 +47,9 @@ export default function useMessages(conversationId, meProfileId) {
 
   if (receivedMessages) {
     messages = [...receivedMessages, ...messages];
+  }
+  if (queuedMessages) {
+    messages = [...queuedMessages, ...messages];
   }
   if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
     messages = [instantMessage, ...messages];

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -26,6 +26,7 @@ function Message(props) {
         {!props.isOwnMessage && !props.fromSameUser && (
           <ProfileIcon profileId={props.message.profile_id} size={24} />
         )}
+        {props.message.queued && <ActivityIndicator size="small" />}
       </View>
       <View
         style={{
