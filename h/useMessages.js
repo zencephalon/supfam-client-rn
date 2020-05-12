@@ -36,7 +36,11 @@ export default function useMessages(conversationId, meProfileId) {
   );
   const { data: queuedMessages } = useQuery(
     conversationId && ['queued_messages', { conversationId }],
-    () => {}
+    () => {},
+    {
+      manual: true,
+      initialData: Cable.getQueued(conversationId),
+    }
   );
   const { data: receivedMessages } = useQuery(
     conversationId && ['received_messages', { conversationId }],
