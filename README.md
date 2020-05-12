@@ -2,6 +2,9 @@
 
 ## TODO
 
+- Queue messages and then send, for faster send UX
+- Image messages!
+
 ### Features
 
 - CONTACTS import / inviting
@@ -15,10 +18,8 @@ We don't have to launch with this.
   - read receipts, keep an index counter of the last message read, per user. Calculate unread count based on that
   - Need to figure out the schema again now that I've got profiles in the mix
 
-
-- some kind of script to auto-update people's statuses to make the app lively during testing
-- Finish making new seed data with more people in it
-
+* some kind of script to auto-update people's statuses to make the app lively during testing
+* Finish making new seed data with more people in it
 
 ### Crypto
 
