@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useInfiniteQuery, useQuery } from 'react-query';
-import { flatten } from 'lodash';
+import { flatten, tail, head, uniqBy } from 'lodash';
 
 import { getConversationMessages } from '~/apis/api';
 import Cable from '~/lib/Cable';
@@ -47,11 +47,15 @@ export default function useMessages(conversationId, meProfileId) {
     () => {}
   );
 
-  let messages = flatten(message_groups.map((group) => group.messages));
+  let messages = uniqBy([
+    ...(receivedMessages || []),
+    ...(head(message_groups)?.messages || []),
+  ]);
+  messages = [
+    ...messages,
+    ...flatten(tail(message_groups).map((group) => group.messages)),
+  ];
 
-  if (receivedMessages) {
-    messages = [...receivedMessages, ...messages];
-  }
   if (queuedMessages) {
     messages = [...queuedMessages, ...messages];
   }
