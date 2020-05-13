@@ -5,6 +5,7 @@ import { flatten, tail, head, uniqBy } from 'lodash';
 
 import { getConversationMessages } from '~/apis/api';
 import Cable from '~/lib/Cable';
+import MessageQueue from '~/lib/MessageQueue';
 
 export default function useMessages(conversationId, meProfileId) {
   React.useEffect(() => {
@@ -30,20 +31,20 @@ export default function useMessages(conversationId, meProfileId) {
     }
   );
 
-  const { data: instantMessage } = useQuery(
-    conversationId && ['instant_messages', { conversationId }],
-    () => {}
-  );
   const { data: queuedMessages } = useQuery(
     conversationId && ['queued_messages', { conversationId }],
     () => {},
     {
       manual: true,
-      initialData: Cable.getQueued(conversationId),
+      initialData: MessageQueue.getQueued(conversationId),
     }
   );
   const { data: receivedMessages } = useQuery(
     conversationId && ['received_messages', { conversationId }],
+    () => {}
+  );
+  const { data: instantMessage } = useQuery(
+    conversationId && ['instant_messages', { conversationId }],
     () => {}
   );
 
