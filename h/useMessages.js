@@ -48,8 +48,13 @@ export default function useMessages(conversationId, meProfileId) {
     () => {}
   );
 
+  let _receivedMessages = uniqBy(
+    [...(queuedMessages || []), ...(receivedMessages || [])],
+    'message'
+  );
+
   let messages = uniqBy([
-    ...(receivedMessages || []),
+    ..._receivedMessages,
     ...(head(message_groups)?.messages || []),
   ]);
   messages = [
@@ -57,9 +62,9 @@ export default function useMessages(conversationId, meProfileId) {
     ...flatten(tail(message_groups).map((group) => group.messages)),
   ];
 
-  if (queuedMessages) {
-    messages = [...queuedMessages, ...messages];
-  }
+  // if (queuedMessages) {
+  //   messages = [...queuedMessages, ...messages];
+  // }
   if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
     messages = [instantMessage, ...messages];
   }

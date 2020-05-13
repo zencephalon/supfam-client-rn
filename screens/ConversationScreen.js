@@ -69,7 +69,10 @@ export default function ConversationScreen({ navigation, route }) {
       <MessageInput
         message={text}
         setMessage={setMessage}
-        submitMessage={() => submitMessage().then(() => setText(''))}
+        submitMessage={() => {
+          setText('');
+          submitMessage();
+        }}
       />
     </KeyboardAvoidingView>
   );
