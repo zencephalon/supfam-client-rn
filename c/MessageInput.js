@@ -57,12 +57,12 @@ export default function MessageInput({ conversationId }) {
         }}
         style={{
           alignSelf: 'flex-start',
-          marginLeft: 4,
+          paddingLeft: 4,
         }}
       >
         <MaterialCommunityIcons
           name="send"
-          size={24}
+          size={32}
           color={statusColors[statusMe?.color] || OPEN}
         />
       </TouchableOpacity>
@@ -73,7 +73,7 @@ export default function MessageInput({ conversationId }) {
 const styles = StyleSheet.create({
   statusInput: {
     padding: 12,
-    fontSize: 16,
+    fontSize: 24,
     borderRadius: 10,
     borderWidth: 0,
     paddingBottom: 4,
