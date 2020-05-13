@@ -10,11 +10,24 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import useLight from '~/h/useLight';
 import useProfileMe from '~/h/useProfileMe';
+import useSubmitMessage from '~/h/useSubmitMessage';
+import sendInstant from '~/lib/sendInstant';
 
-export default function MessageInput({ message, setMessage, submitMessage }) {
+export default function MessageInput({ conversationId }) {
   const { backgrounds } = useLight();
   const { profile } = useProfileMe();
   const statusMe = profile?.status;
+
+  const [text, setText] = React.useState('');
+  const submitMessage = useSubmitMessage(conversationId, profile.id);
+
+  const setMessage = React.useCallback(
+    (text) => {
+      setText(text);
+      sendInstant(conversationId, text);
+    },
+    [conversationId]
+  );
 
   return (
     <View
@@ -30,7 +43,7 @@ export default function MessageInput({ message, setMessage, submitMessage }) {
       }}
     >
       <SfTextInput
-        value={message}
+        value={text}
         onChangeText={setMessage}
         textInputStyle={styles.statusInput}
         style={{ flexGrow: 1, flexShrink: 1 }}
@@ -38,7 +51,10 @@ export default function MessageInput({ message, setMessage, submitMessage }) {
         blurOnSubmit={false}
       />
       <TouchableOpacity
-        onPress={() => submitMessage(message)}
+        onPress={() => {
+          setMessage('');
+          submitMessage(text);
+        }}
         style={{
           alignSelf: 'flex-start',
           marginLeft: 4,

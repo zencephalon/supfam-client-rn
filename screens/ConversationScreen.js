@@ -13,12 +13,9 @@ import useLight from '~/h/useLight';
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
-import useSubmitMessage from '~/h/useSubmitMessage';
-import sendInstant from '~/lib/sendInstant';
 
 export default function ConversationScreen({ navigation, route }) {
   const { backgrounds } = useLight();
-  const [text, setText] = React.useState('');
   const { profileId } = route.params;
 
   const meProfileId = useProfileId();
@@ -34,16 +31,6 @@ export default function ConversationScreen({ navigation, route }) {
   const { fetchMore, canFetchMore, messages } = useMessages(
     conversationId,
     meProfileId
-  );
-
-  const submitMessage = useSubmitMessage(conversationId, meProfileId);
-
-  const setMessage = React.useCallback(
-    (text) => {
-      setText(text);
-      sendInstant(conversationId, text);
-    },
-    [conversationId]
   );
 
   navigation.setOptions({
@@ -66,14 +53,7 @@ export default function ConversationScreen({ navigation, route }) {
         fetchMore={fetchMore}
         canFetchMore={canFetchMore}
       />
-      <MessageInput
-        message={text}
-        setMessage={setMessage}
-        submitMessage={(text) => {
-          setText('');
-          submitMessage(text);
-        }}
-      />
+      <MessageInput conversationId={conversationId} />
     </KeyboardAvoidingView>
   );
 }
