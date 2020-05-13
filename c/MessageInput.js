@@ -38,7 +38,7 @@ export default function MessageInput({ message, setMessage, submitMessage }) {
         blurOnSubmit={false}
       />
       <TouchableOpacity
-        onPress={submitMessage}
+        onPress={() => submitMessage(message)}
         style={{
           alignSelf: 'flex-start',
           marginLeft: 4,

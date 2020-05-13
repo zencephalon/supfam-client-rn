@@ -4,15 +4,18 @@ import sendInstant from '~/lib/sendInstant';
 
 import MessageQueue from '~/lib/MessageQueue';
 
-export default function useSubmitMessage(text, conversationId, meProfileId) {
-  return React.useCallback(async () => {
-    if (text === '') {
-      return;
-    }
-    sendInstant(conversationId, text);
-    MessageQueue.sendMessage(meProfileId, conversationId, {
-      message: text,
-      type: 0,
-    });
-  }, [text, conversationId, meProfileId]);
+export default function useSubmitMessage(conversationId, meProfileId) {
+  return React.useCallback(
+    (text) => {
+      console.log('submitted', text);
+      if (text === '') {
+        return;
+      }
+      MessageQueue.sendMessage(meProfileId, conversationId, {
+        message: text,
+        type: 0,
+      });
+    },
+    [conversationId, meProfileId]
+  );
 }

@@ -36,7 +36,7 @@ export default function ConversationScreen({ navigation, route }) {
     meProfileId
   );
 
-  const submitMessage = useSubmitMessage(text, conversationId, meProfileId);
+  const submitMessage = useSubmitMessage(conversationId, meProfileId);
 
   const setMessage = React.useCallback(
     (text) => {
@@ -69,9 +69,9 @@ export default function ConversationScreen({ navigation, route }) {
       <MessageInput
         message={text}
         setMessage={setMessage}
-        submitMessage={() => {
+        submitMessage={(text) => {
           setText('');
-          submitMessage();
+          submitMessage(text);
         }}
       />
     </KeyboardAvoidingView>
