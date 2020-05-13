@@ -57,16 +57,12 @@ export default function useMessages(conversationId, meProfileId) {
     ..._receivedMessages,
     ...(head(message_groups)?.messages || []),
   ]);
-  messages = [
-    ...messages,
-    ...flatten(tail(message_groups).map((group) => group.messages)),
-  ];
+  messages = messages.concat(
+    flatten(tail(message_groups).map((group) => group.messages))
+  );
 
-  // if (queuedMessages) {
-  //   messages = [...queuedMessages, ...messages];
-  // }
   if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
-    messages = [instantMessage, ...messages];
+    messages.unshift(instantMessage);
   }
 
   return {
