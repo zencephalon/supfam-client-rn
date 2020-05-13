@@ -2,7 +2,6 @@
 
 ## TODO
 
-- Queue messages and then send, for faster send UX
 - Image messages!
 
 ### Features
