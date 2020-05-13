@@ -49,14 +49,14 @@ export default function useMessages(conversationId, meProfileId) {
   );
 
   let _receivedMessages = uniqBy(
-    [...(queuedMessages || []), ...(receivedMessages || [])],
+    (queuedMessages || []).concat(receivedMessages || []),
     'message'
   );
 
-  let messages = uniqBy([
-    ..._receivedMessages,
-    ...(head(message_groups)?.messages || []),
-  ]);
+  let messages = uniqBy(
+    _receivedMessages.concat(head(message_groups)?.messages || []),
+    'id'
+  );
   messages = messages.concat(
     flatten(tail(message_groups).map((group) => group.messages))
   );
