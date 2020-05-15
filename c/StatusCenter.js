@@ -14,7 +14,7 @@ const StatusCenter = () => {
   const [message, setMessage] = React.useState('');
 
   const profileId = useProfileId();
-  const { profile, status } = useProfileMe();
+  const { profile, reqState } = useProfileMe();
 
   const statusMe = profile?.status;
 
@@ -31,7 +31,7 @@ const StatusCenter = () => {
   );
 
   const postMessage = React.useCallback(async () => {
-    if (status === 'success') {
+    if (reqState === 'success') {
       try {
         await putStatusMe({ profileId, color: statusMe?.color, message });
         queryCache.refetchQueries(['profileMe', profileId]);

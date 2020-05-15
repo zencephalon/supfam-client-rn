@@ -14,5 +14,5 @@ export default function useProfileMe() {
     }
   );
 
-  return { profile, status };
+  return { profile, reqState: status };
 }
