@@ -2,16 +2,18 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import SfTextInput from './SfTextInput';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import sendInstant from '~/lib/sendInstant';
 import useLight from '~/h/useLight';
 import useProfileMe from '~/h/useProfileMe';
 import useSubmitMessage from '~/h/useSubmitMessage';
-import sendInstant from '~/lib/sendInstant';
+import useSnapImage from '~/h/useSnapImage';
+import usePickImage from '~/h/usePickImage';
 
 export default function MessageInput({ conversationId }) {
   const { backgrounds } = useLight();
@@ -19,6 +21,12 @@ export default function MessageInput({ conversationId }) {
   const statusMe = profile?.status;
 
   const [text, setText] = React.useState('');
+
+  const [image, setImage] = React.useState(null);
+  const snapImage = useSnapImage({ setImage });
+  const pickImage = usePickImage({ setImage });
+
+  const [focused, setFocused] = React.useState(false);
   const submitMessage = useSubmitMessage(conversationId, profile.id);
 
   const setMessage = React.useCallback(
@@ -42,6 +50,36 @@ export default function MessageInput({ conversationId }) {
         alignItems: 'flex-end',
       }}
     >
+      {!focused && (
+        <TouchableOpacity
+          onPress={snapImage}
+          style={{
+            alignSelf: 'flex-start',
+            paddingRight: 4,
+          }}
+        >
+          <Ionicons
+            name="md-camera"
+            size={32}
+            color={statusColors[statusMe?.color] || OPEN}
+          />
+        </TouchableOpacity>
+      )}
+      {!focused && (
+        <TouchableOpacity
+          onPress={pickImage}
+          style={{
+            alignSelf: 'flex-start',
+            paddingRight: 4,
+          }}
+        >
+          <Ionicons
+            name="md-photos"
+            size={32}
+            color={statusColors[statusMe?.color] || OPEN}
+          />
+        </TouchableOpacity>
+      )}
       <SfTextInput
         value={text}
         onChangeText={setMessage}
@@ -49,23 +87,27 @@ export default function MessageInput({ conversationId }) {
         style={{ flexGrow: 1, flexShrink: 1 }}
         multiline={true}
         blurOnSubmit={false}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
       />
-      <TouchableOpacity
-        onPress={() => {
-          setMessage('');
-          submitMessage(text);
-        }}
-        style={{
-          alignSelf: 'flex-start',
-          paddingLeft: 4,
-        }}
-      >
-        <MaterialCommunityIcons
-          name="send"
-          size={32}
-          color={statusColors[statusMe?.color] || OPEN}
-        />
-      </TouchableOpacity>
+      {!!text && (
+        <TouchableOpacity
+          onPress={() => {
+            setMessage('');
+            submitMessage(text);
+          }}
+          style={{
+            alignSelf: 'flex-start',
+            paddingLeft: 4,
+          }}
+        >
+          <MaterialCommunityIcons
+            name="send"
+            size={32}
+            color={statusColors[statusMe?.color] || OPEN}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
