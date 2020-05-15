@@ -50,7 +50,7 @@ export default function useMessages(conversationId, meProfileId) {
 
   let _receivedMessages = uniqBy(
     (queuedMessages || []).concat(receivedMessages || []),
-    'message'
+    'qid'
   );
 
   let messages = uniqBy(
