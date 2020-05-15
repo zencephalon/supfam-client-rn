@@ -4,8 +4,15 @@ import { StyleSheet, View, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import * as Colors from '~/constants/Colors';
+import statusColors from '~/constants/statusColors';
+
+import ProfileIcon from '~/c/ProfileIcon';
+
+import useFriends from '~/h/useFriends';
 
 export default function LinksScreen() {
+  const { status, friends, error } = useFriends();
+
   return (
     <View style={styles.container}>
       <MapView
@@ -17,26 +24,21 @@ export default function LinksScreen() {
           longitudeDelta: 0.0241,
         }}
       >
-        <Marker
-          coordinate={{ latitude: 40.6749728, longitude: -73.9434645 }}
-          title={'Me'}
-          pinColor={Colors.OPEN}
-        />
-        <Marker
-          coordinate={{ latitude: 40.6849738, longitude: -73.9534649 }}
-          title={'Daria'}
-          pinColor={Colors.BUSY}
-        />
-        <Marker
-          coordinate={{ latitude: 40.664972, longitude: -73.9334641 }}
-          title={'Stedman'}
-          pinColor={Colors.FREE}
-        />
-        <Marker
-          coordinate={{ latitude: 40.6649726, longitude: -73.9534643 }}
-          title={'Claire'}
-          pinColor={Colors.AWAY}
-        />
+        {friends.map((profile) => {
+          return (
+            <Marker
+              key={profile.id}
+              coordinate={{
+                latitude: 40.6749728 + Math.random() * 0.01,
+                longitude: -73.9434645 + Math.random() * 0.01,
+              }}
+              title={profile?.name || 'Friend'}
+              pinColor={statusColors[profile?.status?.color] || Colors.OPEN}
+            >
+              <ProfileIcon profileId={profile.id} size={32} />
+            </Marker>
+          );
+        })}
       </MapView>
     </View>
   );
