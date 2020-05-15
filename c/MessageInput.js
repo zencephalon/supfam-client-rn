@@ -43,7 +43,8 @@ export default function MessageInput({ conversationId }) {
         flexDirection: 'row',
         paddingLeft: 8,
         paddingRight: 8,
-        marginBottom: 8,
+        marginBottom: 16,
+        marginTop: 4,
         borderTopColor: backgrounds[1],
         borderTopWidth: 1,
         paddingTop: 8,
@@ -55,14 +56,10 @@ export default function MessageInput({ conversationId }) {
           onPress={snapImage}
           style={{
             alignSelf: 'flex-start',
-            paddingRight: 4,
+            paddingRight: 8,
           }}
         >
-          <Ionicons
-            name="md-camera"
-            size={32}
-            color={statusColors[statusMe?.color] || OPEN}
-          />
+          <Ionicons name="md-camera" size={32} color={backgrounds[3]} />
         </TouchableOpacity>
       )}
       {!focused && (
@@ -70,17 +67,14 @@ export default function MessageInput({ conversationId }) {
           onPress={pickImage}
           style={{
             alignSelf: 'flex-start',
-            paddingRight: 4,
+            paddingRight: 8,
           }}
         >
-          <Ionicons
-            name="md-photos"
-            size={32}
-            color={statusColors[statusMe?.color] || OPEN}
-          />
+          <Ionicons name="md-photos" size={32} color={backgrounds[3]} />
         </TouchableOpacity>
       )}
       <SfTextInput
+        placeholder="New message..."
         value={text}
         onChangeText={setMessage}
         textInputStyle={styles.statusInput}
