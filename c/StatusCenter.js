@@ -9,9 +9,11 @@ import { queryCache } from 'react-query';
 
 import useProfileId from '~/h/useProfileId';
 import useProfileMe from '~/h/useProfileMe';
+import useLight from '~/h/useLight';
 
 const StatusCenter = () => {
   const [message, setMessage] = React.useState('');
+  const { backgrounds } = useLight();
 
   const profileId = useProfileId();
   const { profile, reqState } = useProfileMe();
@@ -43,7 +45,7 @@ const StatusCenter = () => {
   }, [statusMe, message, statusMe, profileId]);
 
   return (
-    <React.Fragment>
+    <View style={{ backgroundColor: backgrounds[0] }}>
       <StatusInput
         profile={profile}
         statusMe={statusMe}
@@ -63,7 +65,7 @@ const StatusCenter = () => {
           );
         })}
       </View>
-    </React.Fragment>
+    </View>
   );
 };
 
