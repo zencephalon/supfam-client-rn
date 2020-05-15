@@ -40,15 +40,8 @@ export default function MessageInput({ conversationId }) {
   return (
     <View
       style={{
-        flexDirection: 'row',
-        paddingLeft: 8,
-        paddingRight: 8,
-        marginBottom: 16,
-        marginTop: 4,
+        ...styles.container,
         borderTopColor: backgrounds[1],
-        borderTopWidth: 1,
-        paddingTop: 8,
-        alignItems: 'flex-end',
       }}
     >
       {!focused && (
@@ -113,5 +106,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0,
     paddingBottom: 4,
+  },
+  container: {
+    flexDirection: 'row',
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginBottom: 16,
+    marginTop: 4,
+    borderTopWidth: 1,
+    paddingTop: 8,
+    alignItems: 'flex-end',
   },
 });
