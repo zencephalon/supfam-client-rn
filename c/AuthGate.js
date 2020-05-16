@@ -11,7 +11,19 @@ import SfButton from '~/c/SfButton';
 import CheckInviteFlow from '~/c/CheckInviteFlow';
 import VerifyCodeFlow from '~/c/VerifyCodeFlow';
 
-import { FREE, OPEN } from '~/constants/Colors';
+import { FREE, OPEN, AWAY } from '~/constants/Colors';
+
+const downloadUpdate = async () => {
+  try {
+    const update = await Updates.checkForUpdateAsync();
+    if (update.isAvailable) {
+      await Updates.fetchUpdateAsync();
+      Updates.reloadFromCache();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 function Welcome(props) {
   return (
@@ -28,6 +40,7 @@ function Welcome(props) {
         title="Register"
         onPress={() => props.setSelection('register')}
       />
+      <SfButton color={AWAY} title="Download Update" onPress={downloadUpdate} />
     </React.Fragment>
   );
 }
