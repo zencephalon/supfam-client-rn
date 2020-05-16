@@ -2,6 +2,8 @@
 
 ## TODO
 
+- Fix actioncable consumer to remove listeners correctly
+- Wire up location updates with API
 - Image messages!
 
 ### Features

@@ -11,8 +11,13 @@ function CableContainer() {
   const friendIds = (friends || []).map((f) => f.id).sort();
 
   useDeepCompareEffect(() => {
+    if (!profileId || friendIds.length === 0) {
+      return;
+    }
+    console.log('initializing cable', { profileId, friendIds });
     cable.init({ profileId, friendIds });
     return () => {
+      console.log('canceling cable', { profileId, friendIds });
       cable.disconnect();
     };
   }, [profileId, friendIds]);
