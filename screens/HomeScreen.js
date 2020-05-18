@@ -1,34 +1,21 @@
 import * as React from 'react';
-import { StyleSheet, KeyboardAvoidingView } from 'react-native';
-import useLight from '~/h/useLight';
 
 import FriendList from '~/c/FriendList';
 import StatusCenter from '~/c/StatusCenter';
 import HomeTopBar from '~/c/HomeTopBar';
+import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 
 export default function HomeScreen({ navigation }) {
-  const { backgrounds } = useLight();
   return (
-    <KeyboardAvoidingView
-      style={{ ...styles.container, backgroundColor: backgrounds[0] }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={20}
-    >
+    <SfKeyboardAvoidingView>
       <HomeTopBar title="Supfam" />
       <FriendList navigation={navigation} />
 
       <StatusCenter />
-    </KeyboardAvoidingView>
+    </SfKeyboardAvoidingView>
   );
 }
 
 HomeScreen.navigationOptions = {
   header: null,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import { useQuery } from 'react-query';
 import { getProfileDmConversation } from '~/apis/api';
@@ -8,14 +7,13 @@ import statusColors from '~/constants/statusColors';
 
 import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
+import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 
-import useLight from '~/h/useLight';
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
 
 export default function ConversationScreen({ navigation, route }) {
-  const { backgrounds } = useLight();
   const { profileId } = route.params;
 
   const meProfileId = useProfileId();
@@ -41,12 +39,7 @@ export default function ConversationScreen({ navigation, route }) {
   });
 
   return (
-    <KeyboardAvoidingView
-      style={{ ...styles.container, backgroundColor: backgrounds[0] }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={68}
-    >
+    <SfKeyboardAvoidingView keyboardVerticalOffset={54}>
       <MessageList
         messages={messages}
         meProfileId={meProfileId}
@@ -54,16 +47,10 @@ export default function ConversationScreen({ navigation, route }) {
         canFetchMore={canFetchMore}
       />
       <MessageInput conversationId={conversationId} />
-    </KeyboardAvoidingView>
+    </SfKeyboardAvoidingView>
   );
 }
 
 ConversationScreen.navigationOptions = {
   header: null,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

@@ -1,11 +1,6 @@
 import * as React from 'react';
 
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import * as Colors from '~/constants/Colors';
@@ -13,10 +8,10 @@ import statusColors from '~/constants/statusColors';
 
 import ProfileIcon, { ProfileIconFromProfile } from '~/c/ProfileIcon';
 import StatusCenter from '~/c/StatusCenter';
+import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 
 import useFriends from '~/h/useFriends';
 import useProfileMe from '~/h/useProfileMe';
-import useLight from '~/h/useLight';
 
 import * as Location from 'expo-location';
 
@@ -32,8 +27,6 @@ const getLocation = async () => {
 
 export default function LinksScreen() {
   const { friends } = useFriends();
-
-  const { backgrounds } = useLight();
 
   const [location, setLocation] = React.useState(null);
   const { profile } = useProfileMe();
@@ -57,12 +50,7 @@ export default function LinksScreen() {
 
   return (
     !!location && (
-      <KeyboardAvoidingView
-        style={{ ...styles.container, backgroundColor: backgrounds[0] }}
-        behavior="padding"
-        enabled
-        keyboardVerticalOffset={20}
-      >
+      <SfKeyboardAvoidingView>
         <MapView
           style={styles.mapStyle}
           initialRegion={{
@@ -94,16 +82,12 @@ export default function LinksScreen() {
           })}
         </MapView>
         <StatusCenter />
-      </KeyboardAvoidingView>
+      </SfKeyboardAvoidingView>
     )
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: 'flex',
-  },
   mapStyle: {
     flex: 1,
     width: Dimensions.get('window').width,

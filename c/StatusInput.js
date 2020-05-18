@@ -44,19 +44,21 @@ export default function StatusInput({
         style={{ flexGrow: 1, flexShrink: 1 }}
         multiline={true}
       />
-      <TouchableOpacity
-        onPress={postMessage}
-        style={{
-          alignSelf: 'flex-start',
-          marginLeft: 4,
-        }}
-      >
-        <MaterialCommunityIcons
-          name="send"
-          size={24}
-          color={statusColors[statusMe?.color] || OPEN}
-        />
-      </TouchableOpacity>
+      {!!message && (
+        <TouchableOpacity
+          onPress={postMessage}
+          style={{
+            alignSelf: 'flex-start',
+            marginLeft: 4,
+          }}
+        >
+          <MaterialCommunityIcons
+            name="send"
+            size={32}
+            color={statusColors[statusMe?.color] || OPEN}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -64,7 +66,7 @@ export default function StatusInput({
 const styles = StyleSheet.create({
   statusInput: {
     padding: 12,
-    fontSize: 16,
+    fontSize: 24,
     borderRadius: 10,
     borderWidth: 0,
     paddingBottom: 4,
