@@ -6,6 +6,11 @@
 - Wire up location updates with API
 - Image messages!
 
+
+### Reorder Flatlist animation (for fam screen)
+
+Look at https://snack.expo.io/@isaachinman/flatlist-with-reorder-animation
+
 ### Features
 
 - CONTACTS import / inviting
