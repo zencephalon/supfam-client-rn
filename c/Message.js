@@ -27,7 +27,6 @@ function MessageText(props) {
 
 function Message(props) {
   const { message, isOwnMessage, fromSameUser } = props;
-  console.log(message.filepath);
   return (
     <View
       style={{
@@ -62,8 +61,7 @@ function Message(props) {
             style={{ width: 200, height: 200 }}
           />
         )}
-        {/* We need to refactor this, it won't work for group conversations at all */}
-        {message.id === 'i' ? (
+        {message.i ? (
           <SfText style={{ fontSize: 10 }}>
             ...
             <TypingText time={message.receivedAt} />
