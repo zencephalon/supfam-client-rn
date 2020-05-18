@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
+import { LayoutAnimation } from 'react-native';
 
 import ProfileStatus from '~/c/ProfileStatus';
 
@@ -14,6 +15,17 @@ const FriendList = (props) => {
   const renderProfileStatus = React.useCallback(({ item: profile }) => {
     return <ProfileStatus profile={profile} />;
   }, []);
+
+  useEffect(() => {
+    LayoutAnimation.configureNext({
+      duration: 400,
+      create: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.opacity,
+      },
+      update: { type: LayoutAnimation.Types.easeInEaseOut },
+    });
+  }, [friends]);
 
   return (
     <FlatList
