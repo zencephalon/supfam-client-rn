@@ -26,7 +26,10 @@ function ProfileCreate(props) {
   const UploadImage = useApi(uploadImage);
 
   const snapImage = useSnapImage({ setImage });
-  const pickImage = usePickImage({ setImage });
+  const pickImage = usePickImage({
+    setImage,
+    imageOptions: { allowsEditing: true, aspect: [1, 1] },
+  });
 
   const profileBusy = PostProfile.req.requested || UploadImage.req.requested;
   const cantCreateProfile = !name || !image;

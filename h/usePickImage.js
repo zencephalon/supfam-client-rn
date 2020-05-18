@@ -2,7 +2,7 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 
-export default function usePickImage({ setImage }) {
+export default function usePickImage({ setImage, imageOptions }) {
   return async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -14,9 +14,8 @@ export default function usePickImage({ setImage }) {
     try {
       let image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
         quality: 1,
+        ...imageOptions,
       });
       if (!image.cancelled) {
         setImage(image);
