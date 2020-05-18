@@ -25,8 +25,10 @@ const getLocation = async () => {
   return location;
 };
 
-export default function LinksScreen() {
+export default function MapScreen() {
   const { friends } = useFriends();
+
+  const map = React.useRef(null);
 
   const [location, setLocation] = React.useState(null);
   const { profile } = useProfileMe();
@@ -61,6 +63,8 @@ export default function LinksScreen() {
             latitudeDelta: 0.0292,
             longitudeDelta: 0.0241,
           }}
+          ref={map}
+          onMapReady={() => {}}
         >
           <Marker coordinate={location.coords} title={'Me'}>
             <ProfileIconFromProfile profile={profile} size={32} />
