@@ -73,7 +73,8 @@ export default function LinksScreen() {
                   latitude: 40.6749728 + Math.random() * 0.01,
                   longitude: -73.9434645 + Math.random() * 0.01,
                 }}
-                title={profile?.name || 'Friend'}
+                title={`${profile?.name}`}
+                description={`${profile?.status?.message}`}
                 pinColor={statusColors[profile?.status?.color] || Colors.OPEN}
               >
                 <ProfileIcon profileId={profile.id} size={32} />
