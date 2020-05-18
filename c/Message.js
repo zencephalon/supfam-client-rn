@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image } from 'react-native';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -8,25 +8,43 @@ import useLight from '~/h/useLight';
 
 import TypingText from '~/c/TypingText';
 
-function Message(props) {
+function MessageText(props) {
   const { backgrounds } = useLight();
+  return (
+    <SfText
+      style={{
+        fontSize: 16,
+        backgroundColor: props.isOwnMessage ? backgrounds[2] : backgrounds[1],
+        borderRadius: 10,
+        overflow: 'hidden',
+        padding: 8,
+      }}
+    >
+      {props.text}
+    </SfText>
+  );
+}
+
+function Message(props) {
+  const { message, isOwnMessage, fromSameUser } = props;
+  console.log(message.filepath);
   return (
     <View
       style={{
         flexDirection: 'row',
         marginBottom: 4,
-        marginTop: props.fromSameUser ? 0 : 12,
+        marginTop: fromSameUser ? 0 : 12,
         alignItems: 'flex-start',
-        justifyContent: props.isOwnMessage ? 'flex-end' : 'flex-start',
+        justifyContent: isOwnMessage ? 'flex-end' : 'flex-start',
         marginLeft: 8,
         marginRight: 8,
       }}
     >
       <View style={{ width: 32 }}>
-        {!props.isOwnMessage && !props.fromSameUser && (
-          <ProfileIcon profileId={props.message.profile_id} size={24} />
+        {!isOwnMessage && !fromSameUser && (
+          <ProfileIcon profileId={message.profile_id} size={24} />
         )}
-        {props.message.queued && <ActivityIndicator size="small" />}
+        {message.queued && <ActivityIndicator size="small" />}
       </View>
       <View
         style={{
@@ -35,23 +53,20 @@ function Message(props) {
           maxWidth: '80%',
         }}
       >
-        <SfText
-          style={{
-            fontSize: 16,
-            backgroundColor: props.isOwnMessage
-              ? backgrounds[2]
-              : backgrounds[1],
-            borderRadius: 10,
-            overflow: 'hidden',
-            padding: 8,
-          }}
-        >
-          {props.message.message}
-        </SfText>
-        {props.message.id === 'i' ? (
+        {message.type === 0 && (
+          <MessageText text={message.message} isOwnMessage={isOwnMessage} />
+        )}
+        {message.type === 1 && (
+          <Image
+            source={{ uri: message.filepath, isStatic: true }}
+            style={{ width: 200, height: 200 }}
+          />
+        )}
+        {/* We need to refactor this, it won't work for group conversations at all */}
+        {message.id === 'i' ? (
           <SfText style={{ fontSize: 10 }}>
             ...
-            <TypingText time={props.message.receivedAt} />
+            <TypingText time={message.receivedAt} />
           </SfText>
         ) : null}
       </View>

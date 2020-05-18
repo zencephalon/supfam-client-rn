@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import SfTextInput from './SfTextInput';
@@ -14,6 +14,7 @@ import useProfileMe from '~/h/useProfileMe';
 import useSubmitMessage from '~/h/useSubmitMessage';
 import useSnapImage from '~/h/useSnapImage';
 import usePickImage from '~/h/usePickImage';
+import useSubmitImageMessage from '~/h/useSubmitImageMessage';
 
 export default function MessageInput({ conversationId }) {
   const { backgrounds } = useLight();
@@ -28,6 +29,7 @@ export default function MessageInput({ conversationId }) {
 
   const [focused, setFocused] = React.useState(false);
   const submitMessage = useSubmitMessage(conversationId, profile.id);
+  const submitImageMessage = useSubmitImageMessage(conversationId, profile.id);
 
   const setMessage = React.useCallback(
     (text) => {
@@ -36,6 +38,13 @@ export default function MessageInput({ conversationId }) {
     },
     [conversationId]
   );
+
+  useEffect(() => {
+    console.log('image selected', image);
+    if (image?.uri) {
+      submitImageMessage(image.uri);
+    }
+  }, [image]);
 
   return (
     <View
