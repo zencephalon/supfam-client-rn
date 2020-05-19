@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView, StyleSheet, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import SfText from '~/c/SfText';
@@ -13,17 +13,7 @@ import VerifyCodeFlow from '~/c/VerifyCodeFlow';
 
 import { FREE, OPEN, AWAY } from '~/constants/Colors';
 
-const downloadUpdate = async () => {
-  try {
-    const update = await Updates.checkForUpdateAsync();
-    if (update.isAvailable) {
-      await Updates.fetchUpdateAsync();
-      Updates.reloadFromCache();
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
+import downloadUpdate from '~/lib/downloadUpdate';
 
 function Welcome(props) {
   return (

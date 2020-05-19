@@ -6,19 +6,7 @@ import AuthToken from '~/lib/AuthToken';
 import { LOGOUT } from '~/apis/auth/actions';
 import { connect } from 'react-redux';
 
-import { Updates } from 'expo';
-
-const downloadUpdate = async () => {
-  try {
-    const update = await Updates.checkForUpdateAsync();
-    if (update.isAvailable) {
-      await Updates.fetchUpdateAsync();
-      Updates.reloadFromCache();
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
+import downloadUpdate from '~/lib/downloadUpdate';
 
 export default connect()(function LinksScreen(props) {
   return (
