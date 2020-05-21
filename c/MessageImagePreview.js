@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image } from 'react-native';
+import { Dimensions, Image, View } from 'react-native';
 
 export default function MessageImagePreview(props) {
   const { image } = props;
@@ -10,7 +10,12 @@ export default function MessageImagePreview(props) {
   return (
     <Image
       source={{ uri: image.uri, isStatic: true }}
-      style={{ width: targetWidth, height }}
+      style={{
+        width: targetWidth,
+        height,
+        borderRadius: 8,
+        backgroundColor: '#333',
+      }}
     />
   );
 }
