@@ -27,7 +27,6 @@ export const getConversationMessages = (_key, { conversationId }, cursor) => {
   return api
     .fetchFromAPI(`conversations/${conversationId}/messages${cursorChunk}`)
     .then(({ messages, next_cursor }) => {
-      console.log('got messages', { messages, next_cursor });
       return {
         messages: messages.map(processMessage),
         next_cursor,
@@ -113,7 +112,6 @@ async function getLocalBlob(uri) {
 }
 
 export const uploadImage = async (uri) => {
-  console.log('upload called', uri);
   const fileExtension = uri.split('.').pop();
   const { url, key } = await fetchPresigned(fileExtension);
 
