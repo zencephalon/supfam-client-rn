@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MessageQueue from '~/lib/MessageQueue';
+import UploadQueue from '~/lib/UploadQueue';
 
 export default function useSubmitImageMessage(conversationId, meProfileId) {
   return React.useCallback(
@@ -8,7 +9,7 @@ export default function useSubmitImageMessage(conversationId, meProfileId) {
       if (!image) {
         return;
       }
-      MessageQueue.addImageUpload(meProfileId, conversationId, {
+      UploadQueue.addImageUpload(meProfileId, conversationId, {
         image,
         type: 1,
       });
