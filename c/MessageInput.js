@@ -42,7 +42,7 @@ export default function MessageInput({ conversationId }) {
   useEffect(() => {
     console.log('image selected', image);
     if (image?.uri) {
-      submitImageMessage(image.uri);
+      submitImageMessage(image);
     }
   }, [image]);
 

@@ -7,6 +7,7 @@ import ProfileIcon from '~/c/ProfileIcon';
 import useLight from '~/h/useLight';
 
 import TypingText from '~/c/TypingText';
+import MessageImagePreview from '~/c/MessageImagePreview';
 
 function MessageText(props) {
   const { backgrounds } = useLight();
@@ -55,11 +56,8 @@ function Message(props) {
         {message.type === 0 && (
           <MessageText text={message.message} isOwnMessage={isOwnMessage} />
         )}
-        {message.type === 1 && (
-          <Image
-            source={{ uri: message.filepath, isStatic: true }}
-            style={{ width: 200, height: 200 }}
-          />
+        {message.type === 1 && message.image && (
+          <MessageImagePreview image={message.image} />
         )}
         {message.i ? (
           <SfText style={{ fontSize: 10 }}>

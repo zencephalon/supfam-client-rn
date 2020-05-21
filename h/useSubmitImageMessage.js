@@ -4,12 +4,12 @@ import MessageQueue from '~/lib/MessageQueue';
 
 export default function useSubmitImageMessage(conversationId, meProfileId) {
   return React.useCallback(
-    (url) => {
-      if (!url) {
+    (image) => {
+      if (!image) {
         return;
       }
       MessageQueue.addImageUpload(meProfileId, conversationId, {
-        filepath: url,
+        image,
         type: 1,
       });
     },
