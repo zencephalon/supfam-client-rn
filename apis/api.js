@@ -1,6 +1,7 @@
 import { configureAPI } from 'redux-rest-reducer';
 import { API_URL } from '~/lib/constants';
 import AuthToken from '~/lib/AuthToken';
+import processMessage from '~/lib/processMessage';
 
 const setAuthHeader = (headers) => {
   const token = AuthToken.get()?.token;
@@ -28,17 +29,7 @@ export const getConversationMessages = (_key, { conversationId }, cursor) => {
     .then(({ messages, next_cursor }) => {
       console.log('got messages', { messages, next_cursor });
       return {
-        messages: messages.map((message) => {
-          if (message.type === 0) {
-            return message;
-          }
-          if (message.type === 1) {
-            return {
-              ...message,
-              image: JSON.parse(message.message),
-            };
-          }
-        }),
+        messages: messages.map(processMessage),
         next_cursor,
       };
     });
