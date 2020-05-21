@@ -23,9 +23,25 @@ export const getProfilesMe = () => {
 
 export const getConversationMessages = (_key, { conversationId }, cursor) => {
   const cursorChunk = cursor ? `\?cursor=${cursor}` : '';
-  return api.fetchFromAPI(
-    `conversations/${conversationId}/messages${cursorChunk}`
-  );
+  return api
+    .fetchFromAPI(`conversations/${conversationId}/messages${cursorChunk}`)
+    .then(({ messages, next_cursor }) => {
+      console.log('got messages', { messages, next_cursor });
+      return {
+        messages: messages.map((message) => {
+          if (message.type === 0) {
+            return message;
+          }
+          if (message.type === 1) {
+            return {
+              ...message,
+              image: JSON.parse(message.message),
+            };
+          }
+        }),
+        next_cursor,
+      };
+    });
 };
 
 export const getProfileDmConversation = (_key, { profileId }) => {
@@ -106,6 +122,7 @@ async function getLocalBlob(uri) {
 }
 
 export const uploadImage = async (uri) => {
+  console.log('upload called', uri);
   const fileExtension = uri.split('.').pop();
   const { url, key } = await fetchPresigned(fileExtension);
 
