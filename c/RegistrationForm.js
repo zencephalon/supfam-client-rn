@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
+import SfContainer from '~/c/SfContainer';
 import { useDispatch } from 'react-redux';
 
 import { debounce } from 'lodash';
@@ -103,7 +104,7 @@ const RegistrationForm = ({ token }) => {
   };
 
   return (
-    <View>
+    <SfContainer>
       <SfText style={{ marginTop: 16, marginBottom: 16 }}>
         Thanks for verifying!
       </SfText>
@@ -147,7 +148,7 @@ const RegistrationForm = ({ token }) => {
       <SfText style={{ fontSize: 16 }}>
         By registering you agree to our Terms and Conditions
       </SfText>
-    </View>
+    </SfContainer>
   );
 };
 

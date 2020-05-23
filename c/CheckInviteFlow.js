@@ -2,6 +2,7 @@ import React from 'react';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
+import SfContainer from '~/c/SfContainer';
 
 import { Platform } from 'react-native';
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js';
@@ -29,7 +30,7 @@ function CheckInviteFlow(props) {
   const checkDisabled = !phoneNumber?.isValid() || checkInviteReq.requested;
 
   return (
-    <React.Fragment>
+    <SfContainer>
       <SfText style={{ marginBottom: 16, marginTop: 16 }}>
         Supfam only allows invited users. Enter your phone number to look for
         your invitation.
@@ -66,7 +67,7 @@ function CheckInviteFlow(props) {
           Sorry, we couldn't find an invitation for your phone number.
         </SfText>
       )}
-    </React.Fragment>
+    </SfContainer>
   );
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
+import SfContainer from '~/c/SfContainer';
 
 import { useDispatch } from 'react-redux';
 
@@ -35,7 +36,7 @@ const LoginForm = () => {
   };
 
   return (
-    <View>
+    <SfContainer>
       <SfTextInput
         placeholder="username"
         autoCapitalize="none"
@@ -59,7 +60,7 @@ const LoginForm = () => {
         onPress={login}
         style={styles.button}
       />
-    </View>
+    </SfContainer>
   );
 };
 
