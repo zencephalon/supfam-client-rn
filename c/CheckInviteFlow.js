@@ -19,7 +19,11 @@ function CheckInviteFlow(props) {
 
   const token = checkInviteReq.data?.token;
   if (token) {
-    return props.render({ token });
+    return (
+      <VerifyCodeFlow token={token} render={
+        ({ token }) => <RegistrationForm token={token} />
+      }
+      />)
   }
 
   const checkDisabled = !phoneNumber?.isValid() || checkInviteReq.requested;

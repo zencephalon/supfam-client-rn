@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import SfText from '~/c/SfText';
 import SfContainer from '~/c/SfContainer';
@@ -15,20 +17,22 @@ import { FREE, OPEN, AWAY } from '~/constants/Colors';
 
 import downloadUpdate from '~/lib/downloadUpdate';
 
+const Stack = createStackNavigator();
+
 function Welcome(props) {
   return (
     <React.Fragment>
-      <SfText style={styles.welcomeText}>Supfam</SfText>
+      {/* <SfText style={styles.welcomeText}>Supfam</SfText> */}
       {/* <Image source={require('../assets/images/icon.png')} /> */}
       <SfButton
         color={OPEN}
         title="Login"
-        onPress={() => props.setSelection('login')}
+        onPress={()=>props.navigation.navigate('Login')}
       />
       <SfButton
         color={FREE}
         title="Register"
-        onPress={() => props.setSelection('register')}
+        onPress={() => props.navigation.navigate('Register')}
       />
       <SfButton color={AWAY} title="Download Update" onPress={downloadUpdate} />
     </React.Fragment>
@@ -36,31 +40,20 @@ function Welcome(props) {
 }
 
 const AuthGate = function (props) {
-  const [selection, setSelection] = React.useState('default');
-  React.useEffect(() => {
-    setSelection('default');
-  }, [props.token]);
-
-  const renders = {
-    default: <Welcome setSelection={setSelection} />,
-    login: <LoginForm />,
-    register: (
-      <CheckInviteFlow
-        render={({ token }) => (
-          <VerifyCodeFlow
-            token={token}
-            render={({ token }) => <RegistrationForm token={token} />}
-          />
-        )}
-      />
-    ),
-  };
-
   if (props.token) {
     return props.children;
   }
-
-  return <SfContainer>{renders[selection]}</SfContainer>;
+  return (
+    // <SfContainer>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Welcome} options={{ title: 'SupFam' }}/>
+          <Stack.Screen name="Login" component={LoginForm}/>
+          <Stack.Screen name="Register" component={CheckInviteFlow}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    //* </SfContainer> */}
+  );
 };
 
 const styles = StyleSheet.create({
