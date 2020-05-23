@@ -3,6 +3,8 @@ import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
 import SfContainer from '~/c/SfContainer';
+import VerifyCodeFlow from '~/c/VerifyCodeFlow';
+import RegistrationForm from '~/c/RegistrationForm';
 
 import { Platform } from 'react-native';
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js';

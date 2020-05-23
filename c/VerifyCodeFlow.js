@@ -6,6 +6,7 @@ import { OPEN, OPEN_LIGHT } from '~/constants/Colors';
 
 import { postVerify, postResendCode } from '~/apis/api';
 import useApi from '~/h/useApi';
+import SfContainer from './SfContainer';
 
 function VerifyCodeFlow(props) {
   const { token } = props;
@@ -25,7 +26,7 @@ function VerifyCodeFlow(props) {
   };
 
   return (
-    <React.Fragment>
+    <SfContainer>
       <SfText style={{ marginTop: 32, marginBottom: 16 }}>
         Enter your verification code:
       </SfText>
@@ -49,7 +50,7 @@ function VerifyCodeFlow(props) {
         onPress={() => Resend.call({ token })}
       />
       {Verify.req.failed && <SfText>Verification failed.</SfText>}
-    </React.Fragment>
+    </SfContainer>
   );
 }
 
