@@ -79,14 +79,18 @@ export default function MapScreen() {
                 }}
                 title={`${profile?.name}`}
                 description={`${profile?.status?.message}`}
-                pinColor={statusColors[profile?.status?.color] || Colors.OPEN}
+                // pinColor={statusColors[profile?.status?.color] || Colors.OPEN}
               >
-                <ProfileIcon profileId={profile.id} size={32} />
+                <ProfileIcon
+                  profileId={profile.id}
+                  size={32}
+                  opacity={Math.random()}
+                />
               </Marker>
             );
           })}
         </MapView>
-        <StatusCenter />
+        {/* <StatusCenter /> */}
       </SfKeyboardAvoidingView>
     )
   );

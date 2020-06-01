@@ -15,6 +15,7 @@ export function BareProfileIcon(props) {
         marginRight: 8,
         borderWidth: props.color !== undefined ? 3 : 1,
         borderColor: props.color,
+        opacity: props.opacity || 1,
         ...props.style,
       }}
     />
@@ -43,6 +44,7 @@ export default ProfileIcon = (props) => {
       size={props.size}
       color={color}
       uri={profile?.avatar_url}
+      opacity={props.opacity}
     />
   );
 };
