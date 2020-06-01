@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ChatsScreen from '~/screens/ChatsScreen';
-import ConversationScreen from '~/screens/ConversationScreen';
+import ChatScreen from '~/screens/ChatScreen';
 import InviteScreen from '~/screens/InviteScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 import useLight from '~/h/useLight';
@@ -31,7 +31,7 @@ function ChatStack() {
           },
         }}
       />
-      <Stack.Screen name="Conversation" component={ConversationScreen} />
+      <Stack.Screen name="Conversation" component={ChatScreen} />
       <Stack.Screen
         name="Invite"
         component={InviteScreen}

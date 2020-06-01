@@ -1,40 +1,31 @@
 import * as React from 'react';
 
-import { useQuery } from 'react-query';
-import { getProfileDmConversation } from '~/apis/api';
-
 import statusColors from '~/constants/statusColors';
 
 import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 
-import useCachedProfile from '~/h/useCachedProfile';
+import useCachedConversation from '~/h/useCachedConversation';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
 
-export default function ConversationScreen({ navigation, route }) {
-  const { profileId } = route.params;
+export default function ChatScreen({ navigation, route }) {
+  const { conversation } = route.params;
 
   const meProfileId = useProfileId();
 
-  const profile = useCachedProfile(profileId);
+  // const conversation = useCachedConversation(conversationId);
 
   navigation.setOptions({
-    headerTitle: profile?.name,
+    headerTitle: conversation.name,
     headerStyle: {
-      backgroundColor: statusColors[profile?.status?.color || 0],
+      backgroundColor: statusColors[0],
     },
   });
 
-  const { data: conversation } = useQuery(
-    ['dmWith', { profileId }],
-    getProfileDmConversation
-  );
-  const conversationId = conversation?.id;
-
   const { fetchMore, canFetchMore, messages } = useMessages(
-    conversationId,
+    conversation.id,
     meProfileId
   );
 
@@ -46,11 +37,11 @@ export default function ConversationScreen({ navigation, route }) {
         fetchMore={fetchMore}
         canFetchMore={canFetchMore}
       />
-      <MessageInput conversationId={conversationId} />
+      <MessageInput conversationId={conversation.id} />
     </SfKeyboardAvoidingView>
   );
 }
 
-ConversationScreen.navigationOptions = {
+ChatScreen.navigationOptions = {
   header: null,
 };

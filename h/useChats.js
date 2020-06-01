@@ -1,6 +1,5 @@
 import { useQuery, queryCache } from 'react-query';
-import { getFriends } from '~/apis/api';
-import { orderBy } from 'lodash';
+import { getConversationsMe } from '~/apis/api';
 
 import useProfileId from '~/h/useProfileId';
 
@@ -10,11 +9,15 @@ export default function useChats() {
     profileId && ['chats', profileId],
     getConversationsMe,
     {
-      // onSuccess: (friends) => {
-      //   friends.map((friend) => {
-      //     queryCache.setQueryData(['friend', friend.id], friend);
-      //   });
-      // },
+      onSuccess: (conversations) => {
+        conversations.map((conversation) => {
+          console.log({ conversation });
+          queryCache.setQueryData(
+            ['conversation', conversation.id],
+            conversation
+          );
+        });
+      },
     }
   );
   // const friends = orderBy(
@@ -23,5 +26,5 @@ export default function useChats() {
   //   ['desc', 'desc']
   // );
 
-  return { status, friends: data, error };
+  return { status, chats: data, error };
 }

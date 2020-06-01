@@ -15,6 +15,7 @@ export const getFriends = (_key, profileId) => {
 };
 
 export const getProfile = (_key, id) => {
+  console.log('Getting profile', id);
   return api.fetchFromAPI(`profiles/${id}`);
 };
 

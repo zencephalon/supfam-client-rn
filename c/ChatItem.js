@@ -25,13 +25,13 @@ export default function ProfileStatus({ chat }) {
         // borderBottomColor: backgrounds[1],
       }}
       onPress={() => {
-        navigation.navigate('Conversation', { profileId: profile.id });
+        navigation.navigate('Conversation', { conversation: chat });
       }}
     >
       <View style={{ flexGrow: 1 }}>
-        <Text style={{ textAlign: 'right', alignSelf: 'stretch' }}>
+        <SfText style={{ textAlign: 'center', alignSelf: 'stretch' }}>
           {chat.name}
-        </Text>
+        </SfText>
       </View>
     </TouchableOpacity>
   );

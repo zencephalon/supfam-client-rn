@@ -25,7 +25,7 @@ const ChatList = (props) => {
       },
       update: { type: LayoutAnimation.Types.easeInEaseOut },
     });
-  }, [friends]);
+  }, [chats]);
 
   return (
     <FlatList
