@@ -2,9 +2,9 @@
 
 ## TODO
 
+- Build script for updating app version and building in one command
 - Fix actioncable consumer to remove listeners correctly
 - Wire up location updates with API
-- Image messages!
 
 ### Features
 
