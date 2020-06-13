@@ -23,6 +23,15 @@ const StatusCenter = () => {
   const setColor = React.useCallback(
     async (color) => {
       try {
+        queryCache.setQueryData('profileMe', (profile) => {
+          return {
+            ...profile,
+            status: {
+              ...profile.status,
+              color,
+            },
+          };
+        });
         await putStatusMe({ profileId, color });
         queryCache.refetchQueries(['profileMe', profileId]);
       } catch (e) {
