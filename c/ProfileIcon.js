@@ -1,24 +1,42 @@
 import * as React from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import statusColors from '~/constants/statusColors';
 
 import useCachedProfile from '~/h/useCachedProfile';
 
 export function BareProfileIcon(props) {
   return (
-    <Image
-      source={{ uri: props.uri }}
+    <View
       style={{
         width: props.size || 32,
         height: props.size || 32,
-        borderRadius: 50,
-        marginRight: 8,
-        borderWidth: props.color !== undefined ? 3 : 1,
-        borderColor: props.color,
-        opacity: props.opacity || 1,
-        ...props.style,
       }}
-    />
+    >
+      <Image
+        source={{ uri: props.uri }}
+        style={{
+          width: props.size || 32,
+          height: props.size || 32,
+          borderRadius: 50,
+          marginRight: 8,
+          // borderWidth: props.color !== undefined ? 3 : 1,
+          // borderColor: props.color,
+          opacity: props.opacity || 1,
+          ...props.style,
+        }}
+      />
+      <View
+        style={{
+          backgroundColor: props.color,
+          borderRadius: 50,
+          width: props.size / 4,
+          height: props.size / 4,
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+        }}
+      />
+    </View>
   );
 }
 

@@ -2,12 +2,11 @@
 
 ## The One
 
-We got to properly use `removeListener` to clear out Cable listeners when disconnecting.
+Message count tracking.
 
 ## TODO
 
 - Build script for updating app version and building in one command
-- Fix actioncable consumer to remove listeners correctly
 - Wire up location updates with API
 
 ### Features
