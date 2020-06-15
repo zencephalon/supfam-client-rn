@@ -11,16 +11,8 @@ import useProfileId from '~/h/useProfileId';
 import useProfileMe from '~/h/useProfileMe';
 import useLight from '~/h/useLight';
 
-const StatusCenter = () => {
-  const [message, setMessage] = React.useState('');
-  const { backgrounds } = useLight();
-
-  const profileId = useProfileId();
-  const { profile, reqState } = useProfileMe();
-
-  const statusMe = profile?.status;
-
-  const setColor = React.useCallback(
+function useSetColor(profileId, profile) {
+  return React.useCallback(
     async (color) => {
       try {
         queryCache.setQueryData('profileMe', (profile) => {
@@ -38,14 +30,12 @@ const StatusCenter = () => {
         console.log(e);
       }
     },
-    [profileId]
+    [profileId, profile]
   );
+}
 
-  const postMessage = React.useCallback(async () => {
-    if (reqState !== 'success') {
-      return;
-    }
-
+function usePostMessage(statusMe, message, profileId, setMessage) {
+  return React.useCallback(async () => {
     try {
       await putStatusMe({ profileId, color: statusMe?.color, message });
       queryCache.refetchQueries(['profileMe', profileId]);
@@ -53,7 +43,20 @@ const StatusCenter = () => {
       console.log(e);
     }
     setMessage('');
-  }, [statusMe, message, statusMe, profileId]);
+  }, [statusMe, message, profileId, setMessage]);
+}
+
+const StatusCenter = () => {
+  const [message, setMessage] = React.useState('');
+  const { backgrounds } = useLight();
+
+  const profileId = useProfileId();
+  const { profile } = useProfileMe();
+
+  const statusMe = profile?.status;
+
+  const setColor = useSetColor(profileId, profile);
+  const postMessage = usePostMessage(statusMe, message, profileId, setMessage);
 
   return (
     <View style={{ backgroundColor: backgrounds[0] }}>

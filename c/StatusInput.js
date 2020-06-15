@@ -21,7 +21,7 @@ function MagicInput({
   statusColor,
 }) {
   const [focused, setFocused] = React.useState(false);
-  const { backgrounds } = useLight();
+  const { foregrounds, backgrounds } = useLight();
 
   return (
     <>
@@ -35,7 +35,11 @@ function MagicInput({
             borderRadius: 10,
           }}
         >
-          <SfText onPress={() => setFocused(true)} numberOfLines={1}>
+          <SfText
+            onPress={() => setFocused(true)}
+            numberOfLines={1}
+            style={{ color: foregrounds[1] }}
+          >
             {statusMessage || 'Loading...'}
           </SfText>
         </View>
