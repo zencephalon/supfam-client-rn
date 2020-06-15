@@ -32,6 +32,7 @@ export function BareProfileIcon(props) {
       <StatusBadge
         statusColor={props.statusColor}
         size={size / 3}
+        lastSeen={props.lastSeen}
         style={{
           position: 'absolute',
           bottom: -offset,
@@ -45,12 +46,14 @@ export function BareProfileIcon(props) {
 export const ProfileIconFromProfile = (props) => {
   const { profile } = props;
   const statusColor = profile?.status?.color;
+  const lastSeen = profile?.seen?.updated_at;
 
   return (
     <BareProfileIcon
       size={props.size}
       uri={profile?.avatar_url}
       statusColor={statusColor}
+      lastSeen={lastSeen}
       {...props}
     />
   );

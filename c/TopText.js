@@ -55,29 +55,6 @@ export default function TopText({
           cellularGeneration={profile?.seen?.cellular_generation}
         />
       </View>
-
-      {/* <View style={{ flexDirection: 'row' }}>
-        <Text
-          style={{
-            textAlign: 'right',
-            color: foregrounds[3],
-            alignSelf: 'flex-end',
-            fontSize: 14,
-          }}
-        >
-          <TimeAgo time={lastUpdate} suffix="ago" />
-        </Text>
-        <FontAwesome
-          style={{
-            textAlign: 'right',
-            marginLeft: 3,
-            alignSelf: 'flex-end',
-          }}
-          name="pencil-square-o"
-          size={14}
-          color={foregrounds[3]}
-        />
-      </View> */}
     </View>
   );
 }

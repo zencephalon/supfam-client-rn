@@ -5,8 +5,6 @@ import useInterval from '@use-it/interval';
 import { Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { nord8 } from '~/constants/Colors';
-
 import useLight from '~/h/useLight';
 
 const getDisplay = (time) => {
@@ -16,10 +14,10 @@ const getDisplay = (time) => {
 
 const getInterval = (timeDisplay) => {
   if (timeDisplay === 'now') {
-    return 100;
+    return 500;
   }
   if (timeDisplay.endsWith('s')) {
-    return 500;
+    return 1000;
   }
   if (timeDisplay.endsWith('m')) {
     return 1000 * 60;
