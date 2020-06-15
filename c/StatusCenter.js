@@ -10,6 +10,7 @@ import { queryCache } from 'react-query';
 import useProfileId from '~/h/useProfileId';
 import useProfileMe from '~/h/useProfileMe';
 import useLight from '~/h/useLight';
+import useApi from '~/h/useApi';
 
 function useSetColor(profileId, profile) {
   return React.useCallback(

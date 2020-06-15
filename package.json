@@ -60,6 +60,8 @@
     "@babel/core": "^7.0.0",
     "babel-plugin-root-import": "^6.4.1",
     "babel-preset-expo": "~8.0.0",
+    "eslint": "^7.2.0",
+    "eslint-plugin-react": "^7.20.0",
     "jest-expo": "~36.0.1"
   },
   "private": true
