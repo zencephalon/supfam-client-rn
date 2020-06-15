@@ -5,18 +5,23 @@ import statusColors from '~/constants/statusColors';
 import useCachedProfile from '~/h/useCachedProfile';
 
 export function BareProfileIcon(props) {
+  const size = props.size || 32;
+  const offset = size / 12;
+  const imgSize = (size * 11) / 12;
   return (
     <View
       style={{
-        width: props.size || 32,
-        height: props.size || 32,
+        width: imgSize,
+        height: imgSize,
+        marginRight: offset,
+        bottomRight: offset,
       }}
     >
       <Image
         source={{ uri: props.uri }}
         style={{
-          width: props.size || 32,
-          height: props.size || 32,
+          width: imgSize,
+          height: imgSize,
           borderRadius: 50,
           marginRight: 8,
           // borderWidth: props.color !== undefined ? 3 : 1,
@@ -29,11 +34,11 @@ export function BareProfileIcon(props) {
         style={{
           backgroundColor: props.color,
           borderRadius: 50,
-          width: props.size / 4,
-          height: props.size / 4,
+          width: size / 3,
+          height: size / 3,
           position: 'absolute',
-          bottom: 0,
-          right: 0,
+          bottom: -offset,
+          right: -offset,
         }}
       />
     </View>

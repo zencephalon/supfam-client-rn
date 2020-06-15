@@ -3,6 +3,7 @@ import { View, ActivityIndicator, Image } from 'react-native';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
+import ProfileName from '~/c/ProfileName';
 
 import useLight from '~/h/useLight';
 
@@ -40,9 +41,9 @@ function Message(props) {
         marginRight: 8,
       }}
     >
-      <View style={{ width: 32 }}>
+      <View style={{ width: 40 }}>
         {!isOwnMessage && !fromSameUser && (
-          <ProfileIcon profileId={message.profile_id} size={24} />
+          <ProfileIcon profileId={message.profile_id} size={32} />
         )}
         {message.queued && <ActivityIndicator size="small" />}
       </View>
@@ -53,6 +54,9 @@ function Message(props) {
           maxWidth: '80%',
         }}
       >
+        {!isOwnMessage && !fromSameUser && (
+          <ProfileName profileId={message.profile_id} />
+        )}
         {message.type === 0 && (
           <MessageText text={message.message} isOwnMessage={isOwnMessage} />
         )}
