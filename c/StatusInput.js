@@ -36,13 +36,12 @@ function MagicInput({
           }}
         >
           <SfText onPress={() => setFocused(true)} numberOfLines={1}>
-            {statusMessage}
+            {statusMessage || 'Loading...'}
           </SfText>
         </View>
       )}
       {focused && (
         <SfTextInput
-          placeholder={focused ? '' : statusMessage || 'Loading...'}
           value={value}
           autoFocus={true}
           onChangeText={onChangeText}
