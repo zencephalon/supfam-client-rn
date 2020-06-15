@@ -6,12 +6,7 @@ import useCachedProfile from '~/h/useCachedProfile';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const colorIcons = [
-  'close-circle',
-  'pause-circle',
-  'play-circle',
-  'flash-circle',
-];
+import StatusBadge from '~/c/StatusBadge';
 
 export function BareProfileIcon(props) {
   const size = props.size || 32;
@@ -33,21 +28,13 @@ export function BareProfileIcon(props) {
           height: imgSize,
           borderRadius: 50,
           marginRight: 8,
-          // borderWidth: props.color !== undefined ? 3 : 1,
-          // borderColor: props.color,
           opacity: props.opacity || 1,
           ...props.style,
         }}
       />
-      {/* <View
-        style={{
-
-        }}
-      /> */}
-      <MaterialCommunityIcons
-        name={colorIcons[props.statusColor]}
+      <StatusBadge
+        statusColor={props.statusColor}
         size={size / 3}
-        color={props.color}
         style={{
           position: 'absolute',
           bottom: -offset,
@@ -76,8 +63,6 @@ export const ProfileIconFromProfile = (props) => {
 
 export default ProfileIcon = (props) => {
   const profile = useCachedProfile(props.profileId);
-
-  // console.log({ profile, profileId: props.profileId });
 
   return <ProfileIconFromProfile profile={profile} {...props} />;
 };
