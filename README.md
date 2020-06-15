@@ -6,6 +6,8 @@
 
 `yarn start`
 
+To use local Rails set `API_URL` in `lib/constants.js` to `https://localhost:3000` or whichever port U use.
+
 ## Current project
 
 Message count tracking.

@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "start-dev": "API_URL=http://localhost:3000 expo start"
   },
   "jest": {
     "preset": "jest-expo"
