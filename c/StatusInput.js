@@ -13,7 +13,13 @@ import { ProfileIconFromProfile } from '~/c/ProfileIcon';
 
 import useLight from '~/h/useLight';
 
-function MagicInput({ value, onChangeText, statusMessage }) {
+function MagicInput({
+  value,
+  onChangeText,
+  statusMessage,
+  postMessage,
+  statusColor,
+}) {
   const [focused, setFocused] = React.useState(false);
   const { backgrounds } = useLight();
 
@@ -46,6 +52,25 @@ function MagicInput({ value, onChangeText, statusMessage }) {
           multiline={true}
           onBlur={() => setFocused(false)}
         />
+      )}
+      {!!value && (
+        <TouchableOpacity
+          onPress={() => {
+            postMessage();
+            setFocused(false);
+          }}
+          style={{
+            marginLeft: 4,
+            justifyContent: 'flex-end',
+            flexGrow: 1,
+          }}
+        >
+          <MaterialCommunityIcons
+            name="send"
+            size={32}
+            color={statusColors[statusColor] || OPEN}
+          />
+        </TouchableOpacity>
       )}
     </>
   );
@@ -85,23 +110,9 @@ export default function StatusInput({
         value={message}
         onChangeText={setMessage}
         statusMessage={statusMe?.message}
+        postMessage={postMessage}
+        statusColor={statusMe?.color}
       />
-      {!!message && (
-        <TouchableOpacity
-          onPress={postMessage}
-          style={{
-            marginLeft: 4,
-            justifyContent: 'flex-end',
-            flexGrow: 1,
-          }}
-        >
-          <MaterialCommunityIcons
-            name="send"
-            size={32}
-            color={statusColors[statusMe?.color] || OPEN}
-          />
-        </TouchableOpacity>
-      )}
     </View>
   );
 }
