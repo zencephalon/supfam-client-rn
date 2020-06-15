@@ -6,6 +6,9 @@ import {
 import statusColors from '~/constants/statusColors';
 
 import useInterval from '@use-it/interval';
+import useLight from '~/h/useLight';
+
+import { View } from 'react-native';
 
 const colorIcons = [
   'close-circle',
@@ -24,6 +27,7 @@ export default function StatusBadge({ statusColor, style, size, lastSeen }) {
   const diff = new Date() - new Date(lastSeen);
   const onlineNow = diff < 30 * 1000;
   const [icon, setIcon] = React.useState(getIcon(statusColor, lastSeen));
+  const { backgrounds } = useLight();
 
   useInterval(
     () => {
@@ -32,11 +36,21 @@ export default function StatusBadge({ statusColor, style, size, lastSeen }) {
     onlineNow ? 2000 : 1000 * 60 * 60
   );
   return (
-    <MaterialCommunityIcons
-      name={icon || colorIcons[statusColor]}
-      size={size}
-      color={statusColors[statusColor]}
-      style={style}
-    />
+    <View
+      style={{
+        ...style,
+        backgroundColor: backgrounds[0],
+        height: size,
+        width: size,
+        borderRadius: 50,
+      }}
+    >
+      <MaterialCommunityIcons
+        name={icon || colorIcons[statusColor]}
+        size={size}
+        color={statusColors[statusColor]}
+        // style={style}
+      />
+    </View>
   );
 }
