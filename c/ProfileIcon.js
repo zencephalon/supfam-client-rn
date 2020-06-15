@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { Image, View } from 'react-native';
-import statusColors from '~/constants/statusColors';
 
 import useCachedProfile from '~/h/useCachedProfile';
-
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import StatusBadge from '~/c/StatusBadge';
 
@@ -48,12 +45,10 @@ export function BareProfileIcon(props) {
 export const ProfileIconFromProfile = (props) => {
   const { profile } = props;
   const statusColor = profile?.status?.color;
-  const color = statusColors[statusColor];
 
   return (
     <BareProfileIcon
       size={props.size}
-      color={color}
       uri={profile?.avatar_url}
       statusColor={statusColor}
       {...props}
