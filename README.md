@@ -1,5 +1,14 @@
 # Supfam
 
+## Circles I like
+
+stop-circle seems a bit too small, hard to see
+
+star-circle works pretty well
+flash-circle does too
+
+pause-circle
+
 ## The One
 
 Message count tracking.
