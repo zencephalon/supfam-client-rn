@@ -43,7 +43,7 @@
     "react-native-appearance": "~0.3.1",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-maps": "0.26.1",
-    "react-native-safe-area-context": "^0.7.3",
+    "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-typing-animation": "^0.1.7",
     "react-native-web": "~0.11.7",
@@ -59,6 +59,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "babel-plugin-root-import": "^6.4.1",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "babel-preset-expo": "~8.0.0",
     "eslint": "^7.2.0",
     "eslint-plugin-react": "^7.20.0",

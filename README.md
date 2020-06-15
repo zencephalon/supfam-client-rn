@@ -1,15 +1,12 @@
 # Supfam
 
-## Circles I like
+## On-boarding
 
-stop-circle seems a bit too small, hard to see
+`yarn install`
 
-star-circle works pretty well
-flash-circle does too
+`yarn start`
 
-pause-circle
-
-## The One
+## Current project
 
 Message count tracking.
 
