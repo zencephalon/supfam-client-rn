@@ -89,12 +89,12 @@ export default function StatusInput({
     <View
       style={{
         flexDirection: 'row',
+        paddingTop: 8,
         paddingLeft: 8,
         paddingRight: 8,
         marginBottom: 8,
         borderTopColor: backgrounds[1],
         borderTopWidth: 1,
-        paddingTop: 8,
         alignItems: 'center',
       }}
     >
