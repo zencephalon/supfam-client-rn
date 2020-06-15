@@ -38,7 +38,7 @@ function MagicInput({
           <SfText
             onPress={() => setFocused(true)}
             numberOfLines={1}
-            style={{ color: foregrounds[1] }}
+            style={{ color: foregrounds[1], fontSize: 16 }}
           >
             {statusMessage || 'Loading...'}
           </SfText>
@@ -70,7 +70,7 @@ function MagicInput({
         >
           <MaterialCommunityIcons
             name="send"
-            size={32}
+            size={24}
             color={statusColors[statusColor] || OPEN}
           />
         </TouchableOpacity>
@@ -98,13 +98,14 @@ export default function StatusInput({
         marginBottom: 8,
         borderTopColor: backgrounds[1],
         borderTopWidth: 1,
-        alignItems: 'center',
+        alignItems: 'flex-end',
       }}
     >
       <View
         style={{
           height: '100%',
           flexDirection: 'column-reverse',
+          marginBottom: 4,
         }}
       >
         <ProfileIconFromProfile profile={profile} size={48} />
@@ -122,7 +123,7 @@ export default function StatusInput({
 
 const styles = StyleSheet.create({
   statusInput: {
-    fontSize: 24,
+    fontSize: 16,
     borderRadius: 10,
     borderWidth: 0,
     paddingRight: 8,
@@ -130,5 +131,6 @@ const styles = StyleSheet.create({
     paddingTop: 4,
     paddingBottom: 4,
     marginLeft: 8,
+    marginBottom: 4,
   },
 });
