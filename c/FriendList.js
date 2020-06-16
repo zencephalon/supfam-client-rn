@@ -6,9 +6,11 @@ import ProfileStatus from '~/c/ProfileStatus';
 
 import useLight from '~/h/useLight';
 import useFriends from '~/h/useFriends';
+import useConversationMemberships from '~/h/useConversationMemberships';
 
 const FriendList = (props) => {
   const { status, friends, error } = useFriends();
+  const { conversationMemberships } = useConversationMemberships();
 
   const { backgrounds } = useLight();
 

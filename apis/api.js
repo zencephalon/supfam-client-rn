@@ -47,8 +47,8 @@ export const sendMessage = ({ meProfileId, conversationId, data }) => {
   );
 };
 
-export const getConversationsMe = (_key, { profileId }) => {
-  return api.fetchFromAPI(`conversations/me/${profileId}`);
+export const getConversationsMemberships = (_key, { profileId }) => {
+  return api.fetchFromAPI(`conversation_memberships/me`);
 };
 
 export const putStatusMe = (data) => {

@@ -12,7 +12,6 @@ export default function useFriends() {
     {
       onSuccess: (friends) => {
         friends.map((friend) => {
-          // console.log('chaching', friend);
           queryCache.setQueryData(['friend', friend.id], friend);
         });
       },
