@@ -1,6 +1,5 @@
 import React from 'react';
 
-import MessageQueue from '~/lib/MessageQueue';
 import UploadQueue from '~/lib/UploadQueue';
 
 export default function useSubmitImageMessage(conversationId, meProfileId) {

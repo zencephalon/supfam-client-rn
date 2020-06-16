@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import useLight from '~/h/useLight';
 
 export default function SfKeyboardAvoidingView(props) {
@@ -7,7 +7,7 @@ export default function SfKeyboardAvoidingView(props) {
   return (
     <KeyboardAvoidingView
       style={{ ...styles.container, backgroundColor: backgrounds[0] }}
-      behavior="padding"
+      {...(Platform.OS === 'ios' && { behavior: 'padding' })}
       enabled
       keyboardVerticalOffset={props.keyboardVerticalOffset || 20}
     >

@@ -8,7 +8,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Linking,
 } from 'react-native';
 
 import SfText from '~/c/SfText';

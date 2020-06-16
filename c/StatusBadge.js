@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   MaterialCommunityIcons,
-  createMultiStyleIconSet,
 } from '@expo/vector-icons';
 import statusColors from '~/constants/statusColors';
 
