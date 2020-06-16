@@ -1,10 +1,10 @@
 import { useQuery, queryCache } from 'react-query';
-import { getConversationsMemberships } from '~/apis/api';
+import { getConversationMemberships } from '~/apis/api';
 
 export default function useConversationMemberships() {
   const { status, data, error } = useQuery(
     'conversationMemberships',
-    getConversationsMemberships,
+    getConversationMemberships,
     {
       onSuccess: (memberships) => {
         memberships.map((membership) => {
