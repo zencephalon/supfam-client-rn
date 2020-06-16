@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import TimeAgo from '~/c/TimeAgo';
+// import TimeAgo from '~/c/TimeAgo';
 import TimeAgoOnline from '~/c/TimeAgoOnline';
 
 import { View, Text } from 'react-native';
 
-import { textSecondary, textTertiary } from '~/constants/Colors';
+// import { textSecondary, textTertiary } from '~/constants/Colors';
 
-import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+// import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
 import BatteryStatus from '~/c/BatteryStatus';
 import NetworkStatus from '~/c/NetworkStatus';

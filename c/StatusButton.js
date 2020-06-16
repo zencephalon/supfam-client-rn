@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import statusColors, {
-  statusColorsDeep,
   statusColorsLight,
 } from '~/constants/statusColors';
 

@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import formatAgo from '~/lib/timeAgo';
+import React, { useState } from 'react';
+// import formatAgo from '~/lib/timeAgo';
 import useInterval from '@use-it/interval';
 
 const getDisplay = time => {

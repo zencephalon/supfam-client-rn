@@ -2,7 +2,6 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '~/c/TabBarIcon';
 import MapScreen from '~/screens/MapScreen';
-import SettingsScreen from '~/screens/SettingsScreen';
 import HomeStack from '~/navigation/HomeStack';
 import ChatStack from '~/navigation/ChatStack';
 

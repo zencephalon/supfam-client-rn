@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, View } from 'react-native';
+import { Dimensions, Image } from 'react-native';
 
 export default function MessageImagePreview(props) {
   const { image } = props;
