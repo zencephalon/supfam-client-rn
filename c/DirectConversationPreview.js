@@ -23,6 +23,8 @@ export default function DirectConversationPreview({ userId }) {
     return null;
   }
 
+  console.log({ dmMembership });
+
   if (
     dmMembership.last_read_message_id ===
     dmMembership.conversation.last_message_id
@@ -30,6 +32,5 @@ export default function DirectConversationPreview({ userId }) {
     return null;
   }
 
-  console.log({ dmMembership });
   return <MessagePreview conversationId={dmMembership?.conversation?.id} />;
 }
