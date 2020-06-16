@@ -51,6 +51,10 @@ export const getConversationsMemberships = (_key, { profileId }) => {
   return api.fetchFromAPI(`conversation_memberships/me`);
 };
 
+export const postConversationRead = (conversationId) => {
+  return api.postToAPI(`conversations/${conversationId}/read`);
+};
+
 export const putStatusMe = (data) => {
   return api.putToAPI('statuses/me', {
     body: JSON.stringify(data),

@@ -7,7 +7,6 @@ import useCachedDmMembership from '~/h/useCachedDmMembership';
 export default function DirectConversationPreview({ userId }) {
   const { profile } = useProfileMe();
   const meId = profile?.user_id;
-  console.log({ meId, userId });
   const dmId = [meId, userId].sort().join(':');
 
   const dmMembership = useCachedDmMembership(dmId);
@@ -24,5 +23,5 @@ export default function DirectConversationPreview({ userId }) {
   }
 
   console.log({ dmMembership });
-  return <SfText>Unread message!</SfText>;
+  return <SfText>Unread message! {dmId}</SfText>;
 }

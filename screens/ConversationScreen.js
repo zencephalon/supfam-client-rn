@@ -12,6 +12,7 @@ import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
+import useMarkConversationRead from '~/h/useMarkConversationRead';
 
 export default function ConversationScreen({ navigation, route }) {
   const { profileId } = route.params;
@@ -37,6 +38,8 @@ export default function ConversationScreen({ navigation, route }) {
     conversationId,
     meProfileId
   );
+
+  useMarkConversationRead(conversationId);
 
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={54}>
