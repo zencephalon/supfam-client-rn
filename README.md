@@ -8,6 +8,20 @@
 
 To use local Rails set `API_URL` in `lib/constants.js` to `https://localhost:3000` or whichever port U use.
 
+## eslint settings
+
+You may want to add the following to your settings.json / eslint config elsewhere to prevent highlighting of linting errors common in the codebase:
+
+```json
+"eslint.options": {
+    "plugins": ["react"],
+    "rules": {
+        "react/prop-types": 0,
+        "react/display-name": 0
+    }
+}
+```
+
 ## Current project
 
 Message count tracking.
