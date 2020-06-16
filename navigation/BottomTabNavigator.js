@@ -27,6 +27,7 @@ export default function BottomTabNavigator() {
           backgroundColor: backgrounds[0],
         },
         safeAreaInset: { bottom: 'never' },
+        keyboardHidesTabBar: true,
       }}
     >
       <BottomTab.Screen
