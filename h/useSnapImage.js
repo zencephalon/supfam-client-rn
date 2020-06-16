@@ -16,6 +16,7 @@ export default function useSnapImage({ setImage }) {
       let image = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
+        // TODO: we shouldn't use a fixed aspect ratio here
         aspect: [1, 1],
         quality: 1,
       });

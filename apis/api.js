@@ -55,6 +55,10 @@ export const postConversationRead = (conversationId) => {
   return api.postToAPI(`conversations/${conversationId}/read`);
 };
 
+export const getConversationPreview = (_key, conversationId) => {
+  return api.fetchFromAPI(`conversations/${conversationId}/preview`);
+};
+
 export const putStatusMe = (data) => {
   return api.putToAPI('statuses/me', {
     body: JSON.stringify(data),

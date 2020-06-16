@@ -3,6 +3,14 @@ import SfText from '~/c/SfText';
 
 import useProfileMe from '~/h/useProfileMe';
 import useCachedDmMembership from '~/h/useCachedDmMembership';
+import useConversationPreview from '~/h/useConversationPreview';
+
+function MessagePreview({ conversationId }) {
+  const { message } = useConversationPreview(conversationId);
+
+  // TODO: handle non-text messages
+  return <SfText>{message?.message}</SfText>;
+}
 
 export default function DirectConversationPreview({ userId }) {
   const { profile } = useProfileMe();
@@ -23,5 +31,5 @@ export default function DirectConversationPreview({ userId }) {
   }
 
   console.log({ dmMembership });
-  return <SfText>Unread message! {dmId}</SfText>;
+  return <MessagePreview conversationId={dmMembership?.conversation?.id} />;
 }
