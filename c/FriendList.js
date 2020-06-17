@@ -10,7 +10,7 @@ import useConversationMemberships from '~/h/useConversationMemberships';
 
 const FriendList = (props) => {
   const { status, friends, error } = useFriends();
-  const { conversationMemberships } = useConversationMemberships();
+  useConversationMemberships();
 
   const { backgrounds } = useLight();
 
@@ -18,16 +18,16 @@ const FriendList = (props) => {
     return <ProfileStatus profile={profile} />;
   }, []);
 
-  useEffect(() => {
-    LayoutAnimation.configureNext({
-      duration: 400,
-      create: {
-        type: LayoutAnimation.Types.easeInEaseOut,
-        property: LayoutAnimation.Properties.opacity,
-      },
-      update: { type: LayoutAnimation.Types.easeInEaseOut },
-    });
-  }, [friends]);
+  // useEffect(() => {
+  //   LayoutAnimation.configureNext({
+  //     duration: 400,
+  //     // create: {
+  //     //   type: LayoutAnimation.Types.easeInEaseOut,
+  //     //   property: LayoutAnimation.Properties.opacity,
+  //     // },
+  //     // update: { type: LayoutAnimation.Types.easeInEaseOut },
+  //   });
+  // }, [friends]);
 
   return (
     <FlatList

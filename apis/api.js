@@ -52,6 +52,9 @@ export const getConversationMemberships = (_key) => {
 };
 
 // export const getConversationMembership
+export const getDmMembership = (_key, dmId) => {
+  return api.fetchFromAPI(`conversations/${dmId}/dmMembership`);
+};
 
 export const postConversationRead = (conversationId) => {
   return api.postToAPI(`conversations/${conversationId}/read`);

@@ -9,7 +9,7 @@ export default function useConversationMemberships() {
       onSuccess: (memberships) => {
         memberships.map((membership) => {
           queryCache.setQueryData(
-            ['dmMembership', membership.conversation?.dmId],
+            ['dmMembership', membership.dmId],
             membership
           );
           // queryCache.setQueryData(
