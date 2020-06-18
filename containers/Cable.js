@@ -4,6 +4,8 @@ import cable from '~/lib/Cable';
 import useProfileId from '~/h/useProfileId';
 import useFriends from '~/h/useFriends';
 
+import useDeepCompareEffect from 'use-deep-compare-effect';
+
 function CableContainer() {
   const profileId = useProfileId();
   const { friends } = useFriends();
@@ -22,7 +24,7 @@ function CableContainer() {
     cable.setProfileId(profileId);
   }, [profileId]);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     cable.setupFriendChannels(friendIds);
     return () => {
       cable.cleanupFriendChannels();

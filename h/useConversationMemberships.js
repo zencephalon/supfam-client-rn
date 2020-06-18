@@ -17,10 +17,6 @@ export default function useConversationMemberships() {
             dmIdtoConversationIdMap[membership.dmId] =
               membership.conversation_id;
           }
-          // queryCache.setQueryData(
-          //   ['conversation', conversation.id],
-          //   conversation
-          // );
         });
         queryCache.setQueryData(
           'dmIdtoConversationIdMap',

@@ -8,7 +8,7 @@ export default function useCachedDmMembership(dmId) {
     () => {},
     { manual: true }
   );
-  const conversationId = dmIdtoConversationIdMap[dmId];
+  const conversationId = dmIdtoConversationIdMap?.[dmId];
   const { data: dmMembership } = useQuery(
     ['conversationMembership', conversationId],
     getDmMembership,
