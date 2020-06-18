@@ -3,7 +3,6 @@ import React, { Fragment, useEffect } from 'react';
 import cable from '~/lib/Cable';
 import useProfileId from '~/h/useProfileId';
 import useFriends from '~/h/useFriends';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 
 function CableContainer() {
   const profileId = useProfileId();
@@ -11,18 +10,22 @@ function CableContainer() {
   const friendIds = (friends || []).map((f) => f.id).sort();
 
   useEffect(() => {
+    console.log('initializing cable');
+    cable.init();
+    return () => {
+      console.log('canceling cable');
+      cable.disconnect();
+    };
+  });
+
+  useEffect(() => {
     cable.setProfileId(profileId);
   }, [profileId]);
 
-  useDeepCompareEffect(() => {
-    if (friendIds.length === 0) {
-      return;
-    }
-    console.log('initializing cable', { friendIds });
-    cable.init({ friendIds });
+  useEffect(() => {
+    cable.setupFriendChannels(friendIds);
     return () => {
-      console.log('canceling cable', { friendIds });
-      cable.disconnect();
+      cable.cleanupFriendChannels();
     };
   }, [friendIds]);
 
