@@ -21,11 +21,11 @@ const FriendList = (props) => {
   useEffect(() => {
     LayoutAnimation.configureNext({
       duration: 400,
-      // create: {
-      //   type: LayoutAnimation.Types.easeInEaseOut,
-      //   property: LayoutAnimation.Properties.opacity,
-      // },
-      // update: { type: LayoutAnimation.Types.easeInEaseOut },
+      create: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.opacity,
+      },
+      update: { type: LayoutAnimation.Types.easeInEaseOut },
     });
   }, [friends]);
 

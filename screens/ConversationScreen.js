@@ -39,7 +39,7 @@ export default function ConversationScreen({ navigation, route }) {
     meProfileId
   );
 
-  useMarkConversationRead(conversationId, conversation?.dmId, messages[0]?.id);
+  useMarkConversationRead(conversationId, messages[0]?.id);
 
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={104}>

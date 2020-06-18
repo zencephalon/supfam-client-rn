@@ -1,17 +1,18 @@
 import * as React from 'react';
 
 import { postConversationRead } from '~/apis/api';
-import { refetchConversationMemberships } from '~/lib/QueryCache';
+import { markConversationRead } from '~/lib/QueryCache';
 
-function markRead(conversationId, dmId, messageId) {
-  if (!conversationId) {
+function markRead(conversationId, messageId) {
+  if (!conversationId || !/^\d+$/.test(messageId)) {
     return;
   }
   postConversationRead(conversationId, messageId);
+  markConversationRead(conversationId, messageId);
 }
 
-export default function useReadConversation(conversationId, dmId, messageId) {
+export default function useReadConversation(conversationId, messageId) {
   React.useEffect(() => {
-    markRead(conversationId, dmId, messageId);
-  }, [conversationId, dmId, messageId]);
+    markRead(conversationId, messageId);
+  }, [conversationId, messageId]);
 }
