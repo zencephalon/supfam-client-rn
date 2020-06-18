@@ -16,14 +16,12 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function ProfileStatus({ profile }) {
   const navigation = useNavigation();
-  const { backgrounds } = useLight();
-  console.log('re-rendering', profile.id);
+
   return (
     <TouchableOpacity
       style={{
         ...styles.profileStatus,
         borderLeftColor: statusColors[profile.status.color],
-        // borderBottomColor: backgrounds[1],
       }}
       onPress={() => {
         navigation.navigate('Conversation', { profileId: profile.id });
@@ -51,19 +49,12 @@ export default function ProfileStatus({ profile }) {
                 fontSize: 16,
                 flexGrow: 1,
                 flexShrink: 1,
-                // backgroundColor: backgrounds[1],
-                // padding: 8,
-                // borderRadius: 10,
                 marginLeft: 8,
                 overflow: 'hidden',
               }}
             >
               {profile.status.message}
             </SfText>
-
-            <Text style={{ textAlign: 'right', alignSelf: 'stretch' }}>
-              {profile.messagePreview}
-            </Text>
           </View>
         </View>
         <View>

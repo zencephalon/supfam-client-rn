@@ -41,6 +41,8 @@ export default function ConversationScreen({ navigation, route }) {
 
   useMarkConversationRead(conversationId, conversation?.dmId);
 
+  console.log('last message?', messages[0]);
+
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={104}>
       <MessageList
