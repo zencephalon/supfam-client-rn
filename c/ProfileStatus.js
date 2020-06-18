@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function ProfileStatus({ profile }) {
   const navigation = useNavigation();
   const { backgrounds } = useLight();
+  console.log('re-rendering', profile.id);
   return (
     <TouchableOpacity
       style={{

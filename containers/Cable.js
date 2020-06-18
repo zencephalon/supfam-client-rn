@@ -10,17 +10,21 @@ function CableContainer() {
   const { friends } = useFriends();
   const friendIds = (friends || []).map((f) => f.id).sort();
 
+  useEffect(() => {
+    cable.setProfileId(profileId);
+  }, [profileId]);
+
   useDeepCompareEffect(() => {
-    if (!profileId || friendIds.length === 0) {
+    if (friendIds.length === 0) {
       return;
     }
-    console.log('initializing cable', { profileId, friendIds });
-    cable.init({ profileId, friendIds });
+    console.log('initializing cable', { friendIds });
+    cable.init({ friendIds });
     return () => {
-      console.log('canceling cable', { profileId, friendIds });
+      console.log('canceling cable', { friendIds });
       cable.disconnect();
     };
-  }, [profileId, friendIds]);
+  }, [friendIds]);
 
   return null;
 }
