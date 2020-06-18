@@ -16,7 +16,7 @@ function CableContainer() {
       console.log('canceling cable');
       cable.disconnect();
     };
-  });
+  }, []);
 
   useEffect(() => {
     cable.setProfileId(profileId);

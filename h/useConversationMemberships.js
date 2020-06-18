@@ -7,16 +7,25 @@ export default function useConversationMemberships() {
     getConversationMemberships,
     {
       onSuccess: (memberships) => {
+        const dmIdtoConversationIdMap = {};
         memberships.map((membership) => {
           queryCache.setQueryData(
-            ['dmMembership', membership.dmId],
+            ['conversationMembership', membership.conversation_id],
             membership
           );
+          if (membership.dmId) {
+            dmIdtoConversationIdMap[membership.dmId] =
+              membership.conversation_id;
+          }
           // queryCache.setQueryData(
           //   ['conversation', conversation.id],
           //   conversation
           // );
         });
+        queryCache.setQueryData(
+          'dmIdtoConversationIdMap',
+          dmIdtoConversationIdMap
+        );
       },
     }
   );
