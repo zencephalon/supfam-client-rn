@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance';
 import { Provider } from 'react-redux';
 
-import BottomTabNavigator from './navigation/BottomTabNavigator';
+import HomeStack from '~/navigation/HomeStack';
 import useLinking from './navigation/useLinking';
 
 import AuthToken from '~/lib/AuthToken';
@@ -75,7 +75,7 @@ export default function App(props) {
                 ref={containerRef}
                 initialState={initialNavigationState}
               >
-                <BottomTabNavigator />
+                <HomeStack />
               </NavigationContainer>
             </ProfileGate>
           </AuthGate>
