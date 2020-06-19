@@ -13,6 +13,7 @@ import useLinking from './navigation/useLinking';
 import AuthToken from '~/lib/AuthToken';
 import AuthGate from '~/c/AuthGate';
 import ProfileGate from '~/c/ProfileGate';
+import NotificationGate from '~/c/NotificationGate';
 import ThemeAwareStatusBar from '~/c/ThemeAwareStatusBar';
 
 import configureStore from '~/store/configureStore';
@@ -70,13 +71,15 @@ export default function App(props) {
         <Provider store={configureStore({ auth: AuthToken.get() })}>
           <AuthGate>
             <ProfileGate>
-              <CableContainer />
-              <NavigationContainer
-                ref={containerRef}
-                initialState={initialNavigationState}
-              >
-                <HomeStack />
-              </NavigationContainer>
+              <NotificationGate>
+                <CableContainer />
+                <NavigationContainer
+                  ref={containerRef}
+                  initialState={initialNavigationState}
+                >
+                  <HomeStack />
+                </NavigationContainer>
+              </NotificationGate>
             </ProfileGate>
           </AuthGate>
         </Provider>
