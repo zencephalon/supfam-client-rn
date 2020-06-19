@@ -24,6 +24,9 @@ You may want to add the following to your settings.json / eslint config elsewher
 
 ## Current project
 
+- Push notifications
+  - Get token and ask for permission
+  - Direct message notifications
 
 ## TODO
 
@@ -33,7 +36,6 @@ You may want to add the following to your settings.json / eslint config elsewher
 ### Features
 
 - CONTACTS import / inviting
-- Push notifications
 
 - PROFILES
   - We can launch with just the single profile for now
