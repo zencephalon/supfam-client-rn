@@ -2,9 +2,6 @@ module.exports = function (api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    plugins: [
-      'babel-plugin-root-import',
-      ['transform-inline-environment-variables', { include: ['API_URL'] }],
-    ],
+    plugins: ['babel-plugin-root-import', 'inline-dotenv'],
   };
 };

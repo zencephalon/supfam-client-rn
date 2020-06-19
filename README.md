@@ -24,7 +24,6 @@ You may want to add the following to your settings.json / eslint config elsewher
 
 ## Current project
 
-Message count tracking.
 
 ## TODO
 
