@@ -1,31 +1,13 @@
 import React from 'react';
-import { View, ActivityIndicator, Image } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
 import ProfileName from '~/c/ProfileName';
 
-import useLight from '~/h/useLight';
-
 import TypingText from '~/c/TypingText';
 import MessageImagePreview from '~/c/MessageImagePreview';
-
-function MessageText(props) {
-  const { backgrounds } = useLight();
-  return (
-    <SfText
-      style={{
-        fontSize: 16,
-        backgroundColor: props.isOwnMessage ? backgrounds[2] : backgrounds[1],
-        borderRadius: 10,
-        overflow: 'hidden',
-        padding: 8,
-      }}
-    >
-      {props.text}
-    </SfText>
-  );
-}
+import MessageText from '~/c/MessageText';
 
 function Message(props) {
   const { message, isOwnMessage, fromSameUser } = props;

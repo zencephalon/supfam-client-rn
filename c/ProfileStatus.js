@@ -3,14 +3,12 @@ import * as React from 'react';
 import ProfileIcon from './ProfileIcon';
 import TopText from './TopText';
 
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
 import DirectConversationPreview from '~/c/DirectConversationPreview';
 
 import statusColors from '~/constants/statusColors';
-
-import useLight from '~/h/useLight';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -55,10 +53,8 @@ export default function ProfileStatus({ profile }) {
             >
               {profile.status.message}
             </SfText>
+            <DirectConversationPreview userId={profile?.user_id} />
           </View>
-        </View>
-        <View>
-          <DirectConversationPreview userId={profile?.user_id} />
         </View>
       </View>
     </TouchableOpacity>
