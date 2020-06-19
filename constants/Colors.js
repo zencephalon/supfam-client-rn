@@ -100,3 +100,6 @@ export const AWAY_LIGHT = RGB_Linear_Shade(-0.3, AWAY);
 export const BUSY_LIGHT = RGB_Linear_Shade(-0.3, BUSY);
 export const FREE_LIGHT = RGB_Linear_Shade(-0.3, FREE);
 export const OPEN_LIGHT = RGB_Linear_Shade(-0.3, OPEN);
+
+export const BRILLIANT_1 = 'rgb(27,194,255)';
+export const BRILLIANT_2 = 'rgb(255,92,84)';

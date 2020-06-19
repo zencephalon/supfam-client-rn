@@ -1,4 +1,5 @@
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import SfContainer from '~/c/SfContainer';
 import SfText from '~/c/SfText';
 import SfTextInput from '~/c/SfTextInput';
@@ -44,34 +45,50 @@ function ProfileCreate(props) {
   };
 
   return (
-    <SfContainer>
-      <SfText style={{ marginBottom: 16 }}>Create your first profile</SfText>
-      <SfTextInput
-        placeholder="Display name"
-        value={name}
-        onChangeText={setName}
-        ok={!!name}
-      />
-      <SfText style={{ marginTop: 16, marginBottom: 8 }}>
-        Set profile photo from:
-      </SfText>
-      <SfButton title="Camera" onPress={snapImage} color={FREE} />
-      <SfButton title="Camera roll" onPress={pickImage} color={FREE} />
-      {!!image && (
-        <BareProfileIcon
-          uri={image.uri}
-          size={100}
-          style={{ alignSelf: 'center' }}
+    <SfContainer darkBg>
+      <View style={styles.formContainer}>
+        <SfText style={styles.formLabel}>Create your first profile</SfText>
+        <SfTextInput
+          placeholder="Display name"
+          value={name}
+          onChangeText={setName}
+          ok={!!name}
         />
-      )}
-      <SfButton
-        title={profileBusy ? 'Creating profile...' : 'Create profile'}
-        disabled={cantCreateProfile || profileBusy}
-        style={{ marginTop: 16 }}
-        onPress={createProfile}
-      />
+        <SfText style={styles.formLabel}>
+          Set profile photo from:
+        </SfText>
+        <SfButton round title="Camera" onPress={snapImage} color={FREE} />
+        <SfButton round title="Camera roll" onPress={pickImage} color={FREE} />
+        {!!image && (
+          <BareProfileIcon
+            uri={image.uri}
+            size={100}
+            style={{ alignSelf: 'center' }}
+          />
+        )}
+        <SfButton
+          round
+          title={profileBusy ? 'Creating profile...' : 'Create profile'}
+          disabled={cantCreateProfile || profileBusy}
+          style={{ marginTop: 16 }}
+          onPress={createProfile}
+        />
+      </View>
     </SfContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  formLabel: {
+    marginBottom: 16,
+    marginTop: 16,
+    color: 'white'
+  },
+  formContainer: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 50,
+  },
+});
 
 export default ProfileCreate;

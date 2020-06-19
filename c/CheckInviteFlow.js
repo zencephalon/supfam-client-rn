@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
@@ -25,12 +26,12 @@ function CheckInviteFlow(props) {
   const checkDisabled = !phoneNumber?.isValid() || checkInviteReq.requested;
 
   return (
-    <React.Fragment>
-      <SfText style={{ marginBottom: 16, marginTop: 16 }}>
+    <View style={styles.formContainer}>
+      <SfText style={ styles.explainerText }>
         Supfam only allows invited users. Enter your phone number to look for
         your invitation.
       </SfText>
-      <SfText style={{ height: 32, color: foregrounds[1] }}>
+      <SfText style={{ height: 32, color: foregrounds[3], marginBottom: 5 }}>
         {new AsYouType('US').input(phone)}
       </SfText>
       <SfTextInput
@@ -44,8 +45,10 @@ function CheckInviteFlow(props) {
         onChangeText={setPhone}
         placeholder="your phone number"
         ok={!checkDisabled}
+        style={styles.phoneInput}
       />
       <SfButton
+        round
         style={{ marginTop: 8 }}
         title={checkInviteReq.requested ? 'Checking...' : 'Check for invite'}
         disabled={checkDisabled}
@@ -62,8 +65,24 @@ function CheckInviteFlow(props) {
           Sorry, we couldn't find an invitation for your phone number.
         </SfText>
       )}
-    </React.Fragment>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  explainerText: {
+    marginBottom: 16,
+    marginTop: 16,
+    color: 'white'
+  },
+  formContainer: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 80,
+  },
+  phoneInput: {
+    marginBottom: 20,
+  }
+});
 
 export default CheckInviteFlow;

@@ -6,7 +6,7 @@ import useLight from '~/h/useLight';
 
 const SfButton = (props) => {
   const { disabled, title, style, color, ...rest } = props;
-  const { light, foregrounds, backgrounds } = useLight();
+  const { light, foregrounds } = useLight();
 
   const textColor = foregrounds[0];
   const backgroundColor = Colors.RGB_Linear_Shade(
@@ -20,11 +20,17 @@ const SfButton = (props) => {
       ? backgroundColor
       : Colors.RGB_Linear_Shade(-0.4, backgroundColor),
   };
+  const roundStyle = props.round ? {
+    marginLeft: 25,
+    marginRight: 25,
+    borderRadius: 10,
+  } : {};
 
   const mergedStyle = {
     ...styles.exButton,
     ...(disabled ? {} : styles.enabled),
     ...stateStyle,
+    ...roundStyle,
     ...style,
   };
   return (
@@ -50,7 +56,6 @@ const styles = StyleSheet.create({
   exButton: {
     marginBottom: 10,
     alignItems: 'center',
-    // borderRadius: 10,
   },
   enabled: {
     shadowColor: '#000',

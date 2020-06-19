@@ -11,6 +11,8 @@ import AuthToken from '~/lib/AuthToken';
 import useApi from '~/h/useApi';
 import { postLogin } from '~/apis/api';
 
+import { BRILLIANT_1 } from '~/constants/Colors';
+
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = React.useState('');
@@ -35,7 +37,7 @@ const LoginForm = () => {
   };
 
   return (
-    <View>
+    <View style={styles.loginContainer}>
       <SfTextInput
         placeholder="username"
         autoCapitalize="none"
@@ -54,21 +56,29 @@ const LoginForm = () => {
         style={styles.textInput}
       />
       <SfButton
+        round
         title={PostLogin.req.requested ? 'Logging in...' : 'Log in'}
         disabled={!password || !name || PostLogin.req.requested}
         onPress={login}
         style={styles.button}
+        color={BRILLIANT_1}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  loginContainer: {
+    marginTop: 100,
+  },
   textInput: {
     marginTop: 8,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15,
   },
   button: {
-    marginTop: 12,
+    marginTop: 40,
   },
 });
 
