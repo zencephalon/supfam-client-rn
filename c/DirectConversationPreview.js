@@ -5,8 +5,6 @@ import useCachedDmMembership from '~/h/useCachedDmMembership';
 import useLight from '~/h/useLight';
 
 import SfText from '~/c/SfText';
-import MessageText from '~/c/MessageText';
-import { View } from 'react-native';
 
 function MessagePreview({ message }) {
   const { backgrounds } = useLight();
