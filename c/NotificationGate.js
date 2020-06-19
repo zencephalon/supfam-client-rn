@@ -68,8 +68,8 @@ const ProfileGate = (props) => {
         },
         {
           text: 'OK',
-          onPress: async () => {
-            await Permissions.askAsync(Permissions.NOTIFICATIONS);
+          onPress: () => {
+            Permissions.askAsync(Permissions.NOTIFICATIONS);
           },
         },
       ],
