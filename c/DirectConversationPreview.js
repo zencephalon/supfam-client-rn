@@ -3,12 +3,8 @@ import SfText from '~/c/SfText';
 
 import useProfileMe from '~/h/useProfileMe';
 import useCachedDmMembership from '~/h/useCachedDmMembership';
-import useConversationPreview from '~/h/useConversationPreview';
 
-function MessagePreview({ conversationId, message }) {
-  // const { message } = useConversationPreview(conversationId);
-  console.log({ message }, 'wtf');
-
+function MessagePreview({ message }) {
   // TODO: handle non-text messages
   return <SfText>{message?.message}</SfText>;
 }
@@ -23,7 +19,6 @@ export default function DirectConversationPreview({ userId }) {
   if (!dmMembership) {
     return null;
   }
-  console.log({ dmMembership });
 
   const last_message_id = dmMembership?.last_message?.id;
   const last_read_message_id = dmMembership?.last_read_message_id;
@@ -35,10 +30,5 @@ export default function DirectConversationPreview({ userId }) {
     return null;
   }
 
-  return (
-    <MessagePreview
-      message={dmMembership?.last_message}
-      conversationId={dmMembership.conversation_id}
-    />
-  );
+  return <MessagePreview message={dmMembership?.last_message} />;
 }
