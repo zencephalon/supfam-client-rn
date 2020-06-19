@@ -103,8 +103,8 @@ const RegistrationForm = ({ token }) => {
   };
 
   return (
-    <View>
-      <SfText style={{ marginTop: 16, marginBottom: 16 }}>
+    <View style={styles.formContainer}>
+      <SfText style={styles.formLabel}>
         Thanks for verifying!
       </SfText>
       <SfTextInput
@@ -139,12 +139,13 @@ const RegistrationForm = ({ token }) => {
         ok={passwordConfirmation && passwordConfirmation === password}
       />
       <SfButton
+        round
         title="Register"
         disabled={!password || password !== passwordConfirmation}
         onPress={register}
         style={styles.button}
       />
-      <SfText style={{ fontSize: 16 }}>
+      <SfText style={{ fontSize: 16, color: "#fe86fe" }}>
         By registering you agree to our Terms and Conditions
       </SfText>
     </View>
@@ -154,9 +155,20 @@ const RegistrationForm = ({ token }) => {
 const styles = StyleSheet.create({
   textInput: {
     marginTop: 8,
+    marginBottom: 10,
   },
   button: {
     marginTop: 12,
+  },
+  formLabel: {
+    marginBottom: 16,
+    marginTop: 16,
+    color: 'white'
+  },
+  formContainer: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 80,
   },
 });
 

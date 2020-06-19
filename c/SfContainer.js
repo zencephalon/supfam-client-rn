@@ -7,7 +7,10 @@ import { StyleSheet } from 'react-native';
 
 export default function SfContainer(props) {
   const { backgrounds } = useLight();
-  const backgroundColor = backgrounds[0];
+  let backgroundColor = backgrounds[0];
+  if(props.darkBg) {
+    backgroundColor = 'black';
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
