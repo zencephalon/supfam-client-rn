@@ -80,7 +80,7 @@ function BatteryStatus({ battery, batteryState }) {
 
   return (
     <MaterialCommunityIcons
-      style={{ marginRight: charging ? 0 : -2, marginLeft: charging ? 2 : 0 }}
+      style={{ marginLeft: charging ? 2 : 0, marginRight: charging ? 0 : 2 }}
       name={icon}
       size={14}
       color={color}

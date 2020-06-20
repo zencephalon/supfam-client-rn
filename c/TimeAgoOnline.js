@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import formatAgo from '~/lib/timeAgo';
 import useInterval from '@use-it/interval';
 
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import useLight from '~/h/useLight';
@@ -69,22 +69,23 @@ const TimeAgo = ({ time }) => {
   const suffixEnding = '';
 
   return (
-    <React.Fragment>
-      <MaterialCommunityIcons
-        name="eye-off-outline"
-        style={{ alignSelf: 'center', marginLeft: 4 }}
-        size={14}
-        color={textTertiary}
-      />
+    <View style={{ marginRight: 2, flexDirection: 'row' }}>
       <Text
         style={{
           textAlign: 'left',
           color: textTertiary,
+          textAlignVertical: 'bottom',
         }}
       >
         {timeDisplay + suffixEnding}
       </Text>
-    </React.Fragment>
+      <MaterialCommunityIcons
+        name="eye-off-outline"
+        style={{ alignSelf: 'center' }}
+        size={14}
+        color={textTertiary}
+      />
+    </View>
   );
 };
 export default TimeAgo;

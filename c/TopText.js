@@ -44,15 +44,23 @@ export default function TopText({
         >
           {displayName}
         </Text>
+      </View>
+      <View
+        style={{
+          alignSelf: 'flex-end',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
         <TimeAgoOnline time={lastSeen} />
-        <BatteryStatus
-          battery={profile?.seen?.battery}
-          batteryState={profile?.seen?.battery_state}
-        />
         <NetworkStatus
           networkType={profile?.seen?.network_type}
           networkStrength={profile?.seen?.network_strength}
           cellularGeneration={profile?.seen?.cellular_generation}
+        />
+        <BatteryStatus
+          battery={profile?.seen?.battery}
+          batteryState={profile?.seen?.battery_state}
         />
       </View>
     </View>
