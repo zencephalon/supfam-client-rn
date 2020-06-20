@@ -33,7 +33,7 @@ export default function ProfileStatus({ profile }) {
           lastSeen={profile?.seen?.updated_at}
           profile={profile}
         />
-        <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
+        <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
           <ProfileIcon profileId={profile.id} size={48} />
           <View
             style={{
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
     // borderBottomWidth: 1,
     paddingRight: 8,
     paddingLeft: 8,
-    marginBottom: 8,
+    marginBottom: 12,
   },
 });
