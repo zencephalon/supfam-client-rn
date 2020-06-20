@@ -144,10 +144,18 @@ export const uploadImage = async (uri) => {
   return { key };
 };
 
-export const postProfile = async ({ name, avatar_key }) => {
+export const postProfile = ({ name, avatar_key }) => {
   return api.postToAPI(`profiles`, {
     body: JSON.stringify({ name, avatar_key }),
   });
+};
+
+export const getPushToken = () => {
+  return api.fetchFromAPI('push_token');
+};
+
+export const setPushToken = (token) => {
+  return api.putToAPI(`push_token/${token}`);
 };
 
 export default api;

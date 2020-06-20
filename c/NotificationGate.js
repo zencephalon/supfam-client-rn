@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Notifications } from 'expo';
 import { Alert } from 'react-native';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -57,8 +56,8 @@ const ProfileGate = (props) => {
 
   const requestPermission = async () => {
     Alert.alert(
-      'Allow Supfam to send notifications?',
-      'At any time U can set your status to Away to turn off all notifications from Supfam. For the best experience we recommend allowing notifications.',
+      '"Supfam" Would Like to Send You Notifications',
+      "At any time you can set your status to 'Away' to turn off all notifications from Supfam. For the best experience we recommend allowing notifications.",
       [
         {
           text: 'Not Now',
@@ -67,9 +66,10 @@ const ProfileGate = (props) => {
           },
         },
         {
-          text: 'OK',
-          onPress: () => {
-            Permissions.askAsync(Permissions.NOTIFICATIONS);
+          text: 'Allow',
+          onPress: async () => {
+            await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            setNotificationsEnabled(true);
           },
         },
       ],

@@ -4,6 +4,7 @@ import cable from '~/lib/Cable';
 import useProfileId from '~/h/useProfileId';
 import useFriends from '~/h/useFriends';
 import useConversationMemberships from '~/h/useConversationMemberships';
+import usePushToken from '~/h/usePushToken';
 
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
@@ -15,6 +16,8 @@ function CableContainer() {
   const conversationIds = (conversationMemberships || [])
     .map((cm) => cm.conversation_id)
     .sort();
+
+  usePushToken();
 
   useEffect(() => {
     console.log('initializing cable');
