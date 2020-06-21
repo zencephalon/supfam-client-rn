@@ -24,14 +24,12 @@ You may want to add the following to your settings.json / eslint config elsewher
 
 ## Current project
 
-- Push notifications
-  - Get token and ask for permission
-  - Direct message notifications
+- Build script for updating app version and building in one command
 
 ## TODO
 
-- Build script for updating app version and building in one command
 - Wire up location updates with API
+- Handle notification badge numbers
 
 ### Features
 
@@ -39,8 +37,6 @@ You may want to add the following to your settings.json / eslint config elsewher
 
 - PROFILES
   - We can launch with just the single profile for now
-- MESSAGING. Let's do DMs first and then groups.
-  - read receipts, keep an index counter of the last message read, per user. Calculate unread count based on that
 
 ### Crypto
 
