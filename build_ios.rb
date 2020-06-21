@@ -12,4 +12,5 @@ json["expo"]["ios"]["buildNumber"] = new_version.to_s
 
 File.write('app.json', JSON.pretty_generate(json))
 
-`expo build:ios`
+# `expo build:ios`
+puts "Incremented build number, now run 'expo build:ios'"
