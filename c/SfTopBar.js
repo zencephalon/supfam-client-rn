@@ -11,6 +11,7 @@ export default function SfTopBar(props) {
       style={{
         paddingRight: 8,
         paddingLeft: 8,
+        paddingTop: 4,
         paddingBottom: 4,
         flexDirection: 'row',
         justifyContent: 'space-between',

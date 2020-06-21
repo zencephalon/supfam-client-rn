@@ -1,8 +1,6 @@
 import React from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
-import statusColors, {
-  statusColorsLight,
-} from '~/constants/statusColors';
+import statusColors, { statusColorsLight } from '~/constants/statusColors';
 
 import SfText from '~/c/SfText';
 
@@ -36,7 +34,7 @@ const StatusButton = ({ color, setColor, selected }) => {
                   },
             }),
             backgroundColor: statusColors[color],
-            borderTopColor: selected ? backgrounds[1] : statusColors[color],
+            borderTopColor: selected ? backgrounds[0] : statusColors[color],
             borderBottomColor: !selected
               ? shadowColors[color]
               : statusColors[color],
