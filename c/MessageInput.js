@@ -28,8 +28,8 @@ export default function MessageInput({ conversationId }) {
   const pickImage = usePickImage({ setImage });
 
   const [focused, setFocused] = React.useState(false);
-  const submitMessage = useSubmitMessage(conversationId, profile.id);
-  const submitImageMessage = useSubmitImageMessage(conversationId, profile.id);
+  const submitMessage = useSubmitMessage(conversationId, profile?.id);
+  const submitImageMessage = useSubmitImageMessage(conversationId, profile?.id);
 
   const setMessage = React.useCallback(
     (text) => {

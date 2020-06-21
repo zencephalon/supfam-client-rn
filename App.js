@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { SplashScreen } from 'expo';
+import { SplashScreen, Notifications } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -60,6 +60,24 @@ export default function App(props) {
     }
 
     loadResourcesAndDataAsync();
+  }, []);
+
+  React.useEffect(() => {
+    const handleNotification = (notification) => {
+      console.log('RECEIVED NOTIFICATION', notification);
+      const message = notification?.data?.message;
+      if (message) {
+        containerRef.current?.navigate('Conversation', {
+          profileId: message.profile_id,
+        });
+      }
+    };
+
+    const subscription = Notifications.addListener(handleNotification);
+
+    return () => {
+      // subscription.remove();
+    };
   }, []);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
