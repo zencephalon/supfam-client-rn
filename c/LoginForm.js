@@ -11,7 +11,8 @@ import AuthToken from '~/lib/AuthToken';
 import useApi from '~/h/useApi';
 import { postLogin } from '~/apis/api';
 
-import { BRILLIANT_1 } from '~/constants/Colors';
+import { OPEN } from '~/constants/Colors';
+import { elementSizes } from '~/constants/Sizes';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const LoginForm = () => {
         disabled={!password || !name || PostLogin.req.requested}
         onPress={login}
         style={styles.button}
-        color={BRILLIANT_1}
+        color={OPEN}
       />
     </View>
   );
@@ -69,16 +70,16 @@ const LoginForm = () => {
 
 const styles = StyleSheet.create({
   loginContainer: {
-    marginTop: 100,
+    marginTop: elementSizes[8],
   },
   textInput: {
-    marginTop: 8,
-    marginLeft: 15,
-    marginRight: 15,
-    marginBottom: 15,
+    marginTop: elementSizes[1],
+    marginLeft: elementSizes[2],
+    marginRight: elementSizes[2],
+    marginBottom: elementSizes[2],
   },
   button: {
-    marginTop: 40,
+    marginTop: elementSizes[5],
   },
 });
 
