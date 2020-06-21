@@ -8,7 +8,8 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "start-dev": "API_URL=http://localhost:3000/ expo start -c",
-    "start-ngrok": "API_URL=http://supfam.ngrok.io/ expo start -c"
+    "start-ngrok": "API_URL=http://supfam.ngrok.io/ expo start -c",
+    "start-prod": "API_URL=https://polar-peak-82709.herokuapp.com/ expo start -c"
   },
   "jest": {
     "preset": "jest-expo"
