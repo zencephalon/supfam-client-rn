@@ -11,10 +11,12 @@ import { postCheckInvite } from '~/apis/api';
 import useApi from '~/h/useApi';
 import useLight from '~/h/useLight';
 
+import { elementSizes } from '~/constants/Sizes';
+
 function CheckInviteFlow(props) {
   const [phone, setPhone] = React.useState('');
-  const { foregrounds } = useLight();
   const phoneNumber = parsePhoneNumberFromString(phone, 'US');
+  const { foregrounds } = useLight();
 
   const { call: checkInvite, req: checkInviteReq } = useApi(postCheckInvite);
 
@@ -31,7 +33,7 @@ function CheckInviteFlow(props) {
         Supfam only allows invited users. Enter your phone number to look for
         your invitation.
       </SfText>
-      <SfText style={{ height: 32, color: foregrounds[3], marginBottom: 5 }}>
+      <SfText style={{...styles.phoneNumberPreview, color: foregrounds[3]}}>
         {new AsYouType('US').input(phone)}
       </SfText>
       <SfTextInput
@@ -61,7 +63,7 @@ function CheckInviteFlow(props) {
         }
       />
       {checkInviteReq.failed && (
-        <SfText>
+        <SfText style={{color: foregrounds[3]}}>
           Sorry, we couldn't find an invitation for your phone number.
         </SfText>
       )}
@@ -71,17 +73,21 @@ function CheckInviteFlow(props) {
 
 const styles = StyleSheet.create({
   explainerText: {
-    marginBottom: 16,
-    marginTop: 16,
+    marginBottom: elementSizes[3],
+    marginTop: elementSizes[3],
     color: 'white'
   },
+  phoneNumberPreview: {
+    height: elementSizes[5],
+    marginBottom: elementSizes[1],
+  },
   formContainer: {
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 80,
+    marginLeft: elementSizes[3],
+    marginRight: elementSizes[3],
+    marginTop: elementSizes[8],
   },
   phoneInput: {
-    marginBottom: 20,
+    marginBottom: elementSizes[4],
   }
 });
 
