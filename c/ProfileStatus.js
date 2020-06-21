@@ -40,6 +40,7 @@ export default function ProfileStatus({ profile }) {
               flexDirection: 'column',
               flexGrow: 1,
               width: 0, // hack to get text to wrap
+              alignItems: 'flex-start',
             }}
           >
             <SfText

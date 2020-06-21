@@ -22,5 +22,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     marginLeft: 12,
     marginRight: 12,
+    flex: 1,
   },
 });

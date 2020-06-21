@@ -7,7 +7,7 @@ import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 
 export default function HomeScreen({ navigation }) {
   return (
-    <SfKeyboardAvoidingView>
+    <SfKeyboardAvoidingView keyboardVerticalOffset={-48}>
       <HomeTopBar title="Supfam" />
       <FriendList navigation={navigation} />
 

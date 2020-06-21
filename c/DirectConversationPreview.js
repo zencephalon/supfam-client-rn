@@ -21,6 +21,7 @@ function MessagePreview({ message }) {
         paddingLeft: 8,
         marginTop: 8,
         marginLeft: 8,
+        alignSelf: 'flex-end',
         // apparently necessary for borderRadius to work
         overflow: 'hidden',
       }}
