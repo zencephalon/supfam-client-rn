@@ -99,7 +99,12 @@ export const postRegister = ({
   token,
 }) => {
   return api.postToAPI(`register`, {
-    body: JSON.stringify({ name, password, passwordConfirmation, token }),
+    body: JSON.stringify({
+      name,
+      password,
+      password_confirmation: passwordConfirmation,
+      token,
+    }),
   });
 };
 
