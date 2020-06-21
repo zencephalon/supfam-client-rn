@@ -33,6 +33,11 @@ You may want to add the following to your settings.json / eslint config elsewher
 
 ### Features
 
+#### Must have for launch
+
+- A way to block users (AppStore guidelines)
+- Friendly empty states
+
 - CONTACTS import / inviting
 
 - PROFILES
