@@ -14,6 +14,10 @@ import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
 
+import ProfileIcon from '~/c/ProfileIcon';
+import SfText from '~/c/SfText';
+import { View } from 'react-native';
+
 export default function ConversationScreen({ navigation, route }) {
   const { profileId } = route.params;
 
@@ -22,9 +26,16 @@ export default function ConversationScreen({ navigation, route }) {
   const profile = useCachedProfile(profileId);
 
   navigation.setOptions({
-    headerTitle: profile?.name,
+    headerTitle: (props) => {
+      return (
+        <View style={{ flexDirection: 'row' }}>
+          <ProfileIcon profileId={profileId} />
+          <SfText style={{ fontSize: 16 }}>{profile?.name}</SfText>
+        </View>
+      );
+    },
     headerStyle: {
-      backgroundColor: statusColors[profile?.status?.color || 0],
+      // backgroundColor: statusColors[profile?.status?.color || 0],
     },
   });
 

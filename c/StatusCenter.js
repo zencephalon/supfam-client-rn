@@ -48,7 +48,7 @@ function usePostMessage(statusMe, message, profileId, setMessage) {
 
 const StatusCenter = () => {
   const [message, setMessage] = React.useState('');
-  const { backgrounds } = useLight();
+  const { backgrounds, light } = useLight();
 
   const profileId = useProfileId();
   const { profile } = useProfileMe();
@@ -59,7 +59,15 @@ const StatusCenter = () => {
   const postMessage = usePostMessage(statusMe, message, profileId, setMessage);
 
   return (
-    <View style={{ backgroundColor: backgrounds[0] }}>
+    <View
+      style={{
+        backgroundColor: backgrounds[0],
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: -1 },
+        shadowOpacity: light ? 0.1 : 0.4,
+        shadowRadius: 1,
+      }}
+    >
       <StatusInput
         profile={profile}
         statusMe={statusMe}

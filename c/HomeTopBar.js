@@ -10,15 +10,22 @@ import { useNavigation } from '@react-navigation/native';
 export default function HomeTopBar({ title }) {
   const navigation = useNavigation();
 
-  const { foregrounds } = useLight();
+  const { foregrounds, backgrounds, light } = useLight();
   return (
     <View
       style={{
-        marginTop: 16,
-        marginRight: 8,
-        marginLeft: 8,
+        paddingTop: 24,
+        paddingRight: 8,
+        paddingLeft: 8,
+        paddingBottom: 4,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        backgroundColor: backgrounds[0],
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: light ? 0.1 : 0.4,
+        shadowRadius: 3,
+        zIndex: 2,
       }}
     >
       <TouchableOpacity onPress={() => navigation.navigate('Settings')}>

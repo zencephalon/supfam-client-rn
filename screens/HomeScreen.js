@@ -15,7 +15,3 @@ export default function HomeScreen({ navigation }) {
     </SfKeyboardAvoidingView>
   );
 }
-
-HomeScreen.navigationOptions = {
-  header: null,
-};

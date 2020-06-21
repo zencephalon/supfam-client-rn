@@ -96,8 +96,6 @@ export default function StatusInput({
         paddingLeft: 8,
         paddingRight: 8,
         marginBottom: 8,
-        borderTopColor: backgrounds[1],
-        borderTopWidth: 1,
         alignItems: 'flex-end',
       }}
     >
