@@ -1,8 +1,10 @@
+import React from 'react';
 import { useQuery, queryCache } from 'react-query';
 import { getConversationMemberships } from '~/apis/api';
+import { AppState } from 'react-native';
 
 export default function useConversationMemberships() {
-  const { status, data, error } = useQuery(
+  const { status, data, error, refetch } = useQuery(
     'conversationMemberships',
     getConversationMemberships,
     {
@@ -25,6 +27,19 @@ export default function useConversationMemberships() {
       },
     }
   );
+  React.useEffect(() => {
+    const onForeground = (nextAppState) => {
+      console.log('APP STATE CHANGE', nextAppState);
+      if (nextAppState === 'active') {
+        console.log('REFETCHING ON FOREGROUND');
+        refetch();
+      }
+    };
+    AppState.addEventListener('change', onForeground);
+    return () => {
+      AppState.removeEventListener('change', onForeground);
+    };
+  }, []);
 
   return { status, conversationMemberships: data, error };
 }
