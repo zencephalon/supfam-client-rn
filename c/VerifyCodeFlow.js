@@ -3,7 +3,8 @@ import {StyleSheet, View} from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
-import { OPEN, OPEN_LIGHT } from '~/constants/Colors';
+import { OPEN } from '~/constants/Colors';
+import { elementSizes, fontSizes } from '~/constants/Sizes';
 
 import { postVerify, postResendCode } from '~/apis/api';
 import useApi from '~/h/useApi';
@@ -40,7 +41,7 @@ function VerifyCodeFlow(props) {
       <SfButton
         round
         color={OPEN}
-        style={{ marginTop: 16 }}
+        style={{ marginTop: elementSizes[3] }}
         title={Verify.req.requested ? 'Verifying...' : 'Verify'}
         disabled={Verify.req.requested}
         onPress={() => Verify.call({ token, code })}
@@ -60,21 +61,21 @@ function VerifyCodeFlow(props) {
 
 const styles = StyleSheet.create({
   formLabel: {
-    marginBottom: 16,
-    marginTop: 16,
+    marginBottom: elementSizes[3],
+    marginTop: elementSizes[3],
     color: 'white'
   },
   formContainer: {
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 80,
+    marginLeft: elementSizes[3],
+    marginRight: elementSizes[3],
+    marginTop: elementSizes[8],
   },
   formInput: {
-    marginBottom: 20,
+    marginBottom: elementSizes[3],
   },
   subText: {
-    fontSize: 18,
-    marginTop: 20,
+    fontSize: fontSizes[3],
+    marginTop: elementSizes[4],
     textAlign: 'center',
     textDecorationLine: 'underline',
     color: '#cfcd51',

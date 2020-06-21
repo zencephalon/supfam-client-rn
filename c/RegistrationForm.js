@@ -12,8 +12,8 @@ import { getNameAvailable, postRegister } from '~/apis/api';
 import AuthToken from '~/lib/AuthToken';
 
 import useApi from '~/h/useApi';
-
 import useConstCallback from 'use-const-callback';
+import { elementSizes, fontSizes } from '~/constants/Sizes';
 
 const debounced = debounce(
   ({ name, setFetchingNameAvailable, getNameAvailable, setNameAvailable }) => {
@@ -145,7 +145,7 @@ const RegistrationForm = ({ token }) => {
         onPress={register}
         style={styles.button}
       />
-      <SfText style={{ fontSize: 16, color: "#fe86fe" }}>
+      <SfText style={styles.subText}>
         By registering you agree to our Terms and Conditions
       </SfText>
     </View>
@@ -154,22 +154,27 @@ const RegistrationForm = ({ token }) => {
 
 const styles = StyleSheet.create({
   textInput: {
-    marginTop: 8,
-    marginBottom: 10,
+    marginTop: elementSizes[1],
+    marginBottom: elementSizes[1],
   },
   button: {
-    marginTop: 12,
+    marginTop: elementSizes[2],
   },
   formLabel: {
-    marginBottom: 16,
-    marginTop: 16,
+    marginBottom: elementSizes[3],
+    marginTop: elementSizes[3],
     color: 'white'
   },
   formContainer: {
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 80,
+    marginLeft: elementSizes[3],
+    marginRight: elementSizes[3],
+    marginTop: elementSizes[8],
   },
+  subText: {
+    marginTop: elementSizes[2],
+    fontSize: fontSizes[2],
+    color: "pink",
+  }
 });
 
 export default RegistrationForm;
