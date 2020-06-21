@@ -11,7 +11,8 @@ import SfButton from '~/c/SfButton';
 import CheckInviteFlow from '~/c/CheckInviteFlow';
 import VerifyCodeFlow from '~/c/VerifyCodeFlow';
 
-import { FREE, OPEN, AWAY, BRILLIANT_1, BRILLIANT_2 } from '~/constants/Colors';
+import { FREE, OPEN, AWAY } from '~/constants/Colors';
+import { fontSizes, elementSizes } from '~/constants/Sizes';
 
 function Welcome(props) {
   return (
@@ -22,14 +23,12 @@ function Welcome(props) {
       <SfText style={styles.welcomeText}>strictly for the fam</SfText>
       <SfButton
         round
-        color={BRILLIANT_1}
-        // color={OPEN}
+        color={OPEN}
         title="Login"
         onPress={() => props.setSelection('login')}
       />
       <SfButton
         round
-        // color={BRILLIANT_2}
         color={FREE}
         title="Register"
         onPress={() => props.setSelection('register')}
@@ -73,14 +72,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   welcomeText: {
-    marginTop: 12,
-    marginBottom: 28,
-    fontSize: 22,
+    marginTop: elementSizes[2],
+    marginBottom: elementSizes[4],
+    fontSize: fontSizes[4],
     textAlign: 'center',
     color: 'white',
   },
   welcomeCluster: {
-    marginTop: 80,
+    marginTop: elementSizes[8],
   },
   welcomeLogoContainer: {
     justifyContent: 'center',
@@ -92,8 +91,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   subText: {
-    fontSize: 18,
-    marginTop: 30,
+    fontSize: fontSizes[3],
+    marginTop: elementSizes[5],
     textAlign: 'center',
     textDecorationLine: 'underline',
     color: '#cfcd51',
