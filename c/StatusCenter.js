@@ -25,7 +25,6 @@ function useSetColor(profileId, profile) {
           };
         });
         await putStatusMe({ profileId, color });
-        queryCache.refetchQueries(['profileMe', profileId]);
       } catch (e) {
         console.log(e);
       }
