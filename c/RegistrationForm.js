@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
@@ -14,6 +14,7 @@ import AuthToken from '~/lib/AuthToken';
 import useApi from '~/h/useApi';
 import useConstCallback from 'use-const-callback';
 import { elementSizes, fontSizes } from '~/constants/Sizes';
+import { lightThemeForegrounds } from '~/constants/Colors';
 
 const debounced = debounce(
   ({ name, setFetchingNameAvailable, getNameAvailable, setNameAvailable }) => {
@@ -103,7 +104,7 @@ const RegistrationForm = ({ token }) => {
   };
 
   return (
-    <View style={styles.formContainer}>
+    <ScrollView style={styles.formContainer}>
       <SfText style={styles.formLabel}>
         Thanks for verifying!
       </SfText>
@@ -148,7 +149,7 @@ const RegistrationForm = ({ token }) => {
       <SfText style={styles.subText}>
         By registering you agree to our Terms and Conditions
       </SfText>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
   subText: {
     marginTop: elementSizes[2],
     fontSize: fontSizes[2],
-    color: "pink",
+    color: lightThemeForegrounds[3],
   }
 });
 
