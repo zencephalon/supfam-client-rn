@@ -20,7 +20,13 @@ function HomeStack() {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Conversation" component={ConversationScreen} />
+      <Stack.Screen
+        name="Conversation"
+        component={ConversationScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Invite"
         component={InviteScreen}
