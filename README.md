@@ -24,8 +24,6 @@ You may want to add the following to your settings.json / eslint config elsewher
 
 ## Current project
 
-- Build script for updating app version and building in one command
-
 ## TODO
 
 - Wire up location updates with API
@@ -57,3 +55,7 @@ We can use Pushy to do push notifications.
 - Upgrade postgres (have to migrate database to paid tier at some point)
 
 https://stackoverflow.com/questions/23820570/ios-launching-messages-app-with-multiple-recipients
+
+### Random thoughts
+
+Might want to only enable instant messaging if the other person is actively in the conversation and U toggle it on.
