@@ -20,7 +20,7 @@ function Welcome(props) {
       <View style={styles.welcomeLogoContainer}>
         <Image
           style={styles.welcomeLogo}
-          source={require('../assets/images/icon.png')}
+          source={require('../assets/images/homesplash.png')}
         />
       </View>
       <SfText style={styles.welcomeText}>strictly for the fam</SfText>
@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   welcomeCluster: {
-    marginTop: elementSizes[8],
     // alignItems: 'center',
   },
   welcomeLogoContainer: {
@@ -90,8 +89,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   welcomeLogo: {
-    width: 128,
-    height: 128,
+    width: 256,
+    height: 256,
     resizeMode: 'contain',
   },
   subText: {

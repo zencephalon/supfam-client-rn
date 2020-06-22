@@ -8,7 +8,7 @@ import { StyleSheet } from 'react-native';
 export default function SfContainer(props) {
   const { backgrounds } = useLight();
   let backgroundColor = backgrounds[0];
-  if(props.darkBg) {
+  if (props.darkBg) {
     backgroundColor = 'black';
   }
 
