@@ -30,6 +30,7 @@ You may want to add the following to your settings.json / eslint config elsewher
 
 - Wire up location updates with API
 - Handle notification badge numbers
+- Consider moving Profile picture setting out of the registration flow
 
 ### Features
 
