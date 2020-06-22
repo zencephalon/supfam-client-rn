@@ -57,6 +57,7 @@ const LoginForm = () => {
         style={styles.textInput}
       />
       <SfButton
+        wide
         round
         title={PostLogin.req.requested ? 'Logging in...' : 'Log in'}
         disabled={!password || !name || PostLogin.req.requested}
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
   },
   textInput: {
     marginTop: elementSizes[1],
-    marginLeft: elementSizes[2],
-    marginRight: elementSizes[2],
+    // marginLeft: elementSizes[2],
+    // marginRight: elementSizes[2],
     marginBottom: elementSizes[2],
   },
   button: {

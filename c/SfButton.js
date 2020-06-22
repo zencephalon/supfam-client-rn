@@ -20,13 +20,17 @@ const SfButton = (props) => {
       ? backgroundColor
       : Colors.RGB_Linear_Shade(-0.4, backgroundColor),
   };
-  const roundStyle = props.round ? {
-    borderRadius: 10,
-  } : {};
-  const wideStyle = props.wide ? {
-    marginLeft: 0,
-    marginRight: 0,
-  } : {};
+  const roundStyle = props.round
+    ? {
+        borderRadius: 10,
+      }
+    : {};
+  const wideStyle = props.wide
+    ? {
+        marginLeft: 0,
+        marginRight: 0,
+      }
+    : {};
 
   const mergedStyle = {
     ...styles.exButton,

@@ -11,14 +11,17 @@ import SfButton from '~/c/SfButton';
 import CheckInviteFlow from '~/c/CheckInviteFlow';
 import VerifyCodeFlow from '~/c/VerifyCodeFlow';
 
-import { FREE, OPEN, AWAY } from '~/constants/Colors';
+import { FREE, OPEN, nord13 } from '~/constants/Colors';
 import { fontSizes, elementSizes } from '~/constants/Sizes';
 
 function Welcome(props) {
   return (
     <View style={styles.welcomeCluster}>
       <View style={styles.welcomeLogoContainer}>
-        <Image style={styles.welcomeLogo} source={require('../assets/images/icon.png')} />
+        <Image
+          style={styles.welcomeLogo}
+          source={require('../assets/images/icon.png')}
+        />
       </View>
       <SfText style={styles.welcomeText}>strictly for the fam</SfText>
       <SfButton
@@ -80,14 +83,15 @@ const styles = StyleSheet.create({
   },
   welcomeCluster: {
     marginTop: elementSizes[8],
+    // alignItems: 'center',
   },
   welcomeLogoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   welcomeLogo: {
-    width: 130,
-    height: 130,
+    width: 128,
+    height: 128,
     resizeMode: 'contain',
   },
   subText: {
@@ -95,9 +99,9 @@ const styles = StyleSheet.create({
     marginTop: elementSizes[5],
     textAlign: 'center',
     textDecorationLine: 'underline',
-    color: '#cfcd51',
+    color: nord13,
     // color: '#fe86fe',
-  }
+  },
 });
 
 function mapStateToProps(state) {
