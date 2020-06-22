@@ -17,17 +17,7 @@ function HomeStack() {
         name="Home"
         component={HomeScreen}
         options={{
-          headerTitle: 'Home',
-          headerStyle: {
-            backgroundColor: backgrounds[0],
-            height: 20,
-            shadowColor: 'black',
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          headerTitleStyle: {
-            color: foregrounds[0],
-          },
+          headerShown: false,
         }}
       />
       <Stack.Screen name="Conversation" component={ConversationScreen} />
