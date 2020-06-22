@@ -29,11 +29,11 @@ function CheckInviteFlow(props) {
 
   return (
     <View style={styles.formContainer}>
-      <SfText style={ styles.explainerText }>
+      <SfText style={styles.explainerText}>
         Supfam only allows invited users. Enter your phone number to look for
         your invitation.
       </SfText>
-      <SfText style={{...styles.phoneNumberPreview, color: foregrounds[3]}}>
+      <SfText style={{ ...styles.phoneNumberPreview, color: foregrounds[2] }}>
         {new AsYouType('US').input(phone)}
       </SfText>
       <SfTextInput
@@ -63,7 +63,7 @@ function CheckInviteFlow(props) {
         }
       />
       {checkInviteReq.failed && (
-        <SfText style={{color: foregrounds[3]}}>
+        <SfText style={{ color: foregrounds[3] }}>
           Sorry, we couldn't find an invitation for your phone number.
         </SfText>
       )}
@@ -73,22 +73,17 @@ function CheckInviteFlow(props) {
 
 const styles = StyleSheet.create({
   explainerText: {
-    marginBottom: elementSizes[3],
     marginTop: elementSizes[3],
-    color: 'white'
+    color: 'white',
   },
   phoneNumberPreview: {
     height: elementSizes[5],
-    marginBottom: elementSizes[1],
   },
   formContainer: {
     marginLeft: elementSizes[3],
     marginRight: elementSizes[3],
-    marginTop: elementSizes[8],
   },
-  phoneInput: {
-    marginBottom: elementSizes[4],
-  }
+  phoneInput: {},
 });
 
 export default CheckInviteFlow;
