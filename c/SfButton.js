@@ -21,9 +21,11 @@ const SfButton = (props) => {
       : Colors.RGB_Linear_Shade(-0.4, backgroundColor),
   };
   const roundStyle = props.round ? {
-    marginLeft: 25,
-    marginRight: 25,
     borderRadius: 10,
+  } : {};
+  const wideStyle = props.wide ? {
+    marginLeft: 0,
+    marginRight: 0,
   } : {};
 
   const mergedStyle = {
@@ -31,6 +33,7 @@ const SfButton = (props) => {
     ...(disabled ? {} : styles.enabled),
     ...stateStyle,
     ...roundStyle,
+    ...wideStyle,
     ...style,
   };
   return (
@@ -56,6 +59,8 @@ const styles = StyleSheet.create({
   exButton: {
     marginBottom: 10,
     alignItems: 'center',
+    marginLeft: 25,
+    marginRight: 25,
   },
   enabled: {
     shadowColor: '#000',

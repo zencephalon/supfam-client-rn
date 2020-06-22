@@ -16,7 +16,7 @@ import useApi from '~/h/useApi';
 import useSnapImage from '~/h/useSnapImage';
 import usePickImage from '~/h/usePickImage';
 
-function ProfileCreate(props) {
+function ProfileCreate() {
   const [name, setName] = React.useState('');
   const [image, setImage] = React.useState(null);
   const PostProfile = useApi(postProfile, {
@@ -47,12 +47,14 @@ function ProfileCreate(props) {
   return (
     <SfContainer darkBg>
       <View style={styles.formContainer}>
-        <SfText style={styles.formLabel}>Create your first profile</SfText>
+        <SfText style={styles.formLabel}>Congrats! 🎊 You are signed up. </SfText>
+        <SfText style={styles.formLabel}>What name can we use for your main profile?</SfText>
         <SfTextInput
-          placeholder="Display name"
+          placeholder="Albus Dumbledore"
           value={name}
           onChangeText={setName}
           ok={!!name}
+          autoCapitalize='words'
         />
         <SfText style={styles.formLabel}>
           Set profile photo from:
@@ -68,6 +70,7 @@ function ProfileCreate(props) {
         )}
         <SfButton
           round
+          wide
           title={profileBusy ? 'Creating profile...' : 'Create profile'}
           disabled={cantCreateProfile || profileBusy}
           style={{ marginTop: 16 }}
