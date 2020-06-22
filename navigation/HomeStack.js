@@ -6,8 +6,6 @@ import InviteScreen from '~/screens/InviteScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 import useLight from '~/h/useLight';
 
-import { Text } from 'react-native';
-
 const Stack = createStackNavigator();
 
 function HomeStack() {
