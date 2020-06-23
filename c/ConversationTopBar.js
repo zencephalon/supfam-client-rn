@@ -10,20 +10,44 @@ import useLight from '~/h/useLight';
 
 import ProfileIcon from '~/c/ProfileIcon';
 
-export default function ConversationTopBar({ profileId, name, navigation }) {
+export default function ConversationTopBar({
+  profileId,
+  name,
+  navigation,
+  statusMessage,
+}) {
   const { foregrounds } = useLight();
   return (
-    <SfTopBar style={{ justifyContent: 'flex-start' }}>
+    <SfTopBar style={{ justifyContent: 'space-between' }}>
       <TouchableOpacity style={{ padding: 4 }} onPress={() => navigation.pop()}>
         <Ionicons name="ios-arrow-back" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
       <View
-        style={{ flexDirection: 'row', flexGrow: 1, justifyContent: 'center' }}
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          maxWidth: '60%',
+        }}
       >
         <ProfileIcon profileId={profileId} />
-        <SfText style={{ fontSize: 24, marginLeft: 8, color: foregrounds[1] }}>
-          {name}
-        </SfText>
+        <View>
+          <SfText
+            style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}
+          >
+            {name}
+          </SfText>
+          <SfText
+            style={{
+              fontSize: 12,
+              marginLeft: 8,
+              color: foregrounds[1],
+              overflow: 'hidden',
+            }}
+            numberOfLines={1}
+          >
+            {statusMessage}
+          </SfText>
+        </View>
       </View>
       <TouchableOpacity style={{ padding: 4 }}>
         <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
