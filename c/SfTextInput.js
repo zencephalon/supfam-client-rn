@@ -80,7 +80,6 @@ const SfTextInputStyle = {
   borderRadius: 10,
   padding: 12,
   fontSize: 28,
-  height: 72,
 };
 
 export default SfTextInput;
