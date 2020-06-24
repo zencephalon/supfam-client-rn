@@ -29,16 +29,19 @@ export function BareProfileIcon(props) {
           ...props.style,
         }}
       />
-      <StatusBadge
-        statusColor={props.statusColor}
-        size={size / 3}
-        lastSeen={props.lastSeen}
-        style={{
-          position: 'absolute',
-          bottom: -offset,
-          right: -offset,
-        }}
-      />
+      {
+        !props.noBadge ?
+        <StatusBadge
+          statusColor={props.statusColor}
+          size={size / 3}
+          lastSeen={props.lastSeen}
+          style={{
+            position: 'absolute',
+            bottom: -offset,
+            right: -offset,
+          }}
+        /> : null
+      }
     </View>
   );
 }
