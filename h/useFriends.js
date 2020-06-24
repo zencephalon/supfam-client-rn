@@ -26,7 +26,7 @@ export default function useFriends() {
   );
 
   const invalidate = React.useCallback(() => {
-    queryCache.invalidate(['friends', profileId]);
+    queryCache.invalidateQueries(['friends', profileId], { exact: true });
   }, [profileId]);
 
   return { status, friends, error, isFetching, invalidate };

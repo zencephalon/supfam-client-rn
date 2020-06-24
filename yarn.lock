@@ -2114,6 +2114,11 @@
     history "^4.7.2"
     query-string "^6.2.0"
 
+"@scarf/scarf@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.0.6.tgz#52011dfb19187b53b75b7b6eac20da0810ddd88f"
+  integrity sha512-y4+DuXrAd1W5UIY3zTcsosi/1GyYT8k5jGnZ/wG7UUHVrU+MHlH4Mp87KK2/lvMW4+H7HVcdB+aJhqywgXksjA==
+
 "@sentry/browser@^5.15.4":
   version "5.15.4"
   resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.15.4.tgz#5a7e7bad088556665ed8e69bceb0e18784e4f6c7"
@@ -7315,10 +7320,13 @@ react-native-web@^0.11.7:
     stacktrace-parser "^0.1.3"
     whatwg-fetch "^3.0.0"
 
-react-query@^1.0.27:
-  version "1.0.27"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.0.27.tgz#f60799f4713dec2f0ad0ca50a5b43cc31ea0da2e"
-  integrity sha512-Ry1CCIVeLUuuOfrCX6irn56RuGBCi7sy44tGGQ5kxuNkfsPpI7E0t3JrBMA8gXXez+Yl5f+gagsNxTN7ey6hiw==
+react-query@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.0.3.tgz#70bd216fe342cf61a976f14520bf0fbd1151484f"
+  integrity sha512-ZiVBa83c2JY0DWcQPO8QGlUkQuAnwM3hh2aQnxP2m/GnrTtDcE+LYezUNqJKH31IUtIS2mtHrOwQAQBKhYgPCQ==
+  dependencies:
+    "@scarf/scarf" "^1.0.6"
+    ts-toolbelt "^6.9.4"
 
 react-redux@^7.2.0:
   version "7.2.0"
@@ -8546,6 +8554,11 @@ tr46@^1.0.1:
   integrity sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=
   dependencies:
     punycode "^2.1.0"
+
+ts-toolbelt@^6.9.4:
+  version "6.9.9"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.9.9.tgz#e6cfd8ec7d425d2a06bda3b4fe9577ceaf2abda8"
+  integrity sha512-5a8k6qfbrL54N4Dw+i7M6kldrbjgDWb5Vit8DnT+gwThhvqMg8KtxLE5Vmnft+geIgaSOfNJyAcnmmlflS+Vdg==
 
 tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"

@@ -51,7 +51,7 @@
     "react-native-screens": "~2.2.0",
     "react-native-typing-animation": "^0.1.7",
     "react-native-web": "^0.11.7",
-    "react-query": "^1.0.27",
+    "react-query": "^2.0.3",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-rest-reducer": "git+ssh://git@github.com/zencephalon/redux-rest-reducer.git#9ccbc3dea0dbaf125a929d6380743fecd0203234",

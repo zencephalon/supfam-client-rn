@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import { LayoutAnimation } from 'react-native';
+import { LayoutAnimation, RefreshControl } from 'react-native';
 
 import ProfileStatus from '~/c/ProfileStatus';
 
@@ -9,7 +9,6 @@ import useFriends from '~/h/useFriends';
 
 const FriendList = (props) => {
   const { status, friends, error, invalidate, isFetching } = useFriends();
-  const [refreshing, setRefreshing] = React.useState(false);
 
   const { backgrounds } = useLight();
 
@@ -31,21 +30,19 @@ const FriendList = (props) => {
   return (
     <FlatList
       inverted
-      onRefresh={() => {
-        setRefreshing(true);
-        console.log('PULLED TO REFRESH');
-        invalidate();
-      }}
-      refreshing={refreshing}
+      refreshControl={
+        <RefreshControl
+          refreshing={isFetching}
+          onRefresh={() => {
+            invalidate();
+          }}
+        />
+      }
       data={friends}
       style={{ backgroundColor: backgrounds[0] }}
       renderItem={renderProfileStatus}
       keyExtractor={(profile) => `${profile.id}`}
-      onScrollEndDrag={() => console.log('end')}
-      onScrollBeginDrag={() => console.log('start')}
-      onScrollToTop={() => console.log('top')}
       onEndReachedThreshold={5}
-      onEndReached={() => console.log('onEndReached')}
     />
   );
 };
