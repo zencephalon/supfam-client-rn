@@ -37,7 +37,7 @@ function usePostMessage(statusMe, message, profileId, setMessage) {
   return React.useCallback(async () => {
     try {
       await putStatusMe({ profileId, color: statusMe?.color, message });
-      queryCache.refetchQueries(['profileMe', profileId]);
+      queryCache.invalidateQueries(['profileMe', profileId]);
     } catch (e) {
       console.log(e);
     }
