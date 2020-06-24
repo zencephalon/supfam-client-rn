@@ -8,7 +8,8 @@ import useLight from '~/h/useLight';
 import useFriends from '~/h/useFriends';
 
 const FriendList = (props) => {
-  const { status, friends, error } = useFriends();
+  const { status, friends, error, invalidate, isFetching } = useFriends();
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const { backgrounds } = useLight();
 
@@ -30,10 +31,21 @@ const FriendList = (props) => {
   return (
     <FlatList
       inverted
+      onRefresh={() => {
+        setRefreshing(true);
+        console.log('PULLED TO REFRESH');
+        invalidate();
+      }}
+      refreshing={refreshing}
       data={friends}
       style={{ backgroundColor: backgrounds[0] }}
       renderItem={renderProfileStatus}
       keyExtractor={(profile) => `${profile.id}`}
+      onScrollEndDrag={() => console.log('end')}
+      onScrollBeginDrag={() => console.log('start')}
+      onScrollToTop={() => console.log('top')}
+      onEndReachedThreshold={5}
+      onEndReached={() => console.log('onEndReached')}
     />
   );
 };
