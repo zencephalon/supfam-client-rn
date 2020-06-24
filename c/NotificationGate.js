@@ -37,7 +37,7 @@ const ProfileGate = (props) => {
 
   React.useEffect(() => {
     const f = async () => {
-      if (Constants.isDevice || true) {
+      if (Constants.isDevice) {
         const { status: existingStatus } = await Permissions.getAsync(
           Permissions.NOTIFICATIONS
         );
@@ -48,6 +48,7 @@ const ProfileGate = (props) => {
         }
       } else {
         // Not really, but we can't on a simulator
+        setWaiting(false);
         setNotificationsEnabled(true);
       }
     };

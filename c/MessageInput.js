@@ -28,15 +28,19 @@ export default function MessageInput({ conversationId }) {
   const pickImage = usePickImage({ setImage });
 
   const [focused, setFocused] = React.useState(false);
+
+  const [qid, setQid] = React.useState(Math.random());
   const submitMessage = useSubmitMessage(conversationId, profile?.id);
   const submitImageMessage = useSubmitImageMessage(conversationId, profile?.id);
 
   const setMessage = React.useCallback(
     (text) => {
       setText(text);
-      sendInstant(conversationId, text);
+      if (text !== '') {
+        sendInstant(conversationId, text, qid);
+      }
     },
-    [conversationId]
+    [conversationId, qid]
   );
 
   useEffect(() => {
@@ -89,7 +93,8 @@ export default function MessageInput({ conversationId }) {
         <TouchableOpacity
           onPress={() => {
             setMessage('');
-            submitMessage(text);
+            submitMessage(text, qid);
+            setQid(Math.random());
           }}
           style={{
             alignSelf: 'flex-start',

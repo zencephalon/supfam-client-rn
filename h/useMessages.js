@@ -51,31 +51,31 @@ export default function useMessages(conversationId, meProfileId) {
     }
   );
   const { data: instantMessage } = useQuery(
-    ['instant_messages', { conversationId }],
+    ['instant_messages', conversationId],
     () => {},
     {
       manual: true,
-      initialData: [],
       enabled: conversationId,
     }
   );
 
-  let _receivedMessages = uniqBy(
-    (queuedMessages || []).concat(receivedMessages || []),
-    'qid'
-  );
+  let messages = [];
 
-  let messages = uniqBy(
-    _receivedMessages.concat(head(message_groups)?.messages || []),
+  if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
+    messages.unshift(instantMessage);
+  }
+
+  messages = messages.concat(queuedMessages || []);
+
+  messages = uniqBy(messages.concat(receivedMessages || []), 'qid');
+
+  messages = uniqBy(
+    messages.concat(head(message_groups)?.messages || []),
     'id'
   );
   messages = messages.concat(
     flatten(tail(message_groups).map((group) => group.messages))
   );
-
-  if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
-    messages.unshift(instantMessage);
-  }
 
   return {
     messages,
