@@ -15,6 +15,7 @@ export default function useCachedDmMembership(dmId) {
     {
       // staleTime: Infinity,
       manual: true,
+      enabled: conversationId,
     }
   );
 

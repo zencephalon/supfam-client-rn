@@ -8,7 +8,7 @@ import useLight from '~/h/useLight';
 import useFriends from '~/h/useFriends';
 
 const FriendList = (props) => {
-  const { status, friends, error, invalidate, isFetching } = useFriends();
+  const { status, friends, error, refetch, isFetching } = useFriends();
 
   const { backgrounds } = useLight();
 
@@ -34,7 +34,7 @@ const FriendList = (props) => {
         <RefreshControl
           refreshing={isFetching}
           onRefresh={() => {
-            invalidate();
+            refetch();
           }}
         />
       }

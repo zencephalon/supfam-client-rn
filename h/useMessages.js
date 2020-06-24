@@ -22,30 +22,42 @@ export default function useMessages(conversationId, meProfileId) {
     fetchMore,
     canFetchMore,
   } = useInfiniteQuery(
-    conversationId && ['dm_messages', { conversationId }],
+    ['dm_messages', { conversationId }],
     getConversationMessages,
     {
       getFetchMore: (lastGroup) => {
         return lastGroup.next_cursor;
       },
+      enabled: conversationId,
     }
   );
 
   const { data: queuedMessages } = useQuery(
-    conversationId && ['queued_messages', { conversationId }],
+    ['queued_messages', { conversationId }],
     () => {},
     {
       manual: true,
       initialData: MessageQueue.getQueued(conversationId),
+      enabled: conversationId,
     }
   );
   const { data: receivedMessages } = useQuery(
-    conversationId && ['received_messages', { conversationId }],
-    () => {}
+    ['received_messages', { conversationId }],
+    () => {},
+    {
+      manual: true,
+      initialData: [],
+      enabled: conversationId,
+    }
   );
   const { data: instantMessage } = useQuery(
-    conversationId && ['instant_messages', { conversationId }],
-    () => {}
+    ['instant_messages', { conversationId }],
+    () => {},
+    {
+      manual: true,
+      initialData: [],
+      enabled: conversationId,
+    }
   );
 
   let _receivedMessages = uniqBy(

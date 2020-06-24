@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useQuery, queryCache } from 'react-query';
 import { getFriends } from '~/apis/api';
 import { orderBy } from 'lodash';
@@ -8,8 +6,8 @@ import useProfileId from '~/h/useProfileId';
 
 export default function useFriends() {
   const profileId = useProfileId();
-  const { status, data, error, isFetching } = useQuery(
-    profileId && ['friends', profileId],
+  const { status, data, error, isFetching, refetch } = useQuery(
+    ['friends', profileId],
     getFriends,
     {
       onSuccess: (friends) => {
@@ -17,6 +15,7 @@ export default function useFriends() {
           queryCache.setQueryData(['friend', friend.id], friend);
         });
       },
+      enabled: profileId,
     }
   );
   const friends = orderBy(
@@ -25,9 +24,5 @@ export default function useFriends() {
     ['desc', 'desc']
   );
 
-  const invalidate = React.useCallback(() => {
-    queryCache.invalidateQueries(['friends', profileId], { exact: true });
-  }, [profileId]);
-
-  return { status, friends, error, isFetching, invalidate };
+  return { status, friends, error, isFetching, refetch };
 }
