@@ -10,7 +10,7 @@ const setAuthHeader = (headers) => {
 
 const api = configureAPI(API_URL, { headerFunc: setAuthHeader });
 
-export const getFriends = (_key, profileId) => {
+export const getFriends = (profileId) => {
   return api.fetchFromAPI(`friends/${profileId}`);
 };
 
@@ -52,8 +52,8 @@ export const getConversationMemberships = (_key) => {
 };
 
 // export const getConversationMembership
-export const getDmMembership = (_key, dmId) => {
-  return api.fetchFromAPI(`conversations/${dmId}/dmMembership`);
+export const getMembership = (_key, id) => {
+  return api.fetchFromAPI(`conversations/${id}/membership`);
 };
 
 export const postConversationRead = (conversationId, messageId) => {

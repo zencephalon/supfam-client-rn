@@ -7,8 +7,8 @@ import useProfileId from '~/h/useProfileId';
 export default function useFriends() {
   const profileId = useProfileId();
   const { status, data, error, isFetching, refetch } = useQuery(
-    ['friends', profileId],
-    getFriends,
+    ['friends'],
+    () => getFriends(profileId),
     {
       onSuccess: (friends) => {
         friends.map((friend) => {

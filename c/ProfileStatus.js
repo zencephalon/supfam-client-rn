@@ -19,7 +19,7 @@ export default function ProfileStatus({ profile }) {
     <TouchableOpacity
       style={{
         ...styles.profileStatus,
-        borderLeftColor: statusColors[profile.status.color],
+        borderLeftColor: statusColors[profile?.status?.color],
       }}
       onPress={() => {
         navigation.navigate('Conversation', { profileId: profile.id });
@@ -52,7 +52,7 @@ export default function ProfileStatus({ profile }) {
                 overflow: 'hidden',
               }}
             >
-              {profile.status.message}
+              {profile?.status?.message}
             </SfText>
             <DirectConversationPreview userId={profile?.user_id} />
           </View>

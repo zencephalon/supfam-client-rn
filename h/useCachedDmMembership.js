@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { getDmMembership } from '~/apis/api';
+import { getMembership } from '~/apis/api';
 
 export default function useCachedDmMembership(dmId) {
   const { data: dmIdtoConversationIdMap } = useQuery(
@@ -11,7 +11,7 @@ export default function useCachedDmMembership(dmId) {
   const conversationId = dmIdtoConversationIdMap?.[dmId];
   const { data: dmMembership } = useQuery(
     ['conversationMembership', conversationId],
-    getDmMembership,
+    getMembership,
     {
       // staleTime: Infinity,
       manual: true,
