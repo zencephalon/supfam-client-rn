@@ -5,8 +5,9 @@ import { getFriendInvitesFrom, getFriendInvitesTo } from '../apis/api';
 export function useFriendInvitesFrom() {
   const profileId = useProfileId();
   const { status, data, error } = useQuery(
-    profileId && ['friendInvitesFrom', profileId],
-    getFriendInvitesFrom
+    ['friendInvitesFrom', profileId],
+    getFriendInvitesFrom,
+    {enabled: profileId},
   );
 
   return { status, friendInvitesFrom: data, error };
@@ -15,8 +16,9 @@ export function useFriendInvitesFrom() {
 export function useFriendInvitesTo() {
   const profileId = useProfileId();
   const { status, data, error } = useQuery(
-    profileId && ['friendInvitesTo', profileId],
-    getFriendInvitesTo
+    ['friendInvitesTo', profileId],
+    getFriendInvitesTo,
+    {enabled: profileId},
   );
 
   return { status, friendInvitesTo: data, error };
