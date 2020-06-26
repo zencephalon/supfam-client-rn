@@ -5,6 +5,7 @@ import _ from 'lodash';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import ProfileName from '~/c/ProfileName';
+import ProfileIcon from '~/c/ProfileIcon';
 
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
@@ -36,11 +37,31 @@ const getProfilesHere = (presence, meProfileId) => {
 };
 
 function ProfilesHereDisplay({ profileIds }) {
-  return profileIds.length === 0 ? null : (
-    <View>
-      {profileIds.map((profileId) => (
-        <ProfileName key={profileId} profileId={profileId} />
-      ))}
+  const { backgrounds } = useLight();
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        marginLeft: 8,
+        // backgroundColor: backgrounds[1],
+        alignSelf: 'flex-start',
+        // borderRadius: 10,
+        // padding: 4,
+        // height: 24,
+      }}
+    >
+      {profileIds.length ===
+      0 ? // <SfText style={{ fontSize: 12 }}>No one else is here</SfText>
+      null : (
+        <>
+          {profileIds.map((profileId) => (
+            <ProfileIcon key={profileId} profileId={profileId} size={16} />
+          ))}
+          <SfText style={{ marginLeft: 8, fontSize: 12 }}>
+            {profileIds.length === 1 ? 'is' : 'are'} here, ⚡ mode enabled!
+          </SfText>
+        </>
+      )}
     </View>
   );
 }
@@ -83,13 +104,18 @@ export default function MessageInput({ conversationId }) {
   }, [image]);
 
   return (
-    <View>
+    <View
+      style={{
+        borderTopColor: backgrounds[1],
+        borderTopWidth: 1,
+        paddingTop: 4,
+      }}
+    >
       <ProfilesHereDisplay profileIds={profilesHere} />
 
       <View
         style={{
           ...styles.container,
-          borderTopColor: backgrounds[1],
         }}
       >
         {!focused && (
@@ -162,9 +188,7 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 8,
     marginBottom: 16,
-    marginTop: 4,
-    borderTopWidth: 1,
-    paddingTop: 8,
+    paddingTop: 4,
     alignItems: 'flex-end',
   },
 });
