@@ -9,14 +9,36 @@ import SfInlineButton from '~/c/SfInlineButton';
 
 import statusColors from '~/constants/statusColors';
 
+import useProfileId from '~/h/useProfileId';
+import useApi from '~/h/useApi';
+import { postFriendInvite, postCancelFriendInvite } from '~/apis/api';
+
 export default function InviteFriendRow({ profile }) {
+  const [inviteSent, setInviteSent] = React.useState(profile.inviteSent);
+
+  const Invite = useApi(postFriendInvite);
+  const CancelInvite = useApi(postCancelFriendInvite);
+  const profileId = useProfileId();
+
+  const sendInvite = () => {
+    Invite.call({ from_profile_id: profileId, to_profile_id: profile.id });
+    setInviteSent(true);
+  }
+
+  const cancelInvite = () => {
+    CancelInvite.call({ from_profile_id: profileId, to_profile_id: profile.id });
+    setInviteSent(false);
+  }
+
   return (
     <TouchableOpacity
       style={{
-        ...styles.profileStatus,
+        ...styles.inviteFriendRow,
         borderLeftColor: statusColors[profile.status.color],
       }}
-      onPress={() => {}}
+      onPress={() => {
+        if(!inviteSent) { sendInvite() }
+      }}
     >
       <View style={{ flexGrow: 1 }}>
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
@@ -45,10 +67,19 @@ export default function InviteFriendRow({ profile }) {
               right: 4,
               top: 0,
             }}>
-              <SfInlineButton
-                title="Invite"
-                onPress={() => {}}
-              />
+              {
+                inviteSent
+                ?
+                <SfInlineButton
+                  title="Cancel Invitation"
+                  onPress={() => cancelInvite()}
+                />
+                :
+                <SfInlineButton
+                  title="Invite"
+                  onPress={() => sendInvite()}
+                />
+              }
             </View>
           </View>
         </View>
@@ -58,14 +89,11 @@ export default function InviteFriendRow({ profile }) {
 }
 
 const styles = StyleSheet.create({
-  profileStatus: {
+  inviteFriendRow: {
     flexDirection: 'row',
     alignSelf: 'stretch',
-    // borderLeftWidth: 4,
     paddingLeft: 8,
-    // borderBottomWidth: 1,
     paddingRight: 8,
-    paddingLeft: 8,
     marginBottom: 12,
   },
 });

@@ -15,7 +15,7 @@ export const getFriends = (_key, profileId) => {
 };
 
 export const getFriendsOfFriends = (_key, profileId) => {
-  return api.fetchFromAPI(`friendsOfFriends/${profileId}`);
+  return api.fetchFromAPI(`friends_of_friends/${profileId}`);
 };
 
 export const getProfile = (_key, id) => {
@@ -78,6 +78,26 @@ export const postCheckInvite = ({ phone }) => {
   return api.postToAPI(`check_invite`, {
     body: JSON.stringify({ phone }),
   });
+};
+
+export const postFriendInvite = ({ from_profile_id, to_profile_id }) => {
+  return api.postToAPI(`friend_invites/create`, {
+    body: JSON.stringify({ from_profile_id, to_profile_id }),
+  });
+};
+
+export const postCancelFriendInvite = ({ from_profile_id, to_profile_id }) => {
+  return api.postToAPI(`friend_invites/cancel`, {
+    body: JSON.stringify({ from_profile_id, to_profile_id }),
+  });
+};
+
+export const getFriendInvitesFrom = (_key, fromProfileId) => {
+  return api.fetchFromAPI(`friend_invites/from/${fromProfileId}`);
+};
+
+export const getFriendInvitesTo = (_key, toProfileId) => {
+  return api.fetchFromAPI(`friend_invites/to/${toProfileId}`);
 };
 
 export const postVerify = ({ token, code }) => {
