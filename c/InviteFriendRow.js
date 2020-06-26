@@ -7,8 +7,6 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
 
-import statusColors from '~/constants/statusColors';
-
 import useProfileId from '~/h/useProfileId';
 import useApi from '~/h/useApi';
 import { postFriendInvite, postCancelFriendInvite } from '~/apis/api';
@@ -32,17 +30,14 @@ export default function InviteFriendRow({ profile }) {
 
   return (
     <TouchableOpacity
-      style={{
-        ...styles.inviteFriendRow,
-        borderLeftColor: statusColors[profile.status.color],
-      }}
+      style={styles.inviteFriendRow}
       onPress={() => {
         if(!inviteSent) { sendInvite() }
       }}
     >
       <View style={{ flexGrow: 1 }}>
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
-          <ProfileIcon noBadge profileId={profile.id} size={48} />
+          <ProfileIcon noBadge profileId={profile.id} size={48} avatar_url={profile.avatar_url}/>
           <View
             style={{
               flexDirection: 'column',

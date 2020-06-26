@@ -32,14 +32,14 @@ const SfButton = (props) => {
       }
     : {};
 
-  const mergedStyle = {
-    ...styles.exButton,
-    ...(disabled ? {} : styles.enabled),
-    ...stateStyle,
-    ...roundStyle,
-    ...wideStyle,
-    ...style,
-  };
+  const mergedStyle = [
+    styles.exButton,
+    disabled ? {} : styles.enabled,
+    stateStyle,
+    roundStyle,
+    wideStyle,
+    style,
+  ];
   return (
     <TouchableOpacity {...rest} style={mergedStyle}>
       <Text

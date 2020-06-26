@@ -20,6 +20,7 @@ export default function TopText({
   lastUpdate,
   lastSeen,
   profile,
+  hideRightSection,
 }) {
   const { foregrounds } = useLight();
 
@@ -45,24 +46,27 @@ export default function TopText({
           {displayName}
         </Text>
       </View>
-      <View
-        style={{
-          alignSelf: 'flex-end',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <TimeAgoOnline time={lastSeen} />
-        <NetworkStatus
-          networkType={profile?.seen?.network_type}
-          networkStrength={profile?.seen?.network_strength}
-          cellularGeneration={profile?.seen?.cellular_generation}
-        />
-        <BatteryStatus
-          battery={profile?.seen?.battery}
-          batteryState={profile?.seen?.battery_state}
-        />
-      </View>
+      {
+        !hideRightSection ?
+        <View
+          style={{
+            alignSelf: 'flex-end',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <TimeAgoOnline time={lastSeen} />
+          <NetworkStatus
+            networkType={profile?.seen?.network_type}
+            networkStrength={profile?.seen?.network_strength}
+            cellularGeneration={profile?.seen?.cellular_generation}
+          />
+          <BatteryStatus
+            battery={profile?.seen?.battery}
+            batteryState={profile?.seen?.battery_state}
+          />
+        </View> : null
+      }
     </View>
   );
 }

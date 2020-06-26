@@ -3,31 +3,42 @@ import { FlatList } from 'react-native-gesture-handler';
 import { LayoutAnimation } from 'react-native';
 
 import InviteFriendRow from '~/c/InviteFriendRow';
+import RespondToInviteRow from '~/c/RespondToInviteRow';
 
 import useLight from '~/h/useLight';
 import useFriendsOfFriends from '~/h/useFriendsOfFriends';
-import { useFriendInvitesFrom } from '~h/useFriendInvites';
+import { useFriendInvitesFrom, useFriendInvitesTo } from '~h/useFriendInvites';
 
 const FriendOfFriendList = () => {
   const { friendsOfFriends } = useFriendsOfFriends();
   const { friendInvitesFrom } = useFriendInvitesFrom();
+  const { friendInvitesTo } = useFriendInvitesTo();
 
   let invitableFriends = [];
   friendsOfFriends.forEach((friend) => {
     // Find matching friend invites
-    const friendInvitesTo = friendInvitesFrom.filter(invite => invite.to_profile_id == friend.id);
+    const invitesToFriend = friendInvitesFrom.filter(invite => invite.to_profile_id == friend.id);
+    const invitesFromFriend = friendInvitesTo.filter(invite => invite.from_friend.id == friend.id);
 
     // If there is a "declined" status friend request we will remove this friend from the list
     let declined = false;
-    friendInvitesTo.forEach((invite) => {
+    invitesToFriend.forEach((invite) => {
       if(invite.status == 'declined') {
         declined = true;
       }
     });
 
+    friend.type = 'invite';
+    invitesFromFriend.forEach((invite) => {
+      if(invite.status == 'pending') {
+        friend = invite;
+        friend.type = 'respond';
+      }
+    });
+
     // If there is a "pending" status friend request, we will pass that through so that "cancel invitation" can be shown instead of "invite"
     let inviteSent = false;
-    friendInvitesTo.forEach((invite) => {
+    invitesToFriend.forEach((invite) => {
       if(invite.status == 'pending') {
         inviteSent = true;
       }
@@ -39,8 +50,12 @@ const FriendOfFriendList = () => {
 
   const { backgrounds } = useLight();
 
-  const renderInviteRow = React.useCallback(({ item: profile }) => {
-    return <InviteFriendRow profile={profile} />;
+  const renderInviteRow = React.useCallback(({ item: profileOrInvite }) => {
+    if(profileOrInvite.type == 'invite') {
+      return <InviteFriendRow profile={profileOrInvite} />;
+    } else {
+      return <RespondToInviteRow invite={profileOrInvite} />
+    }
   }, []);
 
   useEffect(() => {

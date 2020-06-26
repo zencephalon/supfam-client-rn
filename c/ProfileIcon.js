@@ -54,7 +54,7 @@ export const ProfileIconFromProfile = (props) => {
   return (
     <BareProfileIcon
       size={props.size}
-      uri={profile?.avatar_url}
+      uri={props.avatar_url || profile?.avatar_url}
       statusColor={statusColor}
       lastSeen={lastSeen}
       {...props}
