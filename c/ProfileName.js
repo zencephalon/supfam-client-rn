@@ -10,7 +10,7 @@ export default ProfileName = (props) => {
 
   return (
     <SfText style={{ fontSize: 12, alignSelf: 'flex-start', marginBottom: 4 }}>
-      {profile.name}
+      {profile?.name}
     </SfText>
   );
 };

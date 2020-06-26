@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import _ from 'lodash';
 
-import SfTextInput from './SfTextInput';
+import SfTextInput from '~/c/SfTextInput';
+import SfText from '~/c/SfText';
+import ProfileName from '~/c/ProfileName';
+
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
@@ -15,6 +19,31 @@ import useSubmitMessage from '~/h/useSubmitMessage';
 import useSnapImage from '~/h/useSnapImage';
 import usePickImage from '~/h/usePickImage';
 import useSubmitImageMessage from '~/h/useSubmitImageMessage';
+import useConversationPresence from '~/h/useConversationPresence';
+
+const getProfilesHere = (presence, meProfileId) => {
+  const profilesHere = [];
+  _.each(presence, (lastHeartBeat, profileId) => {
+    // Yikes, profileId is a string, meProfileId is an int, should probably get typescript going at some point soon
+    if (profileId == meProfileId) {
+      return;
+    }
+    if (lastHeartBeat + 5000 > Date.now()) {
+      profilesHere.push(profileId);
+    }
+  });
+  return profilesHere;
+};
+
+function ProfilesHereDisplay({ profileIds }) {
+  return profileIds.length === 0 ? null : (
+    <View>
+      {profileIds.map((profileId) => (
+        <ProfileName key={profileId} profileId={profileId} />
+      ))}
+    </View>
+  );
+}
 
 export default function MessageInput({ conversationId }) {
   const { backgrounds } = useLight();
@@ -33,14 +62,18 @@ export default function MessageInput({ conversationId }) {
   const submitMessage = useSubmitMessage(conversationId, profile?.id);
   const submitImageMessage = useSubmitImageMessage(conversationId, profile?.id);
 
+  const { presence } = useConversationPresence(conversationId, profile?.id);
+  const profilesHere = getProfilesHere(presence, profile?.id);
+  const anyoneHere = profilesHere.length > 0;
+
   const setMessage = React.useCallback(
     (text) => {
       setText(text);
-      if (text !== '') {
+      if (anyoneHere && text !== '') {
         sendInstant(conversationId, text, qid);
       }
     },
-    [conversationId, qid]
+    [conversationId, qid, anyoneHere]
   );
 
   useEffect(() => {
@@ -50,64 +83,68 @@ export default function MessageInput({ conversationId }) {
   }, [image]);
 
   return (
-    <View
-      style={{
-        ...styles.container,
-        borderTopColor: backgrounds[1],
-      }}
-    >
-      {!focused && (
-        <TouchableOpacity
-          onPress={snapImage}
-          style={{
-            alignSelf: 'flex-start',
-            paddingRight: 8,
-          }}
-        >
-          <Ionicons name="md-camera" size={32} color={backgrounds[3]} />
-        </TouchableOpacity>
-      )}
-      {!focused && (
-        <TouchableOpacity
-          onPress={pickImage}
-          style={{
-            alignSelf: 'flex-start',
-            paddingRight: 8,
-          }}
-        >
-          <Ionicons name="md-photos" size={32} color={backgrounds[3]} />
-        </TouchableOpacity>
-      )}
-      <SfTextInput
-        placeholder="New message..."
-        value={text}
-        onChangeText={setMessage}
-        textInputStyle={styles.statusInput}
-        style={{ flexGrow: 1, flexShrink: 1 }}
-        multiline={true}
-        blurOnSubmit={false}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-      />
-      {!!text && (
-        <TouchableOpacity
-          onPress={() => {
-            setMessage('');
-            submitMessage(text, qid);
-            setQid(Math.random());
-          }}
-          style={{
-            alignSelf: 'flex-start',
-            paddingLeft: 4,
-          }}
-        >
-          <MaterialCommunityIcons
-            name="send"
-            size={32}
-            color={statusColors[statusMe?.color] || OPEN}
-          />
-        </TouchableOpacity>
-      )}
+    <View>
+      <ProfilesHereDisplay profileIds={profilesHere} />
+
+      <View
+        style={{
+          ...styles.container,
+          borderTopColor: backgrounds[1],
+        }}
+      >
+        {!focused && (
+          <TouchableOpacity
+            onPress={snapImage}
+            style={{
+              alignSelf: 'flex-start',
+              paddingRight: 8,
+            }}
+          >
+            <Ionicons name="md-camera" size={32} color={backgrounds[3]} />
+          </TouchableOpacity>
+        )}
+        {!focused && (
+          <TouchableOpacity
+            onPress={pickImage}
+            style={{
+              alignSelf: 'flex-start',
+              paddingRight: 8,
+            }}
+          >
+            <Ionicons name="md-photos" size={32} color={backgrounds[3]} />
+          </TouchableOpacity>
+        )}
+        <SfTextInput
+          placeholder="New message..."
+          value={text}
+          onChangeText={setMessage}
+          textInputStyle={styles.statusInput}
+          style={{ flexGrow: 1, flexShrink: 1 }}
+          multiline={true}
+          blurOnSubmit={false}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+        />
+        {!!text && (
+          <TouchableOpacity
+            onPress={() => {
+              setMessage('');
+              submitMessage(text, qid);
+              setQid(Math.random());
+            }}
+            style={{
+              alignSelf: 'flex-start',
+              paddingLeft: 4,
+            }}
+          >
+            <MaterialCommunityIcons
+              name="send"
+              size={32}
+              color={statusColors[statusMe?.color] || OPEN}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 }
