@@ -75,21 +75,25 @@ export default function App(props) {
         const navState = containerRef?.current?.getRootState();
         const currentRoute = _.last(navState.routes);
         const message = notification?.data?.message;
+        if (!message) {
+          return;
+        }
         if (
           currentRoute.name === 'Conversation' &&
-          currentRoute.params.profileId === message?.profile_id
+          currentRoute.params.profileId === message.profile_id
         ) {
           return;
         }
         Notifications.presentLocalNotificationAsync({
-          title: notification?.data?.title,
-          body: notification?.data?.body,
+          title: notification.data.title,
+          body: notification.data.body,
+          data: notification.data,
           ios: {
             _displayInForeground: true,
           },
         });
       }
-      if (notification.origin === 'selected') {
+      if (notification.origin === 'selected' || !notification.remote) {
         const message = notification?.data?.message;
         if (message) {
           containerRef.current?.navigate('Conversation', {

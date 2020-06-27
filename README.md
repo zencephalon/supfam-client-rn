@@ -59,3 +59,7 @@ https://stackoverflow.com/questions/23820570/ios-launching-messages-app-with-mul
 ### Random thoughts
 
 Might want to only enable instant messaging if the other person is actively in the conversation and U toggle it on.
+
+### Useful links, notes
+
+https://stackoverflow.com/questions/6480462/how-to-pre-populate-the-sms-body-text-via-an-html-link
