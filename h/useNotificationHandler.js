@@ -6,11 +6,11 @@ import _ from 'lodash';
 export default function useNotificationHandler(containerRef) {
   React.useEffect(() => {
     const handleNotification = (notification) => {
-      console.log(
-        'RECEIVED NOTIFICATION',
-        notification,
-        containerRef?.current?.getRootState()
-      );
+      // console.log(
+      //   'RECEIVED NOTIFICATION',
+      //   notification,
+      //   containerRef?.current?.getRootState()
+      // );
       if (notification.origin === 'received' && notification.remote) {
         const navState = containerRef?.current?.getRootState();
         const currentRoute = _.last(navState.routes);
