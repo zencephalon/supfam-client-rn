@@ -3,18 +3,41 @@ import { FlatList } from 'react-native-gesture-handler';
 import { LayoutAnimation, RefreshControl } from 'react-native';
 
 import ProfileStatus from '~/c/ProfileStatus';
+import RespondToInviteRow from '~/c/RespondToInviteRow';
 
 import useLight from '~/h/useLight';
 import useFriends from '~/h/useFriends';
+import { useFriendInvitesTo } from '~h/useFriendInvites';
 
-const FriendList = (props) => {
-  const { status, friends, error, refetch, isFetching } = useFriends();
+const renderProfileOrInvite = ({ item: profileOrInvite }) => {
+  if (profileOrInvite.type == 'friend') {
+    return <ProfileStatus profile={profileOrInvite} />;
+  } else {
+    return <RespondToInviteRow invite={profileOrInvite} />;
+  }
+};
+
+const FriendList = () => {
+  const { friends, refetch, isFetching } = useFriends();
+  let { friendInvitesTo } = useFriendInvitesTo();
+
+  const friendsTyped = friends.map((friend) => {
+    friend.type = 'friend';
+    return friend;
+  });
+  let invitesTyped = [];
+  if (friendInvitesTo) {
+    friendInvitesTo = friendInvitesTo.filter(
+      (invite) => invite.status == 'pending'
+    );
+    invitesTyped = friendInvitesTo.map((invite) => {
+      invite.type = 'invite';
+      return invite;
+    });
+  }
+  const listItems = [...friendsTyped, ...invitesTyped];
 
   const { backgrounds } = useLight();
-
-  const renderProfileStatus = React.useCallback(({ item: profile }) => {
-    return <ProfileStatus profile={profile} />;
-  }, []);
 
   useEffect(() => {
     LayoutAnimation.configureNext({
@@ -25,11 +48,15 @@ const FriendList = (props) => {
       },
       update: { type: LayoutAnimation.Types.easeInEaseOut },
     });
-  }, [friends]);
+  }, [listItems]);
 
   return (
     <FlatList
       inverted
+      data={listItems}
+      style={{ backgroundColor: backgrounds[0] }}
+      renderItem={renderProfileOrInvite}
+      keyExtractor={(item) => `${item.type}${item.id}`}
       refreshControl={
         <RefreshControl
           refreshing={isFetching}
@@ -38,10 +65,6 @@ const FriendList = (props) => {
           }}
         />
       }
-      data={friends}
-      style={{ backgroundColor: backgrounds[0] }}
-      renderItem={renderProfileStatus}
-      keyExtractor={(profile) => `${profile.id}`}
       onEndReachedThreshold={5}
     />
   );

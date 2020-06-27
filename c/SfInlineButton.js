@@ -4,7 +4,7 @@ import * as Colors from '~/constants/Colors';
 
 import useLight from '~/h/useLight';
 
-const SfButton = (props) => {
+const SfInlineButton = (props) => {
   const { disabled, title, style, color, ...rest } = props;
   const { light, foregrounds } = useLight();
 
@@ -20,24 +20,11 @@ const SfButton = (props) => {
       ? backgroundColor
       : Colors.RGB_Linear_Shade(-0.4, backgroundColor),
   };
-  const roundStyle = props.round
-    ? {
-        borderRadius: 10,
-      }
-    : {};
-  const wideStyle = props.wide
-    ? {
-        marginLeft: 0,
-        marginRight: 0,
-      }
-    : {};
 
   const mergedStyle = [
     styles.exButton,
     disabled ? {} : styles.enabled,
     stateStyle,
-    roundStyle,
-    wideStyle,
     style,
   ];
   return (
@@ -57,14 +44,13 @@ const SfButton = (props) => {
   );
 };
 
-export default SfButton;
+export default SfInlineButton;
 
 const styles = StyleSheet.create({
   exButton: {
-    marginBottom: 10,
     alignItems: 'center',
-    marginLeft: 25,
-    marginRight: 25,
+    paddingLeft: 24,
+    paddingRight: 24,
   },
   enabled: {
     shadowColor: '#000',
@@ -74,8 +60,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
   },
   buttonText: {
-    fontSize: 24,
-    paddingTop: 12,
-    paddingBottom: 12,
+    fontSize: 18,
+    paddingTop: 4,
+    paddingBottom: 4,
   },
 });
