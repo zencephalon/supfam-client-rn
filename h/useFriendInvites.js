@@ -10,7 +10,7 @@ export function useFriendInvitesFrom() {
     {enabled: profileId},
   );
 
-  return { status, friendInvitesFrom: data, error };
+  return { status, friendInvitesFrom: data || [], error };
 }
 
 export function useFriendInvitesTo() {
@@ -21,5 +21,5 @@ export function useFriendInvitesTo() {
     {enabled: profileId},
   );
 
-  return { status, friendInvitesTo: data, error };
+  return { status, friendInvitesTo: data || [], error };
 }
