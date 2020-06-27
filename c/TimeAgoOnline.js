@@ -19,13 +19,8 @@ const getInterval = (timeDisplay) => {
   if (timeDisplay.endsWith('s')) {
     return 1000;
   }
-  if (timeDisplay.endsWith('m')) {
-    return 1000 * 60;
-  }
-  if (timeDisplay.endsWith('h')) {
-    return 1000 * 60 * 60;
-  }
-  return 1000 * 60 * 60 * 24;
+  // Default value must be at most 1 minute due to how React Native on Android handles timers.
+  return 1000 * 60;
 };
 
 const TimeAgo = ({ time }) => {

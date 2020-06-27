@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
+import { ReactQueryConfigProvider } from 'react-query';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -24,6 +25,12 @@ import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
 
 import useNotificationHandler from '~/h/useNotificationHandler';
+
+const queryConfig = {
+  queries: {
+    cacheTime: 1 * 60 * 1000, // 1 minute max, due to https://github.com/facebook/react-native/issues/12981
+  },
+};
 
 Sentry.init({
   dsn: 'https://5798596b010948678b643700db20d942@sentry.io/5178537',
@@ -70,24 +77,26 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <AppearanceProvider>
-        <ThemeAwareStatusBar />
-        <Provider store={configureStore({ auth: AuthToken.get() })}>
-          <AuthGate>
-            <ProfileGate>
-              <NotificationGate>
-                <CableContainer />
-                <NavigationContainer
-                  ref={containerRef}
-                  initialState={initialNavigationState}
-                >
-                  <HomeStack />
-                </NavigationContainer>
-              </NotificationGate>
-            </ProfileGate>
-          </AuthGate>
-        </Provider>
-      </AppearanceProvider>
+      <ReactQueryConfigProvider config={queryConfig}>
+        <AppearanceProvider>
+          <ThemeAwareStatusBar />
+          <Provider store={configureStore({ auth: AuthToken.get() })}>
+            <AuthGate>
+              <ProfileGate>
+                <NotificationGate>
+                  <CableContainer />
+                  <NavigationContainer
+                    ref={containerRef}
+                    initialState={initialNavigationState}
+                  >
+                    <HomeStack />
+                  </NavigationContainer>
+                </NotificationGate>
+              </ProfileGate>
+            </AuthGate>
+          </Provider>
+        </AppearanceProvider>
+      </ReactQueryConfigProvider>
     );
   }
 }
