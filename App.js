@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { SplashScreen, Notifications } from 'expo';
+import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,7 +23,7 @@ import CableContainer from '~/containers/Cable';
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
 
-import _ from 'lodash';
+import useNotificationHandler from '~/h/useNotificationHandler';
 
 Sentry.init({
   dsn: 'https://5798596b010948678b643700db20d942@sentry.io/5178537',
@@ -37,6 +37,8 @@ export default function App(props) {
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
+
+  useNotificationHandler(containerRef);
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -62,52 +64,6 @@ export default function App(props) {
     }
 
     loadResourcesAndDataAsync();
-  }, []);
-
-  React.useEffect(() => {
-    const handleNotification = (notification) => {
-      console.log(
-        'RECEIVED NOTIFICATION',
-        notification,
-        containerRef?.current?.getRootState()
-      );
-      if (notification.origin === 'received' && notification.remote) {
-        const navState = containerRef?.current?.getRootState();
-        const currentRoute = _.last(navState.routes);
-        const message = notification?.data?.message;
-        if (!message) {
-          return;
-        }
-        if (
-          currentRoute.name === 'Conversation' &&
-          currentRoute.params.profileId === message.profile_id
-        ) {
-          return;
-        }
-        Notifications.presentLocalNotificationAsync({
-          title: notification.data.title,
-          body: notification.data.body,
-          data: notification.data,
-          ios: {
-            _displayInForeground: true,
-          },
-        });
-      }
-      if (notification.origin === 'selected' || !notification.remote) {
-        const message = notification?.data?.message;
-        if (message) {
-          containerRef.current?.navigate('Conversation', {
-            profileId: message.profile_id,
-          });
-        }
-      }
-    };
-
-    const subscription = Notifications.addListener(handleNotification);
-
-    return () => {
-      subscription.remove();
-    };
   }, []);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
