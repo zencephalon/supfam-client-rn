@@ -17,27 +17,32 @@ const renderProfileOrInvite = ({ item: profileOrInvite }) => {
   }
 };
 
+function useFriendListItems(friends, friendInvitesTo) {
+  const friendsTyped = (friends || []).map((friend) => {
+    return {
+      ...friend,
+      type: 'friend',
+    };
+  });
+  const invitesTyped = (friendInvitesTo || [])
+    .filter((invite) => invite.status === 'pending')
+    .map((invite) => {
+      return {
+        ...invite,
+        type: 'invite',
+      };
+    });
+
+  return [...friendsTyped, ...invitesTyped];
+}
+
 const FriendList = () => {
+  const { backgrounds } = useLight();
+
   const { friends, refetch, isFetching } = useFriends();
   let { friendInvitesTo } = useFriendInvitesTo();
 
-  const friendsTyped = friends.map((friend) => {
-    friend.type = 'friend';
-    return friend;
-  });
-  let invitesTyped = [];
-  if (friendInvitesTo) {
-    friendInvitesTo = friendInvitesTo.filter(
-      (invite) => invite.status == 'pending'
-    );
-    invitesTyped = friendInvitesTo.map((invite) => {
-      invite.type = 'invite';
-      return invite;
-    });
-  }
-  const listItems = [...friendsTyped, ...invitesTyped];
-
-  const { backgrounds } = useLight();
+  const listItems = useFriendListItems(friends, friendInvitesTo);
 
   useEffect(() => {
     LayoutAnimation.configureNext({
