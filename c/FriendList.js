@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import { LayoutAnimation, RefreshControl } from 'react-native';
+import { RefreshControl } from 'react-native';
 
 import ProfileStatus from '~/c/ProfileStatus';
 import RespondToInviteRow from '~/c/RespondToInviteRow';

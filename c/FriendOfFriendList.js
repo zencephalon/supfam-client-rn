@@ -1,73 +1,84 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import { LayoutAnimation } from 'react-native';
 
 import InviteFriendRow from '~/c/InviteFriendRow';
 import RespondToInviteRow from '~/c/RespondToInviteRow';
 
 import useLight from '~/h/useLight';
 import useFriendsOfFriends from '~/h/useFriendsOfFriends';
+import useSfListAnimation from '~/h/useSfListAnimation';
 import { useFriendInvitesFrom, useFriendInvitesTo } from '~h/useFriendInvites';
+import _ from 'lodash';
 
-const FriendOfFriendList = () => {
+const renderInviteRow = ({ item: profileOrInvite }) => {
+  if (profileOrInvite.type == 'invite') {
+    return <InviteFriendRow profile={profileOrInvite} />;
+  } else {
+    return <RespondToInviteRow invite={profileOrInvite} />;
+  }
+};
+
+function useInvitableFriends() {
   const { friendsOfFriends } = useFriendsOfFriends();
   const { friendInvitesFrom } = useFriendInvitesFrom();
   const { friendInvitesTo } = useFriendInvitesTo();
 
-  let invitableFriends = [];
-  friendsOfFriends.forEach((friend) => {
-    // Find matching friend invites
-    const invitesToFriend = friendInvitesFrom.filter(invite => invite.to_profile_id == friend.id);
-    const invitesFromFriend = friendInvitesTo.filter(invite => invite.from_friend.id == friend.id);
+  return friendsOfFriends
+    .filter((friend) => {
+      // Find matching friend invites
+      const invitesToFriend = friendInvitesFrom.filter(
+        (invite) => invite.to_profile_id == friend.id
+      );
+      const declined = _.some(
+        invitesToFriend,
+        (invite) => invite.status === 'declined'
+      );
 
-    // If there is a "declined" status friend request we will remove this friend from the list
-    let declined = false;
-    invitesToFriend.forEach((invite) => {
-      if(invite.status == 'declined') {
-        declined = true;
+      // If there is a "declined" status friend request we will remove this friend from the list
+      return !declined;
+    })
+    .map((friend) => {
+      const invitesFromFriend = friendInvitesTo.filter(
+        (invite) => invite.from_friend.id == friend.id
+      );
+
+      const hasInvite = _.some(
+        invitesFromFriend,
+        (invite) => invite.status == 'pending'
+      );
+
+      // If there is an invite, let the user respond to it
+      if (hasInvite) {
+        return {
+          ...friend,
+          type: 'respond',
+        };
       }
-    });
 
-    friend.type = 'invite';
-    invitesFromFriend.forEach((invite) => {
-      if(invite.status == 'pending') {
-        friend = invite;
-        friend.type = 'respond';
-      }
-    });
+      const invitesToFriend = friendInvitesFrom.filter(
+        (invite) => invite.to_profile_id == friend.id
+      );
 
-    // If there is a "pending" status friend request, we will pass that through so that "cancel invitation" can be shown instead of "invite"
-    let inviteSent = false;
-    invitesToFriend.forEach((invite) => {
-      if(invite.status == 'pending') {
-        inviteSent = true;
-      }
-    });
+      // If there is a "pending" status friend request, we will pass that through so that "cancel invitation" can be shown instead of "invite"
+      const inviteSent = _.some(
+        invitesToFriend,
+        (invite) => invite.status === 'pending'
+      );
 
-    friend.inviteSent = inviteSent;
-    if(!declined) { invitableFriends.push(friend); }
-  });
+      return {
+        ...friend,
+        type: 'invite',
+        inviteSent,
+      };
+    });
+}
+
+const FriendOfFriendList = () => {
+  const invitableFriends = useInvitableFriends();
 
   const { backgrounds } = useLight();
 
-  const renderInviteRow = React.useCallback(({ item: profileOrInvite }) => {
-    if(profileOrInvite.type == 'invite') {
-      return <InviteFriendRow profile={profileOrInvite} />;
-    } else {
-      return <RespondToInviteRow invite={profileOrInvite} />
-    }
-  }, []);
-
-  useEffect(() => {
-    LayoutAnimation.configureNext({
-      duration: 400,
-      create: {
-        type: LayoutAnimation.Types.easeInEaseOut,
-        property: LayoutAnimation.Properties.opacity,
-      },
-      update: { type: LayoutAnimation.Types.easeInEaseOut },
-    });
-  }, [invitableFriends]);
+  useSfListAnimation(invitableFriends);
 
   return (
     <FlatList
