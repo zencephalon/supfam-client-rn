@@ -6,15 +6,16 @@ import useProfileId from '~/h/useProfileId';
 
 export default function useFriends() {
   const profileId = useProfileId();
-  const { status, data, error } = useQuery(
-    profileId && ['friends', profileId],
-    getFriends,
+  const { status, data, error, isFetching, refetch } = useQuery(
+    ['friends'],
+    () => getFriends(profileId),
     {
       onSuccess: (friends) => {
         friends.map((friend) => {
           queryCache.setQueryData(['friend', friend.id], friend);
         });
       },
+      enabled: profileId,
     }
   );
   const friends = orderBy(
@@ -23,5 +24,5 @@ export default function useFriends() {
     ['desc', 'desc']
   );
 
-  return { status, friends, error };
+  return { status, friends, error, isFetching, refetch };
 }

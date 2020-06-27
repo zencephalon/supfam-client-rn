@@ -4,8 +4,6 @@ import { View } from 'react-native';
 import { useQuery } from 'react-query';
 import { getProfileDmConversation } from '~/apis/api';
 
-import statusColors from '~/constants/statusColors';
-
 import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
@@ -25,7 +23,10 @@ export default function ConversationScreen({ navigation, route }) {
 
   const { data: conversation } = useQuery(
     ['dmWith', { profileId }],
-    getProfileDmConversation
+    getProfileDmConversation,
+    {
+      enabled: profileId,
+    }
   );
   const conversationId = conversation?.id;
 

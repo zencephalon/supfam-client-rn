@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import SfContainer from '~/c/SfContainer';
 import SfText from '~/c/SfText';
 import SfTextInput from '~/c/SfTextInput';
@@ -21,7 +21,7 @@ function ProfileCreate() {
   const [image, setImage] = React.useState(null);
   const PostProfile = useApi(postProfile, {
     onConfirm: () => {
-      queryCache.refetchQueries('profilesMe');
+      queryCache.invalidateQueries('profilesMe');
     },
   });
   const UploadImage = useApi(uploadImage);
@@ -47,18 +47,20 @@ function ProfileCreate() {
   return (
     <SfContainer darkBg>
       <View style={styles.formContainer}>
-        <SfText style={styles.formLabel}>Congrats! 🎊 You are signed up. </SfText>
-        <SfText style={styles.formLabel}>What name can we use for your main profile?</SfText>
+        <SfText style={styles.formLabel}>
+          Congrats! 🎊 You are signed up.{' '}
+        </SfText>
+        <SfText style={styles.formLabel}>
+          What name can we use for your main profile?
+        </SfText>
         <SfTextInput
           placeholder="Albus Dumbledore"
           value={name}
           onChangeText={setName}
           ok={!!name}
-          autoCapitalize='words'
+          autoCapitalize="words"
         />
-        <SfText style={styles.formLabel}>
-          Set profile photo from:
-        </SfText>
+        <SfText style={styles.formLabel}>Set profile photo from:</SfText>
         <SfButton round title="Camera" onPress={snapImage} color={FREE} />
         <SfButton round title="Camera roll" onPress={pickImage} color={FREE} />
         {!!image && (
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
   formLabel: {
     marginBottom: 16,
     marginTop: 16,
-    color: 'white'
+    color: 'white',
   },
   formContainer: {
     marginLeft: 20,

@@ -22,48 +22,60 @@ export default function useMessages(conversationId, meProfileId) {
     fetchMore,
     canFetchMore,
   } = useInfiniteQuery(
-    conversationId && ['dm_messages', { conversationId }],
+    ['dm_messages', { conversationId }],
     getConversationMessages,
     {
       getFetchMore: (lastGroup) => {
         return lastGroup.next_cursor;
       },
+      enabled: conversationId,
     }
   );
 
   const { data: queuedMessages } = useQuery(
-    conversationId && ['queued_messages', { conversationId }],
+    ['queued_messages', { conversationId }],
     () => {},
     {
       manual: true,
       initialData: MessageQueue.getQueued(conversationId),
+      enabled: conversationId,
     }
   );
   const { data: receivedMessages } = useQuery(
-    conversationId && ['received_messages', { conversationId }],
-    () => {}
+    ['received_messages', { conversationId }],
+    () => {},
+    {
+      manual: true,
+      initialData: [],
+      enabled: conversationId,
+    }
   );
   const { data: instantMessage } = useQuery(
-    conversationId && ['instant_messages', { conversationId }],
-    () => {}
+    ['instant_messages', conversationId],
+    () => {},
+    {
+      manual: true,
+      enabled: conversationId,
+    }
   );
 
-  let _receivedMessages = uniqBy(
-    (queuedMessages || []).concat(receivedMessages || []),
-    'qid'
-  );
+  let messages = [];
 
-  let messages = uniqBy(
-    _receivedMessages.concat(head(message_groups)?.messages || []),
+  if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
+    messages.unshift(instantMessage);
+  }
+
+  messages = messages.concat(queuedMessages || []);
+
+  messages = uniqBy(messages.concat(receivedMessages || []), 'qid');
+
+  messages = uniqBy(
+    messages.concat(head(message_groups)?.messages || []),
     'id'
   );
   messages = messages.concat(
     flatten(tail(message_groups).map((group) => group.messages))
   );
-
-  if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
-    messages.unshift(instantMessage);
-  }
 
   return {
     messages,

@@ -37,7 +37,10 @@ function Message(props) {
         }}
       >
         {!isOwnMessage && !fromSameUser && (
-          <ProfileName profileId={message.profile_id} />
+          <ProfileName
+            profileId={message.profile_id}
+            style={{ fontSize: 12, alignSelf: 'flex-start', marginBottom: 4 }}
+          />
         )}
         {message.type === 0 && (
           <MessageText text={message.message} isOwnMessage={isOwnMessage} />

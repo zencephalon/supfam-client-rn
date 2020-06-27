@@ -8,9 +8,5 @@ export default ProfileName = (props) => {
 
   // console.log({ profile, profileId: props.profileId });
 
-  return (
-    <SfText style={{ fontSize: 12, alignSelf: 'flex-start', marginBottom: 4 }}>
-      {profile.name}
-    </SfText>
-  );
+  return <SfText style={props.style}>{profile?.name}</SfText>;
 };

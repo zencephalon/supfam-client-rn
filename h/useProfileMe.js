@@ -5,12 +5,13 @@ import { getProfile } from '~/apis/api';
 export default function useProfileMe() {
   const profileId = useProfileId();
   const { data: profile, status } = useQuery(
-    profileId && ['profileMe', profileId],
+    ['profileMe', profileId],
     getProfile,
     {
       onSuccess: (profile) => {
         queryCache.setQueryData(['friend', profileId], profile);
       },
+      enabled: profileId,
     }
   );
 

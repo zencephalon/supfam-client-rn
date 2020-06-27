@@ -11,11 +11,11 @@ import useProfileId from '~/h/useProfileId';
 import useProfileMe from '~/h/useProfileMe';
 import useLight from '~/h/useLight';
 
-function useSetColor(profileId, profile) {
+function useSetColor(profileId) {
   return React.useCallback(
     async (color) => {
       try {
-        queryCache.setQueryData('profileMe', (profile) => {
+        queryCache.setQueryData(['profileMe', profileId], (profile) => {
           return {
             ...profile,
             status: {
@@ -29,7 +29,7 @@ function useSetColor(profileId, profile) {
         console.log(e);
       }
     },
-    [profileId, profile]
+    [profileId]
   );
 }
 
@@ -37,7 +37,7 @@ function usePostMessage(statusMe, message, profileId, setMessage) {
   return React.useCallback(async () => {
     try {
       await putStatusMe({ profileId, color: statusMe?.color, message });
-      queryCache.refetchQueries(['profileMe', profileId]);
+      queryCache.invalidateQueries(['profileMe', profileId]);
     } catch (e) {
       console.log(e);
     }
@@ -54,7 +54,7 @@ const StatusCenter = () => {
 
   const statusMe = profile?.status;
 
-  const setColor = useSetColor(profileId, profile);
+  const setColor = useSetColor(profileId);
   const postMessage = usePostMessage(statusMe, message, profileId, setMessage);
 
   return (
