@@ -30,7 +30,7 @@ export default function StatusBadge({ statusColor, style, size, lastSeen }) {
     () => {
       setIcon(getIcon(lastSeen));
     },
-    onlineNow ? 2000 : 1000 * 60 * 60
+    onlineNow ? 2000 : 1000 * 60
   );
   return (
     <View
