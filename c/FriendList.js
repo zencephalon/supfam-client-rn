@@ -7,7 +7,8 @@ import RespondToInviteRow from '~/c/RespondToInviteRow';
 
 import useLight from '~/h/useLight';
 import useFriends from '~/h/useFriends';
-import { useFriendInvitesTo } from '~h/useFriendInvites';
+import { useFriendInvitesTo } from '~/h/useFriendInvites';
+import useSfListAnimation from '~/h/useSfListAnimation';
 
 const renderProfileOrInvite = ({ item: profileOrInvite }) => {
   if (profileOrInvite.type == 'friend') {
@@ -44,16 +45,7 @@ const FriendList = () => {
 
   const listItems = useFriendListItems(friends, friendInvitesTo);
 
-  useEffect(() => {
-    LayoutAnimation.configureNext({
-      duration: 400,
-      create: {
-        type: LayoutAnimation.Types.easeInEaseOut,
-        property: LayoutAnimation.Properties.opacity,
-      },
-      update: { type: LayoutAnimation.Types.easeInEaseOut },
-    });
-  }, [listItems]);
+  useSfListAnimation(listItems);
 
   return (
     <FlatList
