@@ -1,16 +1,59 @@
 import * as React from 'react';
+import { queryCache } from 'react-query'
 
 import ProfileIcon from './ProfileIcon';
 import TopText from './TopText';
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 
 import SfInlineButton from '~/c/SfInlineButton';
+
+import useProfileId from '~/h/useProfileId';
+import useApi from '~/h/useApi';
+import { postAcceptFriendInvite, postDeclineFriendInvite } from '~/apis/api';
 
 import { AWAY } from '~/constants/Colors';
 
 export default function RespondToInviteRow({ invite }) {
-  const from_friend = invite.from_friend;
+  const [showRow, setShowRow] = React.useState(true);
+
+  const Accept = useApi(postAcceptFriendInvite);
+  const Decline = useApi(postDeclineFriendInvite);
+  const profileId = useProfileId();
+  const fromFriend = invite.from_friend;
+
+  const acceptInvite = () => {
+    console.log("attempting to acept friend");
+    Accept.call({ from_profile_id: fromFriend.id, to_profile_id: profileId });
+    setShowRow(false);
+    // NOTE: this doesn't work, the intention is to refresh the friend list so you can see your new friend
+    // queryCache.invalidateQueries('friends', {
+    //   refetchActive: true,
+    //   refetchInactive: true,
+    // })
+  }
+
+  const declineInvite = () => {
+    Alert.alert(
+      "Are you sure?",
+      `If you decline ${fromFriend.name}'s invitation, you won't be able to be friends with them on Supfam.`,
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        { text: "Decline", onPress: () => {
+          Decline.call({ from_profile_id: fromFriend.id, to_profile_id: profileId });
+          setShowRow(false);
+        } }
+      ],
+      { cancelable: false }
+    );
+  }
+
+  if(!showRow) {
+    return null;
+  }
 
   return (
     <View
@@ -21,15 +64,15 @@ export default function RespondToInviteRow({ invite }) {
     >
       <View style={{ flexGrow: 1 }}>
         <TopText
-          displayName={`${from_friend.name} invites you to chat on Supfam!`}
-          locationState={from_friend.name}
-          lastUpdate={from_friend?.status?.updated_at}
-          lastSeen={from_friend?.seen?.updated_at}
-          profile={from_friend}
+          displayName={`${fromFriend.name} invites you to chat on Supfam!`}
+          locationState={fromFriend.name}
+          lastUpdate={fromFriend?.status?.updated_at}
+          lastSeen={fromFriend?.seen?.updated_at}
+          profile={fromFriend}
           hideRightSection
         />
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
-          <ProfileIcon noBadge profileId={from_friend.id} size={48} avatar_url={from_friend.avatar_url} />
+          <ProfileIcon noBadge profileId={fromFriend.id} size={48} avatar_url={fromFriend.avatar_url} />
           <View
             style={{
               flexDirection: 'column',
@@ -45,7 +88,7 @@ export default function RespondToInviteRow({ invite }) {
             }}>
               <SfInlineButton
                 title="Accept"
-                onPress={() => {}}
+                onPress={() => acceptInvite()}
               />
             </View>
             <View style={{
@@ -55,7 +98,7 @@ export default function RespondToInviteRow({ invite }) {
             }}>
               <SfInlineButton
                 title="Decline"
-                onPress={() => {}}
+                onPress={() => declineInvite()}
                 color={AWAY}
               />
             </View>

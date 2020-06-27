@@ -11,7 +11,7 @@ import { useFriendInvitesTo } from '~h/useFriendInvites';
 
 const FriendList = () => {
   const { friends } = useFriends();
-  const { friendInvitesTo } = useFriendInvitesTo();
+  let { friendInvitesTo } = useFriendInvitesTo();
 
   const friendsTyped = friends.map((friend) => {
     friend.type = 'friend';
@@ -19,6 +19,7 @@ const FriendList = () => {
   });
   let invitesTyped = [];
   if(friendInvitesTo) {
+    friendInvitesTo = friendInvitesTo.filter(invite => invite.status == 'pending');
     invitesTyped = friendInvitesTo.map((invite) => {
       invite.type = 'invite';
       return invite;

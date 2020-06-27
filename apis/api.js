@@ -92,6 +92,18 @@ export const postCancelFriendInvite = ({ from_profile_id, to_profile_id }) => {
   });
 };
 
+export const postDeclineFriendInvite = ({ from_profile_id, to_profile_id }) => {
+  return api.postToAPI(`friend_invites/decline`, {
+    body: JSON.stringify({ from_profile_id, to_profile_id }),
+  });
+};
+
+export const postAcceptFriendInvite = ({ from_profile_id, to_profile_id }) => {
+  return api.postToAPI(`friend_invites/accept`, {
+    body: JSON.stringify({ from_profile_id, to_profile_id }),
+  });
+};
+
 export const getFriendInvitesFrom = (_key, fromProfileId) => {
   return api.fetchFromAPI(`friend_invites/from/${fromProfileId}`);
 };

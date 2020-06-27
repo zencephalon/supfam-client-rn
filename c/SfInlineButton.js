@@ -21,12 +21,12 @@ const SfInlineButton = (props) => {
       : Colors.RGB_Linear_Shade(-0.4, backgroundColor),
   };
 
-  const mergedStyle = {
-    ...styles.exButton,
-    ...(disabled ? {} : styles.enabled),
-    ...stateStyle,
-    ...style,
-  };
+  const mergedStyle = [
+    styles.exButton,
+    disabled ? {} : styles.enabled,
+    stateStyle,
+    style,
+  ];
   return (
     <TouchableOpacity {...rest} style={mergedStyle}>
       <Text
