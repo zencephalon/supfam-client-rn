@@ -12,16 +12,13 @@ export default function InviteContactRow({ contact }) {
     (async () => {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {
-        console.log("sms found to be available")
-        // do your SMS stuff here
         const { result } = await SMS.sendSMSAsync(
-          ['0123456789', '9876543210'],
-          'My sample HelloWorld message',
+          [contact.phone],
+          `Hey ${contact.firstName || contact.name}, I'm using a new app called Supfam and I want you to join so we can chat and view each other's statuses! You can download it here: https://supfam.app/download`,
         );
         console.log("result", result);
       } else {
-        // misfortune... there's no SMS available on this device
-        console.log("sorry, sms not avail");
+        console.log("SMS not available");
       }
     })()
   }

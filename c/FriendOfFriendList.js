@@ -122,6 +122,7 @@ const FriendOfFriendList = () => {
             const contactToShow = {
               type: 'contact',
               name: contact.name,
+              firstName: contact.firstName,
               phone: contactPhoneNumber,
               id: contactPhoneNumber,
             }
