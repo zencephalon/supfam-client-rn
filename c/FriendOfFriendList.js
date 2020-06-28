@@ -6,6 +6,7 @@ import InviteFriendRow from '~/c/InviteFriendRow';
 import RespondToInviteRow from '~/c/RespondToInviteRow';
 import ContactsPromptRow from '~/c/ContactsPromptRow';
 import InviteContactRow from '~/c/InviteContactRow';
+import FriendSearchBar from '~/c/FriendSearchBar';
 
 import useLight from '~/h/useLight';
 import useFriendsOfFriends from '~/h/useFriendsOfFriends';
@@ -81,7 +82,18 @@ function useInvitableFriends() {
 }
 
 const FriendOfFriendList = () => {
-  const invitableFriends = useInvitableFriends();
+  const [ searchQuery, setSearchQuery ] = React.useState('');
+
+  let invitableFriends = useInvitableFriends();
+  if(searchQuery) {
+    invitableFriends = invitableFriends.filter(friend => {
+      return friend.name.includes(searchQuery);
+    });
+  }
+
+  const renderHeader = React.useMemo(() => (
+    <FriendSearchBar updateQuery={setSearchQuery}/>
+  ));
 
   (async () => {
     const { status } = await Contacts.getPermissionsAsync();
@@ -93,7 +105,6 @@ const FriendOfFriendList = () => {
       if (data.length > 0) {
         let contacts = [];
         data.forEach((contact) => {
-          // console.log(contact);
           if(contact.contactType != 'person') { return; }
           let contactPhoneNumber;
           let contactPhoneType = 'none';
@@ -111,6 +122,7 @@ const FriendOfFriendList = () => {
             const contactToShow = {
               type: 'contact',
               name: contact.name,
+              firstName: contact.firstName,
               phone: contactPhoneNumber,
               id: contactPhoneNumber,
             }
@@ -118,6 +130,11 @@ const FriendOfFriendList = () => {
           }
         });
 
+        if(searchQuery) {
+          contacts = contacts.filter(contact => {
+            return contact.name.includes(searchQuery);
+          });
+        }
         invitableFriends.push(...contacts);
       }
     } else {
@@ -141,6 +158,7 @@ const FriendOfFriendList = () => {
       style={{ backgroundColor: backgrounds[0] }}
       renderItem={renderInviteRow}
       keyExtractor={(profile) => `${profile.type}${profile.id}`}
+      ListHeaderComponent={renderHeader}
     />
   );
 };

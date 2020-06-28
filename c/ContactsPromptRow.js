@@ -15,7 +15,6 @@ export default function ContactsPromptRow({ prompt }) {
           style: "cancel"
         },
         { text: "Yes!", onPress: () => {
-          console.log("yesss");
           (async () => {
             const { status } = await Contacts.requestPermissionsAsync();
             if (status === 'granted') {

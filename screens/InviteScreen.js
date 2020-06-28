@@ -1,13 +1,11 @@
 import React from 'react';
-import SfContainer from '~/c/SfContainer';
-import SfText from '~/c/SfText';
+import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import FriendOfFriendList from '~/c/FriendOfFriendList';
 
 export default function InviteScreen({navigation}) {
   return (
-    <SfContainer>
-      <SfText>Who would you like to add?</SfText>
+    <SfKeyboardAvoidingView keyboardVerticalOffset={96}>
       <FriendOfFriendList navigation={navigation} />
-    </SfContainer>
+    </SfKeyboardAvoidingView>
   );
 }
