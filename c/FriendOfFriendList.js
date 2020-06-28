@@ -87,7 +87,7 @@ const FriendOfFriendList = () => {
   let invitableFriends = useInvitableFriends();
   if(searchQuery) {
     invitableFriends = invitableFriends.filter(friend => {
-      return friend.name.includes(searchQuery);
+      return friend.name.toLowerCase().includes(searchQuery.toLowerCase());
     });
   }
 
@@ -132,7 +132,7 @@ const FriendOfFriendList = () => {
 
         if(searchQuery) {
           contacts = contacts.filter(contact => {
-            return contact.name.includes(searchQuery);
+            return contact.name.toLowerCase().includes(searchQuery.toLowerCase());
           });
         }
         invitableFriends.push(...contacts);
