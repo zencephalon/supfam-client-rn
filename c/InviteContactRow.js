@@ -1,15 +1,35 @@
 import * as React from 'react';
 
+import * as SMS from 'expo-sms';
+
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
 
 export default function InviteContactRow({ contact }) {
+  const smsInvite = () => {
+    (async () => {
+      const isAvailable = await SMS.isAvailableAsync();
+      if (isAvailable) {
+        console.log("sms found to be available")
+        // do your SMS stuff here
+        const { result } = await SMS.sendSMSAsync(
+          ['0123456789', '9876543210'],
+          'My sample HelloWorld message',
+        );
+        console.log("result", result);
+      } else {
+        // misfortune... there's no SMS available on this device
+        console.log("sorry, sms not avail");
+      }
+    })()
+  }
+
   return (
     <TouchableOpacity
       style={styles.inviteFriendRow}
-      onPress={() => {}}
+      onPress={smsInvite}
     >
       <View style={{ flexGrow: 1 }}>
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
@@ -50,7 +70,7 @@ export default function InviteContactRow({ contact }) {
             }}>
               <SfInlineButton
                 title="Text to Invite"
-                onPress={() => {}}
+                onPress={smsInvite}
               />
             </View>
           </View>
