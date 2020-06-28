@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { queryCache } from 'react-query'
 
 import ProfileIcon from './ProfileIcon';
 import TopText from './TopText';
@@ -26,11 +25,6 @@ export default function RespondToInviteRow({ invite }) {
     console.log("attempting to acept friend");
     Accept.call({ from_profile_id: fromFriend.id, to_profile_id: profileId });
     setShowRow(false);
-    // NOTE: this doesn't work, the intention is to refresh the friend list so you can see your new friend
-    // queryCache.invalidateQueries('friends', {
-    //   refetchActive: true,
-    //   refetchInactive: true,
-    // })
   }
 
   const declineInvite = () => {
