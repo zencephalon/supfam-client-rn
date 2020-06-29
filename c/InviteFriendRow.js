@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import ProfileIcon from './ProfileIcon';
-
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
+import ProfileIcon from '~/c/ProfileIcon';
 
 import useProfileId from '~/h/useProfileId';
 import useApi from '~/h/useApi';
@@ -21,23 +20,33 @@ export default function InviteFriendRow({ profile }) {
   const sendInvite = () => {
     Invite.call({ from_profile_id: profileId, to_profile_id: profile.id });
     setInviteSent(true);
-  }
+  };
 
   const cancelInvite = () => {
-    CancelInvite.call({ from_profile_id: profileId, to_profile_id: profile.id });
+    CancelInvite.call({
+      from_profile_id: profileId,
+      to_profile_id: profile.id,
+    });
     setInviteSent(false);
-  }
+  };
 
   return (
     <TouchableOpacity
       style={styles.inviteFriendRow}
       onPress={() => {
-        if(!inviteSent) { sendInvite() }
+        if (!inviteSent) {
+          sendInvite();
+        }
       }}
     >
       <View style={{ flexGrow: 1 }}>
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
-          <ProfileIcon noBadge profileId={profile.id} size={48} avatar_url={profile.avatar_url}/>
+          <ProfileIcon
+            noBadge
+            profileId={profile.id}
+            size={48}
+            avatar_url={profile.avatar_url}
+          />
           <View
             style={{
               flexDirection: 'column',
@@ -57,24 +66,21 @@ export default function InviteFriendRow({ profile }) {
             >
               {profile.name}
             </SfText>
-            <View style={{
-              position: 'absolute',
-              right: 4,
-              top: 0,
-            }}>
-              {
-                inviteSent
-                ?
+            <View
+              style={{
+                position: 'absolute',
+                right: 4,
+                top: 0,
+              }}
+            >
+              {inviteSent ? (
                 <SfInlineButton
                   title="Cancel Invitation"
                   onPress={() => cancelInvite()}
                 />
-                :
-                <SfInlineButton
-                  title="Invite"
-                  onPress={() => sendInvite()}
-                />
-              }
+              ) : (
+                <SfInlineButton title="Invite" onPress={() => sendInvite()} />
+              )}
             </View>
           </View>
         </View>

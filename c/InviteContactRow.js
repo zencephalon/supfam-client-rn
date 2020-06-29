@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as SMS from 'expo-sms';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
+
 import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
 
@@ -20,22 +22,21 @@ export default function InviteContactRow({ contact }) {
         // Open pre-filled SMS
         await SMS.sendSMSAsync(
           [contact.phone],
-          `Hey ${contact.firstName || contact.name}, I'm using a new app called Supfam and I want you to join so we can chat and view each other's statuses! You can download it here: https://supfam.app/download`,
+          `Hey ${
+            contact.firstName || contact.name
+          }, I'm using a new app called Supfam and I want you to join so we can chat and view each other's statuses! You can download it here: https://supfam.app/download`
         );
 
         // Create invitation record for this phone number
         Invitation.call({ from_profile_id: profileId, phone: contact.phone });
       } else {
-        console.log("SMS not available");
+        console.log('SMS not available');
       }
-    })()
-  }
+    })();
+  };
 
   return (
-    <TouchableOpacity
-      style={styles.inviteFriendRow}
-      onPress={smsInvite}
-    >
+    <TouchableOpacity style={styles.inviteFriendRow} onPress={smsInvite}>
       <View style={{ flexGrow: 1 }}>
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
           <View
@@ -66,17 +67,19 @@ export default function InviteContactRow({ contact }) {
                 overflow: 'hidden',
               }}
             >
-              {contact.phone}
+              {parsePhoneNumberFromString(
+                contact.phone,
+                'US'
+              )?.formatNational() || contact.phone}
             </SfText>
-            <View style={{
-              position: 'absolute',
-              right: 4,
-              top: 0,
-            }}>
-              <SfInlineButton
-                title="Text to Invite"
-                onPress={smsInvite}
-              />
+            <View
+              style={{
+                position: 'absolute',
+                right: 4,
+                top: 0,
+              }}
+            >
+              <SfInlineButton title="Text to Invite" onPress={smsInvite} />
             </View>
           </View>
         </View>
