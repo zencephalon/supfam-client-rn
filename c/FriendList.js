@@ -41,7 +41,7 @@ const FriendList = () => {
   const { backgrounds } = useLight();
 
   const { friends, refetch, isFetching } = useFriends();
-  let { friendInvitesTo } = useFriendInvitesTo();
+  let { friendInvitesTo, refetch: refetchInvites } = useFriendInvitesTo();
 
   const listItems = useFriendListItems(friends, friendInvitesTo);
 
@@ -59,6 +59,7 @@ const FriendList = () => {
           refreshing={isFetching}
           onRefresh={() => {
             refetch();
+            refetchInvites();
           }}
         />
       }

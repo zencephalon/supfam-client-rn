@@ -13,6 +13,8 @@ import { postAcceptFriendInvite, postDeclineFriendInvite } from '~/apis/api';
 
 import { AWAY } from '~/constants/Colors';
 
+import { queryCache } from 'react-query';
+
 export default function RespondToInviteRow({ invite }) {
   const [showRow, setShowRow] = React.useState(true);
 
@@ -29,6 +31,8 @@ export default function RespondToInviteRow({ invite }) {
   const acceptInvite = () => {
     console.log('attempting to acept friend');
     Accept.call({ from_profile_id: fromFriend.id, to_profile_id: profileId });
+    queryCache.invalidateQueries(['friends']);
+    queryCache.invalidateQueries(['friendInvitesTo', profileId]);
     setShowRow(false);
   };
 
