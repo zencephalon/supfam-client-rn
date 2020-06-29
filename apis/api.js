@@ -80,6 +80,12 @@ export const postCheckInvite = ({ phone }) => {
   });
 };
 
+export const postInvitation = ({ from_profile_id, phone }) => {
+  return api.postToAPI(`invitations/create`, {
+    body: JSON.stringify({ from_profile_id, phone }),
+  });
+};
+
 export const postFriendInvite = ({ from_profile_id, to_profile_id }) => {
   return api.postToAPI(`friend_invites/create`, {
     body: JSON.stringify({ from_profile_id, to_profile_id }),
