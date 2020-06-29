@@ -43,13 +43,16 @@ const SfButton = (props) => {
   return (
     <TouchableOpacity {...rest} style={mergedStyle}>
       <Text
-        style={{
-          ...styles.buttonText,
-          color: textColor,
-          marginTop: disabled ? 3 : 0,
-          marginBottom: disabled ? 0 : 3,
-          opacity: disabled ? 0.5 : 1,
-        }}
+        style={[
+          styles.buttonText,
+          {
+            color: textColor,
+            marginTop: disabled ? 3 : 0,
+            marginBottom: disabled ? 0 : 3,
+            opacity: disabled ? 0.5 : 1,
+          },
+          props.buttonTextStyle,
+        ]}
       >
         {title}
       </Text>

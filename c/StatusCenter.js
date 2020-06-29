@@ -60,7 +60,7 @@ const StatusCenter = () => {
   return (
     <View
       style={{
-        backgroundColor: backgrounds[0],
+        // backgroundColor: backgrounds[0],
         shadowColor: 'black',
         shadowOffset: { width: 0, height: -1 },
         shadowOpacity: light ? 0.1 : 0.4,
