@@ -24,7 +24,7 @@ const FriendSearchBar = (props) => {
         autoCorrect={false}
         onChangeText={updateQuery}
         placeholder="🔍 Search"
-        style={{}}
+        textInputStyle={{ fontSize: 16 }}
         // textStyle={{ color: '#000' }}
         value={query}
       />
