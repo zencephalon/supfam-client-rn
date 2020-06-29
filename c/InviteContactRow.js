@@ -1,22 +1,30 @@
 import * as React from 'react';
-
 import * as SMS from 'expo-sms';
-
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
 
+import useProfileId from '~/h/useProfileId';
+import useApi from '~/h/useApi';
+import { postInvitation } from '~/apis/api';
+
 export default function InviteContactRow({ contact }) {
+  const Invitation = useApi(postInvitation);
+  const profileId = useProfileId();
+
   const smsInvite = () => {
     (async () => {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {
-        const { result } = await SMS.sendSMSAsync(
+        // Open pre-filled SMS
+        await SMS.sendSMSAsync(
           [contact.phone],
           `Hey ${contact.firstName || contact.name}, I'm using a new app called Supfam and I want you to join so we can chat and view each other's statuses! You can download it here: https://supfam.app/download`,
         );
-        console.log("result", result);
+
+        // Create invitation record for this phone number
+        Invitation.call({ from_profile_id: profileId, phone: contact.phone });
       } else {
         console.log("SMS not available");
       }
