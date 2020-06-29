@@ -32,7 +32,6 @@ export default function useContacts(allowed) {
         const { data } = await Contacts.getContactsAsync({
           fields: [Contacts.Fields.PhoneNumbers],
         });
-        console.log('in useEffect', data);
         setData(data);
       }
     };
@@ -70,6 +69,5 @@ export default function useContacts(allowed) {
       contacts.push(contactToShow);
     });
 
-  console.log({ data, contacts });
   return contacts;
 }
