@@ -19,33 +19,44 @@ export default function RespondToInviteRow({ invite }) {
   const Accept = useApi(postAcceptFriendInvite);
   const Decline = useApi(postDeclineFriendInvite);
   const profileId = useProfileId();
-  const fromFriend = invite.from_friend;
+  console.log({ invite });
+  const fromFriend = invite?.from_friend;
+
+  if (!fromFriend) {
+    return null;
+  }
 
   const acceptInvite = () => {
-    console.log("attempting to acept friend");
+    console.log('attempting to acept friend');
     Accept.call({ from_profile_id: fromFriend.id, to_profile_id: profileId });
     setShowRow(false);
-  }
+  };
 
   const declineInvite = () => {
     Alert.alert(
-      "Are you sure?",
+      'Are you sure?',
       `If you decline ${fromFriend.name}'s invitation, you won't be able to be friends with them on Supfam.`,
       [
         {
-          text: "Cancel",
-          style: "cancel"
+          text: 'Cancel',
+          style: 'cancel',
         },
-        { text: "Decline", onPress: () => {
-          Decline.call({ from_profile_id: fromFriend.id, to_profile_id: profileId });
-          setShowRow(false);
-        } }
+        {
+          text: 'Decline',
+          onPress: () => {
+            Decline.call({
+              from_profile_id: fromFriend.id,
+              to_profile_id: profileId,
+            });
+            setShowRow(false);
+          },
+        },
       ],
       { cancelable: false }
     );
-  }
+  };
 
-  if(!showRow) {
+  if (!showRow) {
     return null;
   }
 
@@ -66,7 +77,12 @@ export default function RespondToInviteRow({ invite }) {
           hideRightSection
         />
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
-          <ProfileIcon noBadge profileId={fromFriend.id} size={48} avatar_url={fromFriend.avatar_url} />
+          <ProfileIcon
+            noBadge
+            profileId={fromFriend.id}
+            size={48}
+            avatar_url={fromFriend.avatar_url}
+          />
           <View
             style={{
               flexDirection: 'column',
@@ -75,21 +91,22 @@ export default function RespondToInviteRow({ invite }) {
               alignItems: 'flex-start',
             }}
           >
-            <View style={{
-              position: 'absolute',
-              right: 4,
-              top: 0,
-            }}>
-              <SfInlineButton
-                title="Accept"
-                onPress={() => acceptInvite()}
-              />
+            <View
+              style={{
+                position: 'absolute',
+                right: 4,
+                top: 0,
+              }}
+            >
+              <SfInlineButton title="Accept" onPress={() => acceptInvite()} />
             </View>
-            <View style={{
-              position: 'absolute',
-              right: 140,
-              top: 0,
-            }}>
+            <View
+              style={{
+                position: 'absolute',
+                right: 140,
+                top: 0,
+              }}
+            >
               <SfInlineButton
                 title="Decline"
                 onPress={() => declineInvite()}
