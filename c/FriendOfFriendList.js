@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Contacts from 'expo-contacts';
+import { RefreshControl } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import InviteFriendRow from '~/c/InviteFriendRow';
@@ -44,7 +44,11 @@ const FriendOfFriendList = () => {
 
   const renderInviteRow = useRenderInviteRow(requestPermission);
 
-  let invitableFriends = useInvitableFriends();
+  let {
+    friends: invitableFriends,
+    isFetching,
+    refetch,
+  } = useInvitableFriends();
   const contacts = useContacts(allowed);
 
   invitableFriends = [...invitableFriends, ...contacts];
@@ -74,6 +78,15 @@ const FriendOfFriendList = () => {
         style={{ backgroundColor: backgrounds[0] }}
         renderItem={renderInviteRow}
         keyExtractor={(profile) => `${profile.type}${profile.id}`}
+        refreshControl={
+          <RefreshControl
+            // TODO: this should use `isFetching` but that makes it spin forever for some reason
+            refreshing={false}
+            onRefresh={() => {
+              refetch();
+            }}
+          />
+        }
       />
       <FriendSearchBar updateQuery={setSearchQuery} />
     </>

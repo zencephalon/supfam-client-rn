@@ -6,7 +6,7 @@ import useProfileId from '~/h/useProfileId';
 
 export default function useFriendsOfFriends() {
   const profileId = useProfileId();
-  const { status, data, error } = useQuery(
+  const { status, data, error, refetch, isFetching } = useQuery(
     profileId && ['friendsOfFriends', profileId],
     getFriendsOfFriends
   );
@@ -16,5 +16,5 @@ export default function useFriendsOfFriends() {
     ['desc', 'desc']
   );
 
-  return { status, friendsOfFriends, error };
+  return { status, friendsOfFriends, error, refetch, isFetching };
 }
