@@ -19,8 +19,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "notification": {
-      "image": "./assets/images/notification-icon.png",
-      "color": "#000000"
+      "icon": "./assets/images/notification-icon.png",
+      "color": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
