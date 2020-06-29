@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Contacts from 'expo-contacts';
+import _ from 'lodash';
 
 function getContactNumber(contact) {
   let contactPhoneNumber;
@@ -69,5 +70,5 @@ export default function useContacts(allowed) {
       contacts.push(contactToShow);
     });
 
-  return contacts;
+  return _.uniqBy(contacts, 'id');
 }

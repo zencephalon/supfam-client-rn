@@ -64,21 +64,19 @@ const FriendOfFriendList = () => {
     invitableFriends.push(linkContants);
   }
 
-  const renderHeader = React.useMemo(() => (
-    <FriendSearchBar updateQuery={setSearchQuery} />
-  ));
-
   useSfListAnimation(invitableFriends);
 
   return (
-    <FlatList
-      inverted
-      data={invitableFriends}
-      style={{ backgroundColor: backgrounds[0] }}
-      renderItem={renderInviteRow}
-      keyExtractor={(profile) => `${profile.type}${profile.id}`}
-      ListHeaderComponent={renderHeader}
-    />
+    <>
+      <FlatList
+        inverted
+        data={invitableFriends}
+        style={{ backgroundColor: backgrounds[0] }}
+        renderItem={renderInviteRow}
+        keyExtractor={(profile) => `${profile.type}${profile.id}`}
+      />
+      <FriendSearchBar updateQuery={setSearchQuery} />
+    </>
   );
 };
 
