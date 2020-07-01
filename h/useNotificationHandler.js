@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { Notifications } from 'expo';
 
 import _ from 'lodash';
@@ -24,14 +25,16 @@ export default function useNotificationHandler(containerRef) {
         ) {
           return;
         }
-        Notifications.presentLocalNotificationAsync({
-          title: notification.data.title,
-          body: notification.data.body,
-          data: notification.data,
-          ios: {
-            _displayInForeground: true,
-          },
-        });
+        if(Platform.OS === 'ios') {
+          Notifications.presentLocalNotificationAsync({
+            title: notification.data.title,
+            body: notification.data.body,
+            data: notification.data,
+            ios: {
+              _displayInForeground: true,
+            },
+          });
+        }
       }
       if (notification.origin === 'selected' || !notification.remote) {
         const message = notification?.data?.message;

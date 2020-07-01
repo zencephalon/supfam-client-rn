@@ -26,7 +26,8 @@
     ],
     "notification": {
       "icon": "./assets/images/notification-icon.png",
-      "color": "#ffffff"
+      "color": "#ffffff",
+      "androidMode": "collapse"
     },
     "ios": {
       "supportsTablet": true,
