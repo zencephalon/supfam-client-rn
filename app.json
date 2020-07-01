@@ -3,7 +3,11 @@
     "name": "Supfam",
     "slug": "Supfam",
     "privacy": "public",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -17,7 +21,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "notification": {
       "icon": "./assets/images/notification-icon.png",
       "color": "#ffffff"
@@ -25,7 +31,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mutualflourishing.supfam",
-      "buildNumber": "0.0.12"
+      "buildNumber": "0.0.13"
     },
     "android": {
       "package": "com.mutualflourishing.supfam",
