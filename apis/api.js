@@ -55,6 +55,10 @@ export const getConversationMemberships = (_key) => {
   return api.fetchFromAPI(`conversation_memberships/me`);
 };
 
+export const getGroupConversations = (_key) => {
+  return api.fetchFromAPI(`group_conversations/me`);
+};
+
 // export const getConversationMembership
 export const getMembership = (_key, id) => {
   return api.fetchFromAPI(`conversations/${id}/membership`);
