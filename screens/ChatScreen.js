@@ -24,7 +24,7 @@ export default function ChatScreen({ navigation, route }) {
   useMarkConversationRead(conversation.id, messages[0]?.id);
 
   return (
-    <SfKeyboardAvoidingView keyboardVerticalOffset={54}>
+    <SfKeyboardAvoidingView keyboardVerticalOffset={-4}>
       <GroupConversationTopBar
         name={conversation.name}
         navigation={navigation}
