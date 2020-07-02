@@ -13,9 +13,16 @@ import useLight from '~/h/useLight';
 export default function HomeTopBar({ title }) {
   const navigation = useNavigation();
 
-  const { foregrounds } = useLight();
+  const { foregrounds, _, light } = useLight();
   return (
-    <SfTopBar style={{ paddingBottom: 6 }}>
+    <SfTopBar
+      style={{
+        paddingBottom: 10,
+        paddingTop: 10,
+        // Android
+        elevation: light ? 2 : 4,
+      }}
+    >
       <TouchableOpacity
         style={{ padding: 4 }}
         onPress={() => navigation.navigate('Settings')}

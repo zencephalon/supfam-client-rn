@@ -57,14 +57,19 @@ const StatusCenter = () => {
   const setColor = useSetColor(profileId);
   const postMessage = usePostMessage(statusMe, message, profileId, setMessage);
 
+  console.log('kitkat ' + backgrounds[0]);
   return (
     <View
       style={{
         backgroundColor: backgrounds[0],
+        // iOS
         shadowColor: 'black',
         shadowOffset: { width: 0, height: -1 },
         shadowOpacity: light ? 0.1 : 0.4,
         shadowRadius: 1,
+        elevation: light ? 1 : 10,
+        // Android
+        elevation: 14,
       }}
     >
       <StatusInput
