@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useInfiniteQuery, useQuery } from 'react-query';
-import { flatten, tail, head, uniqBy } from 'lodash';
+import { flatten, tail, head, uniqBy, values } from 'lodash';
 
 import { getConversationMessages } from '~/apis/api';
 import Cable from '~/lib/Cable';
@@ -50,20 +50,19 @@ export default function useMessages(conversationId, meProfileId) {
       enabled: conversationId,
     }
   );
-  const { data: instantMessage } = useQuery(
-    ['instant_messages', conversationId],
+  const { data: instantMessages } = useQuery(
+    ['instantMessages', conversationId],
     () => {},
     {
       manual: true,
       enabled: conversationId,
+      initialData: {},
     }
   );
 
-  let messages = [];
-
-  if (instantMessage?.message && instantMessage?.profile_id !== meProfileId) {
-    messages.unshift(instantMessage);
-  }
+  let messages = values(instantMessages).filter(
+    (msg) => msg.profile_id !== meProfileId
+  );
 
   messages = messages.concat(queuedMessages || []);
 
