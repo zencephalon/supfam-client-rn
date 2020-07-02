@@ -17,17 +17,7 @@ function ChatStack() {
         name="Home"
         component={ChatsScreen}
         options={{
-          headerTitle: 'Chats',
-          headerStyle: {
-            backgroundColor: backgrounds[0],
-            height: 20,
-            shadowColor: 'black',
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          headerTitleStyle: {
-            color: foregrounds[0],
-          },
+          headerShown: false,
         }}
       />
       <Stack.Screen
