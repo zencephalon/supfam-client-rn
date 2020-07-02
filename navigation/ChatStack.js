@@ -30,7 +30,13 @@ function ChatStack() {
           },
         }}
       />
-      <Stack.Screen name="Conversation" component={ChatScreen} />
+      <Stack.Screen
+        name="Conversation"
+        component={ChatScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Invite"
         component={InviteScreen}
