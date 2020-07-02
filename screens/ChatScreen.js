@@ -14,13 +14,11 @@ import useLight from '~/h/useLight';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
 
 export default function ChatScreen({ navigation, route }) {
+  // We probably want to only get the id here and load the conversation
+  // from queryCache in the future
   const { conversation } = route.params;
 
-  const { backgrounds } = useLight();
-
   const meProfileId = useProfileId();
-
-  // const conversation = useCachedConversation(conversationId);
 
   const { fetchMore, canFetchMore, messages } = useMessages(
     conversation.id,

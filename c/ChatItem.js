@@ -1,37 +1,37 @@
 import * as React from 'react';
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
-
-import statusColors from '~/constants/statusColors';
+import GroupConversationPreview from '~/c/GroupConversationPreview';
 
 import useLight from '~/h/useLight';
 
 import { useNavigation } from '@react-navigation/native';
 
-export default function ProfileStatus({ chat }) {
+export default function ChatItem({ chat }) {
+  const { foregrounds } = useLight();
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={{
         ...styles.profileStatus,
-        // borderBottomColor: backgrounds[1],
       }}
       onPress={() => {
         navigation.navigate('Conversation', { conversation: chat });
       }}
     >
       <View style={{ flexGrow: 1 }}>
-        <SfText style={{ textAlign: 'center', alignSelf: 'stretch' }}>
+        <SfText
+          style={{
+            textAlign: 'left',
+            alignSelf: 'stretch',
+            color: foregrounds[1],
+          }}
+        >
           {chat.name}
         </SfText>
+        <GroupConversationPreview conversationId={chat.id} />
       </View>
     </TouchableOpacity>
   );
