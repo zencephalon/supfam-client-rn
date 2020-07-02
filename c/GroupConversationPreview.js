@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { View } from 'react-native';
 
 import useCachedConversationMembership from '~/h/useCachedConversationMembership';
 
 import MessagePreview from '~/c/MessagePreview';
+import ProfileIcon from '~/c/ProfileIcon';
 
 export default function GroupConversationPreview({ conversationId }) {
   const membership = useCachedConversationMembership(conversationId);
@@ -17,5 +19,16 @@ export default function GroupConversationPreview({ conversationId }) {
     return null;
   }
 
-  return <MessagePreview message={membership?.last_message} />;
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+      }}
+    >
+      <MessagePreview message={membership?.last_message} />
+      <ProfileIcon profileId={membership?.last_message_profile_id} size={24} />
+    </View>
+  );
 }

@@ -14,9 +14,7 @@ export default function ChatItem({ chat }) {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-      style={{
-        ...styles.profileStatus,
-      }}
+      style={styles.profileStatus}
       onPress={() => {
         navigation.navigate('Conversation', { conversation: chat });
       }}
@@ -25,7 +23,6 @@ export default function ChatItem({ chat }) {
         <SfText
           style={{
             textAlign: 'left',
-            alignSelf: 'stretch',
             color: foregrounds[1],
           }}
         >
