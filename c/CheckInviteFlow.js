@@ -30,8 +30,7 @@ function CheckInviteFlow(props) {
   return (
     <View style={styles.formContainer}>
       <SfText style={styles.explainerText}>
-        Supfam only allows invited users. Enter your phone number to look for
-        your invitation.
+        Please provide your phone number so that we can verify that you are a real person, and link your account to you.
       </SfText>
       <SfText style={{ ...styles.phoneNumberPreview, color: foregrounds[2] }}>
         {new AsYouType('US').input(phone)}
@@ -52,7 +51,7 @@ function CheckInviteFlow(props) {
       <SfButton
         round
         style={{ marginTop: 8 }}
-        title={checkInviteReq.requested ? 'Checking...' : 'Check for invite'}
+        title={checkInviteReq.requested ? 'Sending...' : 'Send code'}
         disabled={checkDisabled}
         onPress={
           checkDisabled
@@ -64,7 +63,7 @@ function CheckInviteFlow(props) {
       />
       {checkInviteReq.failed && (
         <SfText style={{ color: foregrounds[3] }}>
-          Sorry, we couldn't find an invitation for your phone number.
+          Something went wrong, please try using a different phone number.
         </SfText>
       )}
     </View>

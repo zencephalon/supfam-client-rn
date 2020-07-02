@@ -28,7 +28,10 @@ export default function InviteContactRow({ contact }) {
         );
 
         // Create invitation record for this phone number
-        Invitation.call({ from_profile_id: profileId, phone: contact.phone });
+        const parsedPhoneNum = parsePhoneNumberFromString(contact.phone, 'US')?.number;
+        if(parsedPhoneNum) {
+          Invitation.call({ from_profile_id: profileId, phone: parsedPhoneNum });
+        }
       } else {
         console.log('SMS not available');
       }
