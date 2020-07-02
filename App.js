@@ -9,7 +9,8 @@ import { AppearanceProvider } from 'react-native-appearance';
 import { Provider } from 'react-redux';
 
 import HomeStack from '~/navigation/HomeStack';
-import useLinking from './navigation/useLinking';
+import DrawerNavigator from '~/navigation/DrawerNavigator';
+import useLinking from '~/navigation/useLinking';
 
 import AuthToken from '~/lib/AuthToken';
 import AuthGate from '~/c/AuthGate';
@@ -89,7 +90,8 @@ export default function App(props) {
                     ref={containerRef}
                     initialState={initialNavigationState}
                   >
-                    <HomeStack />
+                    {/* <HomeStack /> */}
+                    <DrawerNavigator />
                   </NavigationContainer>
                 </NotificationGate>
               </ProfileGate>

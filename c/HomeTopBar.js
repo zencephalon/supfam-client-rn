@@ -18,9 +18,9 @@ export default function HomeTopBar({ title }) {
     <SfTopBar style={{ paddingBottom: 6 }}>
       <TouchableOpacity
         style={{ padding: 4 }}
-        onPress={() => navigation.navigate('Settings')}
+        onPress={() => navigation.openDrawer()}
       >
-        <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
+        <MaterialIcons name="menu" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
       <SfText style={{ color: foregrounds[1] }}>{title}</SfText>
       <TouchableOpacity
