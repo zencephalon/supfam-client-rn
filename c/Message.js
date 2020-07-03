@@ -50,7 +50,6 @@ function Message(props) {
         )}
         {message.i ? (
           <SfText style={{ fontSize: 10 }}>
-            ...
             <TypingText time={message.receivedAt} />
           </SfText>
         ) : null}
