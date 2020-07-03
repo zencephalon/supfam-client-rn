@@ -4,7 +4,6 @@ import { FlatList } from 'react-native-gesture-handler';
 
 import AddToGroupRow from '~/c/AddToGroupRow';
 import FriendSearchBar from '~/c/FriendSearchBar';
-import GroupBuilderForm from '~/c/GroupBuilderForm';
 import SfButton from '~/c/SfButton';
 import SfText from '~/c/SfText';
 
@@ -20,7 +19,7 @@ import useApi from '~/h/useApi';
 
 
 const GroupBuilderFriendList = (props) => {
-  const { conversation } = props;
+  const { conversation, navigation } = props;
   const { backgrounds } = useLight();
   const [searchQuery, setSearchQuery] = React.useState('');
   const [addingProfiles, setAddingProfiles] = React.useState([]);
@@ -51,6 +50,7 @@ const GroupBuilderFriendList = (props) => {
       console.log("result of create call was", result);
       if(result.conversation_id) {
         // Redirect into the newly created group conversation with this Id
+        navigation.navigate('Conversation', { conversationId: result.conversation_id });
       } else {
         // error
       }

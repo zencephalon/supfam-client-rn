@@ -42,6 +42,10 @@ export const getProfileDmConversation = (_key, { profileId }) => {
   return api.fetchFromAPI(`conversations/profile/${profileId}`);
 };
 
+export const getConversation = (_key, { conversationId }) => {
+  return api.fetchFromAPI(`conversations/${conversationId}`);
+};
+
 export const sendMessage = ({ meProfileId, conversationId, data }) => {
   return api.postToAPI(
     `conversations/${conversationId}/messages/profile/${meProfileId}`,
