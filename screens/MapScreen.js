@@ -6,6 +6,7 @@ import MapView, { Marker } from 'react-native-maps';
 import ProfileIcon, { ProfileIconFromProfile } from '~/c/ProfileIcon';
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import SfButton from '~/c/SfButton';
+import MapTopBar from '~/c/MapTopBar';
 
 import useFriends from '~/h/useFriends';
 import useProfileMe from '~/h/useProfileMe';
@@ -26,10 +27,15 @@ const getLocation = async () => {
 export default function MapScreen() {
   const { allowed, requestPermission } = useLocationPermission();
 
-  return allowed ? (
-    <MapDisplay />
-  ) : (
-    <PermissionPrompt requestPermission={requestPermission} />
+  return (
+    <SfKeyboardAvoidingView>
+      <MapTopBar title="Map" />
+      {allowed ? (
+        <MapDisplay />
+      ) : (
+        <PermissionPrompt requestPermission={requestPermission} />
+      )}
+    </SfKeyboardAvoidingView>
   );
 }
 
@@ -38,6 +44,7 @@ function PermissionPrompt({ requestPermission }) {
     <SfButton
       title="Enable Locations to find your fam"
       onPress={requestPermission}
+      style={{ marginTop: 48 }}
     />
   );
 }
@@ -101,7 +108,8 @@ function MapDisplay() {
                 <ProfileIcon
                   profileId={profile.id}
                   size={32}
-                  opacity={Math.random()}
+                  // TODO: make this a function of when they last updated their location
+                  opacity={1}
                 />
               </Marker>
             );
