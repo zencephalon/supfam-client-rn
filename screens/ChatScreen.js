@@ -28,11 +28,11 @@ export default function ChatScreen({ navigation, route }) {
   );
 
   const { fetchMore, canFetchMore, messages } = useMessages(
-    conversation.id,
+    conversationId,
     meProfileId
   );
 
-  useMarkConversationRead(conversation.id, messages[0]?.id);
+  useMarkConversationRead(conversationId, messages[0]?.id);
 
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={-4}>
@@ -46,7 +46,7 @@ export default function ChatScreen({ navigation, route }) {
         fetchMore={fetchMore}
         canFetchMore={canFetchMore}
       />
-      <MessageInput conversationId={conversation.id} />
+      <MessageInput conversationId={conversationId} />
     </SfKeyboardAvoidingView>
   );
 }

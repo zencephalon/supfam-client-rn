@@ -76,9 +76,9 @@ export const getConversationPreview = (_key, conversationId) => {
   return api.fetchFromAPI(`conversations/${conversationId}/preview`);
 };
 
-export const postConversationCreateWithMembers = ({ profileIds }) => {
+export const postConversationCreateWithMembers = ({ profileIds, creatorId }) => {
   return api.postToAPI(`conversations/create`, {
-    body: JSON.stringify({ profileIds }),
+    body: JSON.stringify({ profileIds, creatorId }),
   });
 };
 

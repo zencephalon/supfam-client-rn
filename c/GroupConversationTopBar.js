@@ -29,7 +29,7 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
         }}
       >
         <SfText style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}>
-          {conversation.name}
+          {conversation?.name}
         </SfText>
       </View>
       <TouchableOpacity
