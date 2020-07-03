@@ -13,6 +13,7 @@ import { OPEN } from '~/constants/Colors';
 import useSfListAnimation from '~/h/useSfListAnimation';
 import useFriends from '~/h/useFriends';
 import useProfileId from '~/h/useProfileId';
+import useGroupConversations from '~/h/useGroupConversations';
 
 import { postConversationCreateWithMembers } from '~/apis/api';
 import useApi from '~/h/useApi';
@@ -42,14 +43,14 @@ const GroupBuilderFriendList = (props) => {
 
   const Create = useApi(postConversationCreateWithMembers);
   const creatorProfileId = useProfileId();
+  const { refetch: groupConvoRefetch } = useGroupConversations();
   const submit = () => {
     (async () => {
-      console.log("submiting the group builder form to add new people to group");
       const profileIds = addingProfiles.map((profile) => (profile.id));
       const result = await Create.call({ profileIds, creatorId: creatorProfileId });
-      console.log("result of create call was", result);
       if(result.conversation_id) {
         // Redirect into the newly created group conversation with this Id
+        groupConvoRefetch();
         navigation.navigate('Conversation', { conversationId: result.conversation_id });
       } else {
         // error

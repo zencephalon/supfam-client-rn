@@ -13,8 +13,6 @@ import { useQuery } from 'react-query';
 import { getConversation } from '~/apis/api';
 
 export default function ChatScreen({ navigation, route }) {
-  // We probably want to only get the id here and load the conversation
-  // from queryCache in the future
   const { conversationId } = route.params;
 
   const meProfileId = useProfileId();
