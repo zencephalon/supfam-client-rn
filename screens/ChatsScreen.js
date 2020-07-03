@@ -8,7 +8,7 @@ import ChatsList from '~/c/ChatsList';
 export default function ChatsScreen() {
   return (
     <SfKeyboardAvoidingView>
-      <ChatsTopBar title="Chats" />
+      <ChatsTopBar title="Group Chats" />
 
       <ChatsList />
 

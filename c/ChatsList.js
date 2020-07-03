@@ -11,19 +11,18 @@ const renderChatListing = ({ item: chat }) => {
   return <ChatItem chat={chat} />;
 };
 
-const ChatList = (props) => {
+const ChatList = () => {
   const { groupConversations } = useGroupConversations();
   const { backgrounds } = useLight();
 
   useSfListAnimation(groupConversations);
-
   return (
     <FlatList
       inverted
       data={groupConversations}
       style={{ backgroundColor: backgrounds[0] }}
       renderItem={renderChatListing}
-      keyExtractor={(profile) => `${profile.id}`}
+      keyExtractor={(chat) => `${chat.id}`}
     />
   );
 };

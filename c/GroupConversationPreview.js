@@ -12,8 +12,7 @@ export default function GroupConversationPreview({ conversationId }) {
   }
 
   const last_message_id = membership?.last_message?.id;
-  const last_read_message_id = membership?.last_read_message_id;
-  if (!last_message_id || last_message_id === last_read_message_id) {
+  if (!last_message_id) {
     return null;
   }
 
