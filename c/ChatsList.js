@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { RefreshControl } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import ChatItem from '~/c/ChatItem';
@@ -12,7 +13,7 @@ const renderChatListing = ({ item: chat }) => {
 };
 
 const ChatList = () => {
-  const { groupConversations } = useGroupConversations();
+  const { groupConversations, refetch, isFetching } = useGroupConversations();
   const { backgrounds } = useLight();
 
   useSfListAnimation(groupConversations);
@@ -23,6 +24,14 @@ const ChatList = () => {
       style={{ backgroundColor: backgrounds[0] }}
       renderItem={renderChatListing}
       keyExtractor={(chat) => `${chat.id}`}
+      refreshControl={
+        <RefreshControl
+          refreshing={isFetching}
+          onRefresh={() => {
+            refetch();
+          }}
+        />
+      }
     />
   );
 };

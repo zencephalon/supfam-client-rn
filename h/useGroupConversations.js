@@ -2,7 +2,7 @@ import { useQuery, queryCache } from 'react-query';
 import { getGroupConversations } from '~/apis/api';
 
 export default function useGroupConversations() {
-  const { status, data, error, refetch } = useQuery(
+  const { status, data, error, isFetching, refetch } = useQuery(
     'groupConversations',
     getGroupConversations,
     {
@@ -17,5 +17,5 @@ export default function useGroupConversations() {
     }
   );
 
-  return { status, groupConversations: data, error };
+  return { status, groupConversations: data, error, isFetching, refetch };
 }
