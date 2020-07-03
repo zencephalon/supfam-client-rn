@@ -3,15 +3,14 @@ import * as React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-import * as Colors from '~/constants/Colors';
-import statusColors from '~/constants/statusColors';
-
 import ProfileIcon, { ProfileIconFromProfile } from '~/c/ProfileIcon';
-import StatusCenter from '~/c/StatusCenter';
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
+import SfButton from '~/c/SfButton';
+import MapTopBar from '~/c/MapTopBar';
 
 import useFriends from '~/h/useFriends';
 import useProfileMe from '~/h/useProfileMe';
+import useLocationPermission from '~/h/useLocationPermission';
 
 import * as Location from 'expo-location';
 
@@ -26,6 +25,31 @@ const getLocation = async () => {
 };
 
 export default function MapScreen() {
+  const { allowed, requestPermission } = useLocationPermission();
+
+  return (
+    <SfKeyboardAvoidingView>
+      <MapTopBar title="Map" />
+      {allowed ? (
+        <MapDisplay />
+      ) : (
+        <PermissionPrompt requestPermission={requestPermission} />
+      )}
+    </SfKeyboardAvoidingView>
+  );
+}
+
+function PermissionPrompt({ requestPermission }) {
+  return (
+    <SfButton
+      title="Enable Locations to find your fam"
+      onPress={requestPermission}
+      style={{ marginTop: 48 }}
+    />
+  );
+}
+
+function MapDisplay() {
   const { friends } = useFriends();
 
   const map = React.useRef(null);
@@ -52,30 +76,30 @@ export default function MapScreen() {
 
   return (
     !!location && (
-      <SfKeyboardAvoidingView>
-        <MapView
-          style={styles.mapStyle}
-          initialRegion={{
-            // latitude: 40.6749728,
-            // longitude: -73.9434645,
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: 0.0292,
-            longitudeDelta: 0.0241,
-          }}
-          ref={map}
-          onMapReady={() => {}}
-        >
-          <Marker coordinate={location.coords} title={'Me'}>
-            <ProfileIconFromProfile profile={profile} size={32} />
-          </Marker>
-          {friends.map((profile) => {
+      <MapView
+        style={styles.mapStyle}
+        initialRegion={{
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          // TODO: figure out what to do with these
+          latitudeDelta: 0.0292,
+          longitudeDelta: 0.0241,
+        }}
+        ref={map}
+        onMapReady={() => {}}
+      >
+        <Marker coordinate={location.coords} title={'Me'}>
+          <ProfileIconFromProfile profile={profile} size={32} />
+        </Marker>
+        {friends
+          .filter((profile) => profile.location)
+          .map((profile) => {
             return (
               <Marker
                 key={profile.id}
                 coordinate={{
-                  latitude: 40.6749728 + Math.random() * 0.01,
-                  longitude: -73.9434645 + Math.random() * 0.01,
+                  latitude: profile?.location?.latitude,
+                  longitude: profile?.location?.longitude,
                 }}
                 title={`${profile?.name}`}
                 description={`${profile?.status?.message}`}
@@ -84,14 +108,13 @@ export default function MapScreen() {
                 <ProfileIcon
                   profileId={profile.id}
                   size={32}
-                  opacity={Math.random()}
+                  // TODO: make this a function of when they last updated their location
+                  opacity={1}
                 />
               </Marker>
             );
           })}
-        </MapView>
-        {/* <StatusCenter /> */}
-      </SfKeyboardAvoidingView>
+      </MapView>
     )
   );
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import useInterval from '@use-it/interval';
 
 const getDisplay = (time) => {
-  return new Date() - time > 1500 ? 'paused' : '';
+  return new Date() - time > 1500 ? '...' : '';
 };
 
 const TypingText = ({ time }) => {

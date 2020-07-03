@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useInfiniteQuery, useQuery } from 'react-query';
-import { flatten, tail, head, uniqBy, values } from 'lodash';
+import { flatten, tail, head, uniqBy, values, reverse } from 'lodash';
 
 import { getConversationMessages } from '~/apis/api';
 import Cable from '~/lib/Cable';
