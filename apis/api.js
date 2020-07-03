@@ -72,6 +72,12 @@ export const getConversationPreview = (_key, conversationId) => {
   return api.fetchFromAPI(`conversations/${conversationId}/preview`);
 };
 
+export const postConversationCreateWithMembers = ({ profileIds }) => {
+  return api.postToAPI(`conversations/create`, {
+    body: JSON.stringify({ profileIds }),
+  });
+};
+
 export const putStatusMe = (data) => {
   return api.putToAPI('statuses/me', {
     body: JSON.stringify(data),

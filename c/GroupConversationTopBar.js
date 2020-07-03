@@ -3,12 +3,15 @@ import React from 'react';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { View, TouchableOpacity } from 'react-native';
 
+// import { useNavigation } from '@react-navigation/native';
+
 import SfText from '~/c/SfText';
 import SfTopBar from '~/c/SfTopBar';
 
 import useLight from '~/h/useLight';
 
-export default function GroupConversationTopBar({ name, navigation }) {
+export default function GroupConversationTopBar({ conversation, navigation }) {
+  // const navigation = useNavigation();
   const { foregrounds } = useLight();
   return (
     <SfTopBar style={{ justifyContent: 'space-between' }}>
@@ -26,10 +29,12 @@ export default function GroupConversationTopBar({ name, navigation }) {
         }}
       >
         <SfText style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}>
-          {name}
+          {conversation.name}
         </SfText>
       </View>
-      <TouchableOpacity style={{ padding: 4 }}>
+      <TouchableOpacity
+        style={{ padding: 4 }}
+        onPress={() => navigation.navigate('Group Builder', { conversation })}>
         <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
     </SfTopBar>

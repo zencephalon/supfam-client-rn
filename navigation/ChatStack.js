@@ -2,8 +2,8 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ChatsScreen from '~/screens/ChatsScreen';
 import ChatScreen from '~/screens/ChatScreen';
-import InviteScreen from '~/screens/InviteScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
+import GroupBuilderScreen from '~/screens/GroupBuilderScreen';
 import useLight from '~/h/useLight';
 
 const Stack = createStackNavigator();
@@ -28,8 +28,8 @@ function ChatStack() {
         }}
       />
       <Stack.Screen
-        name="Invite"
-        component={InviteScreen}
+        name="Group Builder"
+        component={GroupBuilderScreen}
         options={{
           headerStyle: {
             backgroundColor: backgrounds[1],

@@ -26,7 +26,7 @@ export default function ChatScreen({ navigation, route }) {
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={-4}>
       <GroupConversationTopBar
-        name={conversation.name}
+        conversation={conversation}
         navigation={navigation}
       />
       <MessageList
