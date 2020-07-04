@@ -82,6 +82,12 @@ export const postConversationCreateWithMembers = ({ profileIds, creatorId }) => 
   });
 };
 
+export const postConversationAddMembers = ({ conversationId, profileIds }) => {
+  return api.postToAPI(`conversations/${conversationId}/add_members`, {
+    body: JSON.stringify({ profileIds }),
+  });
+};
+
 export const putStatusMe = (data) => {
   return api.putToAPI('statuses/me', {
     body: JSON.stringify(data),

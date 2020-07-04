@@ -15,7 +15,7 @@ import useFriends from '~/h/useFriends';
 import useProfileId from '~/h/useProfileId';
 import useGroupConversations from '~/h/useGroupConversations';
 
-import { postConversationCreateWithMembers } from '~/apis/api';
+import { postConversationCreateWithMembers, postConversationAddMembers } from '~/apis/api';
 import useApi from '~/h/useApi';
 
 
@@ -41,19 +41,26 @@ const GroupBuilderFriendList = (props) => {
     [add, remove]
   );
 
-  const Create = useApi(postConversationCreateWithMembers);
   const creatorProfileId = useProfileId();
+  const Create = useApi(postConversationCreateWithMembers);
+  const AddMembers = useApi(postConversationAddMembers);
   const { refetch: groupConvoRefetch } = useGroupConversations();
   const submit = () => {
     (async () => {
       const profileIds = addingProfiles.map((profile) => (profile.id));
-      const result = await Create.call({ profileIds, creatorId: creatorProfileId });
-      if(result.conversation_id) {
-        // Redirect into the newly created group conversation with this Id
+      if(conversation) {
+        // Existing conversation, do add
+        await AddMembers.call({ conversationId: conversation.id, profileIds });
         groupConvoRefetch();
-        navigation.navigate('Conversation', { conversationId: result.conversation_id });
+        navigation.navigate('Conversation', { conversationId: conversation.id });
       } else {
-        // error
+        // New group conversation, do create
+        const result = await Create.call({ profileIds, creatorId: creatorProfileId });
+        if(result?.conversation_id) {
+          // Redirect into the newly created group conversation with this Id
+          groupConvoRefetch();
+          navigation.navigate('Conversation', { conversationId: result.conversation_id });
+        } else { console.log("error creating conversation"); }
       }
     })()
   }
@@ -101,7 +108,7 @@ const GroupBuilderFriendList = (props) => {
       }}>
         {
           conversation ?
-          <>Adding to existing group:</>
+          <>Adding to &quot;{conversation?.name ? conversation.name : 'existing group'}&quot;:</>
           :
           <>Creating a new group with:</>
         }
@@ -113,11 +120,10 @@ const GroupBuilderFriendList = (props) => {
         ))
       }
       </>
-      {/* <GroupBuilderForm conversation={conversation} /> */}
       <SfButton
         round
         color={OPEN}
-        title="Create Group"
+        title={conversation ? "Confirm Add" : "Create Group"}
         onPress={() => submit()}
         style={{
           marginTop: 16,
