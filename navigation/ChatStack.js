@@ -28,7 +28,22 @@ function ChatStack() {
         }}
       />
       <Stack.Screen
-        name="Group Builder"
+        name="New Group"
+        component={GroupBuilderScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: backgrounds[1],
+            shadowColor: 'black',
+            shadowOpacity: 0.1,
+            shadowRadius: 3,
+          },
+          headerTitleStyle: {
+            color: foregrounds[0],
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Add Members"
         component={GroupBuilderScreen}
         options={{
           headerStyle: {
