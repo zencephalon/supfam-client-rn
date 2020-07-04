@@ -89,6 +89,8 @@ const GroupBuilderFriendList = (props) => {
 
   useSfListAnimation(friends);
 
+  const disabled = addingProfiles.length === 0;
+
   return (
     <>
       <FlatList
@@ -108,18 +110,20 @@ const GroupBuilderFriendList = (props) => {
         }
       />
       <FriendSearchBar updateQuery={setSearchQuery} />
-      <SfText
-        style={{
-          margin: 8,
-          fontSize: 16,
-        }}
-      >
-        {conversation ? (
-          <>Adding to existing group:</>
-        ) : (
-          <>Creating a new group with:</>
-        )}
-      </SfText>
+      {!disabled && (
+        <SfText
+          style={{
+            margin: 8,
+            fontSize: 16,
+          }}
+        >
+          {conversation ? (
+            <>Adding to existing group:</>
+          ) : (
+            <>Creating a new group with:</>
+          )}
+        </SfText>
+      )}
       <View style={{ flexDirection: 'row', marginLeft: 8, marginRight: 8 }}>
         {addingProfiles.map((profile) => (
           <ProfileIcon noBadge profileId={profile.id} key={profile.id} />
@@ -127,10 +131,12 @@ const GroupBuilderFriendList = (props) => {
       </View>
       {/* <GroupBuilderForm conversation={conversation} /> */}
       <SfButton
+        en
         round
+        disabled={disabled}
         color={OPEN}
-        title={conversation ? 'Create Group' : 'Update Group'}
-        onPress={() => submit()}
+        title={conversation ? 'Update Group' : 'Create Group'}
+        onPress={disabled ? () => {} : submit}
         style={{
           marginTop: 16,
         }}
