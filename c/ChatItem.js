@@ -19,26 +19,36 @@ export default function ChatItem({ chat }) {
   const navigation = useNavigation();
 
   const renderMemberNamesSummary = (chat) => {
-    let filteredMemberIds = chat.member_profile_ids.filter((profileId) => {return profileId != userProfileId});
+    let filteredMemberIds = chat.member_profile_ids.filter((profileId) => {
+      return profileId != userProfileId;
+    });
     const totalMembers = filteredMemberIds.length;
     filteredMemberIds = filteredMemberIds.slice(0, MAX_DISPLAY_MEMBERS);
     return (
-      <React.Fragment>
-        {
-          filteredMemberIds.map((profileId, index) => {
-            return (
-              <React.Fragment key={profileId}>
-                <ProfileName profileId={profileId} style={{fontSize: 18}}/>
-                { index < filteredMemberIds.length - 2 || (index < filteredMemberIds.length - 1 && totalMembers > MAX_DISPLAY_MEMBERS) ? <Text>{', '}</Text> : null }
-                { index == filteredMemberIds.length - 2 && totalMembers <= MAX_DISPLAY_MEMBERS ? <Text>{' & '}</Text> : null }
-                { index == filteredMemberIds.length - 1 && totalMembers > MAX_DISPLAY_MEMBERS ? <Text>{' & others'}</Text> : null }
-              </React.Fragment>
-            )
-          })
-        }
-      </React.Fragment>
-    )
-  }
+      <>
+        {filteredMemberIds.map((profileId, index) => {
+          return (
+            <React.Fragment key={profileId}>
+              <ProfileName profileId={profileId} style={{ fontSize: 16 }} />
+              {index < filteredMemberIds.length - 2 ||
+              (index < filteredMemberIds.length - 1 &&
+                totalMembers > MAX_DISPLAY_MEMBERS) ? (
+                <Text>{', '}</Text>
+              ) : null}
+              {index == filteredMemberIds.length - 2 &&
+              totalMembers <= MAX_DISPLAY_MEMBERS ? (
+                <Text>{' & '}</Text>
+              ) : null}
+              {index == filteredMemberIds.length - 1 &&
+              totalMembers > MAX_DISPLAY_MEMBERS ? (
+                <Text>{' & others'}</Text>
+              ) : null}
+            </React.Fragment>
+          );
+        })}
+      </>
+    );
+  };
 
   return (
     <TouchableOpacity
@@ -56,7 +66,14 @@ export default function ChatItem({ chat }) {
           hideRightSection
         />
         <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
-          <ProfileIcon profileId={chat.member_profile_ids[0]} size={48} />
+          <View style={{ flexDirection: 'row', width: 48, flexWrap: 'wrap' }}>
+            {chat.member_profile_ids
+              .filter((pId) => pId !== userProfileId)
+              .slice(0, 4)
+              .map((profileId) => (
+                <ProfileIcon key={profileId} profileId={profileId} size={24} />
+              ))}
+          </View>
           <View
             style={{
               flexDirection: 'column',
