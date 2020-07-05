@@ -4,6 +4,7 @@ import ChatsScreen from '~/screens/ChatsScreen';
 import ChatScreen from '~/screens/ChatScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 import GroupBuilderScreen from '~/screens/GroupBuilderScreen';
+import GroupSettingsScreen from '~/screens/GroupSettingsScreen';
 import useLight from '~/h/useLight';
 
 const Stack = createStackNavigator();
@@ -28,7 +29,7 @@ function ChatStack() {
         }}
       />
       <Stack.Screen
-        name="New Group"
+        name="Add Members to Group"
         component={GroupBuilderScreen}
         options={{
           headerStyle: {
@@ -45,6 +46,21 @@ function ChatStack() {
       <Stack.Screen
         name="Add Members"
         component={GroupBuilderScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: backgrounds[1],
+            shadowColor: 'black',
+            shadowOpacity: 0.1,
+            shadowRadius: 3,
+          },
+          headerTitleStyle: {
+            color: foregrounds[0],
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Group Settings"
+        component={GroupSettingsScreen}
         options={{
           headerStyle: {
             backgroundColor: backgrounds[1],

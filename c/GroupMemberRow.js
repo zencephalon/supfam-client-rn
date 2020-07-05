@@ -6,25 +6,31 @@ import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
 import ProfileIcon from '~/c/ProfileIcon';
 
-export default function AddToGroupRow({ profile, add, remove }) {
-  const [added, setAdded] = React.useState(false);
+import useGroupConversations from '~/h/useGroupConversations';
+import useCachedProfile from '~/h/useCachedProfile';
+import { postConversationRemoveMembers } from '~/apis/api';
+import useApi from '~/h/useApi';
 
-  const addToGroup = () => {
-    setAdded(true);
-    add(profile);
-  };
+export default function GroupMemberRow({ conversationId, profileId }) {
+  const [removed, setRemoved] = React.useState(false);
+  const profile = useCachedProfile(profileId);
+  const { refetch } = useGroupConversations();
 
-  const cancelAddToGroup = () => {
-    setAdded(false);
-    remove(profile.id);
-  };
+  const RemoveMember = useApi(postConversationRemoveMembers);
+  const remove = () => {
+    (async() => {
+      await RemoveMember.call({ conversationId, profileId });
+      refetch();
+      setRemoved(true);
+    })();
+  }
 
   return (
     <TouchableOpacity
       style={styles.addToGroupRow}
       onPress={() => {
-        if (!added) {
-          addToGroup();
+        if (!removed) {
+          remove();
         }
       }}
     >
@@ -62,14 +68,11 @@ export default function AddToGroupRow({ profile, add, remove }) {
                 top: 0,
               }}
             >
-              {added ? (
-                <SfInlineButton
-                  title="Remove"
-                  onPress={() => cancelAddToGroup()}
-                />
-              ) : (
-                <SfInlineButton title="Add" onPress={() => addToGroup()} />
-              )}
+              {removed ? 
+                <SfInlineButton title="Removed" disabled />
+                : 
+                <SfInlineButton title="Remove" onPress={() => remove()} />
+              }
             </View>
           </View>
         </View>
