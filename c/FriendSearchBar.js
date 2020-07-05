@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 
 const FriendSearchBar = (props) => {
@@ -15,8 +15,6 @@ const FriendSearchBar = (props) => {
       style={{
         marginLeft: 8,
         marginRight: 8,
-        // alignItems: 'center',
-        // justifyContent: '',
       }}
     >
       <SfTextInput
@@ -25,7 +23,6 @@ const FriendSearchBar = (props) => {
         onChangeText={updateQuery}
         placeholder="🔍 Search"
         textInputStyle={{ fontSize: 16 }}
-        // textStyle={{ color: '#000' }}
         value={query}
       />
     </View>

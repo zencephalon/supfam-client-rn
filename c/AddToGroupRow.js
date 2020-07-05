@@ -6,9 +6,6 @@ import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
 import ProfileIcon from '~/c/ProfileIcon';
 
-// import useProfileId from '~/h/useProfileId';
-// import useApi from '~/h/useApi';
-
 export default function AddToGroupRow({ profile, add, remove }) {
   const [added, setAdded] = React.useState(false);
 
