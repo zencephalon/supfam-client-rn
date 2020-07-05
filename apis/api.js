@@ -88,6 +88,12 @@ export const postConversationAddMembers = ({ conversationId, profileIds }) => {
   });
 };
 
+export const postConversationRemoveMembers = ({ conversationId, profileId }) => {
+  return api.postToAPI(`conversations/${conversationId}/remove_member`, {
+    body: JSON.stringify({ profileId }),
+  });
+};
+
 export const putStatusMe = (data) => {
   return api.putToAPI('statuses/me', {
     body: JSON.stringify(data),

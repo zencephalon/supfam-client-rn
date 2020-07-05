@@ -14,7 +14,7 @@ const GroupMemberList = (props) => {
 
   const renderAddToGroupRow = React.useCallback(
     ({ item: profileId }) => {
-      return <GroupMemberRow profileId={profileId} />;
+      return <GroupMemberRow conversationId={conversation.id} profileId={profileId} />;
     },
     []
   );

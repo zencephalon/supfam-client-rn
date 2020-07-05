@@ -6,15 +6,23 @@ import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
 import ProfileIcon from '~/c/ProfileIcon';
 
+import useGroupConversations from '~/h/useGroupConversations';
 import useCachedProfile from '~/h/useCachedProfile';
-// import useApi from '~/h/useApi';
+import { postConversationRemoveMembers } from '~/apis/api';
+import useApi from '~/h/useApi';
 
-export default function GroupMemberRow({ profileId }) {
+export default function GroupMemberRow({ conversationId, profileId }) {
   const [removed, setRemoved] = React.useState(false);
   const profile = useCachedProfile(profileId);
+  const { refetch } = useGroupConversations();
 
+  const RemoveMember = useApi(postConversationRemoveMembers);
   const remove = () => {
-    setRemoved(true);
+    (async() => {
+      await RemoveMember.call({ conversationId, profileId });
+      refetch();
+      setRemoved(true);
+    })();
   }
 
   return (
@@ -60,15 +68,11 @@ export default function GroupMemberRow({ profileId }) {
                 top: 0,
               }}
             >
-              {removed ? (
-                <SfInlineButton
-                  title="Remove"
-                  disabled
-                  onPress={() => {}}
-                />
-              ) : (
+              {removed ? 
+                <SfInlineButton title="Removed" disabled />
+                : 
                 <SfInlineButton title="Remove" onPress={() => remove()} />
-              )}
+              }
             </View>
           </View>
         </View>
