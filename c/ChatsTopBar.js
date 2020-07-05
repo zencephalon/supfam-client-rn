@@ -25,7 +25,7 @@ export default function ChatsTopBar({ title }) {
       <SfText style={{ color: foregrounds[1] }}>{title}</SfText>
       <TouchableOpacity
         style={{ padding: 4 }}
-        onPress={() => navigation.navigate('New Group', { conversation: null })}
+        onPress={() => navigation.navigate('Add Members to Group', { conversation: null })}
       >
         <MaterialIcons
           name="group-add"

@@ -34,7 +34,7 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
       </View>
       <TouchableOpacity
         style={{ padding: 4 }}
-        onPress={() => navigation.navigate('Add Members', { conversation })}
+        onPress={() => navigation.navigate('Group Settings', { conversation })}
       >
         <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
