@@ -15,7 +15,6 @@ const GroupNameForm = (props) => {
   const { call, req } = useApi(putConversationName);
 
   const submit = () => {
-    console.log('submit name', name);
     call({ conversationId: conversation.id, name });
   };
 

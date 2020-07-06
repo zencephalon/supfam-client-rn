@@ -1,29 +1,55 @@
 import * as React from 'react';
 
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 
 import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
 import ProfileIcon from '~/c/ProfileIcon';
 
-import useGroupConversations from '~/h/useGroupConversations';
-import useCachedProfile from '~/h/useCachedProfile';
 import { postConversationRemoveMembers } from '~/apis/api';
 import useApi from '~/h/useApi';
+import useGroupConversations from '~/h/useGroupConversations';
+import useCachedProfile from '~/h/useCachedProfile';
+import useProfileId from '~/h/useProfileId';
+import { useNavigation } from '@react-navigation/native';
 
 export default function GroupMemberRow({ conversationId, profileId }) {
-  const [removed, setRemoved] = React.useState(false);
-  const profile = useCachedProfile(profileId);
+  const navigation = useNavigation();
+  const userProfileId = useProfileId();
   const { refetch } = useGroupConversations();
+  const profile = useCachedProfile(profileId);
 
   const RemoveMember = useApi(postConversationRemoveMembers);
+
+  const [removed, setRemoved] = React.useState(false);
+
   const remove = () => {
-    (async() => {
-      await RemoveMember.call({ conversationId, profileId });
-      refetch();
-      setRemoved(true);
-    })();
-  }
+    Alert.alert(
+      'Are you sure?',
+      `This will remove ${userProfileId == profileId ? 'you' : profile.name} from the group conversation. ${userProfileId == profileId ? 'You will not be able to rejoin unless a remaining group member adds you back.' : ''}`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: `${userProfileId == profileId ? 'Leave' : 'Remove'}`,
+          onPress: () => {
+            (async() => {
+              await RemoveMember.call({ conversationId, profileId });
+              refetch();
+              setRemoved(true);
+              if(userProfileId == profileId) {
+                // You just left the conversation, so navigate back to group home.
+                navigation.navigate('Home');
+              }
+            })();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   return (
     <TouchableOpacity
@@ -71,7 +97,7 @@ export default function GroupMemberRow({ conversationId, profileId }) {
               {removed ? 
                 <SfInlineButton title="Removed" disabled />
                 : 
-                <SfInlineButton title="Remove" onPress={() => remove()} />
+                <SfInlineButton title={userProfileId == profileId ? 'Leave' : 'Remove'} onPress={() => remove()} />
               }
             </View>
           </View>
