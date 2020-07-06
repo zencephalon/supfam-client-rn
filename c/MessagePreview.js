@@ -7,6 +7,13 @@ import SfText from '~/c/SfText';
 export default function MessagePreview({ message }) {
   const { backgrounds } = useLight();
   // TODO: handle non-text messages
+  let preview = '';
+  if (message?.type === 0) {
+    preview = message?.message;
+  }
+  if (message?.type === 1) {
+    preview = 'Sent an image';
+  }
   return (
     <SfText
       style={{
@@ -25,7 +32,7 @@ export default function MessagePreview({ message }) {
       }}
       numberOfLines={1}
     >
-      {message?.message}
+      {preview}
     </SfText>
   );
 }
