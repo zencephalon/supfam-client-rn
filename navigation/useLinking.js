@@ -1,5 +1,5 @@
 import { useLinking } from '@react-navigation/native';
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 
 // TODO: this is just totally wrong
 export default function (containerRef) {
