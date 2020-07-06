@@ -4,6 +4,7 @@ import { RefreshControl } from 'react-native';
 
 import ProfileStatus from '~/c/ProfileStatus';
 import RespondToInviteRow from '~/c/RespondToInviteRow';
+import EmptyListPlaceholder from '~/c/EmptyListPlaceholder';
 
 import useLight from '~/h/useLight';
 import useFriends from '~/h/useFriends';
@@ -43,11 +44,12 @@ const FriendList = () => {
   const { friends, refetch, isFetching } = useFriends();
   let { friendInvitesTo, refetch: refetchInvites } = useFriendInvitesTo();
 
-  const listItems = useFriendListItems(friends, friendInvitesTo);
+  let listItems = useFriendListItems(friends, friendInvitesTo);
 
   useSfListAnimation(listItems);
 
   return (
+    <>
     <FlatList
       inverted
       data={listItems}
@@ -65,6 +67,8 @@ const FriendList = () => {
       }
       onEndReachedThreshold={5}
     />
+    <EmptyListPlaceholder show={listItems?.length == 0} text="You aren't connected to anyone on Supfam yet. Add your friends using the button in the upper right." />
+    </>
   );
 };
 

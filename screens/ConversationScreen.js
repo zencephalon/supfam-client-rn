@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { View } from 'react-native';
 import { useQuery } from 'react-query';
 import { getProfileDmConversation } from '~/apis/api';
 
@@ -8,6 +7,7 @@ import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import ConversationTopBar from '~/c/ConversationTopBar';
+import EmptyListPlaceholder from '~/c/EmptyListPlaceholder';
 
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
@@ -45,6 +45,7 @@ export default function ConversationScreen({ navigation, route }) {
         statusMessage={profile?.status?.message}
         navigation={navigation}
       />
+      <EmptyListPlaceholder show={messages.length == 0} text="No messages have been sent yet. Start the conversation!"/>
       <MessageList
         messages={messages}
         meProfileId={meProfileId}

@@ -8,6 +8,7 @@ import { OPEN } from '~/constants/Colors';
 import { putConversationName } from '~/apis/api';
 import useApi from '~/h/useApi';
 import useCachedConversation from '~/h/useCachedConversation';
+import useGroupConversations from '~/h/useGroupConversations';
 
 const GroupNameForm = ({ conversationId }) => {
   const { conversation } = useCachedConversation(conversationId);
@@ -15,9 +16,13 @@ const GroupNameForm = ({ conversationId }) => {
 
   const { call, req } = useApi(putConversationName);
 
+  const { refetch } = useGroupConversations();
+
   const submit = () => {
-    console.log('submit name', name);
-    call({ conversationId: conversationId, name });
+    (async() => {
+      await call({ conversationId: conversationId, name });
+      refetch();
+    })();
   };
 
   return (
