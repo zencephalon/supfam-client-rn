@@ -7,15 +7,16 @@ import { OPEN } from '~/constants/Colors';
 
 import { putConversationName } from '~/apis/api';
 import useApi from '~/h/useApi';
+import useCachedConversation from '~/h/useCachedConversation';
 
-const GroupNameForm = (props) => {
-  const { conversation } = props;
+const GroupNameForm = ({ conversationId }) => {
+  const { conversation } = useCachedConversation(conversationId);
   const [name, setName] = React.useState(conversation?.name);
 
   const { call, req } = useApi(putConversationName);
 
   const submit = () => {
-    call({ conversationId: conversation.id, name });
+    call({ conversationId: conversationId, name });
   };
 
   return (

@@ -8,22 +8,14 @@ import GroupConversationTopBar from '~/c/GroupConversationTopBar';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
-
-import { useQuery } from 'react-query';
-import { getConversation } from '~/apis/api';
+import useCachedConversation from '~/h/useCachedConversation';
 
 export default function ChatScreen({ navigation, route }) {
   const { conversationId } = route.params;
 
   const meProfileId = useProfileId();
 
-  const { data: conversation } = useQuery(
-    ['groupConversation', { conversationId }],
-    getConversation,
-    {
-      enabled: conversationId,
-    }
-  );
+  const { conversation } = useCachedConversation(conversationId);
 
   const { fetchMore, canFetchMore, messages } = useMessages(
     conversationId,

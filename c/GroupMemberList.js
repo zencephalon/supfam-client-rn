@@ -5,19 +5,19 @@ import GroupMemberRow from '~/c/GroupMemberRow';
 
 import useLight from '~/h/useLight';
 import useSfListAnimation from '~/h/useSfListAnimation';
+import useCachedConversation from '~/h/useCachedConversation';
 
-const GroupMemberList = (props) => {
-  const { conversation } = props;
+const GroupMemberList = ({ conversationId }) => {
+  const { conversation } = useCachedConversation(conversationId);
   const { backgrounds } = useLight();
 
   const groupMembers = conversation.member_profile_ids;
 
-  const renderAddToGroupRow = React.useCallback(
-    ({ item: profileId }) => {
-      return <GroupMemberRow conversationId={conversation.id} profileId={profileId} />;
-    },
-    []
-  );
+  const renderAddToGroupRow = React.useCallback(({ item: profileId }) => {
+    return (
+      <GroupMemberRow conversationId={conversation.id} profileId={profileId} />
+    );
+  }, []);
 
   useSfListAnimation(groupMembers);
 

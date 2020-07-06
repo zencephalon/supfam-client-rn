@@ -9,7 +9,7 @@ export default function useGroupConversations() {
       onSuccess: (conversations) => {
         conversations.forEach((conversation) => {
           queryCache.setQueryData(
-            ['groupConversation', conversation.id],
+            ['conversation', conversation.id],
             conversation
           );
         });

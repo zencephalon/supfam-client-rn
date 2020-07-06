@@ -29,7 +29,7 @@ function ChatStack() {
         }}
       />
       <Stack.Screen
-        name="Add Members to Group"
+        name="New Group"
         component={GroupBuilderScreen}
         options={{
           headerStyle: {

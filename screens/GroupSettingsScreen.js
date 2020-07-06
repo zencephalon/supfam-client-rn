@@ -4,24 +4,26 @@ import GroupMemberList from '~/c/GroupMemberList';
 import GroupNameForm from '~/c/GroupNameForm';
 import SfTextButton from '~/c/SfTextButton';
 
-export default function GroupBuilderScreen({navigation, route}) {
-  const { conversation } = route.params;
+export default function GroupBuilderScreen({ navigation, route }) {
+  const { conversationId } = route.params;
 
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={96}>
-      <GroupMemberList conversation={conversation} />
+      <GroupMemberList conversationId={conversationId} />
       <SfTextButton
         en
         round
-        title='Add members...'
-        onPress={() => navigation.navigate('Add Members to Group', {
-          conversation: conversation,
-        })}
+        title="Add members..."
+        onPress={() =>
+          navigation.navigate('Add Members', {
+            conversationId,
+          })
+        }
         style={{
           marginTop: 16,
         }}
       />
-      <GroupNameForm conversation={conversation} />
+      <GroupNameForm conversationId={conversationId} />
     </SfKeyboardAvoidingView>
   );
 }
