@@ -4,7 +4,7 @@ import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import GroupConversationTopBar from '~/c/GroupConversationTopBar';
-import EmptyChatPlaceholder from '~/c/EmptyChatPlaceholder';
+import EmptyListPlaceholder from '~/c/EmptyListPlaceholder';
 
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
@@ -31,7 +31,7 @@ export default function ChatScreen({ navigation, route }) {
         conversation={conversation}
         navigation={navigation}
       />
-      <EmptyChatPlaceholder show={messages.length == 0} text="No messages have been sent in this group yet. Be the first!"/>
+      <EmptyListPlaceholder show={messages.length == 0} text="No messages have been sent in this group yet. Be the first!"/>
       <MessageList
         messages={messages}
         meProfileId={meProfileId}

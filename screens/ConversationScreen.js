@@ -7,7 +7,7 @@ import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import ConversationTopBar from '~/c/ConversationTopBar';
-import EmptyChatPlaceholder from '~/c/EmptyChatPlaceholder';
+import EmptyListPlaceholder from '~/c/EmptyListPlaceholder';
 
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
@@ -45,7 +45,7 @@ export default function ConversationScreen({ navigation, route }) {
         statusMessage={profile?.status?.message}
         navigation={navigation}
       />
-      <EmptyChatPlaceholder show={messages.length == 0} text="No messages have been sent yet. Start the conversation!"/>
+      <EmptyListPlaceholder show={messages.length == 0} text="No messages have been sent yet. Start the conversation!"/>
       <MessageList
         messages={messages}
         meProfileId={meProfileId}

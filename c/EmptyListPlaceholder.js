@@ -5,7 +5,8 @@ import SfText from '~/c/SfText';
 
 import {nord10} from '~/constants/Colors';
 
-const EmptyChatPlaceholder = ({show, text}) => {
+const EmptyListPlaceholder = ({show, text}) => {
+  console.log(" displayed", show, text);
   return(
     <View style={{
       position: 'absolute',
@@ -28,4 +29,4 @@ const EmptyChatPlaceholder = ({show, text}) => {
   )
 }
 
-export default EmptyChatPlaceholder;
+export default EmptyListPlaceholder;

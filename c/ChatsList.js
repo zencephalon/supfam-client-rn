@@ -3,6 +3,7 @@ import { RefreshControl } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import ChatItem from '~/c/ChatItem';
+import EmptyListPlaceholder from '~/c/EmptyListPlaceholder';
 
 import useLight from '~/h/useLight';
 import useGroupConversations from '~/h/useGroupConversations';
@@ -18,6 +19,7 @@ const ChatList = () => {
 
   useSfListAnimation(groupConversations);
   return (
+    <>
     <FlatList
       inverted
       data={groupConversations}
@@ -33,6 +35,8 @@ const ChatList = () => {
         />
       }
     />
+    <EmptyListPlaceholder show={groupConversations?.length == 0} text="You have no group chats. Create one by clicking '+' in the upper right." />
+    </>
   );
 };
 
