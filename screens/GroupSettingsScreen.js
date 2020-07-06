@@ -4,7 +4,7 @@ import GroupMemberList from '~/c/GroupMemberList';
 import GroupNameForm from '~/c/GroupNameForm';
 import SfTextButton from '~/c/SfTextButton';
 
-export default function GroupBuilderScreen({ navigation, route }) {
+export default function GroupSettingsScreen({ navigation, route }) {
   const { conversationId } = route.params;
 
   return (

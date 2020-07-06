@@ -6,7 +6,6 @@ import SfText from '~/c/SfText';
 import {nord10} from '~/constants/Colors';
 
 const EmptyListPlaceholder = ({show, text}) => {
-  console.log(" displayed", show, text);
   return(
     <View style={{
       position: 'absolute',
