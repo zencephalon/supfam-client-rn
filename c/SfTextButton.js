@@ -11,17 +11,13 @@ const SfTextButton = (props) => {
 
   const textColor = foregrounds[0];
 
-  const mergedStyle = [
-    styles.exButton,
-    style,
-  ];
+  const mergedStyle = [styles.exButton, style];
   return (
     <TouchableOpacity {...rest} style={mergedStyle}>
       <Text
         style={[
           styles.buttonText,
           {
-            background: 'none',
             color: textColor,
             marginTop: disabled ? 3 : 0,
             marginBottom: disabled ? 0 : 3,

@@ -76,7 +76,10 @@ export const getConversationPreview = (_key, conversationId) => {
   return api.fetchFromAPI(`conversations/${conversationId}/preview`);
 };
 
-export const postConversationCreateWithMembers = ({ profileIds, creatorId }) => {
+export const postConversationCreateWithMembers = ({
+  profileIds,
+  creatorId,
+}) => {
   return api.postToAPI(`conversations/create`, {
     body: JSON.stringify({ profileIds, creatorId }),
   });
@@ -88,9 +91,18 @@ export const postConversationAddMembers = ({ conversationId, profileIds }) => {
   });
 };
 
-export const postConversationRemoveMembers = ({ conversationId, profileId }) => {
+export const postConversationRemoveMembers = ({
+  conversationId,
+  profileId,
+}) => {
   return api.postToAPI(`conversations/${conversationId}/remove_member`, {
     body: JSON.stringify({ profileId }),
+  });
+};
+
+export const putConversationName = ({ conversationId, name }) => {
+  return api.putToAPI(`conversations/${conversationId}/name`, {
+    body: JSON.stringify({ name }),
   });
 };
 

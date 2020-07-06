@@ -5,12 +5,18 @@ import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
 import { OPEN } from '~/constants/Colors';
 
+import { putConversationName } from '~/apis/api';
+import useApi from '~/h/useApi';
+
 const GroupNameForm = (props) => {
   const { conversation } = props;
   const [name, setName] = React.useState(conversation?.name);
 
+  const { call, req } = useApi(putConversationName);
+
   const submit = () => {
-    console.log("submit name", name);
+    console.log('submit name', name);
+    call({ conversationId: conversation.id, name });
   };
 
   return (
@@ -29,12 +35,14 @@ const GroupNameForm = (props) => {
         placeholder="Enter a name for your group"
         textInputStyle={{ fontSize: 16 }}
         value={name}
+        ok={req.confirmed && !req.requested}
+        working={req.requested}
       />
       <SfButton
         en
         round
         color={OPEN}
-        title='Save Group Name'
+        title="Save Group Name"
         onPress={submit}
         style={{
           marginTop: 16,
