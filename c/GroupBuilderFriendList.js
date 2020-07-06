@@ -15,6 +15,7 @@ import useSfListAnimation from '~/h/useSfListAnimation';
 import useFriends from '~/h/useFriends';
 import useProfileId from '~/h/useProfileId';
 import useGroupConversations from '~/h/useGroupConversations';
+import useCachedConversation from '~/h/useCachedConversation';
 
 import {
   postConversationCreateWithMembers,
@@ -22,8 +23,8 @@ import {
 } from '~/apis/api';
 import useApi from '~/h/useApi';
 
-const GroupBuilderFriendList = (props) => {
-  const { conversation, navigation } = props;
+const GroupBuilderFriendList = ({ conversationId, navigation }) => {
+  const { conversation } = useCachedConversation(conversationId);
   const { backgrounds } = useLight();
   const [searchQuery, setSearchQuery] = React.useState('');
   const [addingProfiles, setAddingProfiles] = React.useState([]);
@@ -59,12 +60,12 @@ const GroupBuilderFriendList = (props) => {
   const submit = () => {
     (async () => {
       const profileIds = addingProfiles.map((profile) => profile.id);
-      if (conversation) {
+      if (conversationId) {
         // Existing conversation, do add
-        await AddMembers.call({ conversationId: conversation.id, profileIds });
+        AddMembers.call({ conversationId, profileIds });
         groupConvoRefetch();
         navigation.navigate('Conversation', {
-          conversationId: conversation.id,
+          conversationId,
         });
       } else {
         // New group conversation, do create
@@ -88,7 +89,7 @@ const GroupBuilderFriendList = (props) => {
   let { friends, refetch, isFetching } = useFriends();
 
   // Filter out friends who are already in the conversation
-  if (conversation) {
+  if (conversation?.member_profile_ids) {
     friends = friends.filter(
       (friend) => !conversation.member_profile_ids.includes(friend.id)
     );
@@ -131,7 +132,7 @@ const GroupBuilderFriendList = (props) => {
             fontSize: 16,
           }}
         >
-          {conversation ? (
+          {conversationId ? (
             <>Adding to existing group:</>
           ) : (
             <>Creating a new group with:</>
@@ -143,13 +144,12 @@ const GroupBuilderFriendList = (props) => {
           <ProfileIcon noBadge profileId={profile.id} key={profile.id} />
         ))}
       </View>
-      {/* <GroupBuilderForm conversation={conversation} /> */}
       <SfButton
         en
         round
         disabled={disabled}
         color={OPEN}
-        title={conversation ? 'Update Group' : 'Create Group'}
+        title={conversationId ? 'Update Group' : 'Create Group'}
         onPress={disabled ? () => {} : submit}
         style={{
           marginTop: 16,

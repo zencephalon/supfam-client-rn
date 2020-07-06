@@ -7,7 +7,6 @@ export default function useCachedProfile(conversationId) {
     ['conversation', conversationId],
     getConversation,
     {
-      staleTime: Infinity,
       enabled: conversationId,
     }
   );
