@@ -15,7 +15,7 @@ export default function ChatScreen({ navigation, route }) {
 
   const meProfileId = useProfileId();
 
-  const conversation = useCachedConversation(conversationId);
+  const { conversation } = useCachedConversation(conversationId);
 
   const { fetchMore, canFetchMore, messages } = useMessages(
     conversationId,

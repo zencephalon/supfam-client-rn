@@ -12,5 +12,5 @@ export default function useCachedProfile(conversationId) {
     }
   );
 
-  return conversation;
+  return { conversation };
 }
