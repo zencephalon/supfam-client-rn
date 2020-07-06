@@ -4,6 +4,7 @@ import HomeScreen from '~/screens/HomeScreen';
 import ConversationScreen from '~/screens/ConversationScreen';
 import InviteScreen from '~/screens/InviteScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
+import FriendSettingsScreen from '~/screens/FriendSettingsScreen';
 import useLight from '~/h/useLight';
 
 const Stack = createStackNavigator();
@@ -45,6 +46,21 @@ function HomeStack() {
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: backgrounds[1],
+            shadowColor: 'black',
+            shadowOpacity: 0.1,
+            shadowRadius: 3,
+          },
+          headerTitleStyle: {
+            color: foregrounds[0],
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Friend Settings"
+        component={FriendSettingsScreen}
         options={{
           headerStyle: {
             backgroundColor: backgrounds[1],

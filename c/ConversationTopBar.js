@@ -52,7 +52,12 @@ export default function ConversationTopBar({
           </SfText>
         </View>
       </View>
-      <TouchableOpacity style={{ padding: 4 }}>
+      <TouchableOpacity
+        style={{ padding: 4 }}
+        onPress={() =>
+          navigation.navigate('Friend Settings', { profileId })
+        }
+      >
         <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
     </SfTopBar>
