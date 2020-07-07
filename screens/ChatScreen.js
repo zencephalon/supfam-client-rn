@@ -33,10 +33,9 @@ export default function ChatScreen({ navigation, route }) {
         conversation={conversation}
         navigation={navigation}
       />
-      <EmptyListPlaceholder
-        show={messages.length == 0}
-        text="No messages have been sent in this group yet. Be the first!"
-      />
+      {messages.length == 0 && (
+        <EmptyListPlaceholder text="No messages have been sent in this group yet. Be the first!" />
+      )}
       <MessageList
         messages={messages}
         meProfileId={meProfileId}

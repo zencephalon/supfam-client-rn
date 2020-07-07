@@ -20,22 +20,24 @@ const ChatList = () => {
   useSfListAnimation(groupConversations);
   return (
     <>
-    <FlatList
-      inverted
-      data={groupConversations}
-      style={{ backgroundColor: backgrounds[0] }}
-      renderItem={renderChatListing}
-      keyExtractor={(chat) => `${chat.id}`}
-      refreshControl={
-        <RefreshControl
-          refreshing={isFetching}
-          onRefresh={() => {
-            refetch();
-          }}
-        />
-      }
-    />
-    <EmptyListPlaceholder show={groupConversations?.length == 0} text="You have no group chats. Create one by clicking '+' in the upper right." />
+      <FlatList
+        inverted
+        data={groupConversations}
+        style={{ backgroundColor: backgrounds[0] }}
+        renderItem={renderChatListing}
+        keyExtractor={(chat) => `${chat.id}`}
+        refreshControl={
+          <RefreshControl
+            refreshing={isFetching}
+            onRefresh={() => {
+              refetch();
+            }}
+          />
+        }
+      />
+      {groupConversations?.length == 0 && (
+        <EmptyListPlaceholder text="You have no group chats. Create one by clicking '+' in the upper right." />
+      )}
     </>
   );
 };

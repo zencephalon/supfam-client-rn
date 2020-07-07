@@ -50,24 +50,26 @@ const FriendList = () => {
 
   return (
     <>
-    <FlatList
-      inverted
-      data={listItems}
-      style={{ backgroundColor: backgrounds[0] }}
-      renderItem={renderProfileOrInvite}
-      keyExtractor={(item) => `${item.type}${item.id}`}
-      refreshControl={
-        <RefreshControl
-          refreshing={isFetching}
-          onRefresh={() => {
-            refetch();
-            refetchInvites();
-          }}
-        />
-      }
-      onEndReachedThreshold={5}
-    />
-    <EmptyListPlaceholder show={listItems?.length == 0} text="You aren't connected to anyone on Supfam yet. Add your friends using the button in the upper right." />
+      <FlatList
+        inverted
+        data={listItems}
+        style={{ backgroundColor: backgrounds[0] }}
+        renderItem={renderProfileOrInvite}
+        keyExtractor={(item) => `${item.type}${item.id}`}
+        refreshControl={
+          <RefreshControl
+            refreshing={isFetching}
+            onRefresh={() => {
+              refetch();
+              refetchInvites();
+            }}
+          />
+        }
+        onEndReachedThreshold={5}
+      />
+      {!isFetching && listItems?.length == 0 && (
+        <EmptyListPlaceholder text="You aren't connected to anyone on Supfam yet. Add your friends using the button in the upper right." />
+      )}
     </>
   );
 };

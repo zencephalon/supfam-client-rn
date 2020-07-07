@@ -39,10 +39,9 @@ export default function ConversationScreen({ navigation, route }) {
         statusMessage={profile?.status?.message}
         navigation={navigation}
       />
-      <EmptyListPlaceholder
-        show={messages.length == 0}
-        text="No messages have been sent yet. Start the conversation!"
-      />
+      {messages.length == 0 && (
+        <EmptyListPlaceholder text="No messages have been sent yet. Start the conversation!" />
+      )}
       <MessageList
         messages={messages}
         meProfileId={meProfileId}
