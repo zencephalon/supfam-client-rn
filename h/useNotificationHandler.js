@@ -13,7 +13,7 @@ export default function useNotificationHandler(containerRef) {
 
   React.useEffect(() => {
     const handleNotification = (notification) => {
-      console.log('RECEIVED NOTIFICATION', notification, conversationId);
+      // console.log('RECEIVED NOTIFICATION', notification, conversationId);
       if (notification.origin === 'received' && notification.remote) {
         const message = notification?.data?.message;
         if (!message) {
@@ -33,23 +33,22 @@ export default function useNotificationHandler(containerRef) {
       }
       if (notification.origin === 'selected' || !notification.remote) {
         const message = notification?.data?.message;
+
+        if (!message) {
+          return;
+        }
+
         const isDm = notification?.data?.isDm;
-        if (message) {
-          if (isDm) {
-            containerRef.current?.navigate('Home', {
-              screen: 'Conversation',
-              params: {
-                profileId: message.profile_id,
-              },
-            });
-          } else {
-            containerRef.current?.navigate('Groups', {
-              screen: 'Group',
-              params: {
-                conversationId: message.conversation_id,
-              },
-            });
-          }
+
+        if (isDm) {
+          console.log('going to ', message.profile_id);
+          containerRef.current?.navigate('Conversation', {
+            profileId: message.profile_id,
+          });
+        } else {
+          containerRef.current?.navigate('Group', {
+            conversationId: message.conversation_id,
+          });
         }
       }
     };
