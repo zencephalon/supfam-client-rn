@@ -44,7 +44,7 @@ const FriendList = () => {
   const { friends, refetch, isFetching } = useFriends();
   let { friendInvitesTo, refetch: refetchInvites } = useFriendInvitesTo();
 
-  let listItems = useFriendListItems(friends, friendInvitesTo);
+  const listItems = useFriendListItems(friends, friendInvitesTo);
 
   useSfListAnimation(listItems);
 

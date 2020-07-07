@@ -156,6 +156,12 @@ export const getFriendInvitesTo = (_key, toProfileId) => {
   return api.fetchFromAPI(`friend_invites/to/${toProfileId}`);
 };
 
+export const postBlockFriend = ({ from_profile_id, to_profile_id }) => {
+  return api.postToAPI(`friends/block`, {
+    body: JSON.stringify({ from_profile_id, to_profile_id }),
+  });
+};
+
 export const postVerify = ({ token, code }) => {
   return api.postToAPI('verify', {
     body: JSON.stringify({ token, code }),
