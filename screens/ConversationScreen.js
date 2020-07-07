@@ -1,8 +1,5 @@
 import * as React from 'react';
 
-import { useQuery } from 'react-query';
-import { getProfileDmConversation } from '~/apis/api';
-
 import MessageList from '~/c/MessageList';
 import MessageInput from '~/c/MessageInput';
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
@@ -12,6 +9,7 @@ import EmptyListPlaceholder from '~/c/EmptyListPlaceholder';
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
+import useProfileDmConversation from '~/h/useProfileDmConversation';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
 import useConversationSelect from '~/h/useConversationSelect';
 
@@ -22,13 +20,7 @@ export default function ConversationScreen({ navigation, route }) {
 
   const profile = useCachedProfile(profileId);
 
-  const { data: conversation } = useQuery(
-    ['dmWith', { profileId }],
-    getProfileDmConversation,
-    {
-      enabled: profileId,
-    }
-  );
+  const { conversation } = useProfileDmConversation(profileId);
   const conversationId = conversation?.id;
   useConversationSelect(conversationId);
 
