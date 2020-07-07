@@ -1,11 +1,11 @@
 import * as t from './actionTypes';
 
-export default function reducer(state = { profileId: undefined }, action) {
+export default function reducer(state = { conversationId: undefined }, action) {
   switch (action.type) {
     case t.SELECT:
       return {
         ...state,
-        profileId: action.profileId,
+        conversationId: action.conversationId,
       };
     default:
       return state;
