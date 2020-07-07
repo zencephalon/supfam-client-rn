@@ -5,19 +5,17 @@ import FullScreenLoader from '~/c/FullScreenLoader';
 import ProfileCreate from '~/c/ProfileCreate';
 import AuthToken from '~/lib/AuthToken';
 
-import { SELECT } from '~/apis/profile/actions';
-
-import { useDispatch } from 'react-redux';
+import useProfileSelect from '~/h/useProfileSelect';
 
 const ProfileGate = (props) => {
-  const dispatch = useDispatch();
+  const profileSelect = useProfileSelect();
   const { data: profiles, status } = useQuery('profilesMe', getProfilesMe);
 
   React.useEffect(() => {
     if ((profiles?.length || 0) > 0) {
       profiles.forEach((profile) => {
         if (profile.is_default) {
-          dispatch(SELECT(profile.id));
+          profileSelect(profile.id);
         }
       });
     }
