@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Alert } from 'react-native';
 import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
 
 import FullScreenLoader from '~/c/FullScreenLoader';
 import SfContainer from '~/c/SfContainer';
@@ -40,18 +39,26 @@ const ProfileGate = (props) => {
   React.useEffect(() => {
     const f = async () => {
       if (Constants.isDevice) {
-        // const { status: existingStatus } = await Permissions.getAsync(
-        //   Permissions.NOTIFICATIONS
-        // );
         const settings = await Notifications.getPermissionsAsync();
         setWaiting(false);
         console.log({ settings });
-        if (
-          settings.granted ||
-          settings.ios?.status ===
-            Notifications.IosAuthorizationStatus.PROVISIONAL
-        ) {
+        if (settings.granted || settings.ios?.status === 'provisional') {
           setNotificationsEnabled(true);
+
+          if (Platform.OS === 'android') {
+            Notifications.setNotificationChannelAsync('default', {
+              name: 'default',
+              importance: Notifications.AndroidImportance.MAX,
+              vibrationPattern: [0, 250, 250, 250],
+              lightColor: '#FF231F7C',
+            });
+            Notifications.setNotificationChannelAsync('minor', {
+              name: 'minor',
+              importance: Notifications.AndroidImportance.MAX,
+              vibrationPattern: [0, 250, 250, 250],
+              lightColor: '#FF231F7C',
+            });
+          }
         }
       } else {
         // Not really, but we can't on a simulator
@@ -76,7 +83,6 @@ const ProfileGate = (props) => {
         {
           text: 'Allow',
           onPress: async () => {
-            // await Permissions.askAsync(Permissions.NOTIFICATIONS);
             await Notifications.requestPermissionsAsync({
               ios: {
                 allowAlert: true,

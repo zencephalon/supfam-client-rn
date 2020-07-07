@@ -16,8 +16,6 @@ import useConversationSelect from '~/h/useConversationSelect';
 export default function ConversationScreen({ navigation, route }) {
   const { profileId } = route.params;
 
-  console.log({ profileId }, 'in conversationScreen');
-
   const meProfileId = useProfileId();
 
   const profile = useCachedProfile(profileId);

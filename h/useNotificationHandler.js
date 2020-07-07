@@ -1,11 +1,12 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Notifications } from 'expo';
 
 import useConversationId from '~/h/useConversationId';
 
 import _ from 'lodash';
+
+import * as Notifications from 'expo-notifications';
 
 export default function useNotificationHandler(containerRef) {
   const conversationId = useConversationId();
@@ -22,14 +23,14 @@ export default function useNotificationHandler(containerRef) {
         if (message.conversation_id === conversationId) {
           return;
         }
-        Notifications.presentLocalNotificationAsync({
-          title: notification.data.title,
-          body: notification.data.body,
-          data: notification.data,
-          ios: {
-            _displayInForeground: true,
-          },
-        });
+        // Notifications.presentLocalNotificationAsync({
+        //   title: notification.data.title,
+        //   body: notification.data.body,
+        //   data: notification.data,
+        //   ios: {
+        //     _displayInForeground: true,
+        //   },
+        // });
       }
       if (notification.origin === 'selected' || !notification.remote) {
         const message = notification?.data?.message;
@@ -53,10 +54,18 @@ export default function useNotificationHandler(containerRef) {
       }
     };
 
-    const subscription = Notifications.addListener(handleNotification);
+    // const subscription = Notifications.addListener(handleNotification);
+
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+      }),
+    });
 
     return () => {
-      subscription.remove();
+      // subscription.remove();
     };
   }, [conversationId]);
 }
