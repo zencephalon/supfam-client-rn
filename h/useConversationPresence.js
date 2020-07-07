@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import React from 'react';
 import Cable from '~/lib/Cable';
 
-export default function useCachedProfile(conversationId, meProfileId) {
+export default function useConversationPresence(conversationId, meProfileId) {
   const { data: presence } = useQuery(
     ['conversationPresence', conversationId],
     () => {},
