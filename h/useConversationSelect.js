@@ -8,6 +8,7 @@ export default function useConversationSelect(conversationId) {
   const dispatch = useDispatch();
 
   return useEffect(() => {
+    console.log('SELECTING CONVERSATION', conversationId);
     dispatch(SELECT(conversationId));
 
     return () => {

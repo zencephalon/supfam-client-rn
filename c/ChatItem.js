@@ -56,7 +56,7 @@ export default function ChatItem({ chat }) {
         ...styles.profileStatus,
       }}
       onPress={() => {
-        navigation.navigate('Conversation', { conversationId: chat.id });
+        navigation.navigate('Group', { conversationId: chat.id });
       }}
     >
       <View style={{ flexGrow: 1 }}>

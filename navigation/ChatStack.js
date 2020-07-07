@@ -22,7 +22,7 @@ function ChatStack() {
         }}
       />
       <Stack.Screen
-        name="Conversation"
+        name="Group"
         component={ChatScreen}
         options={{
           headerShown: false,

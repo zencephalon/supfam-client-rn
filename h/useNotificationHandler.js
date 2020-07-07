@@ -1,47 +1,55 @@
 import React from 'react';
 import { Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Notifications } from 'expo';
+
+import useConversationId from '~/h/useConversationId';
 
 import _ from 'lodash';
 
 export default function useNotificationHandler(containerRef) {
+  const conversationId = useConversationId();
+  // const navigation = useNavigation();
+
   React.useEffect(() => {
     const handleNotification = (notification) => {
-      // console.log(
-      //   'RECEIVED NOTIFICATION',
-      //   notification,
-      //   containerRef?.current?.getRootState()
-      // );
+      console.log('RECEIVED NOTIFICATION', notification, conversationId);
       if (notification.origin === 'received' && notification.remote) {
-        const navState = containerRef?.current?.getRootState();
-        const currentRoute = _.last(navState.routes);
         const message = notification?.data?.message;
         if (!message) {
           return;
         }
-        if (
-          currentRoute.name === 'Conversation' &&
-          currentRoute.params.profileId === message.profile_id
-        ) {
+        if (message.conversation_id === conversationId) {
           return;
         }
-        if(Platform.OS === 'ios') {
-          Notifications.presentLocalNotificationAsync({
-            title: notification.data.title,
-            body: notification.data.body,
-            data: notification.data,
-            ios: {
-              _displayInForeground: true,
-            },
-          });
-        }
+        Notifications.presentLocalNotificationAsync({
+          title: notification.data.title,
+          body: notification.data.body,
+          data: notification.data,
+          ios: {
+            _displayInForeground: true,
+          },
+        });
       }
       if (notification.origin === 'selected' || !notification.remote) {
         const message = notification?.data?.message;
+        const isDm = notification?.data?.isDm;
         if (message) {
-          containerRef.current?.navigate('Conversation', {
-            profileId: message.profile_id,
-          });
+          if (isDm) {
+            containerRef.current?.navigate('Home', {
+              screen: 'Conversation',
+              params: {
+                profileId: message.profile_id,
+              },
+            });
+          } else {
+            containerRef.current?.navigate('Groups', {
+              screen: 'Group',
+              params: {
+                conversationId: message.conversation_id,
+              },
+            });
+          }
         }
       }
     };
@@ -51,5 +59,5 @@ export default function useNotificationHandler(containerRef) {
     return () => {
       subscription.remove();
     };
-  }, []);
+  }, [conversationId]);
 }

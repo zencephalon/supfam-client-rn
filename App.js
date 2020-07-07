@@ -25,8 +25,6 @@ import CableContainer from '~/containers/Cable';
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
 
-import useNotificationHandler from '~/h/useNotificationHandler';
-
 const queryConfig = {
   queries: {
     cacheTime: 1 * 60 * 1000, // 1 minute max, due to https://github.com/facebook/react-native/issues/12981
@@ -45,8 +43,6 @@ export default function App(props) {
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
-
-  useNotificationHandler(containerRef);
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -85,7 +81,7 @@ export default function App(props) {
             <AuthGate>
               <ProfileGate>
                 <NotificationGate>
-                  <CableContainer />
+                  <CableContainer containerRef={containerRef} />
                   <NavigationContainer
                     ref={containerRef}
                     initialState={initialNavigationState}
