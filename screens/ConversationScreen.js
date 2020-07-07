@@ -13,6 +13,7 @@ import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
+import useConversationSelect from '~/h/useConversationSelect';
 
 export default function ConversationScreen({ navigation, route }) {
   const { profileId } = route.params;
@@ -29,6 +30,7 @@ export default function ConversationScreen({ navigation, route }) {
     }
   );
   const conversationId = conversation?.id;
+  useConversationSelect(conversationId);
 
   const { fetchMore, canFetchMore, messages } = useMessages(
     conversationId,
@@ -45,7 +47,10 @@ export default function ConversationScreen({ navigation, route }) {
         statusMessage={profile?.status?.message}
         navigation={navigation}
       />
-      <EmptyListPlaceholder show={messages.length == 0} text="No messages have been sent yet. Start the conversation!"/>
+      <EmptyListPlaceholder
+        show={messages.length == 0}
+        text="No messages have been sent yet. Start the conversation!"
+      />
       <MessageList
         messages={messages}
         meProfileId={meProfileId}

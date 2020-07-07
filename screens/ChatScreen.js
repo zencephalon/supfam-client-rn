@@ -10,9 +10,11 @@ import useProfileId from '~/h/useProfileId';
 import useMessages from '~/h/useMessages';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
 import useCachedConversation from '~/h/useCachedConversation';
+import useConversationSelect from '~/h/useConversationSelect';
 
 export default function ChatScreen({ navigation, route }) {
   const { conversationId } = route.params;
+  useConversationSelect(conversationId);
 
   const meProfileId = useProfileId();
 
@@ -31,7 +33,10 @@ export default function ChatScreen({ navigation, route }) {
         conversation={conversation}
         navigation={navigation}
       />
-      <EmptyListPlaceholder show={messages.length == 0} text="No messages have been sent in this group yet. Be the first!"/>
+      <EmptyListPlaceholder
+        show={messages.length == 0}
+        text="No messages have been sent in this group yet. Be the first!"
+      />
       <MessageList
         messages={messages}
         meProfileId={meProfileId}
