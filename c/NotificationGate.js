@@ -11,6 +11,8 @@ import SfText from '~/c/SfText';
 
 import { FREE } from '~/constants/Colors';
 
+import * as Notifications from 'expo-notifications';
+
 const NotificationAskScreen = (props) => {
   return (
     <SfContainer>
@@ -38,12 +40,17 @@ const ProfileGate = (props) => {
   React.useEffect(() => {
     const f = async () => {
       if (Constants.isDevice) {
-        const { status: existingStatus } = await Permissions.getAsync(
-          Permissions.NOTIFICATIONS
-        );
+        // const { status: existingStatus } = await Permissions.getAsync(
+        //   Permissions.NOTIFICATIONS
+        // );
+        const settings = await Notifications.getPermissionsAsync();
         setWaiting(false);
-        console.log({ existingStatus });
-        if (existingStatus === 'granted') {
+        console.log({ settings });
+        if (
+          settings.granted ||
+          settings.ios?.status ===
+            Notifications.IosAuthorizationStatus.PROVISIONAL
+        ) {
           setNotificationsEnabled(true);
         }
       } else {
@@ -69,7 +76,15 @@ const ProfileGate = (props) => {
         {
           text: 'Allow',
           onPress: async () => {
-            await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            // await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            await Notifications.requestPermissionsAsync({
+              ios: {
+                allowAlert: true,
+                allowBadge: true,
+                allowSound: true,
+                allowAnnouncements: true,
+              },
+            });
             setNotificationsEnabled(true);
           },
         },
