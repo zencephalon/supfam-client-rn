@@ -24,9 +24,12 @@ const GroupMemberList = ({ conversationId }) => {
   return (
     <>
       <FlatList
-        inverted
         data={groupMembers}
-        style={{ backgroundColor: backgrounds[0] }}
+        style={{
+          backgroundColor: backgrounds[0],
+          maxHeight: '50%',
+          flexGrow: 0,
+        }}
         renderItem={renderAddToGroupRow}
         keyExtractor={(profileId) => `${profileId}`}
       />
