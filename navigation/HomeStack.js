@@ -12,6 +12,17 @@ const Stack = createStackNavigator();
 function HomeStack() {
   const { foregrounds, backgrounds } = useLight();
 
+  const headerStyle = {
+    backgroundColor: backgrounds[1],
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  };
+
+  const headerTitleStyle = {
+    color: foregrounds[0],
+  };
+
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
@@ -32,45 +43,24 @@ function HomeStack() {
         name="Invite"
         component={InviteScreen}
         options={{
-          headerStyle: {
-            backgroundColor: backgrounds[1],
-            shadowColor: 'black',
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          headerTitleStyle: {
-            color: foregrounds[0],
-          },
+          headerStyle,
+          headerTitleStyle,
         }}
       />
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
-          headerStyle: {
-            backgroundColor: backgrounds[1],
-            shadowColor: 'black',
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          headerTitleStyle: {
-            color: foregrounds[0],
-          },
+          headerStyle,
+          headerTitleStyle,
         }}
       />
       <Stack.Screen
         name="Friend Settings"
         component={FriendSettingsScreen}
         options={{
-          headerStyle: {
-            backgroundColor: backgrounds[1],
-            shadowColor: 'black',
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          headerTitleStyle: {
-            color: foregrounds[0],
-          },
+          headerStyle,
+          headerTitleStyle,
         }}
       />
     </Stack.Navigator>

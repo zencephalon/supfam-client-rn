@@ -39,7 +39,6 @@ Sentry.setRelease(Constants.manifest.revisionId);
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  // const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
   const config = useLinking(containerRef);
 
@@ -48,9 +47,6 @@ export default function App(props) {
     async function loadResourcesAndDataAsync() {
       try {
         SplashScreen.preventAutoHide();
-
-        // Load our initial navigation state
-        // setInitialNavigationState(await getInitialState());
 
         // Load fonts
         await Font.loadAsync({
@@ -80,11 +76,7 @@ export default function App(props) {
             <AuthGate>
               <ProfileGate>
                 <NotificationGate>
-                  <NavigationContainer
-                    ref={containerRef}
-                    // initialState={initialNavigationState}
-                    linking={config}
-                  >
+                  <NavigationContainer ref={containerRef} linking={config}>
                     <CableContainer containerRef={containerRef} />
                     <RootNavigator />
                   </NavigationContainer>

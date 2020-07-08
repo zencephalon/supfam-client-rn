@@ -22,7 +22,6 @@ export default function (containerRef) {
             Settings: 'settings',
           },
         },
-        // Home: '*',
       },
     },
   };
