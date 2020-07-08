@@ -19,6 +19,16 @@ export default function (containerRef) {
                 },
               },
             },
+            Groups: {
+              screens: {
+                Group: {
+                  path: 'group/:conversationId',
+                  parse: {
+                    conversationId: Number,
+                  },
+                },
+              },
+            },
             Settings: 'settings',
           },
         },

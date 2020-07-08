@@ -15,21 +15,30 @@ export default function useNotificationHandler(containerRef) {
   React.useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        console.log('come to jesus');
         const body = response.notification.request.content.data.body;
         const message = body.message;
         const isDm = body.isDm;
 
-        linkTo(`/dm/${message.profile_id}`);
+        if (isDm) {
+          linkTo(`/dm/${message.profile_id}`);
+          return;
+        }
+
+        linkTo(`/group/${message.conversation_id}`);
       }
     );
 
     Notifications.setNotificationHandler({
-      handleNotification: async () => ({
-        shouldShowAlert: true,
-        shouldPlaySound: true,
-        shouldSetBadge: false,
-      }),
+      handleNotification: async (notification) => {
+        const body = notification.request.content.data.body;
+        const message = body.message;
+
+        return {
+          shouldShowAlert: message.conversation_id != conversationId,
+          shouldPlaySound: true,
+          shouldSetBadge: false,
+        };
+      },
     });
 
     return () => {
