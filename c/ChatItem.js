@@ -10,13 +10,14 @@ import GroupConversationPreview from '~/c/GroupConversationPreview';
 
 import useProfileId from '~h/useProfileId';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useLinkTo } from '@react-navigation/native';
 
 const MAX_DISPLAY_MEMBERS = 4;
 
 export default function ChatItem({ chat }) {
   const userProfileId = useProfileId();
   const navigation = useNavigation();
+  const linkTo = useLinkTo();
 
   const renderMemberNamesSummary = (chat) => {
     let filteredMemberIds = chat.member_profile_ids.filter((profileId) => {
@@ -56,7 +57,8 @@ export default function ChatItem({ chat }) {
         ...styles.profileStatus,
       }}
       onPress={() => {
-        navigation.navigate('Group', { conversationId: chat.id });
+        // navigation.navigate('Group', { conversationId: chat.id });
+        linkTo(`/conversation/${chat.id}`);
       }}
     >
       <View style={{ flexGrow: 1 }}>

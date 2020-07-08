@@ -18,11 +18,11 @@ export default function useFriends() {
       enabled: profileId,
     }
   );
-  const friends = orderBy(
-    data,
-    ['status.color', 'updated_at'],
-    ['desc', 'desc']
-  );
+  // const friends = orderBy(
+  //   data,
+  //   ['status.color', 'updated_at'],
+  //   ['desc', 'desc']
+  // );
 
-  return { status, friends, error, isFetching, refetch };
+  return { status, friends: data, error, isFetching, refetch };
 }

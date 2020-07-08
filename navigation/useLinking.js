@@ -1,8 +1,7 @@
 import { useLinking } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
-// TODO: this is just totally wrong
-export default function (containerRef) {
+export default function () {
   const config = {
     prefixes: [Linking.makeUrl('/')],
     config: {
@@ -22,7 +21,7 @@ export default function (containerRef) {
             Groups: {
               screens: {
                 Group: {
-                  path: 'group/:conversationId',
+                  path: 'conversation/:conversationId',
                   parse: {
                     conversationId: Number,
                   },

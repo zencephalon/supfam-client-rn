@@ -24,7 +24,7 @@ export default function useNotificationHandler(containerRef) {
           return;
         }
 
-        linkTo(`/group/${message.conversation_id}`);
+        linkTo(`/conversation/${message.conversation_id}`);
       }
     );
 
