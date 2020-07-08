@@ -18,60 +18,24 @@ export default function useNotificationHandler(containerRef) {
   const linkTo = useLinkTo();
 
   React.useEffect(() => {
-    const handleNotification = (notification) => {
-      console.log('RECEIVED NOTIFICATION', notification, conversationId);
-      if (notification.origin === 'received' && notification.remote) {
-        const message = notification?.data?.message;
-        if (!message) {
-          return;
-        }
-        if (message.conversation_id === conversationId) {
-          return;
-        }
-        // Notifications.presentLocalNotificationAsync({
-        //   title: notification.data.title,
-        //   body: notification.data.body,
-        //   data: notification.data,
-        //   ios: {
-        //     _displayInForeground: true,
-        //   },
-        // });
-      }
-      if (notification.origin === 'selected') {
-        const message = notification?.data?.message;
-
-        if (!message) {
-          return;
-        }
-
-        const isDm = notification?.data?.isDm;
-
-        if (isDm) {
-          console.log('going to ', message.profile_id);
-          // containerRef.current?.navigate('Conversation', {
-          //   profileId: message.profile_id,
-          // });
-          linkTo(`/dm/${message.profile_id}`);
-        } else {
-          containerRef.current?.navigate('Group', {
-            conversationId: message.conversation_id,
-          });
-        }
-      }
-    };
-
     // const subscription = Notifications.addListener(handleNotification);
 
     const subscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        console.log({ response });
+        console.log('come to jesus');
         // const url = response.notification.request.content.data.url;
         const body = response.notification.request.content.data.body;
         const message = body.message;
         const isDm = body.isDm;
+
+        console.log('Does this even work?');
+        const url = Linking.makeUrl(`/dm/${message.profile_id}`);
+        console.log({ url, base: Linking.makeUrl('/') });
+
         linkTo(`/dm/${message.profile_id}`);
 
-        // nativeLinking.openURL(Linking.makeUrl(`/dm/${message.profile_id}`));
+        // nativeLinking.openURL(url);
+        // nativeLinking.openURL(Linking.makeUrl('ahhhh'));
       }
     );
 
