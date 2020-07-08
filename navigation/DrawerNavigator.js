@@ -4,6 +4,8 @@ import SettingsScreen from '~/screens/SettingsScreen';
 import HomeStack from '~/navigation/HomeStack';
 import ChatStack from '~/navigation/ChatStack';
 
+import useNotificationHandler from '~/h/useNotificationHandler';
+
 const INITIAL_ROUTE_NAME = 'Home';
 
 import useLight from '~/h/useLight';
@@ -14,6 +16,7 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
   const { backgrounds, foregrounds } = useLight();
+  useNotificationHandler();
   return (
     <Drawer.Navigator
       initialRouteName="Home"

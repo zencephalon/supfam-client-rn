@@ -8,9 +8,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance';
 import { Provider } from 'react-redux';
 
-import HomeStack from '~/navigation/HomeStack';
-import DrawerNavigator from '~/navigation/DrawerNavigator';
 import useLinking from '~/navigation/useLinking';
+import RootNavigator from '~/navigation/RootNavigator';
 
 import AuthToken from '~/lib/AuthToken';
 import AuthGate from '~/c/AuthGate';
@@ -87,8 +86,7 @@ export default function App(props) {
                     linking={config}
                   >
                     <CableContainer containerRef={containerRef} />
-                    {/* <HomeStack /> */}
-                    <DrawerNavigator />
+                    <RootNavigator />
                   </NavigationContainer>
                 </NotificationGate>
               </ProfileGate>

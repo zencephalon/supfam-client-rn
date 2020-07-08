@@ -6,14 +6,11 @@ import InviteScreen from '~/screens/InviteScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 import FriendSettingsScreen from '~/screens/FriendSettingsScreen';
 import useLight from '~/h/useLight';
-import useNotificationHandler from '~/h/useNotificationHandler';
 
 const Stack = createStackNavigator();
 
 function HomeStack() {
   const { foregrounds, backgrounds } = useLight();
-
-  useNotificationHandler();
 
   return (
     <Stack.Navigator initialRouteName="Home">

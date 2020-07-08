@@ -7,17 +7,21 @@ export default function (containerRef) {
     prefixes: [Linking.makeUrl('/')],
     config: {
       screens: {
-        Home: {
+        Root: {
           screens: {
-            Conversation: {
-              path: 'dm/:profileId',
-              parse: {
-                profileId: Number,
+            Home: {
+              screens: {
+                Conversation: {
+                  path: 'dm/:profileId',
+                  parse: {
+                    profileId: Number,
+                  },
+                },
               },
             },
+            Settings: 'settings',
           },
         },
-        Settings: 'settings',
         // Home: '*',
       },
     },
