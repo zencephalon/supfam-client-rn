@@ -8,14 +8,14 @@ import usePushToken from '~/h/usePushToken';
 
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import useNotificationHandler from '~/h/useNotificationHandler';
+// import useNotificationHandler from '~/h/useNotificationHandler';
 
 function CableContainer({ containerRef }) {
   const profileId = useProfileId();
   const { friends } = useFriends();
   const { conversationMemberships } = useConversationMemberships();
 
-  useNotificationHandler(containerRef);
+  // useNotificationHandler(containerRef);
 
   const friendIds = (friends || []).map((f) => f.id).sort();
   const conversationIds = (conversationMemberships || [])

@@ -3,17 +3,26 @@ import * as Linking from 'expo-linking';
 
 // TODO: this is just totally wrong
 export default function (containerRef) {
-  return useLinking(containerRef, {
-    prefixes: [Linking.makeUrl('/')],
-    config: {
-      Root: {
-        path: 'root',
+  const config = {
+    screens: {
+      Home: {
         screens: {
-          Home: 'home',
-          Maps: 'maps',
-          Settings: 'settings',
+          Conversation: {
+            path: 'dm/:profileId',
+            parse: {
+              profileId: Number,
+            },
+          },
         },
       },
     },
-  });
+  };
+
+  return {
+    linking: useLinking(containerRef, {
+      prefixes: [Linking.makeUrl('/')],
+      config,
+    }),
+    config,
+  };
 }

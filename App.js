@@ -42,7 +42,10 @@ export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
-  const { getInitialState } = useLinking(containerRef);
+  const {
+    linking: { getInitialState },
+    config,
+  } = useLinking(containerRef);
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -81,11 +84,12 @@ export default function App(props) {
             <AuthGate>
               <ProfileGate>
                 <NotificationGate>
-                  <CableContainer containerRef={containerRef} />
                   <NavigationContainer
                     ref={containerRef}
                     initialState={initialNavigationState}
+                    linking={config}
                   >
+                    <CableContainer containerRef={containerRef} />
                     {/* <HomeStack /> */}
                     <DrawerNavigator />
                   </NavigationContainer>

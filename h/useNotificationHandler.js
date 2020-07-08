@@ -1,6 +1,10 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useLinkTo } from '@react-navigation/native';
+
+import { Linking as nativeLinking } from 'react-native';
+import * as Linking from 'expo-linking';
 
 import useConversationId from '~/h/useConversationId';
 
@@ -11,10 +15,11 @@ import * as Notifications from 'expo-notifications';
 export default function useNotificationHandler(containerRef) {
   const conversationId = useConversationId();
   // const navigation = useNavigation();
+  const linkTo = useLinkTo();
 
   React.useEffect(() => {
     const handleNotification = (notification) => {
-      // console.log('RECEIVED NOTIFICATION', notification, conversationId);
+      console.log('RECEIVED NOTIFICATION', notification, conversationId);
       if (notification.origin === 'received' && notification.remote) {
         const message = notification?.data?.message;
         if (!message) {
@@ -32,7 +37,7 @@ export default function useNotificationHandler(containerRef) {
         //   },
         // });
       }
-      if (notification.origin === 'selected' || !notification.remote) {
+      if (notification.origin === 'selected') {
         const message = notification?.data?.message;
 
         if (!message) {
@@ -43,9 +48,10 @@ export default function useNotificationHandler(containerRef) {
 
         if (isDm) {
           console.log('going to ', message.profile_id);
-          containerRef.current?.navigate('Conversation', {
-            profileId: message.profile_id,
-          });
+          // containerRef.current?.navigate('Conversation', {
+          //   profileId: message.profile_id,
+          // });
+          linkTo(`/dm/${message.profile_id}`);
         } else {
           containerRef.current?.navigate('Group', {
             conversationId: message.conversation_id,
@@ -56,6 +62,19 @@ export default function useNotificationHandler(containerRef) {
 
     // const subscription = Notifications.addListener(handleNotification);
 
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log({ response });
+        // const url = response.notification.request.content.data.url;
+        const body = response.notification.request.content.data.body;
+        const message = body.message;
+        const isDm = body.isDm;
+        linkTo(`/dm/${message.profile_id}`);
+
+        // nativeLinking.openURL(Linking.makeUrl(`/dm/${message.profile_id}`));
+      }
+    );
+
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowAlert: true,
@@ -65,7 +84,7 @@ export default function useNotificationHandler(containerRef) {
     });
 
     return () => {
-      // subscription.remove();
+      subscription.remove();
     };
   }, [conversationId]);
 }
