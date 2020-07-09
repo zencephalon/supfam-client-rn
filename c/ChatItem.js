@@ -1,18 +1,16 @@
 import * as React from 'react';
 
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
 import TopText from '~/c/TopText';
 import ProfileIcon from '~/c/ProfileIcon';
-import ProfileName from '~/c/ProfileName';
 import GroupConversationPreview from '~/c/GroupConversationPreview';
+import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
 
 import useProfileId from '~h/useProfileId';
 
 import { useNavigation, useLinkTo } from '@react-navigation/native';
-
-const MAX_DISPLAY_MEMBERS = 4;
 
 export default function ChatItem({ chat }) {
   const userProfileId = useProfileId();
@@ -20,35 +18,9 @@ export default function ChatItem({ chat }) {
   const linkTo = useLinkTo();
 
   const renderMemberNamesSummary = (chat) => {
-    let filteredMemberIds = chat.member_profile_ids.filter((profileId) => {
-      return profileId != userProfileId;
-    });
-    const totalMembers = filteredMemberIds.length;
-    filteredMemberIds = filteredMemberIds.slice(0, MAX_DISPLAY_MEMBERS);
     return (
-      <>
-        {filteredMemberIds.map((profileId, index) => {
-          return (
-            <React.Fragment key={profileId}>
-              <ProfileName profileId={profileId} style={{ fontSize: 16 }} />
-              {index < filteredMemberIds.length - 2 ||
-              (index < filteredMemberIds.length - 1 &&
-                totalMembers > MAX_DISPLAY_MEMBERS) ? (
-                <Text>{', '}</Text>
-              ) : null}
-              {index == filteredMemberIds.length - 2 &&
-              totalMembers <= MAX_DISPLAY_MEMBERS ? (
-                <Text>{' & '}</Text>
-              ) : null}
-              {index == filteredMemberIds.length - 1 &&
-              totalMembers > MAX_DISPLAY_MEMBERS ? (
-                <Text>{' & others'}</Text>
-              ) : null}
-            </React.Fragment>
-          );
-        })}
-      </>
-    );
+      <GroupMemberNameSummary memberProfileIds={chat.member_profile_ids} maxNames={4}/>
+    )
   };
 
   return (

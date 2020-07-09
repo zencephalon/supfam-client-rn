@@ -5,6 +5,7 @@ import { View, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
 import SfTopBar from '~/c/SfTopBar';
+import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
 
 import useLight from '~/h/useLight';
 
@@ -21,13 +22,20 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
       <View
         style={{
           flexDirection: 'row',
+          flexWrap: 'wrap',
           justifyContent: 'center',
           maxWidth: '60%',
+          whiteSpace: 'wrap',
         }}
       >
-        <SfText style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}>
-          {conversation?.name}
-        </SfText>
+        {
+          conversation?.name ?
+          <SfText style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}>
+            {conversation.name}
+          </SfText>
+          :
+          <GroupMemberNameSummary memberProfileIds={conversation?.member_profile_ids} maxNames={4} />
+        }
       </View>
       <TouchableOpacity
         style={{ padding: 4 }}

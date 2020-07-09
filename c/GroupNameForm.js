@@ -13,15 +13,22 @@ import useGroupConversations from '~/h/useGroupConversations';
 const GroupNameForm = ({ conversationId }) => {
   const { conversation } = useCachedConversation(conversationId);
   const [name, setName] = React.useState(conversation?.name);
+  const [changed, setChanged] = React.useState(false);
 
   const { call, req } = useApi(putConversationName);
 
   const { refetch } = useGroupConversations();
 
+  const edit = (name) => {
+    setName(name);
+    setChanged(true);
+  }
+
   const submit = () => {
     (async() => {
       await call({ conversationId: conversationId, name });
       refetch();
+      setChanged(false);
     })();
   };
 
@@ -37,23 +44,25 @@ const GroupNameForm = ({ conversationId }) => {
       <SfTextInput
         autoCapitalize="none"
         autoCorrect={false}
-        onChangeText={setName}
-        placeholder="Enter a name for your group"
-        textInputStyle={{ fontSize: 16 }}
+        onChangeText={edit}
+        placeholder="Give your group a name"
+        textInputStyle={{ fontSize: 20 }}
         value={name}
         ok={req.confirmed && !req.requested}
         working={req.requested}
       />
-      <SfButton
-        en
-        round
-        color={OPEN}
-        title="Save Group Name"
-        onPress={submit}
-        style={{
-          marginTop: 16,
-        }}
-      />
+      {
+        changed ?
+        <SfButton
+          en
+          color={OPEN}
+          title="Save Name"
+          onPress={submit}
+          style={{
+            marginTop: 16,
+          }}
+        /> : null
+      }
     </View>
   );
 };
