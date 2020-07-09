@@ -13,6 +13,8 @@ import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import { useNavigation } from '@react-navigation/native';
 
+import { AWAY } from '~/constants/Colors';
+
 export default function GroupMemberRow({ conversationId, profileId }) {
   const navigation = useNavigation();
   const userProfileId = useProfileId();
@@ -26,7 +28,13 @@ export default function GroupMemberRow({ conversationId, profileId }) {
   const remove = () => {
     Alert.alert(
       'Are you sure?',
-      `This will remove ${userProfileId == profileId ? 'you' : profile.name} from the group conversation. ${userProfileId == profileId ? 'You will not be able to rejoin unless a remaining group member adds you back.' : ''}`,
+      `This will remove ${
+        userProfileId == profileId ? 'you' : profile.name
+      } from the group conversation. ${
+        userProfileId == profileId
+          ? 'You will not be able to rejoin unless a remaining group member adds you back.'
+          : ''
+      }`,
       [
         {
           text: 'Cancel',
@@ -35,11 +43,11 @@ export default function GroupMemberRow({ conversationId, profileId }) {
         {
           text: `${userProfileId == profileId ? 'Leave' : 'Remove'}`,
           onPress: () => {
-            (async() => {
+            (async () => {
               await RemoveMember.call({ conversationId, profileId });
               refetch();
               setRemoved(true);
-              if(userProfileId == profileId) {
+              if (userProfileId == profileId) {
                 // You just left the conversation, so navigate back to group home.
                 navigation.navigate('Home');
               }
@@ -94,11 +102,15 @@ export default function GroupMemberRow({ conversationId, profileId }) {
                 top: 0,
               }}
             >
-              {removed ? 
+              {removed ? (
                 <SfInlineButton title="Removed" disabled />
-                : 
-                <SfInlineButton title={userProfileId == profileId ? 'Leave' : 'Remove'} onPress={() => remove()} />
-              }
+              ) : (
+                <SfInlineButton
+                  title={userProfileId == profileId ? 'Leave' : 'Remove'}
+                  onPress={() => remove()}
+                  color={AWAY}
+                />
+              )}
             </View>
           </View>
         </View>

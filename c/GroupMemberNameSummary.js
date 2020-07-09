@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import SfText from '~/c/SfText';
 
 import ProfileName from '~/c/ProfileName';
 
 import useProfileId from '~/h/useProfileId';
 
 export default function GroupMemberNameSummary({ memberProfileIds, maxNames }) {
-  if(!memberProfileIds) { return }
+  if (!memberProfileIds) {
+    return;
+  }
 
   const userProfileId = useProfileId();
 
@@ -24,19 +26,19 @@ export default function GroupMemberNameSummary({ memberProfileIds, maxNames }) {
             {index < filteredMemberIds.length - 2 ||
             (index < filteredMemberIds.length - 1 &&
               totalMembers > maxNames) ? (
-              <Text style={{ fontSize: 16 }}>{', '}</Text>
+              <SfText style={{ fontSize: 16 }}>{', '}</SfText>
             ) : null}
             {index == filteredMemberIds.length - 2 &&
             totalMembers <= maxNames ? (
-              <Text style={{ fontSize: 16 }}>{' & '}</Text>
+              <SfText style={{ fontSize: 16 }}>{' & '}</SfText>
             ) : null}
             {index == filteredMemberIds.length - 1 &&
             totalMembers > maxNames ? (
-              <Text style={{ fontSize: 16 }}>{' & others'}</Text>
+              <SfText style={{ fontSize: 16 }}>{' & others'}</SfText>
             ) : null}
           </React.Fragment>
         );
       })}
     </>
-  )
+  );
 }
