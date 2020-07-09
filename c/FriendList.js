@@ -52,11 +52,13 @@ function useFriendListItems(friends, friendInvitesTo, groupConversations) {
     priority: 0,
   }));
 
-  return orderBy(
+  const items = orderBy(
     [...invitesTyped, ...friendsTyped, ...groupsTyped],
     ['priority', 'updated_at'],
     ['desc', 'desc']
   );
+
+  return items;
 }
 
 const FriendList = () => {

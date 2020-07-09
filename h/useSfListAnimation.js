@@ -9,7 +9,7 @@ export default function useSfListAnimation(listItems) {
         type: LayoutAnimation.Types.easeInEaseOut,
         property: LayoutAnimation.Properties.opacity,
       },
-      update: { type: LayoutAnimation.Types.easeInEaseOut },
+      // update: { type: LayoutAnimation.Types.easeInEaseOut, property:  },
     });
   }, [listItems]);
 }
