@@ -32,7 +32,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mutualflourishing.supfam",
-      "buildNumber": "0.0.16"
+      "buildNumber": "0.0.17"
     },
     "android": {
       "package": "com.mutualflourishing.supfam",
