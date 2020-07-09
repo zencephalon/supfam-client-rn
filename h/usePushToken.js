@@ -12,7 +12,7 @@ export default function usePushToken() {
       const settings = await Notifications.getPermissionsAsync();
 
       if (settings.granted || settings.ios?.status === 'provisional') {
-        token = await Notifications.getExpoPushTokenAsync({
+        const { data: token } = await Notifications.getExpoPushTokenAsync({
           experienceId: '@zencephalon/Supfam',
         });
         setPushToken(token);
