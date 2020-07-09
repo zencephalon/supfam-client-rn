@@ -32,7 +32,7 @@ export default function DrawerNavigator() {
       }}
     >
       <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Groups" component={ChatStack} />
+      {/*<Drawer.Screen name="Groups" component={ChatStack} />*/}
       <Drawer.Screen name="Map" component={MapScreen} />
       <Drawer.Screen name="Settings" component={SettingsScreen} />
     </Drawer.Navigator>

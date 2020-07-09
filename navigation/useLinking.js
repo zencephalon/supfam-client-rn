@@ -16,10 +16,6 @@ export default function () {
                     profileId: Number,
                   },
                 },
-              },
-            },
-            Groups: {
-              screens: {
                 Group: {
                   path: 'conversation/:conversationId',
                   parse: {

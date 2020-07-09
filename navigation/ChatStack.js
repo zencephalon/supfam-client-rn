@@ -15,13 +15,6 @@ function ChatStack() {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
-        name="Home"
-        component={ChatsScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name="Group"
         component={ChatScreen}
         options={{

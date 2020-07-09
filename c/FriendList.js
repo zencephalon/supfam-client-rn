@@ -17,16 +17,16 @@ import ChatItem from '~/c/ChatItem';
 
 import { orderBy } from 'lodash';
 
-const renderProfileOrInvite = ({ item: profileOrInvite }) => {
-  if (profileOrInvite.type == 'friend') {
-    return <ProfileStatus profile={profileOrInvite} />;
+const renderItem = ({ item }) => {
+  if (item.type == 'friend') {
+    return <ProfileStatus profile={item} />;
   }
 
-  if (profileOrInvite.type == 'group') {
-    return <ChatItem chat={profileOrInvite} />;
+  if (item.type == 'group') {
+    return <ChatItem chat={item} />;
   }
 
-  return <RespondToInviteRow invite={profileOrInvite} />;
+  return <RespondToInviteRow invite={item} />;
 };
 
 function useFriendListItems(friends, friendInvitesTo, groupConversations) {
@@ -34,7 +34,7 @@ function useFriendListItems(friends, friendInvitesTo, groupConversations) {
     return {
       ...friend,
       type: 'friend',
-      priority: 1,
+      priority: 0,
     };
   });
   const invitesTyped = (friendInvitesTo || [])
@@ -51,8 +51,6 @@ function useFriendListItems(friends, friendInvitesTo, groupConversations) {
     type: 'group',
     priority: 0,
   }));
-
-  console.log({ groupsTyped });
 
   return orderBy(
     [...invitesTyped, ...friendsTyped, ...groupsTyped],
@@ -86,7 +84,7 @@ const FriendList = () => {
         inverted
         data={listItems}
         style={{ backgroundColor: backgrounds[0] }}
-        renderItem={renderProfileOrInvite}
+        renderItem={renderItem}
         keyExtractor={(item) => `${item.type}${item.id}`}
         refreshControl={
           <RefreshControl
