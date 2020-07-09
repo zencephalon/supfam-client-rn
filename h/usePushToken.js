@@ -2,24 +2,19 @@ import React from 'react';
 
 import { getPushToken, setPushToken } from '~/apis/api';
 
-import { Notifications } from 'expo';
+import * as Notifications from 'expo-notifications';
+
 import * as Permissions from 'expo-permissions';
 
 export default function usePushToken() {
   React.useEffect(() => {
     const f = async () => {
-      const { push_token } = await getPushToken();
+      const settings = await Notifications.getPermissionsAsync();
 
-      console.log({ push_token });
-
-      if (push_token) {
-        return;
-      }
-
-      const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-
-      if (status === 'granted') {
-        token = await Notifications.getExpoPushTokenAsync();
+      if (settings.granted || settings.ios?.status === 'provisional') {
+        token = await Notifications.getExpoPushTokenAsync({
+          experienceId: '@zencephalon/Supfam',
+        });
         setPushToken(token);
       }
     };
