@@ -24,13 +24,17 @@ export default function InviteContactRow({ contact }) {
           [contact.phone],
           `Hey ${
             contact.firstName || contact.name
-          }, I'm using a new app called Supfam and I want you to join so we can chat and view each other's statuses! You can download it here: https://supfam.app/download`
+          }, I'm using Supfam and I want you to join my fam so we can keep close. You can download it here: https://supfam.app/download`
         );
 
         // Create invitation record for this phone number
-        const parsedPhoneNum = parsePhoneNumberFromString(contact.phone, 'US')?.number;
-        if(parsedPhoneNum) {
-          Invitation.call({ from_profile_id: profileId, phone: parsedPhoneNum });
+        const parsedPhoneNum = parsePhoneNumberFromString(contact.phone, 'US')
+          ?.number;
+        if (parsedPhoneNum) {
+          Invitation.call({
+            from_profile_id: profileId,
+            phone: parsedPhoneNum,
+          });
         }
       } else {
         console.log('SMS not available');
