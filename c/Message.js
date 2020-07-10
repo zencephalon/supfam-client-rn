@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
-import {formatMessageTimeflag} from '~/lib/clockwork';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -9,31 +8,18 @@ import ProfileName from '~/c/ProfileName';
 import TypingText from '~/c/TypingText';
 import MessageImagePreview from '~/c/MessageImagePreview';
 import MessageText from '~/c/MessageText';
+import MessageSentTimeText from '~/c/MessageSentTimeText';
 
 function Message(props) {
   const { message, isOwnMessage, fromSameUser, breakAbove } = props;
 
-  const [ showDate, setShowDate ] = React.useState(false);
-
-  const sentDate = new Date(message.updated_at);
-  const timeFlag = formatMessageTimeflag(sentDate);
+  const [showDate, setShowDate] = React.useState(false);
 
   return (
     <View>
-      {
-        breakAbove || showDate ?
-        <View style={{
-          alignItems: 'center',
-          marginTop: 16,
-          marginBottom: 8,
-        }}>
-          <SfText style={{
-            fontSize: 16
-          }}>
-            {timeFlag}
-          </SfText>
-        </View> : null
-      }
+      {(breakAbove || showDate) && (
+        <MessageSentTimeText sentDate={message.updated_at} />
+      )}
       <View
         style={{
           flexDirection: 'row',
@@ -63,23 +49,27 @@ function Message(props) {
           }}
         >
           <>
-          {!isOwnMessage && !fromSameUser && (
-            <ProfileName
-              profileId={message.profile_id}
-              style={{ fontSize: 12, alignSelf: 'flex-start', marginBottom: 4 }}
-            />
-          )}
-          {message.type === 0 && (
-            <MessageText text={message.message} isOwnMessage={isOwnMessage} />
-          )}
-          {message.type === 1 && message.image && (
-            <MessageImagePreview image={message.image} />
-          )}
-          {message.i ? (
-            <SfText style={{ fontSize: 10 }}>
-              <TypingText time={message.receivedAt} />
-            </SfText>
-          ) : null}
+            {!isOwnMessage && !fromSameUser && (
+              <ProfileName
+                profileId={message.profile_id}
+                style={{
+                  fontSize: 12,
+                  alignSelf: 'flex-start',
+                  marginBottom: 4,
+                }}
+              />
+            )}
+            {message.type === 0 && (
+              <MessageText text={message.message} isOwnMessage={isOwnMessage} />
+            )}
+            {message.type === 1 && message.image && (
+              <MessageImagePreview image={message.image} />
+            )}
+            {message.i ? (
+              <SfText style={{ fontSize: 10 }}>
+                <TypingText time={message.receivedAt} />
+              </SfText>
+            ) : null}
           </>
         </TouchableOpacity>
       </View>
