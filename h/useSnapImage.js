@@ -2,9 +2,10 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 
-export default function useSnapImage({ setImage }) {
+export default function useSnapImage({ setImage, config }) {
   return async () => {
     if (Constants.platform.ios) {
+      // TODO: we could probably improve the request flow here
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status !== 'granted') {
         alert('Sorry, we need camera roll permissions to make this work!');
@@ -15,10 +16,8 @@ export default function useSnapImage({ setImage }) {
     try {
       let image = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        // TODO: we shouldn't use a fixed aspect ratio here
-        aspect: [1, 1],
         quality: 1,
+        ...config,
       });
       if (!image.cancelled) {
         setImage(image);

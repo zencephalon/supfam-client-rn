@@ -26,7 +26,10 @@ function ProfileCreate() {
   });
   const UploadImage = useApi(uploadImage);
 
-  const snapImage = useSnapImage({ setImage });
+  const snapImage = useSnapImage({
+    setImage,
+    config: { allowsEditing: true, aspect: [1, 1] },
+  });
   const pickImage = usePickImage({
     setImage,
     imageOptions: { allowsEditing: true, aspect: [1, 1] },
