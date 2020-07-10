@@ -23,14 +23,13 @@ export function BareProfileIcon(props) {
         style={{
           width: imgSize,
           height: imgSize,
-          borderRadius: 50,
+          borderRadius: imgSize / 2,
           marginRight: 8,
           opacity: props.opacity || 1,
           ...props.style,
         }}
       />
-      {
-        !props.noBadge ?
+      {!props.noBadge ? (
         <StatusBadge
           statusColor={props.statusColor}
           size={size / 3}
@@ -40,8 +39,8 @@ export function BareProfileIcon(props) {
             bottom: -offset,
             right: -offset,
           }}
-        /> : null
-      }
+        />
+      ) : null}
     </View>
   );
 }
