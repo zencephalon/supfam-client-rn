@@ -10,7 +10,9 @@ import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useApi from '~/h/useApi';
 import useFriends from '~/h/useFriends';
-import {postBlockFriend} from '~/apis/api';
+import { postBlockFriend } from '~/apis/api';
+
+import { AWAY } from '~/constants/Colors';
 
 export default function FriendSettingsScreen({ navigation, route }) {
   const userProfileId = useProfileId();
@@ -32,42 +34,48 @@ export default function FriendSettingsScreen({ navigation, route }) {
         },
         {
           text: 'Block',
-          onPress: () => {
-            (async() => {
-              await BlockFriend.call({to_profile_id: profileId, from_profile_id: userProfileId});
-              refetch();
-              navigation.navigate('Home');
-            })();
+          onPress: async () => {
+            await BlockFriend.call({
+              to_profile_id: profileId,
+              from_profile_id: userProfileId,
+            });
+            refetch();
+            navigation.navigate('Home');
           },
         },
       ],
       { cancelable: false }
     );
-  }
+  };
 
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={96}>
-      <View style={{
-        width: '100%',
-        alignItems: 'center',
-        paddingTop: 24,
-      }}>
+      <View
+        style={{
+          width: '100%',
+          alignItems: 'center',
+          paddingTop: 16,
+        }}
+      >
         <ProfileIcon
           noBadge
           profileId={profileId}
           size={128}
           avatar_url={profile?.avatar_url}
         />
-        <SfText style={{
-          paddingTop: 24
-        }}>
-          your friend {profile?.name}
+        <SfText
+          style={{
+            marginTop: 16,
+          }}
+        >
+          {profile?.name}
         </SfText>
-        <SfButton 
+        <SfButton
           en
           round
-          title={`Block & Unfriend ${profile?.name}`}
+          title={`Block & Unfriend`}
           onPress={block}
+          color={AWAY}
           style={{
             marginTop: 16,
             paddingLeft: 48,
