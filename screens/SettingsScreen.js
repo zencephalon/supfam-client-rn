@@ -24,15 +24,15 @@ function UpdateButton() {
     const f = async () => {
       try {
         const update = await Updates.checkForUpdateAsync();
+
+        setCheckingForUpdate(false);
+
+        if (update.isAvailable) {
+          setUpdateAvailable(true);
+        }
       } catch (e) {
         setCheckingForUpdate(false);
         return;
-      }
-
-      setCheckingForUpdate(false);
-
-      if (update.isAvailable) {
-        setUpdateAvailable(true);
       }
     };
     f();
@@ -43,6 +43,8 @@ function UpdateButton() {
     await Updates.fetchUpdateAsync();
     Updates.reloadAsync();
   };
+
+  const disabled = checkingForUpdate || !updateAvailable;
 
   return (
     <SfButton
@@ -55,9 +57,8 @@ function UpdateButton() {
           ? 'Download update'
           : 'No update'
       }
-      onPress={updateAvailable ? downloadUpdate : () => {}}
-      disabled={checkingForUpdate || !updateAvailable}
-      onPress={downloadUpdate}
+      onPress={disabled ? () => {} : downloadUpdate}
+      disabled={disabled}
       color={statusColors[2]}
     />
   );
