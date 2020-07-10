@@ -9,11 +9,42 @@ import SfInlineButton from '~/c/SfInlineButton';
 
 import useProfileId from '~/h/useProfileId';
 import useApi from '~/h/useApi';
-import { postInvitation } from '~/apis/api';
+import { postInvitation, getPhoneLookup, postFriendInvite, postCancelFriendInvite } from '~/apis/api';
 
 export default function InviteContactRow({ contact }) {
+  const [ toProfileId, setToProfileId ] = React.useState(undefined);
+  const [ buttonState, setButtonState ] = React.useState('invite');
+
   const Invitation = useApi(postInvitation);
+  const PhoneLookup = useApi(getPhoneLookup);
+  const InviteFriend = useApi(postFriendInvite);
+  const CancelInvite = useApi(postCancelFriendInvite);
   const profileId = useProfileId();
+
+  const phoneLookup = () => {
+    (async () => {
+      const parsedPhoneNum = parsePhoneNumberFromString(contact.phone, 'US')?.number || contact.phone;
+      const response = await PhoneLookup.call({
+        phone: parsedPhoneNum,
+        from_profile_id: profileId,
+      });
+      console.log(" result back is ", response);
+      if(response.result == 'no_user') {
+        smsInvite();
+      }
+      if(response.result == 'existing_invite') {
+        setButtonState('existingInvite');
+      }
+      if(response.result == 'existing_friendship') {
+        setButtonState('existingFriendship');
+      }
+      if(response.result == 'user_found') {
+        InviteFriend.call({ from_profile_id: profileId, to_profile_id: response.profile_id });
+        setToProfileId(response.profile_id);
+        setButtonState('cancel');
+      }
+    })();
+  }
 
   const smsInvite = () => {
     (async () => {
@@ -42,8 +73,16 @@ export default function InviteContactRow({ contact }) {
     })();
   };
 
+  const cancelInvite = () => {
+    CancelInvite.call({
+      from_profile_id: profileId,
+      to_profile_id: toProfileId,
+    });
+    setButtonState('invite');
+  };
+
   return (
-    <TouchableOpacity style={styles.inviteFriendRow} onPress={smsInvite}>
+    <TouchableOpacity style={styles.inviteFriendRow} onPress={phoneLookup}>
       <View style={{ flexGrow: 1 }}>
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
           <View
@@ -86,7 +125,10 @@ export default function InviteContactRow({ contact }) {
                 top: 0,
               }}
             >
-              <SfInlineButton title="Text to Invite" onPress={smsInvite} />
+              {buttonState == 'invite' ? <SfInlineButton title="Invite" onPress={phoneLookup} /> : null}
+              {buttonState == 'cancel' ? <SfInlineButton title="Cancel Invitation" onPress={cancelInvite} /> : null}
+              {buttonState == 'existingFriendship' ? <SfInlineButton disabled title="Already Friended!" onPress={() => {}} /> : null}
+              {buttonState == 'existingInvite' ? <SfInlineButton disabled title="Already Invited!" onPress={() => {}} /> : null}
             </View>
           </View>
         </View>

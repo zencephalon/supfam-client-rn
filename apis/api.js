@@ -124,6 +124,10 @@ export const postInvitation = ({ from_profile_id, phone }) => {
   });
 };
 
+export const getPhoneLookup = ({ phone, from_profile_id }) => {
+  return api.fetchFromAPI(`invitations/phone_lookup/${phone}/${from_profile_id}`);
+};
+
 export const postFriendInvite = ({ from_profile_id, to_profile_id }) => {
   return api.postToAPI(`friend_invites/create`, {
     body: JSON.stringify({ from_profile_id, to_profile_id }),
