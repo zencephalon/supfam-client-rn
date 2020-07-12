@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQuery, queryCache } from 'react-query';
 import { getConversationMemberships } from '~/apis/api';
-import { AppState } from 'react-native';
 
 export default function useConversationMemberships() {
   const { status, data, error, refetch } = useQuery(
