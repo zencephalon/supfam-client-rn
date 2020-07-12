@@ -27,19 +27,6 @@ export default function useConversationMemberships() {
       },
     }
   );
-  React.useEffect(() => {
-    const onForeground = (nextAppState) => {
-      console.log('APP STATE CHANGE', nextAppState);
-      if (nextAppState === 'active') {
-        console.log('REFETCHING ON FOREGROUND');
-        refetch();
-      }
-    };
-    AppState.addEventListener('change', onForeground);
-    return () => {
-      AppState.removeEventListener('change', onForeground);
-    };
-  }, []);
 
   return { status, conversationMemberships: data, error };
 }

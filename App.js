@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import { ReactQueryConfigProvider } from 'react-query';
+import { StyleSheet, AppState } from 'react-native';
+import { ReactQueryConfigProvider, setFocusHandler } from 'react-query';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,6 +23,18 @@ import CableContainer from '~/containers/Cable';
 
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
+
+setFocusHandler((handleFocus) => {
+  const handle = (nextAppState) => {
+    if (nextAppState === 'active') {
+      handleFocus();
+    }
+  };
+  AppState.addEventListener('change', handle, false);
+  return () => {
+    AppState.removeEventListener('change', handle);
+  };
+});
 
 const queryConfig = {
   queries: {
