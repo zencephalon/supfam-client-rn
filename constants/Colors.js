@@ -20,32 +20,25 @@ export const nord13 = '#EBCB8B'; //yellow
 export const nord14 = '#A3BE8C'; //green
 export const nord15 = '#B48EAD'; //purple
 
+// 100 gives a nice green
+const BASE_HUE = 210;
+
 export const neutrals = [
-  '#102A43',
-  '#243B53',
-  '#334E68',
-  '#486581',
-  '#627D98',
-  '#829AB1',
-  '#9FB3C8',
-  '#BCCCDC',
-  '#D9E2EC',
-  '#F0F4F8',
+  `hsla(${BASE_HUE}, 80%, 8%, 1)`,
+  `hsla(${BASE_HUE}, 61%, 16%, 1)`,
+  `hsla(${BASE_HUE}, 39%, 23%, 1)`,
+  `hsla(${BASE_HUE}, 34%, 30%, 1)`,
+  `hsla(${BASE_HUE}, 28%, 39%, 1)`,
+  `hsla(${BASE_HUE}, 22%, 49%, 1)`,
+  `hsla(${BASE_HUE}, 23%, 60%, 1)`,
+  `hsla(${BASE_HUE}, 27%, 70%, 1)`,
+  `hsla(${BASE_HUE}, 31%, 80%, 1)`,
+  `hsla(${BASE_HUE}, 33%, 89%, 1)`,
+  `hsla(${BASE_HUE}, 36%, 96%, 1)`,
 ];
-export const lightThemeForegrounds = [
-  neutrals[0],
-  neutrals[2],
-  neutrals[4],
-  neutrals[6],
-  neutrals[8],
-];
-export const lightThemeBackgrounds = [
-  neutrals[9],
-  neutrals[7],
-  neutrals[5],
-  neutrals[3],
-  neutrals[1],
-];
+export const lightThemeForegrounds = [...neutrals];
+export const lightThemeBackgrounds = neutrals.reverse();
+
 export const darkThemeForegrounds = lightThemeBackgrounds;
 export const darkThemeBackgrounds = lightThemeForegrounds;
 
