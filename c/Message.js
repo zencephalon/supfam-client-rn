@@ -9,6 +9,7 @@ import TypingText from '~/c/TypingText';
 import MessageImagePreview from '~/c/MessageImagePreview';
 import MessageText from '~/c/MessageText';
 import MessageSentTimeText from '~/c/MessageSentTimeText';
+import LinkPreview from '~/c/LinkPreview';
 
 function Message(props) {
   const { message, isOwnMessage, fromSameUser, breakAbove } = props;
@@ -76,6 +77,22 @@ function Message(props) {
             ) : null}
           </>
         </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          flexDirection: 'column',
+          marginBottom: 4,
+          // alignItems: isOwnMessage ? 'flex-end' : 'flex-end',
+          alignSelf: isOwnMessage ? 'flex-end' : 'flex-start',
+          width: '80%',
+          // justifyContent: isOwnMessage ? 'flex-end' : 'flex-start',
+          marginLeft: 8,
+          marginRight: 8,
+        }}
+      >
+        {message.links?.map((link, index) => (
+          <LinkPreview text={link.url} key={index} />
+        ))}
       </View>
     </View>
   );
