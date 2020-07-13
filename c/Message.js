@@ -60,7 +60,11 @@ function Message(props) {
               />
             )}
             {message.type === 0 && (
-              <MessageText text={message.message} isOwnMessage={isOwnMessage} />
+              <MessageText
+                text={message.message}
+                isOwnMessage={isOwnMessage}
+                links={message.links}
+              />
             )}
             {message.type === 1 && message.image && (
               <MessageImagePreview image={message.image} />

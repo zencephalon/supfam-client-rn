@@ -3,19 +3,79 @@ import React from 'react';
 import useLight from '~/h/useLight';
 import SfText from '~/c/SfText';
 
-export default function MessageText(props) {
+import { Text, TouchableOpacity, Share } from 'react-native';
+
+export default function MessageText({ text, isOwnMessage, links }) {
   const { backgrounds } = useLight();
+
+  if (!links || links.length === 0) {
+    return (
+      <SfText
+        style={{
+          fontSize: 16,
+          backgroundColor: isOwnMessage ? backgrounds[2] : backgrounds[1],
+          borderRadius: 10,
+          overflow: 'hidden',
+          padding: 8,
+        }}
+      >
+        {text}
+      </SfText>
+    );
+  }
+
+  const textChunks = [];
+  let startIndex = 0;
+  let i = 0;
+
+  links.forEach((link) => {
+    const [start, end] = link.indices;
+    textChunks.push({
+      text: text.substring(startIndex, start),
+      type: 'text',
+      id: i++,
+    });
+    textChunks.push({
+      text: text.substring(start, end),
+      type: 'link',
+      id: i++,
+    });
+    startIndex = end;
+  });
+
+  textChunks.push({
+    text: text.substr(startIndex),
+    type: 'text',
+    id: i++,
+  });
+
   return (
     <SfText
       style={{
         fontSize: 16,
-        backgroundColor: props.isOwnMessage ? backgrounds[2] : backgrounds[1],
+        backgroundColor: isOwnMessage ? backgrounds[2] : backgrounds[1],
         borderRadius: 10,
         overflow: 'hidden',
         padding: 8,
       }}
     >
-      {props.text}
+      {textChunks.map((chunk) => {
+        if (chunk.type == 'text') {
+          return <Text key={chunk.id}>{chunk.text}</Text>;
+        }
+
+        return (
+          <Text
+            key={chunk.id}
+            style={{ textDecorationLine: 'underline' }}
+            onPress={() => {
+              Share.share({ url: chunk.text });
+            }}
+          >
+            {chunk.text}
+          </Text>
+        );
+      })}
     </SfText>
   );
 }
