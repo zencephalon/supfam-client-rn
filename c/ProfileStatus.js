@@ -9,11 +9,15 @@ import SfText from '~/c/SfText';
 import DirectConversationPreview from '~/c/DirectConversationPreview';
 
 import statusColors from '~/constants/statusColors';
+import { isRecent, statusOpacity } from '~/lib/clockwork';
 
 import { useNavigation } from '@react-navigation/native';
 
 export default function ProfileStatus({ profile }) {
   const navigation = useNavigation();
+
+  let recentUpdate = isRecent(profile.status.updated_at);
+  let opacity = statusOpacity(profile.status.updated_at);
 
   return (
     <TouchableOpacity
@@ -50,6 +54,8 @@ export default function ProfileStatus({ profile }) {
                 flexShrink: 1,
                 marginLeft: 8,
                 overflow: 'hidden',
+                opacity: opacity,
+                fontWeight: recentUpdate ? 'bold' : 'normal',
               }}
             >
               {profile?.status?.message}
