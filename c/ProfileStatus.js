@@ -12,8 +12,34 @@ import statusColors from '~/constants/statusColors';
 
 import { useNavigation } from '@react-navigation/native';
 
+const THIRTY_MINUTES = 30 * 60 * 1000;
+const THREE_HOURS = 3 * 60 * 60 * 1000;
+const ONE_DAY = 24 * 60 * 60 * 1000;
+const MIN_OPACITY = 0.2
+
 export default function ProfileStatus({ profile }) {
   const navigation = useNavigation();
+
+  // Calculate time since status was updated
+  const statusUpdatedStamp = new Date(profile.status.updated_at).getTime();
+  const nowStamp = new Date().getTime();
+  const timeSinceMillis = nowStamp - statusUpdatedStamp;
+
+  let recentUpdate = false;
+  let opacity = 1;
+  if(timeSinceMillis < THIRTY_MINUTES) {
+    recentUpdate = true;
+  }
+  if(timeSinceMillis > THREE_HOURS && timeSinceMillis < ONE_DAY) {
+    const intoGreyingPeriod = timeSinceMillis - THREE_HOURS;
+    const percentIn = intoGreyingPeriod / (ONE_DAY - THREE_HOURS);
+    const opacityModifier = (1-MIN_OPACITY) * percentIn;
+    opacity = 1 - opacityModifier;
+    opacity = Math.round(100 * opacity) / 100;
+  }
+  if(timeSinceMillis > ONE_DAY) {
+    opacity = MIN_OPACITY;
+  }
 
   return (
     <TouchableOpacity
@@ -50,6 +76,8 @@ export default function ProfileStatus({ profile }) {
                 flexShrink: 1,
                 marginLeft: 8,
                 overflow: 'hidden',
+                opacity: opacity,
+                fontWeight: recentUpdate ? 'bold' : 'normal',
               }}
             >
               {profile?.status?.message}
