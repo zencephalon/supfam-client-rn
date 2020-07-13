@@ -10,7 +10,7 @@ import SfTopBar from '~/c/SfTopBar';
 
 import useLight from '~/h/useLight';
 
-export default function HomeTopBar({ title }) {
+export default function HomeTopBar({ title, setShowAddChoiceModal }) {
   const navigation = useNavigation();
 
   const { foregrounds } = useLight();
@@ -25,7 +25,7 @@ export default function HomeTopBar({ title }) {
       <SfText style={{ color: foregrounds[1] }}>{title}</SfText>
       <TouchableOpacity
         style={{ padding: 4 }}
-        onPress={() => navigation.navigate('Invite')}
+        onPress={() => setShowAddChoiceModal(true)}
       >
         <MaterialIcons
           name="person-add"
