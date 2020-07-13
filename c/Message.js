@@ -9,7 +9,7 @@ import TypingText from '~/c/TypingText';
 import MessageImagePreview from '~/c/MessageImagePreview';
 import MessageText from '~/c/MessageText';
 import MessageSentTimeText from '~/c/MessageSentTimeText';
-import LinkPreview from '~/c/LinkPreview';
+import SfLinkPreview from '~/c/SfLinkPreview';
 
 function Message(props) {
   const { message, isOwnMessage, fromSameUser, breakAbove } = props;
@@ -78,22 +78,24 @@ function Message(props) {
           </>
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          flexDirection: 'column',
-          marginBottom: 4,
-          // alignItems: isOwnMessage ? 'flex-end' : 'flex-end',
-          alignSelf: isOwnMessage ? 'flex-end' : 'flex-start',
-          width: '80%',
-          // justifyContent: isOwnMessage ? 'flex-end' : 'flex-start',
-          marginLeft: 8,
-          marginRight: 8,
-        }}
-      >
-        {message.links?.map((link, index) => (
-          <LinkPreview text={link.url} key={index} />
-        ))}
-      </View>
+      {showDate && (
+        <View
+          style={{
+            flexDirection: 'column',
+            marginBottom: 4,
+            // alignItems: isOwnMessage ? 'flex-end' : 'flex-end',
+            alignSelf: isOwnMessage ? 'flex-end' : 'flex-start',
+            width: '80%',
+            // justifyContent: isOwnMessage ? 'flex-end' : 'flex-start',
+            marginLeft: 8,
+            marginRight: 8,
+          }}
+        >
+          {message.links?.map((link, index) => (
+            <SfLinkPreview url={link.url} key={index} />
+          ))}
+        </View>
+      )}
     </View>
   );
 }
