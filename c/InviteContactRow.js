@@ -28,7 +28,6 @@ export default function InviteContactRow({ contact }) {
         phone: parsedPhoneNum,
         from_profile_id: profileId,
       });
-      console.log(" result back is ", response);
       if(response.result == 'no_user') {
         smsInvite();
       }

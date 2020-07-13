@@ -21,7 +21,6 @@ export default function RespondToInviteRow({ invite }) {
   const Accept = useApi(postAcceptFriendInvite);
   const Decline = useApi(postDeclineFriendInvite);
   const profileId = useProfileId();
-  console.log({ invite });
   const fromFriend = invite?.from_friend;
 
   if (!fromFriend) {
@@ -29,7 +28,6 @@ export default function RespondToInviteRow({ invite }) {
   }
 
   const acceptInvite = () => {
-    console.log('attempting to acept friend');
     Accept.call({ from_profile_id: fromFriend.id, to_profile_id: profileId });
     queryCache.invalidateQueries(['friends']);
     queryCache.invalidateQueries(['friendInvitesTo', profileId]);
