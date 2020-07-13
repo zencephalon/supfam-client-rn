@@ -65,13 +65,7 @@ export default function MessageText({ text, isOwnMessage, links }) {
         }
 
         return (
-          <Text
-            key={chunk.id}
-            style={{ textDecorationLine: 'underline' }}
-            onPress={() => {
-              Share.share({ url: chunk.text });
-            }}
-          >
+          <Text key={chunk.id} style={{ textDecorationLine: 'underline' }}>
             {chunk.text}
           </Text>
         );
