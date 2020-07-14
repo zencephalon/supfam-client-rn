@@ -7,9 +7,9 @@ import SfButton from '~/c/SfButton';
 import SfTextButton from '~/c/SfTextButton';
 import SfText from '~/c/SfText';
 
-export default function AddChoiceModal({ visible, setVisible, navigation }) {
+export default function AddChoiceModal({navigation}) {
   return (
-    <SfModal visible={visible} setVisible={setVisible}>
+    <SfModal>
       <>
         <SfText style={styles.modalText}>What would you like to do?</SfText>
 
@@ -17,7 +17,6 @@ export default function AddChoiceModal({ visible, setVisible, navigation }) {
           title="Invite Friends"
           onPress={() => {
             navigation.navigate('Invite');
-            setVisible(false);
           }}
           style={{
             marginTop: 16,
@@ -32,7 +31,6 @@ export default function AddChoiceModal({ visible, setVisible, navigation }) {
           title="Create Group"
           onPress={() => {
             navigation.navigate('New Group', { conversationId: null });
-            setVisible(false);
           }}
           style={{
             marginTop: 16,
@@ -44,8 +42,8 @@ export default function AddChoiceModal({ visible, setVisible, navigation }) {
           }}
         />
         <SfTextButton
-          title="cancel"
-          onPress={() => setVisible(false)}
+          title='cancel'
+          onPress={() => navigation.pop()}
           style={{
             marginTop: 16,
           }}
@@ -59,27 +57,6 @@ export default function AddChoiceModal({ visible, setVisible, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 16,
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 24,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
   modalText: {
     fontSize: 16,
     marginBottom: 16,

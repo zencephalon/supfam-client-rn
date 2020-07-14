@@ -10,24 +10,25 @@ import {
 } from 'react-native';
 
 import useLight from '~/h/useLight';
+import { useNavigation } from '@react-navigation/native';
 
-export default function SfModal({ visible, setVisible, children }) {
+export default function SfModal({children}) {
   const { backgrounds } = useLight();
+  const navigation = useNavigation();
 
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={visible}
       onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-        setVisible(false);
+        Alert.alert("Modal has been closed.");
+        navigation.pop();
       }}
     >
-      <TouchableOpacity
-        style={styles.centeredView}
-        activeOpacity={1}
-        onPressOut={() => setVisible(false)}
+      <TouchableOpacity 
+        style={styles.centeredView} 
+        activeOpacity={1} 
+        onPressOut={() => navigation.pop()}
       >
         <TouchableWithoutFeedback>
           <View style={[styles.modalView, { backgroundColor: backgrounds[0] }]}>

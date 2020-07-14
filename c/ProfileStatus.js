@@ -28,6 +28,9 @@ export default function ProfileStatus({ profile }) {
       onPress={() => {
         navigation.navigate('Conversation', { profileId: profile.id });
       }}
+      onLongPress={() => {
+        navigation.navigate('Reply Status', { profileId: profile.id });
+      }}
     >
       <View style={{ flexGrow: 1 }}>
         <TopText
