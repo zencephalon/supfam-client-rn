@@ -1,8 +1,19 @@
 import * as React from 'react';
-import {Alert, Modal, StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
+
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from 'react-native';
+
+import useLight from '~/h/useLight';
 import { useNavigation } from '@react-navigation/native';
 
 export default function SfModal({children}) {
+  const { backgrounds } = useLight();
   const navigation = useNavigation();
 
   return (
@@ -20,7 +31,7 @@ export default function SfModal({children}) {
         onPressOut={() => navigation.pop()}
       >
         <TouchableWithoutFeedback>
-          <View style={styles.modalView}>
+          <View style={[styles.modalView, { backgroundColor: backgrounds[0] }]}>
             {children}
           </View>
         </TouchableWithoutFeedback>
@@ -32,28 +43,29 @@ export default function SfModal({children}) {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalView: {
     margin: 16,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 8,
     padding: 24,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
   },
   modalText: {
     fontSize: 18,
     marginBottom: 16,
-    textAlign: "center"
-  }
+    textAlign: 'center',
+  },
 });
