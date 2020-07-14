@@ -6,9 +6,9 @@ import SfModal from '~/c/SfModal';
 import SfButton from '~/c/SfButton';
 import SfTextButton from '~/c/SfTextButton';
 
-export default function AddChoiceModal({visible, setVisible, navigation}) {
+export default function AddChoiceModal({navigation}) {
   return (
-    <SfModal visible={visible} setVisible={setVisible}>
+    <SfModal>
       <>
         <Text style={styles.modalText}>What would you like to do?</Text>
 
@@ -16,7 +16,6 @@ export default function AddChoiceModal({visible, setVisible, navigation}) {
           title='Invite Friend(s)'
           onPress={() => {
             navigation.navigate('Invite');
-            setVisible(false);
           }}
           style={{
             marginTop: 16,
@@ -28,7 +27,6 @@ export default function AddChoiceModal({visible, setVisible, navigation}) {
           title='Create Group'
           onPress={() => {
             navigation.navigate('New Group', { conversationId: null });
-            setVisible(false);
           }}
           style={{
             marginTop: 16,
@@ -38,7 +36,7 @@ export default function AddChoiceModal({visible, setVisible, navigation}) {
         />
         <SfTextButton
           title='cancel'
-          onPress={() => setVisible(false)}
+          onPress={() => navigation.pop()}
           style={{
             marginTop: 16,
           }}

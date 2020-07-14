@@ -8,15 +8,16 @@ import SfTextInput from '~/c/SfTextInput';
 
 import useCachedProfile from '~/h/useCachedProfile';
 
-export default function ReplyStatusModal({visible, setVisible, profileId}) {
+export default function ReplyStatusModal({navigation, route}) {
   const [value, setValue] = React.useState('');
 
+  const { profileId } = route.params;
   const profile = useCachedProfile(profileId);
 
   return (
-    <SfModal visible={visible} setVisible={setVisible}>
+    <SfModal>
       <>
-        <Text style={styles.modalText}>Replying to {profile.name}&apos;s status: &quot;{profile.status.message}&quot;</Text>
+        <Text style={styles.modalText}>Replying to {profile.name}&apos;s status: &quot;{profile?.status.message}&quot;</Text>
 
         <SfTextInput
           value={value}
@@ -31,7 +32,7 @@ export default function ReplyStatusModal({visible, setVisible, profileId}) {
         <SfButton
           title='Submit'
           onPress={() => {
-            setVisible(false);
+            navigation.pop();
           }}
           style={{
             marginTop: 16,

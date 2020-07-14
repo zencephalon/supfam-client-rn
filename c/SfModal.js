@@ -1,22 +1,23 @@
 import * as React from 'react';
-
 import {Alert, Modal, StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function SfModal({visible, setVisible, children}) {
+export default function SfModal({children}) {
+  const navigation = useNavigation();
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={visible}
       onRequestClose={() => {
         Alert.alert("Modal has been closed.");
-        setVisible(false);
+        navigation.pop();
       }}
     >
       <TouchableOpacity 
         style={styles.centeredView} 
         activeOpacity={1} 
-        onPressOut={() => setVisible(false)}
+        onPressOut={() => navigation.pop()}
       >
         <TouchableWithoutFeedback>
           <View style={styles.modalView}>

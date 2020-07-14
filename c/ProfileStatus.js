@@ -13,7 +13,7 @@ import { isRecent, statusOpacity } from '~/lib/clockwork';
 
 import { useNavigation } from '@react-navigation/native';
 
-export default function ProfileStatus({ profile, replyToStatus }) {
+export default function ProfileStatus({ profile }) {
   const navigation = useNavigation();
 
   let recentUpdate = isRecent(profile.status.updated_at);
@@ -29,7 +29,7 @@ export default function ProfileStatus({ profile, replyToStatus }) {
         navigation.navigate('Conversation', { profileId: profile.id });
       }}
       onLongPress={() => {
-        replyToStatus(profile.id);
+        navigation.navigate('Reply Status', { profileId: profile.id });
       }}
     >
       <View style={{ flexGrow: 1 }}>

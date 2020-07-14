@@ -17,6 +17,18 @@ import ChatItem from '~/c/ChatItem';
 
 import { orderBy } from 'lodash';
 
+const renderItem = ({ item }) => {
+  if (item.type == 'friend') {
+    return <ProfileStatus profile={item} />;
+  }
+
+  if (item.type == 'group') {
+    return <ChatItem chat={item} />;
+  }
+
+  return <RespondToInviteRow invite={item} />;
+};
+
 function useFriendListItems(friends, friendInvitesTo, groupConversations) {
   const friendsTyped = (friends || []).map((friend) => {
     return {
@@ -49,7 +61,7 @@ function useFriendListItems(friends, friendInvitesTo, groupConversations) {
   return items;
 }
 
-const FriendList = ({replyToStatus}) => {
+const FriendList = () => {
   const { backgrounds } = useLight();
 
   const { friends, refetch, isFetching } = useFriends();
@@ -67,18 +79,6 @@ const FriendList = ({replyToStatus}) => {
   );
 
   useSfListAnimation(listItems);
-
-  const renderItem = ({ item }) => {
-    if (item.type == 'friend') {
-      return <ProfileStatus profile={item} replyToStatus={replyToStatus}/>;
-    }
-
-    if (item.type == 'group') {
-      return <ChatItem chat={item} />;
-    }
-
-    return <RespondToInviteRow invite={item} />;
-  };
 
   return (
     <>
