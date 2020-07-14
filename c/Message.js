@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ActivityIndicator, TouchableOpacity, Clipboard } from 'react-native';
+import { showMessage } from "react-native-flash-message";
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -45,6 +46,10 @@ function Message(props) {
           }}
           onLongPress={() => {
             Clipboard.setString(message.message);
+            showMessage({
+              message: "Copied to clipboard!",
+              type: "info",
+            });
           }}
           style={{
             flexDirection: 'column',

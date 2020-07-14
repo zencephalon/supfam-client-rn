@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance';
 import { Provider } from 'react-redux';
+import FlashMessage from "react-native-flash-message";
 
 import useLinking from '~/navigation/useLinking';
 import RootNavigator from '~/navigation/RootNavigator';
@@ -23,6 +24,7 @@ import CableContainer from '~/containers/Cable';
 
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
+import {nord10} from '~/constants/Colors';
 
 setFocusHandler((handleFocus) => {
   const handle = (nextAppState) => {
@@ -91,6 +93,9 @@ export default function App(props) {
                   <NavigationContainer ref={containerRef} linking={config}>
                     <CableContainer containerRef={containerRef} />
                     <RootNavigator />
+                    <FlashMessage position="top" style={{
+                      backgroundColor: nord10,
+                    }}/>
                   </NavigationContainer>
                 </NotificationGate>
               </ProfileGate>
