@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, ActivityIndicator, TouchableOpacity, Clipboard } from 'react-native';
+import { showMessage } from "react-native-flash-message";
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -42,6 +43,13 @@ function Message(props) {
           activeOpacity={0.8}
           onPress={() => {
             setShowDate(!showDate);
+          }}
+          onLongPress={() => {
+            Clipboard.setString(message.message);
+            showMessage({
+              message: "Copied to clipboard!",
+              type: "info",
+            });
           }}
           style={{
             flexDirection: 'column',
