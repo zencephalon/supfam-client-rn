@@ -16,6 +16,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo/react-native-action-sheet": "^3.8.0",
     "@expo/vector-icons": "^10.0.0",
     "@kesha-antonov/react-native-action-cable": "^1.0.5",
     "@react-native-community/masked-view": "0.1.10",

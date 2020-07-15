@@ -6,6 +6,7 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { Provider } from 'react-redux';
 import FlashMessage from "react-native-flash-message";
 
@@ -84,6 +85,7 @@ export default function App(props) {
   } else {
     return (
       <ReactQueryConfigProvider config={queryConfig}>
+        <ActionSheetProvider>
         <AppearanceProvider>
           <ThemeAwareStatusBar />
           <Provider store={configureStore({ auth: AuthToken.get() })}>
@@ -102,6 +104,7 @@ export default function App(props) {
             </AuthGate>
           </Provider>
         </AppearanceProvider>
+        </ActionSheetProvider>
       </ReactQueryConfigProvider>
     );
   }
