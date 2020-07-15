@@ -52,7 +52,6 @@ export default function ReplyStatusModal({ navigation, route }) {
             autoFocus={true}
             onChangeText={setReply}
             textInputStyle={styles.statusInput}
-            // style={{ flexGrow: 1, flexShrink: 1 }}
             multiline={true}
           />
           {!!reply && (
