@@ -13,6 +13,8 @@ import { isRecent, statusOpacity } from '~/lib/clockwork';
 
 import { useNavigation } from '@react-navigation/native';
 
+import useOpenReplyModal from '~/h/useOpenReplyModal';
+
 export default function ProfileStatus({ profile }) {
   const navigation = useNavigation();
 
@@ -20,6 +22,12 @@ export default function ProfileStatus({ profile }) {
   let opacity = statusOpacity(profile.status.updated_at);
 
   const statusMessage = profile?.status?.message;
+  const openReplyModal = useOpenReplyModal(
+    profile.id,
+    statusMessage,
+    'status',
+    null
+  );
 
   return (
     <TouchableOpacity
@@ -32,13 +40,7 @@ export default function ProfileStatus({ profile }) {
           profileId: profile.id,
         });
       }}
-      onLongPress={() => {
-        navigation.navigate('Reply Modal', {
-          profileId: profile.id,
-          quoted: statusMessage,
-          quoteType: 'status',
-        });
-      }}
+      onLongPress={openReplyModal}
     >
       <View style={{ flexGrow: 1 }}>
         <TopText
