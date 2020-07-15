@@ -7,36 +7,33 @@ import {
   View,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import useLight from '~/h/useLight';
 import { useNavigation } from '@react-navigation/native';
 
-export default function SfModal({children}) {
+export default function SfModal({ children }) {
   const { backgrounds } = useLight();
   const navigation = useNavigation();
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        navigation.pop();
-      }}
+    <TouchableOpacity
+      style={styles.modalBackground}
+      activeOpacity={1}
+      onPressOut={() => navigation.pop()}
     >
-      <TouchableOpacity 
-        style={styles.centeredView} 
-        activeOpacity={1} 
-        onPressOut={() => navigation.pop()}
+      <KeyboardAvoidingView
+        style={styles.centeredView}
+        {...(Platform.OS === 'ios' && { behavior: 'padding' })}
       >
         <TouchableWithoutFeedback>
           <View style={[styles.modalView, { backgroundColor: backgrounds[0] }]}>
             {children}
           </View>
         </TouchableWithoutFeedback>
-      </TouchableOpacity>
-    </Modal>
+      </KeyboardAvoidingView>
+    </TouchableOpacity>
   );
 }
 
@@ -45,7 +42,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalView: {
