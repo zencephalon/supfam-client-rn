@@ -65,14 +65,15 @@ function Message(props) {
         >
           <>
             {!isOwnMessage && !fromSameUser && (
-              <ProfileName
-                profileId={message.profile_id}
+              <SfText
                 style={{
                   fontSize: 12,
                   alignSelf: 'flex-start',
                   marginBottom: 4,
                 }}
-              />
+              >
+                <ProfileName profileId={message.profile_id} />
+              </SfText>
             )}
             {message.type === 0 && (
               <MessageText
