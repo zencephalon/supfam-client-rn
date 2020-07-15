@@ -17,12 +17,12 @@ export default function QuotedMessageText({
   quotedProfileId,
   quoterProfileId,
 }) {
-  const { backgrounds } = useLight();
+  const { backgrounds, foregrounds } = useLight();
 
   return (
     <View style={{ alignItems: isOwnMessage ? 'flex-end' : 'flex-start' }}>
       {quotedProfileId && (
-        <SfText style={{ fontSize: 12 }}>
+        <SfText style={{ fontSize: 12, color: foregrounds[7] }}>
           {isOwnMessage ? 'You' : <ProfileName profileId={quoterProfileId} />}{' '}
           replied to <ProfileName profileId={quotedProfileId} />
           's {quoteType}:
