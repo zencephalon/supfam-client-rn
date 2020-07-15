@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alert } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import Constants from 'expo-constants';
 
 import FullScreenLoader from '~/c/FullScreenLoader';
@@ -45,6 +45,7 @@ const ProfileGate = (props) => {
         if (settings.granted || settings.ios?.status === 'provisional') {
           setNotificationsEnabled(true);
 
+          // TODO: we have to handle this properly
           if (Platform.OS === 'android') {
             Notifications.setNotificationChannelAsync('default', {
               name: 'default',
