@@ -97,7 +97,7 @@ const RegistrationForm = ({ token }) => {
 
     PostRegister.call({ name, password, passwordConfirmation, token }).then(
       (json) => {
-        AuthToken.set(json);
+        AuthToken.set({ token: json.token });
         dispatch(LOGIN(json));
       }
     );
@@ -105,9 +105,7 @@ const RegistrationForm = ({ token }) => {
 
   return (
     <ScrollView style={styles.formContainer}>
-      <SfText style={styles.formLabel}>
-        Thanks for verifying!
-      </SfText>
+      <SfText style={styles.formLabel}>Thanks for verifying!</SfText>
       <SfTextInput
         working={fetchingNameAvailable}
         ok={nameOk}
@@ -164,7 +162,7 @@ const styles = StyleSheet.create({
   formLabel: {
     marginBottom: elementSizes[3],
     marginTop: elementSizes[3],
-    color: 'white'
+    color: 'white',
   },
   formContainer: {
     marginLeft: elementSizes[3],
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
     marginTop: elementSizes[2],
     fontSize: fontSizes[2],
     color: lightThemeForegrounds[3],
-  }
+  },
 });
 
 export default RegistrationForm;
