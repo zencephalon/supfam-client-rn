@@ -4,15 +4,12 @@ import MessageQueue from '~/lib/MessageQueue';
 
 export default function useSubmitMessage(conversationId, meProfileId) {
   return React.useCallback(
-    (text, qid) => {
-      if (text === '') {
+    (message) => {
+      if (!message) {
         return;
       }
-      MessageQueue.sendMessage(meProfileId, conversationId, {
-        message: text,
-        type: 0,
-        qid,
-      });
+      console.log('trying to send', message);
+      MessageQueue.sendMessage(meProfileId, conversationId, message);
     },
     [conversationId, meProfileId]
   );

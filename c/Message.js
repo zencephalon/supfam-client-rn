@@ -1,6 +1,11 @@
 import React from 'react';
-import { View, ActivityIndicator, TouchableOpacity, Clipboard } from 'react-native';
-import { showMessage } from "react-native-flash-message";
+import {
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  Clipboard,
+} from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -47,8 +52,8 @@ function Message(props) {
           onLongPress={() => {
             Clipboard.setString(message.message);
             showMessage({
-              message: "Copied to clipboard!",
-              type: "info",
+              message: 'Copied to clipboard!',
+              type: 'info',
             });
           }}
           style={{
@@ -77,6 +82,13 @@ function Message(props) {
             )}
             {message.type === 1 && message.image && (
               <MessageImagePreview image={message.image} />
+            )}
+            {message.type === 2 && (
+              <MessageText
+                text={message.message}
+                isOwnMessage={isOwnMessage}
+                links={message.links}
+              />
             )}
             {message.i ? (
               <SfText style={{ fontSize: 10 }}>

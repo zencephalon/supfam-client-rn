@@ -145,7 +145,11 @@ export default function MessageInput({ conversationId }) {
           <TouchableOpacity
             onPress={() => {
               setMessage('');
-              submitMessage(text, qid);
+              submitMessage({
+                message: text,
+                qid,
+                type: 0,
+              });
               setQid(Math.random());
             }}
             style={{

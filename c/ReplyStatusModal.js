@@ -1,19 +1,21 @@
 import * as React from 'react';
 
-import {StyleSheet, Text} from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 import SfModal from '~/c/SfModal';
 import SfButton from '~/c/SfButton';
 import SfTextInput from '~/c/SfTextInput';
+import SfText from '~/c/SfText';
 
 import useProfileDmConversation from '~/h/useProfileDmConversation';
 import useProfileId from '~h/useProfileId';
 import useCachedProfile from '~/h/useCachedProfile';
 import useApi from '~h/useApi';
-import {sendMessage} from '~/apis/api';
+import useSubmitMessage from '~/h/useSubmitMessage';
+import { sendMessage } from '~/apis/api';
 
-export default function ReplyStatusModal({navigation, route}) {
-  const [value, setValue] = React.useState('');
+export default function ReplyStatusModal({ navigation, route }) {
+  const [reply, setReply] = React.useState('');
 
   const meProfileId = useProfileId();
   const { profileId } = route.params;
@@ -22,28 +24,31 @@ export default function ReplyStatusModal({navigation, route}) {
   const Send = useApi(sendMessage);
 
   const { conversation } = useProfileDmConversation(profileId);
+  const submitMessage = useSubmitMessage(conversation?.id, meProfileId);
+
+  const quoted = profile?.status.message;
 
   const submit = () => {
-    Send.call({ meProfileId, conversationId: conversation.id, data: {
-      message: {
-        message: value,
-        quotedMessage: profile.status.message,
-        type: 0,
-        qid: Math.random(),
-      }
-    }});
+    submitMessage({
+      message: reply,
+      data: { quoted },
+      type: 2,
+      qid: Math.random(),
+    });
     navigation.pop();
-  }
+  };
 
   return (
     <SfModal>
       <>
-        <Text style={styles.modalText}>Replying to {profile.name}&apos;s status: &quot;{profile?.status.message}&quot;</Text>
+        <SfText style={styles.modalText}>
+          Replying to {profile.name}&apos;s status: &quot;{quoted}&quot;
+        </SfText>
 
         <SfTextInput
-          value={value}
+          value={reply}
           autoFocus={true}
-          onChangeText={setValue}
+          onChangeText={setReply}
           textInputStyle={styles.statusInput}
           // style={{ flexGrow: 1, flexShrink: 1 }}
           multiline={true}
@@ -51,7 +56,7 @@ export default function ReplyStatusModal({navigation, route}) {
         />
 
         <SfButton
-          title='Submit'
+          title="Submit"
           onPress={submit}
           style={{
             marginTop: 16,
@@ -66,9 +71,9 @@ export default function ReplyStatusModal({navigation, route}) {
 
 const styles = StyleSheet.create({
   modalText: {
-    fontSize: 18,
+    fontSize: 16,
     marginBottom: 16,
-    textAlign: "center"
+    textAlign: 'center',
   },
   statusInput: {
     minWidth: '100%',
