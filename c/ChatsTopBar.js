@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
@@ -18,9 +18,9 @@ export default function ChatsTopBar({ title }) {
     <SfTopBar style={{ paddingBottom: 6 }}>
       <TouchableOpacity
         style={{ padding: 4 }}
-        onPress={() => navigation.openDrawer()}
+        onPress={() => navigation.navigate('Home')}
       >
-        <MaterialIcons name="menu" size={24} color={foregrounds[1]} />
+        <Ionicons name="ios-arrow-back" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
       <SfText style={{ color: foregrounds[1] }}>{title}</SfText>
       <TouchableOpacity
