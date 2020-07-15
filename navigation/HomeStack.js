@@ -48,6 +48,7 @@ function HomeStack() {
         name="Invite"
         component={InviteScreen}
         options={{
+          headerTintColor: foregrounds[0],
           headerStyle,
           headerTitleStyle,
         }}
@@ -56,6 +57,7 @@ function HomeStack() {
         name="Friend Settings"
         component={FriendSettingsScreen}
         options={{
+          headerTintColor: foregrounds[0],
           headerStyle,
           headerTitleStyle,
         }}
@@ -73,6 +75,7 @@ function HomeStack() {
         name="New Group"
         component={GroupBuilderScreen}
         options={{
+          headerTintColor: foregrounds[0],
           headerStyle: {
             backgroundColor: backgrounds[1],
             shadowColor: 'black',
@@ -88,6 +91,7 @@ function HomeStack() {
         name="Add Members"
         component={GroupBuilderScreen}
         options={{
+          headerTintColor: foregrounds[0],
           headerStyle: {
             backgroundColor: backgrounds[1],
             shadowColor: 'black',
@@ -103,6 +107,7 @@ function HomeStack() {
         name="Group Settings"
         component={GroupSettingsScreen}
         options={{
+          headerTintColor: foregrounds[0],
           headerStyle: {
             backgroundColor: backgrounds[1],
             shadowColor: 'black',
