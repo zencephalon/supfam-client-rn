@@ -8,7 +8,7 @@ import usePushToken from '~/h/usePushToken';
 
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-function CableContainer({ containerRef }) {
+function CableContainer(): null {
   const profileId = useProfileId();
   const { friends } = useFriends();
   const { conversationMemberships } = useConversationMemberships();
