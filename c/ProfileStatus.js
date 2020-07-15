@@ -30,7 +30,6 @@ export default function ProfileStatus({ profile }) {
       onPress={() => {
         navigation.navigate('Conversation', {
           profileId: profile.id,
-          quoted: statusMessage,
         });
       }}
       onLongPress={() => {
