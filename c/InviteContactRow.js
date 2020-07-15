@@ -49,14 +49,6 @@ export default function InviteContactRow({ contact }) {
     (async () => {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {
-        // Open pre-filled SMS
-        await SMS.sendSMSAsync(
-          [contact.phone],
-          `Hey ${
-            contact.firstName || contact.name
-          }, I'm using Supfam and I want you to join my fam so we can keep close. You can download it here: https://supfam.app/download`
-        );
-
         // Create invitation record for this phone number
         const parsedPhoneNum = parsePhoneNumberFromString(contact.phone, 'US')
           ?.number;
@@ -66,6 +58,14 @@ export default function InviteContactRow({ contact }) {
             phone: parsedPhoneNum,
           });
         }
+
+        // Open pre-filled SMS
+        SMS.sendSMSAsync(
+          [contact.phone],
+          `Hey ${
+            contact.firstName || contact.name
+          }, I'm using Supfam and I want you to join my fam so we can keep close. You can download it here: https://supfam.app/download`
+        );
       } else {
         console.log('SMS not available');
       }

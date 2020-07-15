@@ -4,24 +4,17 @@ import _ from 'lodash';
 
 function getContactNumber(contact) {
   let contactPhoneNumber;
-  let contactPhoneType;
   contact.phoneNumbers?.forEach((phoneNumber) => {
     if (phoneNumber.label == 'mobile') {
-      contactPhoneNumber = phoneNumber.digits;
-      contactPhoneType = 'mobile';
+      if(phoneNumber.digits) {
+        contactPhoneNumber = phoneNumber.digits;
+      } else if(phoneNumber.number) {
+        contactPhoneNumber = phoneNumber.number;
+      }
     }
-    // if (
-    //   contactPhoneType != 'mobile' &&
-    //   // this will always return false, currently, assuming
-    //   // we need to fill it in
-    //   [].includes(phoneNumber.label)
-    // ) {
-    //   contactPhoneNumber = phoneNumber.digits;
-    //   contactPhoneType = phoneNumber.label;
-    // }
   });
 
-  return contactPhoneNumber ? contactPhoneNumber : null;
+  return contactPhoneNumber;
 }
 
 export default function useContacts(allowed) {
@@ -50,6 +43,7 @@ export default function useContacts(allowed) {
   const contacts = [];
   data
     .filter((contact) => contact.contactType === 'person')
+    .filter((contact) => contact.name.match(/[a-zA-Z]/))
     .forEach((contact) => {
       const contactPhoneNumber = getContactNumber(contact);
 
