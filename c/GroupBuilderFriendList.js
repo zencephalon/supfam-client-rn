@@ -1,6 +1,7 @@
 import React from 'react';
 import { RefreshControl, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { useLinkTo } from '@react-navigation/native';
 
 import AddToGroupRow from '~/c/AddToGroupRow';
 import FriendSearchBar from '~/c/FriendSearchBar';
@@ -8,14 +9,14 @@ import SfButton from '~/c/SfButton';
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
 
-import useLight from '~/h/useLight';
-import { OPEN } from '~/constants/Colors';
-
 import useSfListAnimation from '~/h/useSfListAnimation';
 import useFriends from '~/h/useFriends';
 import useProfileId from '~/h/useProfileId';
 import useGroupConversations from '~/h/useGroupConversations';
 import useCachedConversation from '~/h/useCachedConversation';
+
+import useLight from '~/h/useLight';
+import { OPEN } from '~/constants/Colors';
 
 import {
   postConversationCreateWithMembers,
@@ -26,6 +27,8 @@ import useApi from '~/h/useApi';
 const GroupBuilderFriendList = ({ conversationId, navigation }) => {
   const { conversation } = useCachedConversation(conversationId);
   const { backgrounds } = useLight();
+  const linkTo = useLinkTo();
+
   const [searchQuery, setSearchQuery] = React.useState('');
   const [addingProfiles, setAddingProfiles] = React.useState([]);
 
@@ -76,9 +79,7 @@ const GroupBuilderFriendList = ({ conversationId, navigation }) => {
         if (result?.conversation_id) {
           // Redirect into the newly created group conversation with this Id
           groupConvoRefetch();
-          navigation.navigate('Conversation', {
-            conversationId: result.conversation_id,
-          });
+          linkTo(`/conversation/${result.conversation_id}`);
         } else {
           console.log('error creating conversation');
         }

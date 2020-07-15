@@ -7,7 +7,7 @@ import useProfileId from '~/h/useProfileId';
 
 export default function GroupMemberNameSummary({ memberProfileIds, maxNames }) {
   if (!memberProfileIds) {
-    return;
+    return <></>;
   }
 
   const userProfileId = useProfileId();
