@@ -6,7 +6,7 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance';
-import { ActionSheetProvider } from '@expo/react-native-action-sheet'
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { Provider } from 'react-redux';
 import FlashMessage from 'react-native-flash-message';
 
@@ -86,27 +86,27 @@ export default function App(props) {
     return (
       <ReactQueryConfigProvider config={queryConfig}>
         <ActionSheetProvider>
-        <AppearanceProvider>
-          <ThemeAwareStatusBar />
-          <Provider store={configureStore({ auth: AuthToken.get() })}>
-            <AuthGate>
-              <ProfileGate>
-                <NotificationGate>
-                  <NavigationContainer ref={containerRef} linking={config}>
-                    <CableContainer containerRef={containerRef} />
-                    <RootNavigator />
-                    <FlashMessage
-                      position="top"
-                      style={{
-                        backgroundColor: nord10,
-                      }}
-                    />
-                  </NavigationContainer>
-                </NotificationGate>
-              </ProfileGate>
-            </AuthGate>
-          </Provider>
-        </AppearanceProvider>
+          <AppearanceProvider>
+            <ThemeAwareStatusBar />
+            <Provider store={configureStore({ auth: AuthToken.get() })}>
+              <AuthGate>
+                <ProfileGate>
+                  <NotificationGate>
+                    <NavigationContainer ref={containerRef} linking={config}>
+                      <CableContainer containerRef={containerRef} />
+                      <RootNavigator />
+                      <FlashMessage
+                        position="top"
+                        style={{
+                          backgroundColor: nord10,
+                        }}
+                      />
+                    </NavigationContainer>
+                  </NotificationGate>
+                </ProfileGate>
+              </AuthGate>
+            </Provider>
+          </AppearanceProvider>
         </ActionSheetProvider>
       </ReactQueryConfigProvider>
     );
