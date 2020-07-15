@@ -10,7 +10,7 @@ import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { Provider } from 'react-redux';
 import FlashMessage from 'react-native-flash-message';
 
-import useLinking from '~/navigation/useLinking';
+import linkingConfig from '~/navigation/linkingConfig';
 import RootNavigator from '~/navigation/RootNavigator';
 
 import AuthToken from '~/lib/AuthToken';
@@ -27,13 +27,13 @@ import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
 import { nord10 } from '~/constants/Colors';
 
-setFocusHandler((handleFocus) => {
-  const handle = (nextAppState) => {
+setFocusHandler((handleFocus: () => void) => {
+  const handle = (nextAppState: string) => {
     if (nextAppState === 'active') {
       handleFocus();
     }
   };
-  AppState.addEventListener('change', handle, false);
+  AppState.addEventListener('change', handle);
   return () => {
     AppState.removeEventListener('change', handle);
   };
@@ -50,12 +50,16 @@ Sentry.init({
   enableInExpoDevelopment: true,
   debug: true,
 });
-Sentry.setRelease(Constants.manifest.revisionId);
+if (Constants.manifest.revisionId) {
+  Sentry.setRelease(Constants.manifest.revisionId);
+}
 
-export default function App(props) {
+export default function App({
+  skipLoadingScreen,
+}: {
+  skipLoadingScreen: boolean;
+}) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const containerRef = React.useRef();
-  const config = useLinking(containerRef);
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -80,7 +84,7 @@ export default function App(props) {
     loadResourcesAndDataAsync();
   }, []);
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
+  if (!isLoadingComplete && !skipLoadingScreen) {
     return null;
   } else {
     return (
@@ -92,8 +96,8 @@ export default function App(props) {
               <AuthGate>
                 <ProfileGate>
                   <NotificationGate>
-                    <NavigationContainer ref={containerRef} linking={config}>
-                      <CableContainer containerRef={containerRef} />
+                    <NavigationContainer linking={linkingConfig}>
+                      <CableContainer />
                       <RootNavigator />
                       <FlashMessage
                         position="top"
@@ -112,10 +116,3 @@ export default function App(props) {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
-});
