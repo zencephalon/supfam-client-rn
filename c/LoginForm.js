@@ -28,7 +28,7 @@ const LoginForm = () => {
     PostLogin.call({ name, password })
       .then((json) => {
         if (!json.error) {
-          AuthToken.set(json);
+          AuthToken.set({ token: json.token });
           dispatch(LOGIN(json));
         }
       })
