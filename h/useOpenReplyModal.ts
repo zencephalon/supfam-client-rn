@@ -10,6 +10,7 @@ export default function useOpenReplyModal(
 	profileId: number,
 	quoted: string,
 	quoteType: QuoteType,
+	// Required for quoting messages
 	conversationId?: number
 ) {
 	const navigation = useNavigation();
