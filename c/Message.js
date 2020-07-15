@@ -65,14 +65,15 @@ function Message(props) {
         >
           <>
             {!isOwnMessage && !fromSameUser && (
-              <ProfileName
-                profileId={message.profile_id}
+              <SfText
                 style={{
                   fontSize: 12,
                   alignSelf: 'flex-start',
                   marginBottom: 4,
                 }}
-              />
+              >
+                <ProfileName profileId={message.profile_id} />
+              </SfText>
             )}
             {message.type === 0 && (
               <MessageText
@@ -87,6 +88,9 @@ function Message(props) {
             {message.type === 2 && (
               <QuotedMessageText
                 quoted={message.data?.quoted}
+                quotedProfileId={message.data?.profile_id}
+                quoterProfileId={message.profile_id}
+                quoteType={message.data?.quote_type}
                 text={message.message}
                 isOwnMessage={isOwnMessage}
                 links={message.links}

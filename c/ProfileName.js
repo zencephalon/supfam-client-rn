@@ -4,7 +4,7 @@ import SfText from '~/c/SfText';
 import useCachedProfile from '~/h/useCachedProfile';
 
 export default function ProfileName(props) {
-  const profile = useCachedProfile(props.profileId);
+	const profile = useCachedProfile(props.profileId);
 
-  return <SfText style={props.style}>{profile?.name}</SfText>;
+	return profile?.name;
 }

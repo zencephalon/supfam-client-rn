@@ -29,12 +29,18 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
         }}
       >
         {
-          conversation?.name ?
-          <SfText style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}>
-            {conversation.name}
+          <SfText
+            style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}
+          >
+            {conversation?.name ? (
+              conversation.name
+            ) : (
+              <GroupMemberNameSummary
+                memberProfileIds={conversation?.member_profile_ids}
+                maxNames={4}
+              />
+            )}
           </SfText>
-          :
-          <GroupMemberNameSummary memberProfileIds={conversation?.member_profile_ids} maxNames={4} />
         }
       </View>
       <TouchableOpacity
