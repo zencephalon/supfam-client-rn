@@ -31,9 +31,8 @@ export default function ReplyStatusModal({ navigation, route }) {
   const submit = () => {
     submitMessage({
       message: reply,
-      data: { quoted },
+      data: { quoted, profile_id: profileId, quote_type: 'status' },
       type: 2,
-      qid: Math.random(),
     });
     navigation.pop();
   };

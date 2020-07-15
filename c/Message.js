@@ -87,6 +87,9 @@ function Message(props) {
             {message.type === 2 && (
               <QuotedMessageText
                 quoted={message.data?.quoted}
+                quotedProfileId={message.data?.profile_id}
+                quoterProfileId={message.profile_id}
+                quoteType={message.data?.quote_type}
                 text={message.message}
                 isOwnMessage={isOwnMessage}
                 links={message.links}

@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import useLight from '~/h/useLight';
 import SfText from '~/c/SfText';
 import MessageText from '~/c/MessageText';
+import ProfileName from '~/c/ProfileName';
 
 import { Text, TouchableOpacity, Share } from 'react-native';
 
@@ -12,11 +13,21 @@ export default function QuotedMessageText({
   text,
   isOwnMessage,
   links,
+  quoteType,
+  quotedProfileId,
+  quoterProfileId,
 }) {
   const { backgrounds } = useLight();
 
   return (
     <View style={{ alignItems: isOwnMessage ? 'flex-end' : 'flex-start' }}>
+      {quotedProfileId && (
+        <SfText style={{ fontSize: 12 }}>
+          {isOwnMessage ? 'You' : <ProfileName profileId={quoterProfileId} />}{' '}
+          replied to <ProfileName profileId={quotedProfileId} />
+          's {quoteType}:
+        </SfText>
+      )}
       {quoted && (
         <SfText
           style={{
