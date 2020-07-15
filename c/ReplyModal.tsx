@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import SfModal from '~/c/SfModal';
 import SfButton from '~/c/SfButton';
@@ -13,25 +14,26 @@ import useCachedProfile from '~/h/useCachedProfile';
 import useApi from '~h/useApi';
 import useSubmitMessage from '~/h/useSubmitMessage';
 import { sendMessage } from '~/apis/api';
+import { OPEN } from '~/constants/Colors';
 
 export default function ReplyStatusModal({ navigation, route }) {
   const [reply, setReply] = React.useState('');
 
   const meProfileId = useProfileId();
-  const { profileId } = route.params;
+  const { profileId, quoted, conversationId, quoteType } = route.params;
   const profile = useCachedProfile(profileId);
 
-  const Send = useApi(sendMessage);
-
   const { conversation } = useProfileDmConversation(profileId);
-  const submitMessage = useSubmitMessage(conversation?.id, meProfileId);
-
-  const quoted = profile?.status.message;
+  // If we're already in a conversation just use the conversationId passed, it might be a group
+  const submitMessage = useSubmitMessage(
+    conversationId || conversation?.id,
+    meProfileId
+  );
 
   const submit = () => {
     submitMessage({
       message: reply,
-      data: { quoted, profile_id: profileId, quote_type: 'status' },
+      data: { quoted, profile_id: profileId, quote_type: quoteType },
       type: 2,
     });
     navigation.pop();
@@ -41,28 +43,30 @@ export default function ReplyStatusModal({ navigation, route }) {
     <SfModal>
       <>
         <SfText style={styles.modalText}>
-          Replying to {profile.name}&apos;s status: &quot;{quoted}&quot;
+          Replying to {profile.name}&apos;s {quoteType}: &quot;{quoted}&quot;
         </SfText>
 
-        <SfTextInput
-          value={reply}
-          autoFocus={true}
-          onChangeText={setReply}
-          textInputStyle={styles.statusInput}
-          // style={{ flexGrow: 1, flexShrink: 1 }}
-          multiline={true}
-          onBlur={() => {}}
-        />
-
-        <SfButton
-          title="Submit"
-          onPress={submit}
-          style={{
-            marginTop: 16,
-            paddingLeft: 24,
-            paddingRight: 24,
-          }}
-        />
+        <View style={{ flexDirection: 'row', width: '80%' }}>
+          <SfTextInput
+            value={reply}
+            autoFocus={true}
+            onChangeText={setReply}
+            textInputStyle={styles.statusInput}
+            // style={{ flexGrow: 1, flexShrink: 1 }}
+            multiline={true}
+          />
+          {!!reply && (
+            <TouchableOpacity
+              onPress={submit}
+              style={{
+                alignSelf: 'flex-start',
+                paddingLeft: 4,
+              }}
+            >
+              <MaterialCommunityIcons name="send" size={32} color={OPEN} />
+            </TouchableOpacity>
+          )}
+        </View>
       </>
     </SfModal>
   );
@@ -76,6 +80,7 @@ const styles = StyleSheet.create({
   },
   statusInput: {
     minWidth: '100%',
+    flexShrink: 1,
     fontSize: 16,
     borderRadius: 10,
     borderWidth: 0,

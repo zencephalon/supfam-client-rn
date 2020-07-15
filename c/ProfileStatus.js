@@ -19,6 +19,8 @@ export default function ProfileStatus({ profile }) {
   let recentUpdate = isRecent(profile.status.updated_at);
   let opacity = statusOpacity(profile.status.updated_at);
 
+  const statusMessage = profile?.status?.message;
+
   return (
     <TouchableOpacity
       style={{
@@ -26,10 +28,17 @@ export default function ProfileStatus({ profile }) {
         borderLeftColor: statusColors[profile?.status?.color],
       }}
       onPress={() => {
-        navigation.navigate('Conversation', { profileId: profile.id });
+        navigation.navigate('Conversation', {
+          profileId: profile.id,
+          quoted: statusMessage,
+        });
       }}
       onLongPress={() => {
-        navigation.navigate('Reply Status', { profileId: profile.id });
+        navigation.navigate('Reply Modal', {
+          profileId: profile.id,
+          quoted: statusMessage,
+          quoteType: 'status',
+        });
       }}
     >
       <View style={{ flexGrow: 1 }}>
@@ -61,7 +70,7 @@ export default function ProfileStatus({ profile }) {
                 fontWeight: recentUpdate ? 'bold' : 'normal',
               }}
             >
-              {profile?.status?.message}
+              {statusMessage}
             </SfText>
             <DirectConversationPreview userId={profile?.user_id} />
           </View>
