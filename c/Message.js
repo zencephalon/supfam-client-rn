@@ -14,6 +14,7 @@ import ProfileName from '~/c/ProfileName';
 import TypingText from '~/c/TypingText';
 import MessageImagePreview from '~/c/MessageImagePreview';
 import MessageText from '~/c/MessageText';
+import QuotedMessageText from '~/c/QuotedMessageText';
 import MessageSentTimeText from '~/c/MessageSentTimeText';
 import SfLinkPreview from '~/c/SfLinkPreview';
 
@@ -84,7 +85,8 @@ function Message(props) {
               <MessageImagePreview image={message.image} />
             )}
             {message.type === 2 && (
-              <MessageText
+              <QuotedMessageText
+                quoted={message.data?.quoted}
                 text={message.message}
                 isOwnMessage={isOwnMessage}
                 links={message.links}

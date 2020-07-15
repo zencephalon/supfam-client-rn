@@ -4,24 +4,24 @@ import useLight from '~/h/useLight';
 import SfText from '~/c/SfText';
 
 import { Text, TouchableOpacity, Share } from 'react-native';
+import { View } from 'react-native';
 
 export default function MessageText({ text, isOwnMessage, links }) {
   const { backgrounds } = useLight();
 
+  const textStyle = React.useMemo(
+    () => ({
+      fontSize: 16,
+      backgroundColor: isOwnMessage ? backgrounds[2] : backgrounds[1],
+      overflow: 'hidden',
+      padding: 8,
+      borderRadius: 10,
+    }),
+    [backgrounds]
+  );
+
   if (!links || links.length === 0) {
-    return (
-      <SfText
-        style={{
-          fontSize: 16,
-          backgroundColor: isOwnMessage ? backgrounds[2] : backgrounds[1],
-          borderRadius: 10,
-          overflow: 'hidden',
-          padding: 8,
-        }}
-      >
-        {text}
-      </SfText>
-    );
+    return <SfText style={textStyle}>{text}</SfText>;
   }
 
   const textChunks = [];
@@ -50,15 +50,7 @@ export default function MessageText({ text, isOwnMessage, links }) {
   });
 
   return (
-    <SfText
-      style={{
-        fontSize: 16,
-        backgroundColor: isOwnMessage ? backgrounds[2] : backgrounds[1],
-        borderRadius: 10,
-        overflow: 'hidden',
-        padding: 8,
-      }}
-    >
+    <SfText style={textStyle}>
       {textChunks.map((chunk) => {
         if (chunk.type == 'text') {
           return <Text key={chunk.id}>{chunk.text}</Text>;
