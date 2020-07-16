@@ -8,6 +8,8 @@ import ProfileName from '~/c/ProfileName';
 
 import useProfileId from '~/h/useProfileId';
 
+const MAX_QUOTED_DISPLAY_LENGTH = 72;
+
 export default function QuotedMessageText({
   quoted,
   text,
@@ -20,6 +22,11 @@ export default function QuotedMessageText({
   const profileId = useProfileId();
   const youAreQuoted = quotedProfileId == profileId;
   const { backgrounds, foregrounds } = useLight();
+
+  let truncatedQuoted = quoted;
+  if(truncatedQuoted.length > MAX_QUOTED_DISPLAY_LENGTH) {
+    truncatedQuoted = truncatedQuoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...';
+  }
 
   return (
     <View style={{ alignItems: isOwnMessage ? 'flex-end' : 'flex-start' }}>
@@ -41,7 +48,7 @@ export default function QuotedMessageText({
             marginBottom: -8,
           }}
         >
-          {quoted}
+          {truncatedQuoted}
         </SfText>
       )}
       <MessageText text={text} links={links} isOwnMessage={isOwnMessage} />
