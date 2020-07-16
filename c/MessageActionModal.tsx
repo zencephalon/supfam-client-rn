@@ -34,6 +34,11 @@ const RenderInner = ({
 					showTabs={false}
 					showSectionTitles={false}
 					showSearchBar={false}
+					showHistory={false}
+					onEmojiSelected={(emoji) => {
+						console.log(emoji);
+						snapTo(2);
+					}}
 				/>
 			) : (
 				<React.Fragment>
@@ -107,6 +112,7 @@ export default function MessageActionModal({ navigation, route }) {
 						navigation.pop();
 						openReplyModal();
 					}}
+					pop={() => navigation.pop()}
 				/>
 			)}
 			renderHeader={() => <RenderHeader />}
