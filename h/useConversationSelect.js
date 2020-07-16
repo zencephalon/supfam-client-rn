@@ -4,10 +4,24 @@ import { useDispatch } from 'react-redux';
 
 import { SELECT } from '~/apis/conversation/actions';
 
+import * as Notifications from 'expo-notifications';
+
 export default function useConversationSelect(conversationId) {
   const dispatch = useDispatch();
 
   return useEffect(() => {
+    (async () => {
+      const notifs = await Notifications.getPresentedNotificationsAsync();
+      console.log("notifs are", notifs);
+      notifs.forEach((notification) => {
+        const body = notification.request.content.data.body;
+        const conversation_id = body.message.conversation_id;
+        if(conversation_id == conversationId) {
+          Notifications.dismissNotificationAsync(notification.id);
+        }
+      })
+    })();
+
     dispatch(SELECT(conversationId));
 
     return () => {
