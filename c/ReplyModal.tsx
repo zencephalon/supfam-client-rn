@@ -41,32 +41,30 @@ export default function ReplyStatusModal({ navigation, route }) {
 
   return (
     <SfModal>
-      <>
-        <SfText style={styles.modalText}>
-          Replying to {profile.name}&apos;s {quoteType}: &quot;{quoted}&quot;
-        </SfText>
+      <SfText style={styles.modalText}>
+        Replying to {profile.name}&apos;s {quoteType}: &quot;{quoted}&quot;
+      </SfText>
 
-        <View style={{ flexDirection: 'row', width: '80%' }}>
-          <SfTextInput
-            value={reply}
-            autoFocus={true}
-            onChangeText={setReply}
-            textInputStyle={styles.statusInput}
-            multiline={true}
-          />
-          {!!reply && (
-            <TouchableOpacity
-              onPress={submit}
-              style={{
-                alignSelf: 'flex-start',
-                paddingLeft: 4,
-              }}
-            >
-              <MaterialCommunityIcons name="send" size={32} color={OPEN} />
-            </TouchableOpacity>
-          )}
-        </View>
-      </>
+      <View style={{ flexDirection: 'row', width: '80%' }}>
+        <SfTextInput
+          value={reply}
+          autoFocus={true}
+          onChangeText={setReply}
+          textInputStyle={styles.statusInput}
+          multiline={true}
+        />
+        {!!reply && (
+          <TouchableOpacity
+            onPress={submit}
+            style={{
+              alignSelf: 'flex-start',
+              paddingLeft: 4,
+            }}
+          >
+            <MaterialCommunityIcons name="send" size={32} color={OPEN} />
+          </TouchableOpacity>
+        )}
+      </View>
     </SfModal>
   );
 }

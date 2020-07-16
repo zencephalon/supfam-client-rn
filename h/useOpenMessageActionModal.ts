@@ -6,21 +6,12 @@ enum QuoteType {
 	status = 'status',
 }
 
-export default function useOpenReplyModal(
-	profileId: number,
-	quoted: string,
-	quoteType: QuoteType,
-	// Required for quoting messages
-	conversationId?: number
-) {
+export default function useOpenReplyModal(message: Object) {
 	const navigation = useNavigation();
 
 	return React.useCallback(() => {
 		navigation.navigate('Message Modal', {
-			profileId,
-			quoted,
-			quoteType,
-			conversationId,
+			message,
 		});
-	}, [profileId, quoted, quoteType, conversationId]);
+	}, [message]);
 }

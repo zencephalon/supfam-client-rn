@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  ActivityIndicator,
-  TouchableOpacity,
-  Clipboard,
-} from 'react-native';
-import { showMessage } from 'react-native-flash-message';
+import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 
 import SfText from '~/c/SfText';
@@ -28,12 +22,7 @@ function Message(props) {
   const [showDate, setShowDate] = React.useState(false);
 
   const { showActionSheetWithOptions } = useActionSheet();
-  const openMessageActionModal = useOpenMessageActionModal(
-    message.profile_id,
-    message.message,
-    'message',
-    message.conversation_id
-  );
+  const openMessageActionModal = useOpenMessageActionModal(message);
 
   // const openActionSheet = () => {
   //   const options = ['Copy', 'Reply', 'Cancel'];

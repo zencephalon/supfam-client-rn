@@ -23,16 +23,13 @@ export default function SfModal({ children }) {
       activeOpacity={1}
       onPressOut={() => navigation.pop()}
     >
-      <KeyboardAvoidingView
-        style={styles.centeredView}
-        {...(Platform.OS === 'ios' && { behavior: 'padding' })}
-      >
+      <View style={styles.centeredView}>
         <TouchableWithoutFeedback>
           <View style={[styles.modalView, { backgroundColor: backgrounds[0] }]}>
             {children}
           </View>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -40,8 +37,9 @@ export default function SfModal({ children }) {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: 16,
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   modalBackground: {
     flex: 1,

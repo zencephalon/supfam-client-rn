@@ -21,7 +21,7 @@ export const nord14 = '#A3BE8C'; //green
 export const nord15 = '#B48EAD'; //purple
 
 // 100 gives a nice green
-const BASE_HUE = 210;
+export const BASE_HUE = 210;
 
 export const neutrals = [
   `hsla(${BASE_HUE}, 80%, 8%, 1)`,
