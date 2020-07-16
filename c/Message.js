@@ -20,6 +20,7 @@ import MessageSentTimeText from '~/c/MessageSentTimeText';
 import SfLinkPreview from '~/c/SfLinkPreview';
 
 import useOpenReplyModal from '~/h/useOpenReplyModal';
+import useOpenMessageActionModal from '~/h/useOpenMessageActionModal';
 
 function Message(props) {
   const { message, isOwnMessage, fromSameUser, breakAbove } = props;
@@ -27,40 +28,40 @@ function Message(props) {
   const [showDate, setShowDate] = React.useState(false);
 
   const { showActionSheetWithOptions } = useActionSheet();
-  const openReplyModal = useOpenReplyModal(
+  const openMessageActionModal = useOpenMessageActionModal(
     message.profile_id,
     message.message,
     'message',
-    message.conversation_id,
+    message.conversation_id
   );
 
-  const openActionSheet = () => {
-    const options = ['Copy', 'Reply', 'Cancel'];
-    const cancelButtonIndex = 2;
+  // const openActionSheet = () => {
+  //   const options = ['Copy', 'Reply', 'Cancel'];
+  //   const cancelButtonIndex = 2;
 
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      buttonIndex => {
-        switch(buttonIndex) {
-          case 0:
-            Clipboard.setString(message.message);
-            showMessage({
-              message: 'Copied to clipboard!',
-              type: 'info',
-            });
-            break;
-          case 1:
-            openReplyModal();
-            break;
-          default:
-            break;
-        }
-      },
-    );
-  };
+  //   showActionSheetWithOptions(
+  //     {
+  //       options,
+  //       cancelButtonIndex,
+  //     },
+  //     (buttonIndex) => {
+  //       switch (buttonIndex) {
+  //         case 0:
+  //           Clipboard.setString(message.message);
+  //           showMessage({
+  //             message: 'Copied to clipboard!',
+  //             type: 'info',
+  //           });
+  //           break;
+  //         case 1:
+  //           openReplyModal();
+  //           break;
+  //         default:
+  //           break;
+  //       }
+  //     }
+  //   );
+  // };
 
   return (
     <View>
@@ -90,7 +91,8 @@ function Message(props) {
             setShowDate(!showDate);
           }}
           onLongPress={() => {
-            openActionSheet();
+            // openActionSheet();
+            openMessageActionModal();
           }}
           style={{
             flexDirection: 'column',
