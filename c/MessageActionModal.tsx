@@ -16,19 +16,34 @@ const RenderInner = ({
 	showEmojiSelector,
 	copyMessage,
 	openReplyModal,
+	setShowEmojiSelector,
+	snapTo,
 }: {
 	showEmojiSelector: boolean;
 	copyMessage: () => void;
 	openReplyModal: () => void;
+	setShowEmojiSelector: () => void;
+	snapTo: () => void;
 }) => {
 	const { modal, backgrounds, light } = useLight();
 	console.log({ modal });
 	return (
-		<View style={[styles.panel, { backgroundColor: light ? '#fff' : '#000' }]}>
+		<View style={[styles.panel, { backgroundColor: backgrounds[0] }]}>
 			{showEmojiSelector ? (
-				<EmojiSelector showTabs={false} showSectionTitles={false} />
+				<EmojiSelector
+					showTabs={false}
+					showSectionTitles={false}
+					showSearchBar={false}
+				/>
 			) : (
 				<React.Fragment>
+					<SfButton
+						title="React"
+						onPress={() => {
+							snapTo(1);
+							setShowEmojiSelector(true);
+						}}
+					/>
 					<SfButton title="Reply" onPress={openReplyModal} />
 					<SfButton title="Copy" onPress={copyMessage} />
 				</React.Fragment>
@@ -81,10 +96,12 @@ export default function MessageActionModal({ navigation, route }) {
 	return (
 		<BottomSheet
 			ref={bottomSheet}
-			snapPoints={[250, 400, 0]}
+			snapPoints={[250, 500, 0]}
 			renderContent={() => (
 				<RenderInner
 					showEmojiSelector={showEmojiSelector}
+					setShowEmojiSelector={setShowEmojiSelector}
+					snapTo={bottomSheet.current?.snapTo}
 					copyMessage={copyMessage}
 					openReplyModal={() => {
 						navigation.pop();
@@ -100,31 +117,18 @@ export default function MessageActionModal({ navigation, route }) {
 	);
 }
 
-const IMAGE_SIZE = 200;
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#F5FCFF',
 		opacity: 1,
 	},
-	box: {
-		width: IMAGE_SIZE,
-		height: IMAGE_SIZE,
-	},
-	panelContainer: {
-		position: 'absolute',
-		top: 0,
-		bottom: 0,
-		left: 0,
-		right: 0,
-	},
 	panel: {
-		height: 600,
+		height: 500,
 		padding: 20,
 		backgroundColor: '#f7f5ee',
-		borderTopRightRadius: 40,
-		borderTopLeftRadius: 40,
+		borderTopRightRadius: 20,
+		borderTopLeftRadius: 20,
 	},
 	header: {
 		backgroundColor: '#f7f5eee8',
@@ -140,36 +144,5 @@ const styles = StyleSheet.create({
 		borderRadius: 4,
 		backgroundColor: '#666666',
 		marginBottom: 10,
-	},
-	panelTitle: {
-		fontSize: 27,
-		height: 35,
-	},
-	panelSubtitle: {
-		fontSize: 14,
-		color: 'gray',
-		height: 30,
-		marginBottom: 10,
-	},
-	panelButton: {
-		padding: 20,
-		borderRadius: 10,
-		backgroundColor: '#318bfb',
-		alignItems: 'center',
-		marginVertical: 10,
-	},
-	panelButtonTitle: {
-		fontSize: 17,
-		fontWeight: 'bold',
-		color: 'white',
-	},
-	photo: {
-		width: '100%',
-		height: 225,
-		marginTop: 30,
-	},
-	map: {
-		height: '100%',
-		width: '100%',
 	},
 });

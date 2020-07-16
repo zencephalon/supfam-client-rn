@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
-import { useActionSheet } from '@expo/react-native-action-sheet';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -13,7 +12,6 @@ import QuotedMessageText from '~/c/QuotedMessageText';
 import MessageSentTimeText from '~/c/MessageSentTimeText';
 import SfLinkPreview from '~/c/SfLinkPreview';
 
-import useOpenReplyModal from '~/h/useOpenReplyModal';
 import useOpenMessageActionModal from '~/h/useOpenMessageActionModal';
 
 function Message(props) {
@@ -21,36 +19,7 @@ function Message(props) {
 
   const [showDate, setShowDate] = React.useState(false);
 
-  const { showActionSheetWithOptions } = useActionSheet();
   const openMessageActionModal = useOpenMessageActionModal(message);
-
-  // const openActionSheet = () => {
-  //   const options = ['Copy', 'Reply', 'Cancel'];
-  //   const cancelButtonIndex = 2;
-
-  //   showActionSheetWithOptions(
-  //     {
-  //       options,
-  //       cancelButtonIndex,
-  //     },
-  //     (buttonIndex) => {
-  //       switch (buttonIndex) {
-  //         case 0:
-  //           Clipboard.setString(message.message);
-  //           showMessage({
-  //             message: 'Copied to clipboard!',
-  //             type: 'info',
-  //           });
-  //           break;
-  //         case 1:
-  //           openReplyModal();
-  //           break;
-  //         default:
-  //           break;
-  //       }
-  //     }
-  //   );
-  // };
 
   return (
     <View>
