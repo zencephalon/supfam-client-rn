@@ -9,7 +9,7 @@ import * as Notifications from 'expo-notifications';
 export default function useConversationSelect(conversationId) {
   const dispatch = useDispatch();
 
-  return useEffect(() => {
+  return useFocusEffect(() => {
     (async () => {
       const notifs = await Notifications.getPresentedNotificationsAsync();
       console.log("notifs are", notifs);
@@ -17,7 +17,7 @@ export default function useConversationSelect(conversationId) {
         const body = notification.request.content.data.body;
         const conversation_id = body.message.conversation_id;
         if(conversation_id == conversationId) {
-          Notifications.dismissNotificationAsync(notification.id);
+          Notifications.dismissNotificationAsync(notification.request.identifier);
         }
       })
     })();
