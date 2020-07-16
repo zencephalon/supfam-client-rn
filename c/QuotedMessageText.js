@@ -6,7 +6,7 @@ import SfText from '~/c/SfText';
 import MessageText from '~/c/MessageText';
 import ProfileName from '~/c/ProfileName';
 
-import { Text, TouchableOpacity, Share } from 'react-native';
+import useProfileId from '~/h/useProfileId';
 
 export default function QuotedMessageText({
   quoted,
@@ -17,6 +17,8 @@ export default function QuotedMessageText({
   quotedProfileId,
   quoterProfileId,
 }) {
+  const profileId = useProfileId();
+  const youAreQuoted = quotedProfileId == profileId;
   const { backgrounds, foregrounds } = useLight();
 
   return (
@@ -24,8 +26,7 @@ export default function QuotedMessageText({
       {quotedProfileId && (
         <SfText style={{ fontSize: 12, color: foregrounds[7] }}>
           {isOwnMessage ? 'You' : <ProfileName profileId={quoterProfileId} />}{' '}
-          replied to <ProfileName profileId={quotedProfileId} />
-          's {quoteType}:
+          replied to {youAreQuoted ? 'your' : <ProfileName profileId={quotedProfileId} />}{youAreQuoted ? '' : "'s"} {quoteType}:
         </SfText>
       )}
       {quoted && (
