@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { View, Clipboard, StyleSheet } from 'react-native';
+import { View, Clipboard, Text, StyleSheet } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import SfText from '~/c/SfText';
@@ -11,6 +11,16 @@ import BottomSheet from 'reanimated-bottom-sheet';
 
 import useLight from '~/h/useLight';
 import useOpenReplyModal from '~h/useOpenReplyModal';
+
+import EmojiHistory from '~/lib/EmojiHistory';
+
+const EmojiButton = ({ emoji }: { emoji: string }) => {
+	return (
+		<View style={{ padding: 10 }}>
+			<Text style={{ fontSize: 24 }}>{emoji}</Text>
+		</View>
+	);
+};
 
 const RenderInner = ({
 	showEmojiSelector,
@@ -42,8 +52,14 @@ const RenderInner = ({
 				/>
 			) : (
 				<React.Fragment>
+					<View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+						{EmojiHistory.mostUsed().map(([emoji]) => (
+							<EmojiButton key={emoji} emoji={emoji} />
+						))}
+					</View>
 					<SfButton
-						title="React"
+						title="All Emoji"
+						style={{ marginTop: 16 }}
 						onPress={() => {
 							snapTo(1);
 							setShowEmojiSelector(true);
@@ -101,7 +117,7 @@ export default function MessageActionModal({ navigation, route }) {
 	return (
 		<BottomSheet
 			ref={bottomSheet}
-			snapPoints={[250, 500, 0]}
+			snapPoints={[400, 500, 0]}
 			renderContent={() => (
 				<RenderInner
 					showEmojiSelector={showEmojiSelector}

@@ -14,6 +14,7 @@ import linkingConfig from '~/navigation/linkingConfig';
 import RootNavigator from '~/navigation/RootNavigator';
 
 import AuthToken from '~/lib/AuthToken';
+import EmojiHistory from '~/lib/EmojiHistory';
 import AuthGate from '~/c/AuthGate';
 import ProfileGate from '~/c/ProfileGate';
 import NotificationGate from '~/c/NotificationGate';
@@ -72,6 +73,7 @@ export default function App({
           ...Ionicons.font,
         });
         await AuthToken.init();
+        EmojiHistory.init();
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
