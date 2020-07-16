@@ -8,7 +8,6 @@ export default function useSubmitMessage(conversationId, meProfileId) {
       if (!message) {
         return;
       }
-      console.log('trying to send', message);
       MessageQueue.sendMessage(meProfileId, conversationId, message);
     },
     [conversationId, meProfileId]

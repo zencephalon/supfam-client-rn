@@ -159,7 +159,7 @@ export default function MessageInput({ conversationId }) {
           >
             <MaterialCommunityIcons
               name="send"
-              size={32}
+              size={24}
               color={statusColors[statusMe?.color] || OPEN}
             />
           </TouchableOpacity>
@@ -172,7 +172,7 @@ export default function MessageInput({ conversationId }) {
 const styles = StyleSheet.create({
   statusInput: {
     padding: 12,
-    fontSize: 24,
+    fontSize: 16,
     borderRadius: 10,
     borderWidth: 0,
     paddingBottom: 4,

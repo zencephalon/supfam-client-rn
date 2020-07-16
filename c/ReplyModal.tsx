@@ -16,6 +16,8 @@ import useSubmitMessage from '~/h/useSubmitMessage';
 import { sendMessage } from '~/apis/api';
 import { OPEN } from '~/constants/Colors';
 
+const MAX_QUOTED_DISPLAY_LENGTH = 100;
+
 export default function ReplyStatusModal({ navigation, route }) {
   const [reply, setReply] = React.useState('');
 
@@ -39,53 +41,60 @@ export default function ReplyStatusModal({ navigation, route }) {
     navigation.pop();
   };
 
+  let truncatedQuoted = quoted;
+  if (truncatedQuoted.length > MAX_QUOTED_DISPLAY_LENGTH) {
+    truncatedQuoted =
+      truncatedQuoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...';
+  }
+
   return (
     <SfModal>
-      <SfText style={styles.modalText}>
-        Replying to {profile.name}&apos;s {quoteType}: &quot;{quoted}&quot;
+      <SfText style={styles.modalTitleText}>
+        Replying to {profile.name}&apos;s {quoteType}
       </SfText>
+      <SfText style={styles.modalQuoteText}>{truncatedQuoted}</SfText>
 
-      <View style={{ flexDirection: 'row', width: '80%' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
         <SfTextInput
           value={reply}
           autoFocus={true}
           onChangeText={setReply}
           textInputStyle={styles.statusInput}
+          style={{ flexGrow: 1, flexShrink: 1 }}
           multiline={true}
         />
-        {!!reply && (
-          <TouchableOpacity
-            onPress={submit}
-            style={{
-              alignSelf: 'flex-start',
-              paddingLeft: 4,
-            }}
-          >
-            <MaterialCommunityIcons name="send" size={32} color={OPEN} />
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          onPress={submit}
+          style={{
+            flexShrink: 1,
+            paddingLeft: 4,
+          }}
+        >
+          <MaterialCommunityIcons name="send" size={24} color={OPEN} />
+        </TouchableOpacity>
       </View>
     </SfModal>
   );
 }
 
 const styles = StyleSheet.create({
-  modalText: {
+  modalTitleText: {
+    fontSize: 16,
+    marginBottom: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    opacity: 0.4,
+  },
+  modalQuoteText: {
     fontSize: 16,
     marginBottom: 16,
     textAlign: 'center',
   },
   statusInput: {
-    minWidth: '100%',
-    flexShrink: 1,
+    padding: 12,
     fontSize: 16,
     borderRadius: 10,
-    borderWidth: 0,
-    paddingRight: 8,
-    paddingLeft: 8,
-    paddingTop: 4,
     paddingBottom: 4,
-    marginLeft: 8,
-    marginBottom: 4,
+    borderWidth: 0,
   },
 });
