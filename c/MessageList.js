@@ -20,7 +20,7 @@ const needsBreakAbove = (message, prevSentMessage) => {
 
 const renderInner = () => (
   <View style={styles.panel}>
-    <EmojiSelector />
+    <EmojiSelector showTabs={false} showSectionTitles={false} />
   </View>
 );
 
@@ -63,7 +63,7 @@ class MessageList extends React.Component {
           inverted
         />
         <BottomSheet
-          snapPoints={[450, 600, 0]}
+          snapPoints={[250, 400, 0]}
           renderContent={renderInner}
           renderHeader={renderHeader}
         />
