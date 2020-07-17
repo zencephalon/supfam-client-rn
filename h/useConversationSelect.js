@@ -9,13 +9,12 @@ import * as Notifications from 'expo-notifications';
 export default function useConversationSelect(conversationId) {
   const dispatch = useDispatch();
 
-  return useFocusEffect(() => {
+  return useEffect(() => {
     (async () => {
       const notifs = await Notifications.getPresentedNotificationsAsync();
-      console.log("notifs are", notifs);
       notifs.forEach((notification) => {
-        const body = notification.request.content.data.body;
-        const conversation_id = body.message.conversation_id;
+        const data = notification.request.content.data;
+        const conversation_id = data.message.conversation_id;
         if(conversation_id == conversationId) {
           Notifications.dismissNotificationAsync(notification.request.identifier);
         }
