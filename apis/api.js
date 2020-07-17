@@ -55,6 +55,19 @@ export const sendMessage = ({ meProfileId, conversationId, data }) => {
   );
 };
 
+export const postAddMessageReactions = ({ profileId, messageId, emoji }) => {
+  console.log('posting', { profileId, messageId, emoji });
+  return api.postToAPI(`message/${messageId}/reactions/add`, {
+    body: JSON.stringify({ profile_id: profileId, emoji }),
+  });
+};
+
+export const postRemoveMessageReactions = ({ profileId, messageId, emoji }) => {
+  return api.postToAPI(`message/${messageId}/reactions/remove`, {
+    body: JSON.stringify({ profile_id: profileId, emoji }),
+  });
+};
+
 export const getConversationMemberships = (_key) => {
   return api.fetchFromAPI(`conversation_memberships/me`);
 };
@@ -125,7 +138,9 @@ export const postInvitation = ({ from_profile_id, phone }) => {
 };
 
 export const getPhoneLookup = ({ phone, from_profile_id }) => {
-  return api.fetchFromAPI(`invitations/phone_lookup/${phone}/${from_profile_id}`);
+  return api.fetchFromAPI(
+    `invitations/phone_lookup/${phone}/${from_profile_id}`
+  );
 };
 
 export const postFriendInvite = ({ from_profile_id, to_profile_id }) => {

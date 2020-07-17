@@ -11,12 +11,15 @@ export function BareProfileIcon(props) {
   const imgSize = (size * 11) / 12;
   return (
     <View
-      style={{
-        width: imgSize,
-        height: imgSize,
-        marginRight: offset,
-        bottomRight: offset,
-      }}
+      style={[
+        {
+          width: imgSize,
+          height: imgSize,
+          marginRight: offset,
+          bottomRight: offset,
+        },
+        props.style,
+      ]}
     >
       <Image
         source={{ uri: props.uri }}

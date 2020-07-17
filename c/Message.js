@@ -11,6 +11,7 @@ import MessageText from '~/c/MessageText';
 import QuotedMessageText from '~/c/QuotedMessageText';
 import MessageSentTimeText from '~/c/MessageSentTimeText';
 import SfLinkPreview from '~/c/SfLinkPreview';
+import MessageReactions from '~/c/MessageReactions';
 
 import useOpenMessageActionModal from '~/h/useOpenMessageActionModal';
 
@@ -99,6 +100,11 @@ function Message(props) {
           </>
         </TouchableOpacity>
       </View>
+      <MessageReactions
+        reactions={message.reactions}
+        messageId={message.id}
+        isOwnMessage={isOwnMessage}
+      />
       {showDate && (
         <View
           style={{

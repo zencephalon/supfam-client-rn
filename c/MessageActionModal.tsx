@@ -1,6 +1,12 @@
 import * as React from 'react';
 
-import { View, Clipboard, Text, StyleSheet } from 'react-native';
+import {
+	View,
+	Clipboard,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+} from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import SfText from '~/c/SfText';
@@ -11,14 +17,28 @@ import BottomSheet from 'reanimated-bottom-sheet';
 
 import useLight from '~/h/useLight';
 import useOpenReplyModal from '~h/useOpenReplyModal';
+import useProfileId from '~/h/useProfileId';
+
+import { postAddMessageReactions } from '~/apis/api';
 
 import EmojiHistory from '~/lib/EmojiHistory';
 
-const EmojiButton = ({ emoji }: { emoji: string }) => {
+const EmojiButton = ({
+	emoji,
+	profileId,
+	messageId,
+}: {
+	emoji: string;
+	profileId: number;
+	messageId: number;
+}) => {
 	return (
-		<View style={{ padding: 10 }}>
+		<TouchableOpacity
+			style={{ padding: 10 }}
+			onPress={() => postAddMessageReactions({ profileId, messageId, emoji })}
+		>
 			<Text style={{ fontSize: 24 }}>{emoji}</Text>
-		</View>
+		</TouchableOpacity>
 	);
 };
 
@@ -28,15 +48,18 @@ const RenderInner = ({
 	openReplyModal,
 	setShowEmojiSelector,
 	snapTo,
+	messageId,
 }: {
 	showEmojiSelector: boolean;
 	copyMessage: () => void;
 	openReplyModal: () => void;
 	setShowEmojiSelector: () => void;
 	snapTo: () => void;
+	messageId: number;
 }) => {
 	const { modal, backgrounds, light } = useLight();
-	console.log({ modal });
+	const meProfileId = useProfileId();
+
 	return (
 		<View style={[styles.panel, { backgroundColor: backgrounds[0] }]}>
 			{showEmojiSelector ? (
@@ -53,8 +76,13 @@ const RenderInner = ({
 			) : (
 				<React.Fragment>
 					<View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-						{EmojiHistory.mostUsed().map(([emoji]) => (
-							<EmojiButton key={emoji} emoji={emoji} />
+						{EmojiHistory.mostUsed().map(([emoji]: [string]) => (
+							<EmojiButton
+								key={emoji}
+								emoji={emoji}
+								messageId={messageId}
+								profileId={meProfileId}
+							/>
 						))}
 					</View>
 					<SfButton
@@ -129,6 +157,7 @@ export default function MessageActionModal({ navigation, route }) {
 						openReplyModal();
 					}}
 					pop={() => navigation.pop()}
+					messageId={message.id}
 				/>
 			)}
 			renderHeader={() => <RenderHeader />}
