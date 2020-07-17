@@ -171,6 +171,9 @@ export default function MessageActionModal({ navigation, route }) {
 			onCloseEnd={() => {
 				navigation.pop();
 			}}
+			enabledContentTapInteraction={true}
+			enabledInnerScrolling={false}
+			enabledContentGestureInteraction={false}
 		/>
 	);
 }
