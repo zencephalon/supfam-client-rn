@@ -12,6 +12,7 @@ import { showMessage } from 'react-native-flash-message';
 import SfText from '~/c/SfText';
 import EmojiSelector from '~/c/SfEmojiSelector';
 import SfButton from '~/c/SfButton';
+import BottomSheetButton from '~/c/BottomSheetButton';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 
@@ -35,7 +36,7 @@ const EmojiButton = ({
 	messageId: number;
 }) => {
 	return (
-		<TouchableOpacity
+		<BottomSheetButton
 			style={{ padding: 10 }}
 			onPress={() => {
 				snapTo(2);
@@ -43,7 +44,7 @@ const EmojiButton = ({
 			}}
 		>
 			<Text style={{ fontSize: 24 }}>{emoji}</Text>
-		</TouchableOpacity>
+		</BottomSheetButton>
 	);
 };
 
