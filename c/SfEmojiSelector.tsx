@@ -10,6 +10,7 @@ import {
   AsyncStorage,
   FlatList,
 } from 'react-native';
+import BottomSheetButton from '~/c/BottomSheetButton';
 import emoji from 'emoji-datasource';
 
 export const Categories = {
@@ -102,7 +103,7 @@ const TabBar = ({ theme, activeCategory, onPress, width }) => {
 };
 
 const EmojiCell = ({ emoji, colSize, ...other }) => (
-  <TouchableOpacity
+  <BottomSheetButton
     activeOpacity={0.5}
     style={{
       width: colSize,
@@ -115,7 +116,7 @@ const EmojiCell = ({ emoji, colSize, ...other }) => (
     <Text style={{ color: '#FFFFFF', fontSize: colSize - 12 }}>
       {charFromEmojiObject(emoji)}
     </Text>
-  </TouchableOpacity>
+  </BottomSheetButton>
 );
 
 const storage_key = '@react-native-emoji-selector:HISTORY';
