@@ -23,9 +23,9 @@ export default function QuotedMessageText({
   const youAreQuoted = quotedProfileId == profileId;
   const { backgrounds, foregrounds } = useLight();
 
-  let truncatedQuoted = quoted;
-  if(truncatedQuoted.length > MAX_QUOTED_DISPLAY_LENGTH) {
-    truncatedQuoted = truncatedQuoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...';
+  let truncatedQuoted;
+  if(quoted && quoted.length > MAX_QUOTED_DISPLAY_LENGTH) {
+    truncatedQuoted = quoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...';
   }
 
   return (
