@@ -1,26 +1,40 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import SfText from '~/c/SfText';
 import _ from 'lodash';
 
-import useProfileId from '~/h/useProfileId';
+import ProfileIcon from '~/c/ProfileIcon';
 
 import useLight from '~/h/useLight';
-import ProfileIcon from '~/c/ProfileIcon';
+import useLiveMessageReactions from '~/h/useLiveMessageReactions';
+import useProfileId from '~/h/useProfileId';
+
+import {
+	postAddMessageReactions,
+	postRemoveMessageReactions,
+} from '~/apis/api';
 
 function ReactionChip({
 	emoji,
 	profileIds,
+	messageId,
 }: {
 	emoji: string;
 	profileIds: number[];
+	messageId: number;
 }) {
 	const { backgrounds } = useLight();
+	const profileId = useProfileId();
+	const didReact = profileIds.includes(profileId);
+	const apiCall = didReact
+		? postRemoveMessageReactions
+		: postAddMessageReactions;
+
 	return (
-		<View
+		<TouchableOpacity
 			style={{
 				flexDirection: 'row',
-				backgroundColor: backgrounds[3],
+				backgroundColor: didReact ? backgrounds[4] : backgrounds[3],
 				padding: 4,
 				borderRadius: 8,
 				marginLeft: 2,
@@ -28,6 +42,7 @@ function ReactionChip({
 				marginBottom: 4,
 				alignItems: 'center',
 			}}
+			onPress={() => apiCall({ emoji, profileId, messageId })}
 		>
 			<SfText style={{ fontSize: 16 }}>{emoji}</SfText>
 			{profileIds.length < 3 ? (
@@ -42,7 +57,7 @@ function ReactionChip({
 			) : (
 				<SfText style={{ fontSize: 16 }}>{profileIds.length}</SfText>
 			)}
-		</View>
+		</TouchableOpacity>
 	);
 }
 
@@ -55,7 +70,8 @@ export default function MessageReactions({
 	messageId: number;
 	isOwnMessage: boolean;
 }) {
-	console.log({ reactions });
+	const { reactions: liveReactions } = useLiveMessageReactions(messageId);
+	const _reactions = liveReactions || reactions;
 	return (
 		<View
 			style={{
@@ -65,9 +81,16 @@ export default function MessageReactions({
 				marginLeft: 46,
 			}}
 		>
-			{_.toPairs(reactions).map(([emoji, profileIds]: [string, number[]]) => (
-				<ReactionChip key={emoji} emoji={emoji} profileIds={profileIds} />
-			))}
+			{_.toPairs(_reactions)
+				.filter((pair) => pair[1] > 0)
+				.map(([emoji, profileIds]: [string, number[]]) => (
+					<ReactionChip
+						key={emoji}
+						emoji={emoji}
+						profileIds={profileIds}
+						messageId={messageId}
+					/>
+				))}
 		</View>
 	);
 }

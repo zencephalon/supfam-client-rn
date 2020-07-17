@@ -18,10 +18,14 @@ export default function usePushToken() {
         return;
       }
 
-      const { data: token } = await Notifications.getExpoPushTokenAsync({
-        experienceId: '@zencephalon/Supfam',
-      });
-      setPushToken(token);
+      try {
+        const { data: token } = await Notifications.getExpoPushTokenAsync({
+          experienceId: '@zencephalon/Supfam',
+        });
+        setPushToken(token);
+      } catch (e) {
+        console.log('Error getting push token', e);
+      }
     };
     f();
   }, []);
