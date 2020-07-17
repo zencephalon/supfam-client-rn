@@ -57,7 +57,7 @@ const EmojiButton = ({
 				emoji == 'more' ?
 				<Image
 					source={MoreEmojiIcon}
-					style={{ width:24, height: 24, marginBottom: 4, resizeMode: 'stretch' }}
+					style={{ margin: 2, width: 24, height: 24, marginBottom: 4, resizeMode: 'stretch' }}
 				/>
 				:
 				<Text style={{ fontSize: 24 }}>{emoji}</Text>
@@ -172,7 +172,7 @@ export default function MessageActionModal({ navigation, route }) {
 	return (
 		<BottomSheet
 			ref={bottomSheet}
-			snapPoints={[400, 500, 0]}
+			snapPoints={[420, 500, 0]}
 			renderContent={() => (
 				<RenderInner
 					showEmojiSelector={showEmojiSelector}
