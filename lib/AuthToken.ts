@@ -14,7 +14,7 @@ class AuthToken {
   }
 
   init = async () => {
-    this.data = JSON.parse((await AsyncStorage.getItem(storageKey)) || '');
+    this.data = JSON.parse((await AsyncStorage.getItem(storageKey)) || 'null');
   };
 
   get = () => {

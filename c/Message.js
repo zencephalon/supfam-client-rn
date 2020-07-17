@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  ActivityIndicator,
-  TouchableOpacity,
-  Clipboard,
-} from 'react-native';
-import { showMessage } from 'react-native-flash-message';
-import { useActionSheet } from '@expo/react-native-action-sheet';
+import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -18,49 +11,16 @@ import MessageText from '~/c/MessageText';
 import QuotedMessageText from '~/c/QuotedMessageText';
 import MessageSentTimeText from '~/c/MessageSentTimeText';
 import SfLinkPreview from '~/c/SfLinkPreview';
+import MessageReactions from '~/c/MessageReactions';
 
-import useOpenReplyModal from '~/h/useOpenReplyModal';
+import useOpenMessageActionModal from '~/h/useOpenMessageActionModal';
 
 function Message(props) {
   const { message, isOwnMessage, fromSameUser, breakAbove } = props;
 
   const [showDate, setShowDate] = React.useState(false);
 
-  const { showActionSheetWithOptions } = useActionSheet();
-  const openReplyModal = useOpenReplyModal(
-    message.profile_id,
-    message.message,
-    'message',
-    message.conversation_id,
-  );
-
-  const openActionSheet = () => {
-    const options = ['Copy', 'Reply', 'Cancel'];
-    const cancelButtonIndex = 2;
-
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      buttonIndex => {
-        switch(buttonIndex) {
-          case 0:
-            Clipboard.setString(message.message);
-            showMessage({
-              message: 'Copied to clipboard!',
-              type: 'info',
-            });
-            break;
-          case 1:
-            openReplyModal();
-            break;
-          default:
-            break;
-        }
-      },
-    );
-  };
+  const openMessageActionModal = useOpenMessageActionModal(message);
 
   return (
     <View>
@@ -90,7 +50,8 @@ function Message(props) {
             setShowDate(!showDate);
           }}
           onLongPress={() => {
-            openActionSheet();
+            // openActionSheet();
+            openMessageActionModal();
           }}
           style={{
             flexDirection: 'column',
@@ -139,6 +100,11 @@ function Message(props) {
           </>
         </TouchableOpacity>
       </View>
+      <MessageReactions
+        reactions={message.reactions}
+        messageId={message.id}
+        isOwnMessage={isOwnMessage}
+      />
       {showDate && (
         <View
           style={{

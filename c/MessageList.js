@@ -1,16 +1,20 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { View, FlatList, StyleSheet, Text } from 'react-native';
 
 import Message from '~/c/Message';
+import SfText from '~/c/SfText';
+import EmojiSelector from '~/c/SfEmojiSelector';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
 const needsBreakAbove = (message, prevSentMessage) => {
-  if(!prevSentMessage) { return false; }
+  if (!prevSentMessage) {
+    return false;
+  }
   const prevMessageTime = new Date(prevSentMessage.updated_at);
   const messageTime = new Date(message.updated_at);
   return messageTime.getTime() - prevMessageTime.getTime() > ONE_HOUR;
-}
+};
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -32,15 +36,17 @@ class MessageList extends React.Component {
   render() {
     const { fetchMore, canFetchMore, messages } = this.props;
     return (
-      <FlatList
-        onEndReached={() => canFetchMore && fetchMore()}
-        onEndReachedThreshold={0.1}
-        data={messages}
-        renderItem={this.renderMessage}
-        style={{ flex: 1 }}
-        keyExtractor={(m) => `${m.id}`}
-        inverted
-      />
+      <>
+        <FlatList
+          onEndReached={() => canFetchMore && fetchMore()}
+          onEndReachedThreshold={0.1}
+          data={messages}
+          renderItem={this.renderMessage}
+          style={{ flex: 1 }}
+          keyExtractor={(m) => `${m.id}`}
+          inverted
+        />
+      </>
     );
   }
 }

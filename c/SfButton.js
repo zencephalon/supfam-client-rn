@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import BottomSheetButton from '~/c/BottomSheetButton';
 import * as Colors from '~/constants/Colors';
 
 import useLight from '~/h/useLight';
@@ -41,7 +42,7 @@ const SfButton = (props) => {
     style,
   ];
   return (
-    <TouchableOpacity {...rest} style={mergedStyle}>
+    <BottomSheetButton {...rest} style={mergedStyle}>
       <Text
         style={[
           styles.buttonText,
@@ -56,7 +57,7 @@ const SfButton = (props) => {
       >
         {title}
       </Text>
-    </TouchableOpacity>
+    </BottomSheetButton>
   );
 };
 
