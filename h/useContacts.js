@@ -43,7 +43,7 @@ export default function useContacts(allowed) {
   const contacts = [];
   data
     .filter((contact) => contact.contactType === 'person')
-    .filter((contact) => contact.name.match(/[a-zA-Z]/))
+    .filter((contact) => contact.name?.match(/[a-zA-Z]/))
     .forEach((contact) => {
       const contactPhoneNumber = getContactNumber(contact);
 
