@@ -79,6 +79,7 @@ export default function MessageReactions({
 				alignSelf: isOwnMessage ? 'flex-end' : 'flex-start',
 				marginRight: 8,
 				marginLeft: 46,
+				flexWrap: 'wrap',
 			}}
 		>
 			{_.toPairs(_reactions)
