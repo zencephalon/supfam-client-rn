@@ -3,6 +3,8 @@ import { API_URL } from '~/lib/constants';
 import AuthToken from '~/lib/AuthToken';
 import processMessage from '~/lib/processMessage';
 
+import EmojiHistory from '~/lib/EmojiHistory';
+
 const setAuthHeader = (headers) => {
   const token = AuthToken.get()?.token;
   return { ...headers, Authorization: `${token}` };
@@ -56,7 +58,7 @@ export const sendMessage = ({ meProfileId, conversationId, data }) => {
 };
 
 export const postAddMessageReactions = ({ profileId, messageId, emoji }) => {
-  console.log('posting', { profileId, messageId, emoji });
+  EmojiHistory.increment(emoji);
   return api.postToAPI(`message/${messageId}/reactions/add`, {
     body: JSON.stringify({ profile_id: profileId, emoji }),
   });

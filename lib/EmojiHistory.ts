@@ -37,8 +37,6 @@ class EmojiHistory {
       '😒': 0,
       '✊🏿': 0,
     };
-
-    console.log('EmojiHistory', this.data);
   };
 
   get = () => {
@@ -46,10 +44,11 @@ class EmojiHistory {
   };
 
   mostUsed = () => {
-    return _.take(
-      _.sortBy(_.toPairs(this.data), ([_emoji, count]) => count),
+    const mostUsed = _.take(
+      _.sortBy(_.toPairs(this.data), ([_emoji, count]) => -count),
       18
     );
+    return mostUsed;
   };
 
   increment = (emoji: string) => {

@@ -27,7 +27,9 @@ const EmojiButton = ({
 	emoji,
 	profileId,
 	messageId,
+	snapTo,
 }: {
+	snapTo: () => void;
 	emoji: string;
 	profileId: number;
 	messageId: number;
@@ -35,7 +37,10 @@ const EmojiButton = ({
 	return (
 		<TouchableOpacity
 			style={{ padding: 10 }}
-			onPress={() => postAddMessageReactions({ profileId, messageId, emoji })}
+			onPress={() => {
+				snapTo(2);
+				postAddMessageReactions({ profileId, messageId, emoji });
+			}}
 		>
 			<Text style={{ fontSize: 24 }}>{emoji}</Text>
 		</TouchableOpacity>
@@ -58,7 +63,7 @@ const RenderInner = ({
 	messageId: number;
 }) => {
 	const { modal, backgrounds, light } = useLight();
-	const meProfileId = useProfileId();
+	const profileId = useProfileId();
 
 	return (
 		<View style={[styles.panel, { backgroundColor: backgrounds[0] }]}>
@@ -69,7 +74,7 @@ const RenderInner = ({
 					showSearchBar={false}
 					showHistory={false}
 					onEmojiSelected={(emoji) => {
-						console.log(emoji);
+						postAddMessageReactions({ profileId, messageId, emoji });
 						snapTo(2);
 					}}
 				/>
@@ -81,7 +86,8 @@ const RenderInner = ({
 								key={emoji}
 								emoji={emoji}
 								messageId={messageId}
-								profileId={meProfileId}
+								profileId={profileId}
+								snapTo={snapTo}
 							/>
 						))}
 					</View>
