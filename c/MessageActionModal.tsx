@@ -32,10 +32,8 @@ const EmojiButton = ({
 	profileId,
 	messageId,
 	snapTo,
-	setShowEmojiSelector,
 }: {
 	snapTo: () => void;
-	setShowEmojiSelector: () => void;
 	emoji: string;
 	profileId: number;
 	messageId: number;
@@ -44,24 +42,34 @@ const EmojiButton = ({
 		<BottomSheetButton
 			style={{ padding: 10 }}
 			onPress={() => {
-				if(emoji == 'more') {
-					snapTo(1);
-					setShowEmojiSelector(true);
-				} else {
-					snapTo(2);
-					postAddMessageReactions({ profileId, messageId, emoji });
-				}
+				snapTo(2);
+				postAddMessageReactions({ profileId, messageId, emoji });
 			}}
 		>
-			{
-				emoji == 'more' ?
-				<Image
-					source={MoreEmojiIcon}
-					style={{ margin: 2, width: 24, height: 24, marginBottom: 4, resizeMode: 'stretch' }}
-				/>
-				:
-				<Text style={{ fontSize: 24 }}>{emoji}</Text>
-			}
+			<Text style={{ fontSize: 24 }}>{emoji}</Text>
+		</BottomSheetButton>
+	);
+};
+
+const MoreEmojiButton = ({
+	snapTo,
+	setShowEmojiSelector,
+}: {
+	snapTo: () => void;
+	setShowEmojiSelector: () => void;
+}) => {
+	return (
+		<BottomSheetButton
+			style={{ padding: 10 }}
+			onPress={() => {
+				snapTo(1);
+				setShowEmojiSelector(true);
+			}}
+		>
+			<Image
+				source={MoreEmojiIcon}
+				style={{ margin: 2, width: 24, height: 24, marginBottom: 4, resizeMode: 'stretch' }}
+			/>
 		</BottomSheetButton>
 	);
 };
@@ -110,11 +118,7 @@ const RenderInner = ({
 								setShowEmojiSelector={setShowEmojiSelector}
 							/>
 						))}
-						<EmojiButton
-							key={'more_fixed'}
-							emoji={'more'}
-							messageId={messageId}
-							profileId={profileId}
+						<MoreEmojiButton
 							snapTo={snapTo}
 							setShowEmojiSelector={setShowEmojiSelector}
 						/>
