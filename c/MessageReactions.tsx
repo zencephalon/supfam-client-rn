@@ -85,7 +85,7 @@ export default function MessageReactions({
 			}}
 		>
 			{_.toPairs(_reactions)
-				.filter((pair) => pair[1] > 0)
+				.filter((pair) => pair[1].length > 0)
 				.map(([emoji, profileIds]: [string, number[]]) => (
 					<ReactionChip
 						key={emoji}
