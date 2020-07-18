@@ -23,17 +23,19 @@ export default function QuotedMessageText({
   const youAreQuoted = quotedProfileId == profileId;
   const { backgrounds, foregrounds } = useLight();
 
-  let truncatedQuoted;
-  if(quoted && quoted.length > MAX_QUOTED_DISPLAY_LENGTH) {
-    truncatedQuoted = quoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...';
-  }
+  const truncatedQuoted =
+    quoted?.length > MAX_QUOTED_DISPLAY_LENGTH
+      ? quoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...'
+      : quoted;
 
   return (
     <View style={{ alignItems: isOwnMessage ? 'flex-end' : 'flex-start' }}>
       {quotedProfileId && (
         <SfText style={{ fontSize: 12, color: foregrounds[7] }}>
           {isOwnMessage ? 'You' : <ProfileName profileId={quoterProfileId} />}{' '}
-          replied to {youAreQuoted ? 'your' : <ProfileName profileId={quotedProfileId} />}{youAreQuoted ? '' : "'s"} {quoteType}:
+          replied to{' '}
+          {youAreQuoted ? 'your' : <ProfileName profileId={quotedProfileId} />}
+          {youAreQuoted ? '' : "'s"} {quoteType}:
         </SfText>
       )}
       {quoted && (
