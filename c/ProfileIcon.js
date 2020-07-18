@@ -9,7 +9,6 @@ export const BareProfileIcon = React.memo((props) => {
   const size = props.size || 32;
   const offset = size / 12;
   const imgSize = (size * 11) / 12;
-  console.log('re-rendering', props);
   return (
     <View
       style={[

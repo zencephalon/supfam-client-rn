@@ -110,10 +110,8 @@ function Message(props) {
           style={{
             flexDirection: 'column',
             marginBottom: 4,
-            // alignItems: isOwnMessage ? 'flex-end' : 'flex-end',
             alignSelf: isOwnMessage ? 'flex-end' : 'flex-start',
             width: '80%',
-            // justifyContent: isOwnMessage ? 'flex-end' : 'flex-start',
             marginLeft: 8,
             marginRight: 8,
           }}
