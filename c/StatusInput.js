@@ -37,7 +37,7 @@ function MagicInput({
         >
           <SfText
             onPress={() => setFocused(true)}
-            numberOfLines={1}
+            // numberOfLines={1}
             style={{ color: foregrounds[1], fontSize: 16 }}
           >
             {statusMessage || 'Loading...'}
