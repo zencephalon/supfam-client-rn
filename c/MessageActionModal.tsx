@@ -68,7 +68,13 @@ const MoreEmojiButton = ({
 		>
 			<Image
 				source={MoreEmojiIcon}
-				style={{ margin: 2, width: 24, height: 24, marginBottom: 4, resizeMode: 'stretch' }}
+				style={{
+					margin: 2,
+					width: 24,
+					height: 24,
+					marginBottom: 4,
+					resizeMode: 'stretch',
+				}}
 			/>
 		</BottomSheetButton>
 	);
@@ -81,6 +87,7 @@ const RenderInner = ({
 	setShowEmojiSelector,
 	snapTo,
 	messageId,
+	messageType,
 }: {
 	showEmojiSelector: boolean;
 	copyMessage: () => void;
@@ -88,6 +95,7 @@ const RenderInner = ({
 	setShowEmojiSelector: () => void;
 	snapTo: () => void;
 	messageId: number;
+	messageType: number;
 }) => {
 	const { modal, backgrounds, light } = useLight();
 	const profileId = useProfileId();
@@ -96,10 +104,6 @@ const RenderInner = ({
 		<View style={[styles.panel, { backgroundColor: backgrounds[0] }]}>
 			{showEmojiSelector ? (
 				<EmojiSelector
-					showTabs={false}
-					showSectionTitles={false}
-					showSearchBar={false}
-					showHistory={false}
 					onEmojiSelected={(emoji) => {
 						postAddMessageReactions({ profileId, messageId, emoji });
 						snapTo(2);
@@ -115,7 +119,6 @@ const RenderInner = ({
 								messageId={messageId}
 								profileId={profileId}
 								snapTo={snapTo}
-								setShowEmojiSelector={setShowEmojiSelector}
 							/>
 						))}
 						<MoreEmojiButton
@@ -123,8 +126,12 @@ const RenderInner = ({
 							setShowEmojiSelector={setShowEmojiSelector}
 						/>
 					</View>
-					<SfSheetButton title="Reply" onPress={openReplyModal} />
-					<SfSheetButton title="Copy" onPress={copyMessage} />
+					{messageType !== 1 && (
+						<SfSheetButton title="Reply" onPress={openReplyModal} />
+					)}
+					{messageType !== 1 && (
+						<SfSheetButton title="Copy" onPress={copyMessage} />
+					)}
 					<SfSheetButton title="Cancel" onPress={() => snapTo(2)} />
 				</React.Fragment>
 			)}
@@ -189,6 +196,7 @@ export default function MessageActionModal({ navigation, route }) {
 					}}
 					pop={() => navigation.pop()}
 					messageId={message.id}
+					messageType={message.type}
 				/>
 			)}
 			renderHeader={() => <RenderHeader />}

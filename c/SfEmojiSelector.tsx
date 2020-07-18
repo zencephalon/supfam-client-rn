@@ -358,10 +358,10 @@ export default class EmojiSelector extends Component {
 EmojiSelector.defaultProps = {
   theme: '#007AFF',
   category: Categories.all,
-  showTabs: true,
-  showSearchBar: true,
+  showTabs: false,
+  showSearchBar: false,
   showHistory: false,
-  showSectionTitles: true,
+  showSectionTitles: false,
   columns: 6,
   placeholder: 'Search...',
 };

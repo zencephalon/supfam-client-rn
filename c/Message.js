@@ -105,7 +105,7 @@ function Message(props) {
         messageId={message.id}
         isOwnMessage={isOwnMessage}
       />
-      {showDate && (
+      {showDate && message.links?.length > 0 && (
         <View
           style={{
             flexDirection: 'column',

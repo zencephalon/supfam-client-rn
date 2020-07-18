@@ -71,6 +71,9 @@ export default function MessageReactions({
 }) {
 	const { reactions: liveReactions } = useLiveMessageReactions(messageId);
 	const _reactions = liveReactions || reactions;
+	if (!_reactions) {
+		return null;
+	}
 	return (
 		<View
 			style={{

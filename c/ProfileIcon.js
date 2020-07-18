@@ -5,10 +5,11 @@ import useCachedProfile from '~/h/useCachedProfile';
 
 import StatusBadge from '~/c/StatusBadge';
 
-export function BareProfileIcon(props) {
+export const BareProfileIcon = React.memo((props) => {
   const size = props.size || 32;
   const offset = size / 12;
   const imgSize = (size * 11) / 12;
+  console.log('re-rendering', props);
   return (
     <View
       style={[
@@ -46,10 +47,10 @@ export function BareProfileIcon(props) {
       ) : null}
     </View>
   );
-}
+});
 
 export const ProfileIconFromProfile = (props) => {
-  const { profile } = props;
+  const { profile, ...restProps } = props;
   const statusColor = profile?.status?.color;
   const lastSeen = profile?.seen?.updated_at;
 
@@ -59,7 +60,7 @@ export const ProfileIconFromProfile = (props) => {
       uri={props.avatar_url || profile?.avatar_url}
       statusColor={statusColor}
       lastSeen={lastSeen}
-      {...props}
+      {...restProps}
     />
   );
 };
