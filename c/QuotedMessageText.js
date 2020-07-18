@@ -10,7 +10,7 @@ import useProfileId from '~/h/useProfileId';
 
 const MAX_QUOTED_DISPLAY_LENGTH = 72;
 
-export default function QuotedMessageText({
+export default React.memo(function QuotedMessageText({
   quoted,
   text,
   isOwnMessage,
@@ -23,17 +23,19 @@ export default function QuotedMessageText({
   const youAreQuoted = quotedProfileId == profileId;
   const { backgrounds, foregrounds } = useLight();
 
-  let truncatedQuoted = quoted;
-  if(truncatedQuoted.length > MAX_QUOTED_DISPLAY_LENGTH) {
-    truncatedQuoted = truncatedQuoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...';
-  }
+  const truncatedQuoted =
+    quoted?.length > MAX_QUOTED_DISPLAY_LENGTH
+      ? quoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...'
+      : quoted;
 
   return (
     <View style={{ alignItems: isOwnMessage ? 'flex-end' : 'flex-start' }}>
       {quotedProfileId && (
         <SfText style={{ fontSize: 12, color: foregrounds[7] }}>
           {isOwnMessage ? 'You' : <ProfileName profileId={quoterProfileId} />}{' '}
-          replied to {youAreQuoted ? 'your' : <ProfileName profileId={quotedProfileId} />}{youAreQuoted ? '' : "'s"} {quoteType}:
+          replied to{' '}
+          {youAreQuoted ? 'your' : <ProfileName profileId={quotedProfileId} />}
+          {youAreQuoted ? '' : "'s"} {quoteType}:
         </SfText>
       )}
       {quoted && (
@@ -54,4 +56,4 @@ export default function QuotedMessageText({
       <MessageText text={text} links={links} isOwnMessage={isOwnMessage} />
     </View>
   );
-}
+});

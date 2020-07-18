@@ -6,12 +6,13 @@ import {
 	Text,
 	StyleSheet,
 	TouchableOpacity,
+	Image,
 } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import SfText from '~/c/SfText';
 import EmojiSelector from '~/c/SfEmojiSelector';
-import SfButton from '~/c/SfButton';
+import SfSheetButton from '~/c/SfSheetButton';
 import BottomSheetButton from '~/c/BottomSheetButton';
 
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -23,6 +24,8 @@ import useProfileId from '~/h/useProfileId';
 import { postAddMessageReactions } from '~/apis/api';
 
 import EmojiHistory from '~/lib/EmojiHistory';
+
+import MoreEmojiIcon from '~/assets/images/more-emoji-icon.png';
 
 const EmojiButton = ({
 	emoji,
@@ -44,6 +47,29 @@ const EmojiButton = ({
 			}}
 		>
 			<Text style={{ fontSize: 24 }}>{emoji}</Text>
+		</BottomSheetButton>
+	);
+};
+
+const MoreEmojiButton = ({
+	snapTo,
+	setShowEmojiSelector,
+}: {
+	snapTo: () => void;
+	setShowEmojiSelector: () => void;
+}) => {
+	return (
+		<BottomSheetButton
+			style={{ padding: 10 }}
+			onPress={() => {
+				snapTo(1);
+				setShowEmojiSelector(true);
+			}}
+		>
+			<Image
+				source={MoreEmojiIcon}
+				style={{ margin: 2, width: 24, height: 24, marginBottom: 4, resizeMode: 'stretch' }}
+			/>
 		</BottomSheetButton>
 	);
 };
@@ -81,7 +107,7 @@ const RenderInner = ({
 				/>
 			) : (
 				<React.Fragment>
-					<View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+					<View style={{ flexDirection: 'row', flexWrap: 'wrap', padding: 16 }}>
 						{EmojiHistory.mostUsed().map(([emoji]: [string]) => (
 							<EmojiButton
 								key={emoji}
@@ -89,19 +115,17 @@ const RenderInner = ({
 								messageId={messageId}
 								profileId={profileId}
 								snapTo={snapTo}
+								setShowEmojiSelector={setShowEmojiSelector}
 							/>
 						))}
+						<MoreEmojiButton
+							snapTo={snapTo}
+							setShowEmojiSelector={setShowEmojiSelector}
+						/>
 					</View>
-					<SfButton
-						title="All Emoji"
-						style={{ marginTop: 16 }}
-						onPress={() => {
-							snapTo(1);
-							setShowEmojiSelector(true);
-						}}
-					/>
-					<SfButton title="Reply" onPress={openReplyModal} />
-					<SfButton title="Copy" onPress={copyMessage} />
+					<SfSheetButton title="Reply" onPress={openReplyModal} />
+					<SfSheetButton title="Copy" onPress={copyMessage} />
+					<SfSheetButton title="Cancel" onPress={() => snapTo(2)} />
 				</React.Fragment>
 			)}
 		</View>
@@ -152,7 +176,7 @@ export default function MessageActionModal({ navigation, route }) {
 	return (
 		<BottomSheet
 			ref={bottomSheet}
-			snapPoints={[400, 500, 0]}
+			snapPoints={[420, 500, 0]}
 			renderContent={() => (
 				<RenderInner
 					showEmojiSelector={showEmojiSelector}
@@ -186,7 +210,6 @@ const styles = StyleSheet.create({
 	},
 	panel: {
 		height: 500,
-		padding: 20,
 		backgroundColor: '#f7f5ee',
 		borderTopRightRadius: 20,
 		borderTopLeftRadius: 20,

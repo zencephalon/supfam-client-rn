@@ -3,6 +3,7 @@ import AuthToken from '~/lib/AuthToken';
 import { LOGOUT } from '~/apis/auth/actions';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import SfButton from '~/c/SfButton';
@@ -20,7 +21,7 @@ function UpdateButton() {
   const [updateAvailable, setUpdateAvailable] = React.useState(false);
   const [downloadingUpdate, setDownloadingUpdate] = React.useState(false);
 
-  React.useEffect(() => {
+  useFocusEffect(() => {
     const f = async () => {
       try {
         const update = await Updates.checkForUpdateAsync();
