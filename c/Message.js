@@ -79,7 +79,11 @@ function Message(props) {
               />
             )}
             {message.type === 1 && message.image && (
-              <MessageImagePreview image={message.image} />
+              <MessageImagePreview
+                uri={message.image.uri}
+                width={message.image.width}
+                height={message.image.height}
+              />
             )}
             {message.type === 2 && (
               <QuotedMessageText

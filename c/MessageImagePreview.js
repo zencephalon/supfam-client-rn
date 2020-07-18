@@ -1,21 +1,28 @@
 import React from 'react';
 import { Dimensions, Image } from 'react-native';
 
-export default function MessageImagePreview(props) {
-  const { image } = props;
+export default React.memo(function MessageImagePreview({
+  uri,
+  width,
+  height,
+}: {
+  uri: string,
+  width: number,
+  height: number,
+}) {
   const maxWidth = (Dimensions.get('window').width - 16) * 0.8;
-  const targetWidth = Math.min(maxWidth, image.width);
-  const height = targetWidth * (image.height / image.width);
+  const targetWidth = Math.min(maxWidth, width);
+  const targetHeight = targetWidth * (height / width);
 
   return (
     <Image
-      source={{ uri: image.uri, isStatic: true }}
+      source={{ uri: uri, isStatic: true }}
       style={{
         width: targetWidth,
-        height,
+        height: targetHeight,
         borderRadius: 8,
         backgroundColor: '#333',
       }}
     />
   );
-}
+});
