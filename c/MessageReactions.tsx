@@ -38,8 +38,7 @@ function ReactionChip({
 				padding: 4,
 				borderRadius: 8,
 				marginLeft: 2,
-				marginTop: -8,
-				marginBottom: 4,
+				marginBottom: 2,
 				alignItems: 'center',
 			}}
 			onPress={() => apiCall({ emoji, profileId, messageId })}
@@ -77,6 +76,9 @@ export default function MessageReactions({
 			style={{
 				flexDirection: 'row',
 				alignSelf: isOwnMessage ? 'flex-end' : 'flex-start',
+				justifyContent: isOwnMessage ? 'flex-end' : 'flex-start',
+				marginTop: -8,
+				marginBottom: 4,
 				marginRight: 8,
 				marginLeft: 46,
 				flexWrap: 'wrap',
