@@ -1,17 +1,17 @@
 import * as React from 'react';
+import { View, StyleSheet, TouchableOpacity, Clipboard } from 'react-native';
 
-import ProfileIcon from './ProfileIcon';
-import TopText from './TopText';
+import { useNavigation } from '@react-navigation/native';
+import { useActionSheet } from '@expo/react-native-action-sheet';
+import { showMessage } from 'react-native-flash-message';
 
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-
+import ProfileIcon from '~/c/ProfileIcon';
+import TopText from '~/c/TopText';
 import SfText from '~/c/SfText';
 import DirectConversationPreview from '~/c/DirectConversationPreview';
 
 import statusColors from '~/constants/statusColors';
 import { isRecent, statusOpacity } from '~/lib/clockwork';
-
-import { useNavigation } from '@react-navigation/native';
 
 import useOpenReplyModal from '~/h/useOpenReplyModal';
 
@@ -22,12 +22,42 @@ export default function ProfileStatus({ profile }) {
   let opacity = statusOpacity(profile.status.updated_at);
 
   const statusMessage = profile?.status?.message;
+
   const openReplyModal = useOpenReplyModal(
     profile.id,
     statusMessage,
     'status',
     null
   );
+
+  const { showActionSheetWithOptions } = useActionSheet();
+  const openActionSheet = React.useCallback(() => {
+    const options = ['Copy', 'Reply', 'Cancel'];
+    const cancelButtonIndex = 2;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            Clipboard.setString(statusMessage);
+            showMessage({
+              message: 'Copied to clipboard!',
+              type: 'info',
+            });
+            break;
+          case 1:
+            openReplyModal();
+            break;
+          default:
+            break;
+        }
+      }
+    );
+  }, [statusMessage, openReplyModal]);
 
   return (
     <TouchableOpacity
@@ -40,7 +70,7 @@ export default function ProfileStatus({ profile }) {
           profileId: profile.id,
         });
       }}
-      onLongPress={openReplyModal}
+      onLongPress={openActionSheet}
     >
       <View style={{ flexGrow: 1 }}>
         <TopText

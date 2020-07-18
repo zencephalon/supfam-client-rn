@@ -22,5 +22,5 @@ export default function useOpenReplyModal(
 			quoteType,
 			conversationId,
 		});
-	}, [profileId, quoted, quoteType, conversationId]);
+	}, [profileId, quoted, quoteType, conversationId, navigation]);
 }
