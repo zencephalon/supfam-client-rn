@@ -6,7 +6,7 @@ import SfText from '~/c/SfText';
 import { Text, TouchableOpacity, Share } from 'react-native';
 import { View } from 'react-native';
 
-export default function MessageText({ text, isOwnMessage, links }) {
+export default React.memo(function MessageText({ text, isOwnMessage, links }) {
   const { backgrounds } = useLight();
 
   const textStyle = React.useMemo(
@@ -64,4 +64,4 @@ export default function MessageText({ text, isOwnMessage, links }) {
       })}
     </SfText>
   );
-}
+});
