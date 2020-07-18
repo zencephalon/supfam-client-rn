@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { View, StyleSheet, TouchableOpacity, Clipboard } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import { useActionSheet } from '@expo/react-native-action-sheet';
-import { showMessage } from 'react-native-flash-message';
 
 import ProfileIcon from '~/c/ProfileIcon';
 import TopText from '~/c/TopText';
@@ -13,7 +11,7 @@ import DirectConversationPreview from '~/c/DirectConversationPreview';
 import statusColors from '~/constants/statusColors';
 import { isRecent, statusOpacity } from '~/lib/clockwork';
 
-import useOpenReplyModal from '~/h/useOpenReplyModal';
+import useProfileStatusLongPress from '~/h/useProfileStatusLongPress';
 
 export default function ProfileStatus({ profile }) {
   const navigation = useNavigation();
@@ -22,42 +20,7 @@ export default function ProfileStatus({ profile }) {
   let opacity = statusOpacity(profile.status.updated_at);
 
   const statusMessage = profile?.status?.message;
-
-  const openReplyModal = useOpenReplyModal(
-    profile.id,
-    statusMessage,
-    'status',
-    null
-  );
-
-  const { showActionSheetWithOptions } = useActionSheet();
-  const openActionSheet = React.useCallback(() => {
-    const options = ['Copy', 'Reply', 'Cancel'];
-    const cancelButtonIndex = 2;
-
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      (buttonIndex) => {
-        switch (buttonIndex) {
-          case 0:
-            Clipboard.setString(statusMessage);
-            showMessage({
-              message: 'Copied to clipboard!',
-              type: 'info',
-            });
-            break;
-          case 1:
-            openReplyModal();
-            break;
-          default:
-            break;
-        }
-      }
-    );
-  }, [statusMessage, openReplyModal]);
+  const onLongPress = useProfileStatusLongPress(statusMessage, profile?.id);
 
   return (
     <TouchableOpacity
@@ -70,7 +33,7 @@ export default function ProfileStatus({ profile }) {
           profileId: profile.id,
         });
       }}
-      onLongPress={openActionSheet}
+      onLongPress={onLongPress}
     >
       <View style={{ flexGrow: 1 }}>
         <TopText
