@@ -10,7 +10,7 @@ import useProfileId from '~/h/useProfileId';
 
 const MAX_QUOTED_DISPLAY_LENGTH = 72;
 
-export default function QuotedMessageText({
+export default React.memo(function QuotedMessageText({
   quoted,
   text,
   isOwnMessage,
@@ -56,4 +56,4 @@ export default function QuotedMessageText({
       <MessageText text={text} links={links} isOwnMessage={isOwnMessage} />
     </View>
   );
-}
+});
