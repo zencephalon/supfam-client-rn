@@ -21,7 +21,7 @@ export default function ConversationTopBar({
     <SfTopBar style={{ justifyContent: 'space-between' }}>
       <TouchableOpacity
         style={{ paddingTop: 4, paddingBottom: 4, paddingRight: 24 }}
-        onPress={() => navigation.pop()}
+        onPress={() => navigation.navigate('Home')}
       >
         <Ionicons name="ios-arrow-back" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
