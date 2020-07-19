@@ -2,6 +2,7 @@ import React from 'react';
 import { RefreshControl, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useLinkTo } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import AddToGroupRow from '~/c/AddToGroupRow';
 import FriendSearchBar from '~/c/FriendSearchBar';
@@ -24,29 +25,21 @@ import {
 } from '~/apis/api';
 import useApi from '~/h/useApi';
 
-const GroupBuilderFriendList = ({ conversationId, navigation }) => {
-  const { conversation } = useCachedConversation(conversationId);
-  const { backgrounds } = useLight();
-  const linkTo = useLinkTo();
-
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [addingProfiles, setAddingProfiles] = React.useState([]);
-
+function useRenderAddToGroupRow(setAddingProfiles) {
   const add = React.useCallback(
     (profile) => {
-      setAddingProfiles([...addingProfiles, profile]);
+      setAddingProfiles((addingProfiles) => [...addingProfiles, profile]);
     },
-    [addingProfiles]
+    [setAddingProfiles]
   );
 
   const remove = React.useCallback(
     (profileId) => {
-      const filteredAddingProfiles = addingProfiles.filter(
-        (profile) => profile.id != profileId
+      setAddingProfiles((addingProfiles) =>
+        addingProfiles.filter((profile) => profile.id != profileId)
       );
-      setAddingProfiles(filteredAddingProfiles);
     },
-    [addingProfiles]
+    [setAddingProfiles]
   );
 
   const renderAddToGroupRow = React.useCallback(
@@ -55,6 +48,19 @@ const GroupBuilderFriendList = ({ conversationId, navigation }) => {
     },
     [add, remove]
   );
+
+  return renderAddToGroupRow;
+}
+
+const GroupBuilderFriendList = ({ conversationId }) => {
+  const { conversation } = useCachedConversation(conversationId);
+  const { backgrounds } = useLight();
+  const linkTo = useLinkTo();
+  const navigation = useNavigation();
+
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [addingProfiles, setAddingProfiles] = React.useState([]);
+  const renderAddToGroupRow = useRenderAddToGroupRow(setAddingProfiles);
 
   const creatorProfileId = useProfileId();
   const Create = useApi(postConversationCreateWithMembers);

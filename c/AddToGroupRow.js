@@ -9,10 +9,10 @@ import ProfileIcon from '~/c/ProfileIcon';
 export default function AddToGroupRow({ profile, add, remove }) {
   const [added, setAdded] = React.useState(false);
 
-  const addToGroup = () => {
+  const addToGroup = React.useCallback(() => {
     setAdded(true);
     add(profile);
-  };
+  }, [setAdded, add, profile]);
 
   const cancelAddToGroup = () => {
     setAdded(false);
