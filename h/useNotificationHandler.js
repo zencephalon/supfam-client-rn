@@ -15,9 +15,9 @@ export default function useNotificationHandler(containerRef) {
   React.useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        const body = response.notification.request.content.data.body;
-        const message = body.message;
-        const isDm = body.isDm;
+        const data = response.notification.request.content.data;
+        const message = data.message || data.body.message;
+        const isDm = data.isDm || data.body.isDm;
 
         if (isDm) {
           linkTo(`/dm/${message.profile_id}`);
