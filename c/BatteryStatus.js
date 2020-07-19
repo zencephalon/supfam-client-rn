@@ -88,4 +88,4 @@ function BatteryStatus({ battery, batteryState }) {
   );
 }
 
-export default BatteryStatus;
+export default React.memo(BatteryStatus);

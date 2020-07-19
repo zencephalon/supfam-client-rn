@@ -27,4 +27,4 @@ function NetworkStatus({ networkType, networkStrength, cellularGeneration }) {
   );
 }
 
-export default NetworkStatus;
+export default React.memo(NetworkStatus);
