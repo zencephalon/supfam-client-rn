@@ -13,16 +13,18 @@ import BatteryStatus from '~/c/BatteryStatus';
 import NetworkStatus from '~/c/NetworkStatus';
 
 import useLight from '~/h/useLight';
+import useCachedProfile from '~/h/useCachedProfile';
 
-export default function TopText({
-  displayName,
-  locationState,
-  lastUpdate,
-  lastSeen,
-  profile,
-  hideRightSection,
-}) {
+export default function TopText({ profileId, hideRightSection }) {
+  const profile = useCachedProfile(profileId);
   const { foregrounds } = useLight();
+
+  if (!profile) {
+    return null;
+  }
+
+  const displayName = profile.name;
+  const lastSeen = profile.seen?.updated_at;
 
   return (
     <View
@@ -46,8 +48,7 @@ export default function TopText({
           {displayName}
         </Text>
       </View>
-      {
-        !hideRightSection ?
+      {!hideRightSection ? (
         <View
           style={{
             alignSelf: 'flex-end',
@@ -65,8 +66,8 @@ export default function TopText({
             battery={profile?.seen?.battery}
             batteryState={profile?.seen?.battery_state}
           />
-        </View> : null
-      }
+        </View>
+      ) : null}
     </View>
   );
 }

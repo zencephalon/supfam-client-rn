@@ -25,21 +25,12 @@ export default function ProfileStatus({ profile }) {
 
   return (
     <TouchableOpacity
-      style={{
-        ...styles.profileStatus,
-        borderLeftColor: statusColors[profile?.status?.color],
-      }}
+      style={styles.profileStatus}
       onPress={onPress}
       onLongPress={onLongPress}
     >
       <View style={{ flexGrow: 1 }}>
-        <TopText
-          displayName={profile.name}
-          locationState={profile.name}
-          lastUpdate={profile?.status?.updated_at}
-          lastSeen={profile?.seen?.updated_at}
-          profile={profile}
-        />
+        <TopText profileId={profile.id} />
         <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
           <ProfileIcon profileId={profile.id} size={48} />
           <View
