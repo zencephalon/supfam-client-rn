@@ -5,9 +5,12 @@ import ProfileName from '~/c/ProfileName';
 
 import useProfileId from '~/h/useProfileId';
 
-export default function GroupMemberNameSummary({ memberProfileIds, maxNames }) {
+export default React.memo(function GroupMemberNameSummary({
+  memberProfileIds,
+  maxNames,
+}) {
   if (!memberProfileIds) {
-    return <></>;
+    return null;
   }
 
   const userProfileId = useProfileId();
@@ -41,4 +44,4 @@ export default function GroupMemberNameSummary({ memberProfileIds, maxNames }) {
       })}
     </>
   );
-}
+});
