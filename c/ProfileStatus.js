@@ -7,20 +7,22 @@ import ProfileIcon from '~/c/ProfileIcon';
 import TopText from '~/c/TopText';
 import SfText from '~/c/SfText';
 import DirectConversationPreview from '~/c/DirectConversationPreview';
+import StatusMessageText from '~/c/StatusMessageText';
 
 import statusColors from '~/constants/statusColors';
-import { isRecent, statusOpacity } from '~/lib/clockwork';
 
 import useProfileStatusLongPress from '~/h/useProfileStatusLongPress';
 
 export default function ProfileStatus({ profile }) {
   const navigation = useNavigation();
 
-  let recentUpdate = isRecent(profile.status.updated_at);
-  let opacity = statusOpacity(profile.status.updated_at);
-
   const statusMessage = profile?.status?.message;
   const onLongPress = useProfileStatusLongPress(statusMessage, profile?.id);
+  const onPress = React.useCallback(() => {
+    navigation.navigate('Conversation', {
+      profileId: profile.id,
+    });
+  }, [navigation, profile.id]);
 
   return (
     <TouchableOpacity
@@ -28,11 +30,7 @@ export default function ProfileStatus({ profile }) {
         ...styles.profileStatus,
         borderLeftColor: statusColors[profile?.status?.color],
       }}
-      onPress={() => {
-        navigation.navigate('Conversation', {
-          profileId: profile.id,
-        });
-      }}
+      onPress={onPress}
       onLongPress={onLongPress}
     >
       <View style={{ flexGrow: 1 }}>
@@ -53,19 +51,10 @@ export default function ProfileStatus({ profile }) {
               alignItems: 'flex-start',
             }}
           >
-            <SfText
-              style={{
-                fontSize: 16,
-                flexGrow: 1,
-                flexShrink: 1,
-                marginLeft: 8,
-                overflow: 'hidden',
-                opacity: opacity,
-                fontWeight: recentUpdate ? 'bold' : 'normal',
-              }}
-            >
-              {statusMessage}
-            </SfText>
+            <StatusMessageText
+              statusMessage={statusMessage}
+              updatedAt={profile?.status?.updated_at}
+            />
             <DirectConversationPreview userId={profile?.user_id} />
           </View>
         </View>
