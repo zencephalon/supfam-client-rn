@@ -13,11 +13,11 @@ export default React.memo(function GroupMemberNameSummary({
   memberProfileIds: number[];
   maxNames: number;
 }) {
+  const userProfileId = useProfileId();
+
   if (!memberProfileIds) {
     return null;
   }
-
-  const userProfileId = useProfileId();
 
   let filteredMemberIds = memberProfileIds.filter((profileId) => {
     return profileId != userProfileId;
