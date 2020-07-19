@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import ProfileIcon from '~/c/ProfileIcon';
 import TopText from '~/c/TopText';
-import SfText from '~/c/SfText';
 import DirectConversationPreview from '~/c/DirectConversationPreview';
 import StatusMessageText from '~/c/StatusMessageText';
 
@@ -67,11 +66,8 @@ const styles = StyleSheet.create({
   profileStatus: {
     flexDirection: 'row',
     alignSelf: 'stretch',
-    // borderLeftWidth: 4,
     paddingLeft: 8,
-    // borderBottomWidth: 1,
     paddingRight: 8,
-    paddingLeft: 8,
     marginBottom: 12,
   },
 });
