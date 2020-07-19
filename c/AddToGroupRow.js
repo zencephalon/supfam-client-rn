@@ -11,7 +11,7 @@ export default function AddToGroupRow({ profile, add, remove }) {
 
   const addToGroup = React.useCallback(() => {
     setAdded(true);
-    add(profile);
+    add(profile.id);
   }, [setAdded, add, profile]);
 
   const cancelAddToGroup = () => {

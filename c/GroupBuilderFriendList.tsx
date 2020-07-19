@@ -25,21 +25,24 @@ import {
 } from '~/apis/api';
 import useApi from '~/h/useApi';
 
-function useRenderAddToGroupRow(setAddingProfiles) {
+function useRenderAddToGroupRow(setAddingProfileIds) {
   const add = React.useCallback(
-    (profile) => {
-      setAddingProfiles((addingProfiles) => [...addingProfiles, profile]);
+    (profileId) => {
+      setAddingProfileIds((addingProfileIds: number[]) => [
+        ...addingProfileIds,
+        profileId,
+      ]);
     },
-    [setAddingProfiles]
+    [setAddingProfileIds]
   );
 
   const remove = React.useCallback(
     (profileId) => {
-      setAddingProfiles((addingProfiles) =>
-        addingProfiles.filter((profile) => profile.id != profileId)
+      setAddingProfileIds((addingProfileIds: number[]) =>
+        addingProfileIds.filter((id) => id != profileId)
       );
     },
-    [setAddingProfiles]
+    [setAddingProfileIds]
   );
 
   const renderAddToGroupRow = React.useCallback(
@@ -52,23 +55,18 @@ function useRenderAddToGroupRow(setAddingProfiles) {
   return renderAddToGroupRow;
 }
 
-const GroupBuilderFriendList = ({ conversationId }) => {
-  const { conversation } = useCachedConversation(conversationId);
-  const { backgrounds } = useLight();
+function useSubmit(addingProfileIds: number[], conversationId: number) {
+  const creatorProfileId = useProfileId();
   const linkTo = useLinkTo();
   const navigation = useNavigation();
 
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [addingProfiles, setAddingProfiles] = React.useState([]);
-  const renderAddToGroupRow = useRenderAddToGroupRow(setAddingProfiles);
-
-  const creatorProfileId = useProfileId();
   const Create = useApi(postConversationCreateWithMembers);
   const AddMembers = useApi(postConversationAddMembers);
   const { refetch: groupConvoRefetch } = useGroupConversations();
-  const submit = () => {
+
+  const submit = React.useCallback(() => {
     (async () => {
-      const profileIds = addingProfiles.map((profile) => profile.id);
+      const profileIds = addingProfileIds;
       if (conversationId) {
         // Existing conversation, do add
         AddMembers.call({ conversationId, profileIds });
@@ -91,9 +89,26 @@ const GroupBuilderFriendList = ({ conversationId }) => {
         }
       }
     })();
-  };
+  }, [addingProfileIds, conversationId, navigation.navigate, linkTo]);
 
-  let { friends, refetch, isFetching } = useFriends();
+  return submit;
+}
+
+const GroupBuilderFriendList = ({
+  conversationId,
+}: {
+  conversationId: number;
+}) => {
+  const { conversation } = useCachedConversation(conversationId);
+  const { backgrounds } = useLight();
+
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [addingProfileIds, setAddingProfileIds] = React.useState([]);
+  const renderAddToGroupRow = useRenderAddToGroupRow(setAddingProfileIds);
+
+  let { friends } = useFriends();
+
+  const submit = useSubmit(addingProfileIds, conversationId);
 
   // Filter out friends who are already in the conversation
   if (conversation?.member_profile_ids) {
@@ -111,7 +126,7 @@ const GroupBuilderFriendList = ({ conversationId }) => {
 
   useSfListAnimation(friends);
 
-  const disabled = addingProfiles.length === 0;
+  const disabled = addingProfileIds.length === 0;
 
   return (
     <>
@@ -147,8 +162,8 @@ const GroupBuilderFriendList = ({ conversationId }) => {
         </SfText>
       )}
       <View style={{ flexDirection: 'row', marginLeft: 8, marginRight: 8 }}>
-        {addingProfiles.map((profile) => (
-          <ProfileIcon noBadge profileId={profile.id} key={profile.id} />
+        {addingProfileIds.map((profileId) => (
+          <ProfileIcon noBadge profileId={profileId} key={profileId} />
         ))}
       </View>
       <SfButton
