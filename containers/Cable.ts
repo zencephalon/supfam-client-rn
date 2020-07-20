@@ -40,12 +40,12 @@ function CableContainer(): null {
     };
   }, []);
 
-  useDeepCompareEffect(() => {
+  useEffect(() => {
     cable.setupConversationChannel();
     return () => {
       cable.cleanupConversationChannels();
     };
-  }, [conversationIds]);
+  }, []);
 
   return null;
 }

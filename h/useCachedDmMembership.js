@@ -6,7 +6,7 @@ export default function useCachedDmMembership(dmId) {
   const { data: dmIdtoConversationIdMap } = useQuery(
     'dmIdtoConversationIdMap',
     () => {},
-    { manual: true }
+    { manual: true, staleTime: Infinity }
   );
   const conversationId = dmIdtoConversationIdMap?.[dmId];
   const { data: dmMembership } = useQuery(
