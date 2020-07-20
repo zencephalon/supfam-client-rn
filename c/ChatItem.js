@@ -3,50 +3,34 @@ import * as React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
-import TopText from '~/c/TopText';
-import ProfileIcon from '~/c/ProfileIcon';
+import TopText from '~/c/GroupConversationTopText';
 import GroupConversationPreview from '~/c/GroupConversationPreview';
 import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
+import GroupConversationMemberIcons from '~/c/GroupConversationMemberIcons';
 
 import useProfileId from '~h/useProfileId';
 
-import { useNavigation, useLinkTo } from '@react-navigation/native';
+import { useLinkTo } from '@react-navigation/native';
 
-export default function ChatItem({ chat }) {
+export default React.memo(function ChatItem({ conversationId }) {
   const userProfileId = useProfileId();
-  const navigation = useNavigation();
   const linkTo = useLinkTo();
-
-  const renderMemberNamesSummary = (chat) => {
-    return (
-      <GroupMemberNameSummary memberProfileIds={chat.member_profile_ids} maxNames={4}/>
-    )
-  };
 
   return (
     <TouchableOpacity
-      style={{
-        ...styles.profileStatus,
-      }}
+      style={styles.conversationItem}
       onPress={() => {
-        // navigation.navigate('Group', { conversationId: chat.id });
-        linkTo(`/conversation/${chat.id}`);
+        linkTo(`/conversation/${conversationId}`);
       }}
     >
       <View style={{ flexGrow: 1 }}>
-        <TopText
-          displayName={chat.name}
-          locationState={'blah bluh'}
-          hideRightSection
-        />
+        <TopText conversationId={conversationId} />
         <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
           <View style={{ flexDirection: 'row', width: 48, flexWrap: 'wrap' }}>
-            {chat.member_profile_ids
-              .filter((pId) => pId !== userProfileId)
-              .slice(0, 4)
-              .map((profileId) => (
-                <ProfileIcon key={profileId} profileId={profileId} size={24} />
-              ))}
+            <GroupConversationMemberIcons
+              conversationId={conversationId}
+              userProfileId={userProfileId}
+            />
           </View>
           <View
             style={{
@@ -65,22 +49,22 @@ export default function ChatItem({ chat }) {
                 overflow: 'hidden',
               }}
             >
-              {renderMemberNamesSummary(chat)}
+              <GroupMemberNameSummary conversationId={conversationId} />
             </SfText>
-            <GroupConversationPreview conversationId={chat.id} />
+            <GroupConversationPreview conversationId={conversationId} />
           </View>
         </View>
       </View>
     </TouchableOpacity>
   );
-}
+});
 
 const styles = StyleSheet.create({
-  profileStatus: {
+  conversationItem: {
     flexDirection: 'row',
     alignSelf: 'stretch',
     paddingLeft: 8,
     paddingRight: 8,
-    marginBottom: 8,
+    marginBottom: 12,
   },
 });

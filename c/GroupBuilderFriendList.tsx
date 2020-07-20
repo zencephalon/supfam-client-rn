@@ -79,7 +79,7 @@ function useSubmit(addingProfileIds: number[], conversationId: number) {
         });
       } else {
         // If there is only one profileId, just go to that DM
-        if(profileIds.length == 1) {
+        if (profileIds.length == 1) {
           linkTo(`/dm/${profileIds[0]}`);
           return;
         }
@@ -104,7 +104,7 @@ function useSubmit(addingProfileIds: number[], conversationId: number) {
 }
 
 function useFilteredFriends(conversationId: number, searchQuery: string) {
-  const { conversation } = useCachedConversation(conversationId);
+  const conversation = useCachedConversation(conversationId);
 
   let { friends } = useFriends();
 

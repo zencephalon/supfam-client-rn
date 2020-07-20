@@ -5,50 +5,70 @@ import SfText from '~/c/SfText';
 import ProfileName from '~/c/ProfileName';
 
 import useProfileId from '~/h/useProfileId';
+import useCachedConversation from '~/h/useCachedConversation';
 
-export default React.memo(function GroupMemberNameSummary({
-  memberProfileIds,
-  maxNames,
+export const GroupMemberNameSummary = React.memo(
+  function GroupMemberNameSummary({
+    memberProfileIds,
+    maxNames,
+  }: {
+    memberProfileIds: number[];
+    maxNames: number;
+  }) {
+    const userProfileId = useProfileId();
+
+    if (!memberProfileIds) {
+      return null;
+    }
+
+    let filteredMemberIds = memberProfileIds.filter((profileId) => {
+      return profileId != userProfileId;
+    });
+    const totalMembers = filteredMemberIds.length;
+    filteredMemberIds = filteredMemberIds.slice(0, maxNames);
+    return (
+      <SfText style={styles.text}>
+        {filteredMemberIds.map((profileId, index) => {
+          return (
+            <React.Fragment key={profileId}>
+              <ProfileName profileId={profileId} />
+              {index < filteredMemberIds.length - 2 ||
+              (index < filteredMemberIds.length - 1 && totalMembers > maxNames)
+                ? ', '
+                : null}
+              {index == filteredMemberIds.length - 2 && totalMembers <= maxNames
+                ? ' & '
+                : null}
+              {index == filteredMemberIds.length - 1 && totalMembers > maxNames
+                ? ' & others'
+                : null}
+            </React.Fragment>
+          );
+        })}
+      </SfText>
+    );
+  }
+);
+
+export default React.memo(function GroupMemberNameSummaryFromConversationId({
+  conversationId,
 }: {
-  memberProfileIds: number[];
-  maxNames: number;
+  conversationId: number;
 }) {
-  const userProfileId = useProfileId();
-
-  if (!memberProfileIds) {
+  const conversation = useCachedConversation(conversationId);
+  if (!conversation) {
     return null;
   }
-
-  let filteredMemberIds = memberProfileIds.filter((profileId) => {
-    return profileId != userProfileId;
-  });
-  const totalMembers = filteredMemberIds.length;
-  filteredMemberIds = filteredMemberIds.slice(0, maxNames);
   return (
-    <SfText style={styles.text}>
-      {filteredMemberIds.map((profileId, index) => {
-        return (
-          <React.Fragment key={profileId}>
-            <ProfileName profileId={profileId} />
-            {index < filteredMemberIds.length - 2 ||
-            (index < filteredMemberIds.length - 1 && totalMembers > maxNames)
-              ? ', '
-              : null}
-            {index == filteredMemberIds.length - 2 && totalMembers <= maxNames
-              ? ' & '
-              : null}
-            {index == filteredMemberIds.length - 1 && totalMembers > maxNames
-              ? ' & others'
-              : null}
-          </React.Fragment>
-        );
-      })}
-    </SfText>
+    <GroupMemberNameSummary
+      memberProfileIds={conversation.member_profile_ids}
+      maxNames={4}
+    />
   );
 });
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 16,
+    fontSize: 14,
   },
 });

@@ -8,7 +8,7 @@ import useSfListAnimation from '~/h/useSfListAnimation';
 import useCachedConversation from '~/h/useCachedConversation';
 
 const GroupMemberList = ({ conversationId }) => {
-  const { conversation } = useCachedConversation(conversationId);
+  const conversation = useCachedConversation(conversationId);
   const { backgrounds } = useLight();
 
   const groupMembers = conversation.member_profile_ids;

@@ -1,6 +1,5 @@
 import { useQuery, queryCache } from 'react-query';
 import { getFriends } from '~/apis/api';
-import { orderBy } from 'lodash';
 
 import useProfileId from '~/h/useProfileId';
 
@@ -24,5 +23,17 @@ export default function useFriends() {
   //   ['desc', 'desc']
   // );
 
-  return { status, friends: data, error, isFetching, refetch };
+  return { status, friends: data || [], error, isFetching, refetch };
+}
+
+export function useFriendIds() {
+  const { status, friends, error, isFetching, refetch } = useFriends();
+
+  return {
+    status,
+    friendIds: friends.map((f) => f.id),
+    error,
+    isFetching,
+    refetch,
+  };
 }

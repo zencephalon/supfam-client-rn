@@ -6,10 +6,11 @@ import useOpenReplyModal from '~/h/useOpenReplyModal';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { showMessage } from 'react-native-flash-message';
 
-export default function useProfileStatusLongPress(
-	statusMessage: string,
-	profileId: number
-) {
+import useCachedProfile from '~/h/useCachedProfile';
+
+export default function useProfileStatusLongPress(profileId: number) {
+	const profile = useCachedProfile(profileId);
+	const statusMessage = profile?.status?.message;
 	const openReplyModal = useOpenReplyModal(
 		profileId,
 		statusMessage,

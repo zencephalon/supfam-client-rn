@@ -19,11 +19,11 @@ import { orderBy } from 'lodash';
 
 const renderItem = ({ item }) => {
   if (item.type == 'friend') {
-    return <ProfileStatus profile={item} />;
+    return <ProfileStatus profileId={item.id} />;
   }
 
   if (item.type == 'group') {
-    return <ChatItem chat={item} />;
+    return <ChatItem conversationId={item.id} />;
   }
 
   return <RespondToInviteRow invite={item} />;
