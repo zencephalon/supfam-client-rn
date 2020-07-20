@@ -75,6 +75,12 @@ function useSubmit(addingProfileIds: number[], conversationId: number) {
           conversationId,
         });
       } else {
+        // If there is only one profileId, just go to that DM
+        if(profileIds.length == 1) {
+          linkTo(`/dm/${profileIds[0]}`);
+          return;
+        }
+
         // New group conversation, do create
         const result = await Create.call({
           profileIds,
