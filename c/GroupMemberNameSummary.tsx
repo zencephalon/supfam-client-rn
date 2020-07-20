@@ -69,6 +69,6 @@ export default React.memo(function GroupMemberNameSummaryFromConversationId({
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 16,
+    fontSize: 14,
   },
 });

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import SfText from '~/c/SfText';
-import TopText from '~/c/TopText';
+import TopText from '~/c/GroupConversationTopText';
 import ProfileIcon from '~/c/ProfileIcon';
 import GroupConversationPreview from '~/c/GroupConversationPreview';
 import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
@@ -28,7 +28,7 @@ export default function ChatItem({ chat }) {
       }}
     >
       <View style={{ flexGrow: 1 }}>
-        <TopText title={chat.name} />
+        <TopText conversationId={chat.id} />
         <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
           <View style={{ flexDirection: 'row', width: 48, flexWrap: 'wrap' }}>
             {chat.member_profile_ids
@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     paddingLeft: 8,
     paddingRight: 8,
-    marginBottom: 8,
+    marginBottom: 12,
   },
 });
