@@ -60,8 +60,10 @@ export default function useMessages(conversationId, meProfileId) {
     }
   );
 
-  let messages = values(instantMessages).filter(
-    (msg) => msg.profile_id !== meProfileId
+  // prevent jumpy instant messages in groups with multiple people typing by enforcing a sort order
+  let messages = _.sortBy(
+    values(instantMessages).filter((msg) => msg.profile_id !== meProfileId),
+    'profile_id'
   );
 
   messages = messages.concat(queuedMessages || []);
