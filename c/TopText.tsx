@@ -4,7 +4,13 @@ import { View, Text } from 'react-native';
 
 import useLight from '~/h/useLight';
 
-export default React.memo(function TopText({ title, rightSection }) {
+export default React.memo(function TopText({
+  title,
+  rightSection,
+}: {
+  title: string;
+  rightSection?: React.ReactElement;
+}) {
   const { foregrounds } = useLight();
 
   return (
