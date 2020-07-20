@@ -5,7 +5,7 @@ import useCachedProfile from '~/h/useCachedProfile';
 
 import StatusBadge from '~/c/StatusBadge';
 
-export const BareProfileIcon = React.memo((props) => {
+export const BareProfileIcon = (props) => {
   const size = props.size || 32;
   const offset = size / 12;
   const imgSize = (size * 11) / 12;
@@ -46,7 +46,7 @@ export const BareProfileIcon = React.memo((props) => {
       ) : null}
     </View>
   );
-});
+};
 
 export const ProfileIconFromProfile = (props) => {
   const { profile, ...restProps } = props;

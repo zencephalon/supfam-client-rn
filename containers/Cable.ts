@@ -33,15 +33,15 @@ function CableContainer(): null {
     cable.setProfileId(profileId);
   }, [profileId]);
 
-  useDeepCompareEffect(() => {
-    cable.setupFriendChannels(friendIds);
+  useEffect(() => {
+    cable.setupFriendChannel();
     return () => {
-      cable.cleanupFriendChannels();
+      cable.cleanupFriendChannel();
     };
-  }, [friendIds]);
+  }, []);
 
   useDeepCompareEffect(() => {
-    cable.setupConversationChannels(conversationIds);
+    cable.setupConversationChannel();
     return () => {
       cable.cleanupConversationChannels();
     };

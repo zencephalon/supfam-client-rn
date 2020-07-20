@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useInfiniteQuery, useQuery } from 'react-query';
-import { flatten, tail, head, uniqBy, values, reverse } from 'lodash';
+import { flatten, tail, head, uniqBy, values, reverse, sortBy } from 'lodash';
 
 import { getConversationMessages } from '~/apis/api';
 import Cable from '~/lib/Cable';
@@ -60,8 +60,10 @@ export default function useMessages(conversationId, meProfileId) {
     }
   );
 
-  let messages = values(instantMessages).filter(
-    (msg) => msg.profile_id !== meProfileId
+  // prevent jumpy instant messages in groups with multiple people typing by enforcing a sort order
+  let messages = sortBy(
+    values(instantMessages).filter((msg) => msg.profile_id !== meProfileId),
+    'profile_id'
   );
 
   messages = messages.concat(queuedMessages || []);
