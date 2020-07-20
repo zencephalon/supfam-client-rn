@@ -78,8 +78,6 @@ const FriendList = () => {
     groupConversations
   );
 
-  useSfListAnimation(listItems);
-
   return (
     <>
       <FlatList

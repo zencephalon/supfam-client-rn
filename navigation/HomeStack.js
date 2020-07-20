@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '~/screens/HomeScreen';
 import ConversationScreen from '~/screens/ConversationScreen';
@@ -29,7 +30,10 @@ function HomeStack() {
   };
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator
+      initialRouteName="Home"
+      options={{ animationEnabled: false }}
+    >
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -42,6 +46,7 @@ function HomeStack() {
         component={ConversationScreen}
         options={{
           headerShown: false,
+          animationEnabled: false,
         }}
       />
       <Stack.Screen
@@ -69,6 +74,7 @@ function HomeStack() {
         component={ChatScreen}
         options={{
           headerShown: false,
+          animationEnabled: false,
         }}
       />
       <Stack.Screen
