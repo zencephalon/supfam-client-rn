@@ -10,7 +10,7 @@ export default function DirectConversationPreview({ profileId }) {
   const theirProfile = useCachedProfile(profileId);
   const { profile } = useProfileMe();
   const meId = profile?.user_id;
-  const dmId = [meId, theirProfile?.user_id].sort().join(':');
+  const dmId = [meId, theirProfile?.user_id].sort((a, b) => a - b).join(':');
 
   const dmMembership = useCachedDmMembership(dmId);
 
