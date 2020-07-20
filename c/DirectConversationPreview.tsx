@@ -6,7 +6,11 @@ import useCachedProfile from '~/h/useCachedProfile';
 
 import MessagePreview from '~/c/MessagePreview';
 
-export default function DirectConversationPreview({ profileId }) {
+export default function DirectConversationPreview({
+  profileId,
+}: {
+  profileId: number;
+}): React.ReactElement | null {
   const theirProfile = useCachedProfile(profileId);
   const { profile } = useProfileMe();
   const meId = profile?.user_id;
