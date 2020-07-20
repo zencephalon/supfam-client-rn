@@ -23,7 +23,7 @@ const renderItem = ({ item }) => {
   }
 
   if (item.type == 'group') {
-    return <ChatItem chat={item} />;
+    return <ChatItem conversationId={item.id} />;
   }
 
   return <RespondToInviteRow invite={item} />;
