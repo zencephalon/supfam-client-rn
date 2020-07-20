@@ -7,6 +7,7 @@ import TopText from '~/c/GroupConversationTopText';
 import ProfileIcon from '~/c/ProfileIcon';
 import GroupConversationPreview from '~/c/GroupConversationPreview';
 import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
+import GroupConversationMemberIcons from '~/c/GroupConversationMemberIcons';
 
 import useProfileId from '~h/useProfileId';
 
@@ -31,12 +32,10 @@ export default function ChatItem({ chat }) {
         <TopText conversationId={chat.id} />
         <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
           <View style={{ flexDirection: 'row', width: 48, flexWrap: 'wrap' }}>
-            {chat.member_profile_ids
-              .filter((pId) => pId !== userProfileId)
-              .slice(0, 4)
-              .map((profileId) => (
-                <ProfileIcon key={profileId} profileId={profileId} size={24} />
-              ))}
+            <GroupConversationMemberIcons
+              conversationId={chat.id}
+              userProfileId={userProfileId}
+            />
           </View>
           <View
             style={{
