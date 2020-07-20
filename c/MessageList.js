@@ -39,7 +39,7 @@ class MessageList extends React.Component {
       <>
         <FlatList
           onEndReached={() => canFetchMore && fetchMore()}
-          onEndReachedThreshold={0.1}
+          onEndReachedThreshold={0.5}
           data={messages}
           renderItem={this.renderMessage}
           style={{ flex: 1 }}
