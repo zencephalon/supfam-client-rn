@@ -41,7 +41,7 @@ function CableContainer(): null {
   }, []);
 
   useDeepCompareEffect(() => {
-    cable.setupConversationChannels(conversationIds);
+    cable.setupConversationChannel();
     return () => {
       cable.cleanupConversationChannels();
     };
