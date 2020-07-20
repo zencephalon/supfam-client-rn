@@ -32,13 +32,8 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
           <SfText
             style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}
           >
-            {conversation?.name ? (
-              conversation.name
-            ) : (
-              <GroupMemberNameSummary
-                memberProfileIds={conversation?.member_profile_ids}
-                maxNames={4}
-              />
+            {conversation.name || (
+              <GroupMemberNameSummary conversationId={conversation.id} />
             )}
           </SfText>
         }

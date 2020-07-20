@@ -15,5 +15,5 @@ export default function useCachedProfile(profileId) {
 		setProfile(_profile);
 	}, [_profile]);
 
-	return profile;
+	return _profile;
 }

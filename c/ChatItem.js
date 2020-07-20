@@ -17,12 +17,6 @@ export default function ChatItem({ chat }) {
   const navigation = useNavigation();
   const linkTo = useLinkTo();
 
-  const renderMemberNamesSummary = (chat) => {
-    return (
-      <GroupMemberNameSummary memberProfileIds={chat.member_profile_ids} maxNames={4}/>
-    )
-  };
-
   return (
     <TouchableOpacity
       style={{
@@ -65,7 +59,7 @@ export default function ChatItem({ chat }) {
                 overflow: 'hidden',
               }}
             >
-              {renderMemberNamesSummary(chat)}
+              <GroupMemberNameSummary conversationId={chat.id} />
             </SfText>
             <GroupConversationPreview conversationId={chat.id} />
           </View>

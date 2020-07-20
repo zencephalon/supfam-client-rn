@@ -11,7 +11,7 @@ import useCachedConversation from '~/h/useCachedConversation';
 import useGroupConversations from '~/h/useGroupConversations';
 
 const GroupNameForm = ({ conversationId }) => {
-  const { conversation } = useCachedConversation(conversationId);
+  const conversation = useCachedConversation(conversationId);
   const [name, setName] = React.useState(conversation?.name);
   const [changed, setChanged] = React.useState(false);
 
@@ -22,10 +22,10 @@ const GroupNameForm = ({ conversationId }) => {
   const edit = (name) => {
     setName(name);
     setChanged(true);
-  }
+  };
 
   const submit = () => {
-    (async() => {
+    (async () => {
       await call({ conversationId: conversationId, name });
       refetch();
       setChanged(false);
@@ -51,8 +51,7 @@ const GroupNameForm = ({ conversationId }) => {
         ok={req.confirmed && !req.requested}
         working={req.requested}
       />
-      {
-        changed ?
+      {changed ? (
         <SfButton
           en
           color={OPEN}
@@ -61,8 +60,8 @@ const GroupNameForm = ({ conversationId }) => {
           style={{
             marginTop: 16,
           }}
-        /> : null
-      }
+        />
+      ) : null}
     </View>
   );
 };
