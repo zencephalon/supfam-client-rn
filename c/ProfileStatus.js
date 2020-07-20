@@ -4,14 +4,11 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import ProfileIcon from '~/c/ProfileIcon';
-import TopText from '~/c/TopText';
+import ProfileTopText from '~/c/ProfileTopText';
 import DirectConversationPreview from '~/c/DirectConversationPreview';
 import StatusMessageText from '~/c/StatusMessageText';
 
-import statusColors from '~/constants/statusColors';
-
 import useProfileStatusLongPress from '~/h/useProfileStatusLongPress';
-import useCachedProfile from '~/h/useCachedProfile';
 
 export default React.memo(function ProfileStatus({ profileId }) {
   const navigation = useNavigation();
@@ -30,7 +27,7 @@ export default React.memo(function ProfileStatus({ profileId }) {
       onLongPress={onLongPress}
     >
       <View style={{ flexGrow: 1 }}>
-        <TopText profileId={profileId} />
+        <ProfileTopText profileId={profileId} />
         <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
           <ProfileIcon profileId={profileId} size={48} />
           <View

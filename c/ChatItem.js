@@ -28,11 +28,7 @@ export default function ChatItem({ chat }) {
       }}
     >
       <View style={{ flexGrow: 1 }}>
-        <TopText
-          displayName={chat.name}
-          locationState={'blah bluh'}
-          hideRightSection
-        />
+        <TopText title={chat.name} />
         <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
           <View style={{ flexDirection: 'row', width: 48, flexWrap: 'wrap' }}>
             {chat.member_profile_ids

@@ -70,14 +70,7 @@ export default function RespondToInviteRow({ invite }) {
       onPress={() => {}}
     >
       <View style={{ flexGrow: 1 }}>
-        <TopText
-          displayName={`${fromFriend.name} invites you to chat on Supfam!`}
-          locationState={fromFriend.name}
-          lastUpdate={fromFriend?.status?.updated_at}
-          lastSeen={fromFriend?.seen?.updated_at}
-          profile={fromFriend}
-          hideRightSection
-        />
+        <TopText title={`${fromFriend.name} invites you to chat on Supfam!`} />
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
           <ProfileIcon
             noBadge
