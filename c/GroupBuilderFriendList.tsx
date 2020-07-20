@@ -94,21 +94,10 @@ function useSubmit(addingProfileIds: number[], conversationId: number) {
   return submit;
 }
 
-const GroupBuilderFriendList = ({
-  conversationId,
-}: {
-  conversationId: number;
-}) => {
+function useFilteredFriends(conversationId: number, searchQuery: string) {
   const { conversation } = useCachedConversation(conversationId);
-  const { backgrounds } = useLight();
-
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [addingProfileIds, setAddingProfileIds] = React.useState([]);
-  const renderAddToGroupRow = useRenderAddToGroupRow(setAddingProfileIds);
 
   let { friends } = useFriends();
-
-  const submit = useSubmit(addingProfileIds, conversationId);
 
   // Filter out friends who are already in the conversation
   if (conversation?.member_profile_ids) {
@@ -117,16 +106,36 @@ const GroupBuilderFriendList = ({
     );
   }
 
+  const query = searchQuery.toLowerCase();
+
   if (searchQuery) {
     friends = friends.filter((friend) => {
       // Consider using a fuzzy finder here
-      return friend.name.toLowerCase().includes(searchQuery.toLowerCase());
+      return friend.name.toLowerCase().includes(query);
     });
   }
 
-  useSfListAnimation(friends);
+  return friends;
+}
+
+const GroupBuilderFriendList = ({
+  conversationId,
+}: {
+  conversationId: number;
+}) => {
+  const { backgrounds } = useLight();
+
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [addingProfileIds, setAddingProfileIds] = React.useState([]);
+  const renderAddToGroupRow = useRenderAddToGroupRow(setAddingProfileIds);
+
+  const friends = useFilteredFriends(conversationId, searchQuery);
+
+  const submit = useSubmit(addingProfileIds, conversationId);
 
   const disabled = addingProfileIds.length === 0;
+
+  useSfListAnimation(friends);
 
   return (
     <>
