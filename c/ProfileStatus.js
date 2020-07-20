@@ -13,7 +13,7 @@ import statusColors from '~/constants/statusColors';
 import useProfileStatusLongPress from '~/h/useProfileStatusLongPress';
 import useCachedProfile from '~/h/useCachedProfile';
 
-export default function ProfileStatus({ profileId }) {
+export default React.memo(function ProfileStatus({ profileId }) {
   const navigation = useNavigation();
 
   const onLongPress = useProfileStatusLongPress(profileId);
@@ -48,7 +48,7 @@ export default function ProfileStatus({ profileId }) {
       </View>
     </TouchableOpacity>
   );
-}
+});
 
 const styles = StyleSheet.create({
   profileStatus: {

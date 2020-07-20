@@ -32,7 +32,7 @@ export const StatusMessageText = React.memo(function StatusMessageText_({
 	);
 });
 
-export default function StatusMessageTextFromProfileId({
+export default React.memo(function StatusMessageTextFromProfileId({
 	profileId,
 }: {
 	profileId: number;
@@ -49,4 +49,4 @@ export default function StatusMessageTextFromProfileId({
 	return (
 		<StatusMessageText statusMessage={statusMessage} updatedAt={updatedAt} />
 	);
-}
+});
