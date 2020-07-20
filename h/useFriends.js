@@ -23,7 +23,7 @@ export default function useFriends() {
   //   ['desc', 'desc']
   // );
 
-  return { status, friends: data, error, isFetching, refetch };
+  return { status, friends: data || [], error, isFetching, refetch };
 }
 
 export function useFriendIds() {

@@ -11,17 +11,17 @@ import StatusMessageText from '~/c/StatusMessageText';
 import statusColors from '~/constants/statusColors';
 
 import useProfileStatusLongPress from '~/h/useProfileStatusLongPress';
+import useCachedProfile from '~/h/useCachedProfile';
 
-export default function ProfileStatus({ profile }) {
+export default function ProfileStatus({ profileId }) {
   const navigation = useNavigation();
 
-  const statusMessage = profile?.status?.message;
-  const onLongPress = useProfileStatusLongPress(statusMessage, profile?.id);
+  const onLongPress = useProfileStatusLongPress(profileId);
   const onPress = React.useCallback(() => {
     navigation.navigate('Conversation', {
-      profileId: profile.id,
+      profileId: profileId,
     });
-  }, [navigation, profile.id]);
+  }, [navigation, profileId]);
 
   return (
     <TouchableOpacity
@@ -30,9 +30,9 @@ export default function ProfileStatus({ profile }) {
       onLongPress={onLongPress}
     >
       <View style={{ flexGrow: 1 }}>
-        <TopText profileId={profile.id} />
+        <TopText profileId={profileId} />
         <View style={{ flexDirection: 'row', marginTop: 4, flex: 1 }}>
-          <ProfileIcon profileId={profile.id} size={48} />
+          <ProfileIcon profileId={profileId} size={48} />
           <View
             style={{
               flexDirection: 'column',
@@ -41,11 +41,8 @@ export default function ProfileStatus({ profile }) {
               alignItems: 'flex-start',
             }}
           >
-            <StatusMessageText
-              statusMessage={statusMessage}
-              updatedAt={profile?.status?.updated_at}
-            />
-            <DirectConversationPreview userId={profile?.user_id} />
+            <StatusMessageText profileId={profileId} />
+            <DirectConversationPreview profileId={profileId} />
           </View>
         </View>
       </View>
