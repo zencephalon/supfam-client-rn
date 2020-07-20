@@ -64,7 +64,10 @@ function useSubmit(addingProfileIds: number[], conversationId: number) {
   const AddMembers = useApi(postConversationAddMembers);
   const { refetch: groupConvoRefetch } = useGroupConversations();
 
+  const [ submitting, setSubmitting ] = React.useState(false);
+
   const submit = React.useCallback(() => {
+    if(submitting) { return } else { setSubmitting(true) }
     (async () => {
       const profileIds = addingProfileIds;
       if (conversationId) {
@@ -95,7 +98,7 @@ function useSubmit(addingProfileIds: number[], conversationId: number) {
         }
       }
     })();
-  }, [addingProfileIds, conversationId, navigation.navigate, linkTo]);
+  }, [submitting, addingProfileIds, conversationId, navigation.navigate, linkTo]);
 
   return submit;
 }
