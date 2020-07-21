@@ -6,7 +6,7 @@ import useCachedConversation from '~/h/useCachedConversation';
 
 import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
 
-export default React.memo(function GroupConversationTopText({
+export default function GroupConversationTopText({
   conversationId,
 }: {
   conversationId: number;
@@ -26,4 +26,4 @@ export default React.memo(function GroupConversationTopText({
       }
     />
   );
-});
+}

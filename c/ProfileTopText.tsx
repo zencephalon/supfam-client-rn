@@ -10,11 +10,7 @@ import TopText from '~/c/TopText';
 
 import useCachedProfile from '~/h/useCachedProfile';
 
-export default React.memo(function ProfileTopText({
-  profileId,
-}: {
-  profileId: number;
-}) {
+export default function ProfileTopText({ profileId }: { profileId: number }) {
   const profile = useCachedProfile(profileId);
 
   if (!profile) {
@@ -46,4 +42,4 @@ export default React.memo(function ProfileTopText({
   );
 
   return <TopText title={displayName} rightSection={rightSection} />;
-});
+}

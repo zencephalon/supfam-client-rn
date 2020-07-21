@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import useCachedConversation from '~/h/useCachedConversation';
 import ProfileIcon from '~/c/ProfileIcon';
 
-export default React.memo(function GroupConversationMemberIcons({
+export default function GroupConversationMemberIcons({
 	conversationId,
 	userProfileId,
 }: {
@@ -36,4 +36,4 @@ export default React.memo(function GroupConversationMemberIcons({
 				))}
 		</View>
 	);
-});
+}

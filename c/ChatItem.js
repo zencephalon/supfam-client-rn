@@ -12,7 +12,7 @@ import useProfileId from '~h/useProfileId';
 
 import { useLinkTo } from '@react-navigation/native';
 
-export default React.memo(function ChatItem({ conversationId }) {
+export default function ChatItem({ conversationId }) {
   const userProfileId = useProfileId();
   const linkTo = useLinkTo();
 
@@ -57,7 +57,7 @@ export default React.memo(function ChatItem({ conversationId }) {
       </View>
     </TouchableOpacity>
   );
-});
+}
 
 const styles = StyleSheet.create({
   conversationItem: {
