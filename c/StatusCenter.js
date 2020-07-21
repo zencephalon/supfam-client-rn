@@ -1,37 +1,16 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { queryCache } from 'react-query';
+import { putStatusMe } from '~/apis/api';
+
 import StatusButton from '~/c/StatusButton';
 import StatusInput from '~/c/StatusInput';
-
-import { putStatusMe } from '~/apis/api';
-import { queryCache } from 'react-query';
 
 import useProfileId from '~/h/useProfileId';
 import useProfileMe from '~/h/useProfileMe';
 import useLight from '~/h/useLight';
-
-function useSetColor(profileId) {
-  return React.useCallback(
-    async (color) => {
-      try {
-        queryCache.setQueryData(['profileMe', profileId], (profile) => {
-          return {
-            ...profile,
-            status: {
-              ...profile.status,
-              color,
-            },
-          };
-        });
-        await putStatusMe({ profileId, color });
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    [profileId]
-  );
-}
+import useSetColor from '~/h/useSetColor';
 
 function usePostMessage(statusMe, message, profileId, setMessage) {
   return React.useCallback(async () => {

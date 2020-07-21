@@ -101,12 +101,7 @@ export default function App({
                     <NavigationContainer linking={linkingConfig}>
                       <CableContainer />
                       <RootNavigator />
-                      <FlashMessage
-                        position="top"
-                        style={{
-                          backgroundColor: nord10,
-                        }}
-                      />
+                      <FlashMessage position="top" />
                     </NavigationContainer>
                   </NotificationGate>
                 </ProfileGate>
