@@ -9,7 +9,7 @@
     "test": "jest --watchAll",
     "start-dev": "API_URL=http://localhost:5000/ expo start -c",
     "start-ngrok": "API_URL=http://supfam.ngrok.io/ expo start -c",
-    "start-prod": "API_URL=https://polar-peak-82709.herokuapp.com/ expo start -c",
+    "start-prod": "API_URL=https://supfam-api.herokuapp.com/ expo start -c",
     "start-ngrok-esc": "API_URL=http://da54af32b36f.ngrok.io/ expo start -c"
   },
   "jest": {
