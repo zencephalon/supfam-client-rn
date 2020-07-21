@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import SfText from '~/c/SfText';
 import { isRecent, statusOpacity } from '~/lib/clockwork';
+import useInterval from '@use-it/interval';
 
 import useCachedProfile from '~/h/useCachedProfile';
 
@@ -14,6 +15,10 @@ export const StatusMessageText = React.memo(function StatusMessageText_({
 }) {
 	const recentUpdate = isRecent(updatedAt);
 	const opacity = statusOpacity(updatedAt);
+
+	const [time, setTime] = React.useState(new Date());
+	// Refresh the display once a minute
+	useInterval(() => setTime(new Date()), 60 * 1000);
 
 	return (
 		<SfText
