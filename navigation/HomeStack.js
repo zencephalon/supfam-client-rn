@@ -11,12 +11,15 @@ import ChatScreen from '~/screens/ChatScreen';
 import GroupBuilderScreen from '~/screens/GroupBuilderScreen';
 import GroupSettingsScreen from '~/screens/GroupSettingsScreen';
 
+import useNotificationHandler from '~/h/useNotificationHandler';
+
 import useLight from '~/h/useLight';
 
 const Stack = createStackNavigator();
 
 function HomeStack() {
   const { foregrounds, backgrounds } = useLight();
+  useNotificationHandler();
 
   const headerStyle = {
     backgroundColor: backgrounds[1],
@@ -32,7 +35,7 @@ function HomeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
-      options={{ animationEnabled: false }}
+      screenOptions={{ animationEnabled: Platform.OS === 'ios' }}
     >
       <Stack.Screen
         name="Home"
@@ -46,7 +49,6 @@ function HomeStack() {
         component={ConversationScreen}
         options={{
           headerShown: false,
-          animationEnabled: false,
         }}
       />
       <Stack.Screen
@@ -58,6 +60,17 @@ function HomeStack() {
           headerTitleStyle,
         }}
       />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          headerTintColor: foregrounds[0],
+          headerStyle,
+          headerTitleStyle,
+          headerShown: false,
+        }}
+      />
+
       <Stack.Screen
         name="Friend Settings"
         component={FriendSettingsScreen}
@@ -74,7 +87,6 @@ function HomeStack() {
         component={ChatScreen}
         options={{
           headerShown: false,
-          animationEnabled: false,
         }}
       />
       <Stack.Screen

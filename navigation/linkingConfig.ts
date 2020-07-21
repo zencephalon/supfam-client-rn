@@ -6,20 +6,16 @@ const config = {
     screens: {
       Root: {
         screens: {
-          Home: {
-            screens: {
-              Conversation: {
-                path: 'dm/:profileId',
-                parse: {
-                  profileId: Number,
-                },
-              },
-              Group: {
-                path: 'conversation/:conversationId',
-                parse: {
-                  conversationId: Number,
-                },
-              },
+          Conversation: {
+            path: 'dm/:profileId',
+            parse: {
+              profileId: Number,
+            },
+          },
+          Group: {
+            path: 'conversation/:conversationId',
+            parse: {
+              conversationId: Number,
             },
           },
           Settings: 'settings',

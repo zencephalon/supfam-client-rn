@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import DrawerNavigator from '~/navigation/DrawerNavigator';
 
 import ReplyModal from '~/c/ReplyModal';
 import MessageActionModal from '~/c/MessageActionModal';
+import HomeStack from '~/navigation/HomeStack';
 
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export default function RootNavigator() {
 	return (
 		<Stack.Navigator screenOptions={{ headerShown: false }} mode="modal">
-			<Stack.Screen name="Root" component={DrawerNavigator} />
+			<Stack.Screen name="Root" component={HomeStack} />
 			<Stack.Screen
 				name="Reply Modal"
 				component={ReplyModal}
