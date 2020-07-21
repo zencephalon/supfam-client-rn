@@ -50,8 +50,7 @@ function Message(props) {
             setShowDate(!showDate);
           }}
           onLongPress={() => {
-            // openActionSheet();
-            openMessageActionModal();
+            message.i || openMessageActionModal();
           }}
           style={{
             flexDirection: 'column',
