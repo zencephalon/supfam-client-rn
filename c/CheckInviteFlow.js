@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
+import SfContainer from '~/c/SfContainer';
 
 import { Platform } from 'react-native';
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js';
@@ -28,9 +29,10 @@ function CheckInviteFlow(props) {
   const checkDisabled = !phoneNumber?.isValid() || checkInviteReq.requested;
 
   return (
-    <View style={styles.formContainer}>
+    <SfContainer>
       <SfText style={styles.explainerText}>
-        Please provide your phone number so that we can verify that you are a real person, and link your account to you.
+        Please provide your phone number so that we can verify that you are a
+        real person, and link your account to you.
       </SfText>
       <SfText style={{ ...styles.phoneNumberPreview, color: foregrounds[2] }}>
         {new AsYouType('US').input(phone)}
@@ -66,13 +68,14 @@ function CheckInviteFlow(props) {
           Something went wrong, please try using a different phone number.
         </SfText>
       )}
-    </View>
+    </SfContainer>
   );
 }
 
 const styles = StyleSheet.create({
   explainerText: {
-    marginTop: elementSizes[3],
+    marginTop: 8,
+    fontSize: 16,
     color: 'white',
   },
   phoneNumberPreview: {

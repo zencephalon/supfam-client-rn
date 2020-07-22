@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
-import { OPEN } from '~/constants/Colors';
+import SfContainer from '~/c/SfContainer';
+import { OPEN, OPEN_LIGHT } from '~/constants/Colors';
 import { elementSizes, fontSizes } from '~/constants/Sizes';
 
 import { postVerify, postResendCode } from '~/apis/api';
@@ -27,10 +28,8 @@ function VerifyCodeFlow(props) {
   };
 
   return (
-    <View style={styles.formContainer}>
-      <SfText style={styles.formLabel}>
-        Enter your verification code:
-      </SfText>
+    <SfContainer>
+      <SfText style={styles.formLabel}>Enter your verification code:</SfText>
       <SfTextInput
         value={code}
         onChangeText={onChangeText}
@@ -46,16 +45,15 @@ function VerifyCodeFlow(props) {
         disabled={Verify.req.requested}
         onPress={() => Verify.call({ token, code })}
       />
-      <SfText style={styles.subText}>Resend code</SfText>
-      {/* <SfButton
+      <SfButton
         round
         color={OPEN_LIGHT}
         title={Resend.req.requested ? 'Resending...' : 'Resend code'}
         disabled={Resend.req.requested}
         onPress={() => Resend.call({ token })}
-      /> */}
+      />
       {Verify.req.failed && <SfText>Verification failed.</SfText>}
-    </View>
+    </SfContainer>
   );
 }
 
@@ -63,7 +61,7 @@ const styles = StyleSheet.create({
   formLabel: {
     marginBottom: elementSizes[3],
     marginTop: elementSizes[3],
-    color: 'white'
+    color: 'white',
   },
   formContainer: {
     marginLeft: elementSizes[3],
@@ -79,7 +77,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textDecorationLine: 'underline',
     color: '#cfcd51',
-  }
+  },
 });
 
 export default VerifyCodeFlow;

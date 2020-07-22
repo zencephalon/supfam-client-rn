@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
+import SfContainer from '~/c/SfContainer';
 
 import { useDispatch } from 'react-redux';
 
@@ -38,7 +39,7 @@ const LoginForm = () => {
   };
 
   return (
-    <View style={styles.loginContainer}>
+    <SfContainer>
       <SfTextInput
         placeholder="username"
         autoCapitalize="none"
@@ -65,7 +66,7 @@ const LoginForm = () => {
         style={styles.button}
         color={OPEN}
       />
-    </View>
+    </SfContainer>
   );
 };
 
@@ -74,13 +75,11 @@ const styles = StyleSheet.create({
     marginTop: elementSizes[8],
   },
   textInput: {
-    marginTop: elementSizes[1],
-    // marginLeft: elementSizes[2],
-    // marginRight: elementSizes[2],
-    marginBottom: elementSizes[2],
+    marginTop: 12,
+    marginBottom: 12,
   },
   button: {
-    marginTop: elementSizes[5],
+    marginTop: 24,
   },
 });
 

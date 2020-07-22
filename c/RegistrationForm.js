@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
+import SfContainer from '~/c/SfContainer';
 import { useDispatch } from 'react-redux';
 
 import { debounce } from 'lodash';
@@ -97,6 +98,7 @@ const RegistrationForm = ({ token }) => {
 
     PostRegister.call({ name, password, passwordConfirmation, token }).then(
       (json) => {
+        console.log(json);
         AuthToken.set({ token: json.token });
         dispatch(LOGIN(json));
       }
@@ -104,8 +106,7 @@ const RegistrationForm = ({ token }) => {
   };
 
   return (
-    <ScrollView style={styles.formContainer}>
-      <SfText style={styles.formLabel}>Thanks for verifying!</SfText>
+    <SfContainer>
       <SfTextInput
         working={fetchingNameAvailable}
         ok={nameOk}
@@ -147,7 +148,7 @@ const RegistrationForm = ({ token }) => {
       <SfText style={styles.subText}>
         By registering you agree to our Terms and Conditions
       </SfText>
-    </ScrollView>
+    </SfContainer>
   );
 };
 

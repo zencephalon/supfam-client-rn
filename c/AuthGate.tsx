@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import SfText from '~/c/SfText';
 import SfContainer from '~/c/SfContainer';
@@ -14,9 +16,13 @@ import VerifyCodeFlow from '~/c/VerifyCodeFlow';
 import { FREE, OPEN, nord13 } from '~/constants/Colors';
 import { fontSizes, elementSizes } from '~/constants/Sizes';
 
+import useLight from '~/h/useLight';
+
+const Stack = createStackNavigator();
+
 function Welcome(props) {
   return (
-    <View style={styles.welcomeCluster}>
+    <SfContainer>
       <View style={styles.welcomeLogoContainer}>
         <Image
           style={styles.welcomeLogo}
@@ -28,46 +34,75 @@ function Welcome(props) {
         round
         color={OPEN}
         title="Login"
-        onPress={() => props.setSelection('login')}
+        onPress={() => props.navigation.navigate('Login')}
       />
       <SfButton
         round
         color={FREE}
         title="Register"
-        onPress={() => props.setSelection('register')}
+        onPress={() => props.navigation.navigate('Register')}
       />
       <SfText style={styles.subText}>download update</SfText>
       {/* <SfButton round color={BRILLIANT_2} title="Download Update" onPress={downloadUpdate} /> */}
-    </View>
+    </SfContainer>
   );
 }
 
 const AuthGate = function (props) {
   const [selection, setSelection] = React.useState('default');
+  const { backgrounds, foregrounds } = useLight();
   React.useEffect(() => {
     setSelection('default');
   }, [props.token]);
 
-  const renders = {
-    default: <Welcome setSelection={setSelection} />,
-    login: <LoginForm />,
-    register: (
-      <CheckInviteFlow
-        render={({ token }) => (
-          <VerifyCodeFlow
-            token={token}
-            render={({ token }) => <RegistrationForm token={token} />}
-          />
-        )}
-      />
-    ),
-  };
+  // const renders = {
+  //   default: <Welcome setSelection={setSelection} />,
+  //   login: <LoginForm />,
+  //   register: (
+
+  //   ),
+  // };
 
   if (props.token) {
     return props.children;
   }
 
-  return <SfContainer darkBg>{renders[selection]}</SfContainer>;
+  const headerStyle = {
+    backgroundColor: backgrounds[1],
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  };
+
+  const headerTitleStyle = {
+    color: foregrounds[0],
+  };
+
+  // return <SfContainer darkBg>{renders[selection]}</SfContainer>;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerStyle, headerTitleStyle }}>
+        <Stack.Screen
+          name="Home"
+          component={Welcome}
+          options={{ title: 'Supfam', headerShown: false }}
+        />
+        <Stack.Screen name="Login" component={LoginForm} />
+        <Stack.Screen name="Register">
+          {() => (
+            <CheckInviteFlow
+              render={({ token }) => (
+                <VerifyCodeFlow
+                  token={token}
+                  render={({ token }) => <RegistrationForm token={token} />}
+                />
+              )}
+            />
+          )}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -79,7 +114,7 @@ const styles = StyleSheet.create({
     marginBottom: elementSizes[4],
     fontSize: fontSizes[4],
     textAlign: 'center',
-    color: 'white',
+    // color: 'white',
   },
   welcomeCluster: {
     // alignItems: 'center',

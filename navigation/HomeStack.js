@@ -35,7 +35,12 @@ function HomeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
-      screenOptions={{ animationEnabled: Platform.OS === 'ios' }}
+      screenOptions={{
+        animationEnabled: Platform.OS === 'ios',
+        headerStyle,
+        headerTitleStyle,
+        headerTintColor: foregrounds[0],
+      }}
     >
       <Stack.Screen
         name="Home"
@@ -51,35 +56,16 @@ function HomeStack() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="Invite"
-        component={InviteScreen}
-        options={{
-          headerTintColor: foregrounds[0],
-          headerStyle,
-          headerTitleStyle,
-        }}
-      />
+      <Stack.Screen name="Invite" component={InviteScreen} />
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
-          headerTintColor: foregrounds[0],
-          headerStyle,
-          headerTitleStyle,
           headerShown: false,
         }}
       />
 
-      <Stack.Screen
-        name="Friend Settings"
-        component={FriendSettingsScreen}
-        options={{
-          headerTintColor: foregrounds[0],
-          headerStyle,
-          headerTitleStyle,
-        }}
-      />
+      <Stack.Screen name="Friend Settings" component={FriendSettingsScreen} />
 
       {/*Group chat screens*/}
       <Stack.Screen
@@ -89,54 +75,9 @@ function HomeStack() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="New Group"
-        component={GroupBuilderScreen}
-        options={{
-          headerTintColor: foregrounds[0],
-          headerStyle: {
-            backgroundColor: backgrounds[1],
-            shadowColor: 'black',
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          headerTitleStyle: {
-            color: foregrounds[0],
-          },
-        }}
-      />
-      <Stack.Screen
-        name="Add Members"
-        component={GroupBuilderScreen}
-        options={{
-          headerTintColor: foregrounds[0],
-          headerStyle: {
-            backgroundColor: backgrounds[1],
-            shadowColor: 'black',
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          headerTitleStyle: {
-            color: foregrounds[0],
-          },
-        }}
-      />
-      <Stack.Screen
-        name="Group Settings"
-        component={GroupSettingsScreen}
-        options={{
-          headerTintColor: foregrounds[0],
-          headerStyle: {
-            backgroundColor: backgrounds[1],
-            shadowColor: 'black',
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          headerTitleStyle: {
-            color: foregrounds[0],
-          },
-        }}
-      />
+      <Stack.Screen name="New Group" component={GroupBuilderScreen} />
+      <Stack.Screen name="Add Members" component={GroupBuilderScreen} />
+      <Stack.Screen name="Group Settings" component={GroupSettingsScreen} />
     </Stack.Navigator>
   );
 }
