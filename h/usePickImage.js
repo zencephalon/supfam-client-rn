@@ -26,12 +26,11 @@ export default function usePickImage({ setImage, config }) {
       return;
     }
 
-    const { status } = await Permissions.getPermissionsAsync(
-      Permissions.CAMERA
-    );
+    const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
 
     if (status === 'denied') {
       Alert.alert(
+        'No camera roll access',
         'You may have accidentally denied access to the camera roll before. Please enable camera roll access for Supfam in Settings'
       );
       return;
@@ -54,7 +53,9 @@ export default function usePickImage({ setImage, config }) {
           text: 'Yes!',
           onPress: () => {
             (async () => {
-              const { status } = await Permissions.askAsync(Permissions.CAMERA);
+              const { status } = await Permissions.askAsync(
+                Permissions.CAMERA_ROLL
+              );
 
               if (status === 'granted') {
                 pickImage(setImage, config);

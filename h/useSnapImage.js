@@ -26,12 +26,11 @@ export default function useSnapImage({ setImage, config }) {
       return;
     }
 
-    const { status } = await Permissions.getPermissionsAsync(
-      Permissions.CAMERA
-    );
+    const { status } = await Permissions.getAsync(Permissions.CAMERA);
 
     if (status === 'denied') {
       Alert.alert(
+        'No camera access',
         'You may have accidentally denied access to the camera before. Please enable camera access for Supfam in Settings'
       );
       return;

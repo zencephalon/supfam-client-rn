@@ -48,54 +48,44 @@ function ProfileCreate() {
   };
 
   return (
-    <SfContainer darkBg>
-      <View style={styles.formContainer}>
-        <SfText style={styles.formLabel}>
-          Congrats! 🎊 You are signed up.{' '}
-        </SfText>
-        <SfText style={styles.formLabel}>
-          What name can we use for your main profile?
-        </SfText>
-        <SfTextInput
-          placeholder="Albus Dumbledore"
-          value={name}
-          onChangeText={setName}
-          ok={!!name}
-          autoCapitalize="words"
+    <SfContainer>
+      <SfText style={styles.formLabel}>Almost there! 🎊 </SfText>
+      <SfText style={styles.formLabel}>Enter your full name</SfText>
+      <SfTextInput
+        placeholder="Albus Dumbledore"
+        value={name}
+        onChangeText={setName}
+        ok={!!name}
+        autoCapitalize="words"
+      />
+      <SfText style={styles.formLabel}>Set profile photo from:</SfText>
+      <SfButton round title="Camera" onPress={snapImage} color={FREE} />
+      <SfButton round title="Camera roll" onPress={pickImage} color={FREE} />
+      {!!image && (
+        <BareProfileIcon
+          uri={image.uri}
+          size={100}
+          style={{ alignSelf: 'center' }}
         />
-        <SfText style={styles.formLabel}>Set profile photo from:</SfText>
-        <SfButton round title="Camera" onPress={snapImage} color={FREE} />
-        <SfButton round title="Camera roll" onPress={pickImage} color={FREE} />
-        {!!image && (
-          <BareProfileIcon
-            uri={image.uri}
-            size={100}
-            style={{ alignSelf: 'center' }}
-          />
-        )}
-        <SfButton
-          round
-          wide
-          title={profileBusy ? 'Creating profile...' : 'Create profile'}
-          disabled={cantCreateProfile || profileBusy}
-          style={{ marginTop: 16 }}
-          onPress={createProfile}
-        />
-      </View>
+      )}
+      <SfButton
+        round
+        wide
+        title={profileBusy ? 'Creating profile...' : 'Create profile'}
+        disabled={cantCreateProfile || profileBusy}
+        style={{ marginTop: 16 }}
+        onPress={createProfile}
+      />
     </SfContainer>
   );
 }
 
 const styles = StyleSheet.create({
   formLabel: {
-    marginBottom: 16,
-    marginTop: 16,
+    marginBottom: 8,
+    marginTop: 8,
     color: 'white',
-  },
-  formContainer: {
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 50,
+    fontSize: 24,
   },
 });
 
