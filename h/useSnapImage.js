@@ -2,28 +2,71 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 
+import { Alert } from 'react-native';
+
+async function snapImage(setImage, config) {
+  try {
+    let image = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      ...config,
+    });
+    if (!image.cancelled) {
+      setImage(image);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function useSnapImage({ setImage, config }) {
   return async () => {
-    if (Constants.platform.ios) {
-      // TODO: we could probably improve the request flow here
-      const { status } = await Permissions.askAsync(Permissions.CAMERA);
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-        return;
-      }
+    if (!Constants.platform.ios) {
+      snapImage(setImage, config);
+      return;
     }
 
-    try {
-      let image = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: 1,
-        ...config,
-      });
-      if (!image.cancelled) {
-        setImage(image);
-      }
-    } catch (e) {
-      console.log(e);
+    const { status } = await Permissions.getPermissionsAsync(
+      Permissions.CAMERA
+    );
+
+    if (status === 'denied') {
+      Alert.alert(
+        'You may have accidentally denied access to the camera before. Please enable camera access for Supfam in Settings'
+      );
+      return;
     }
+
+    if (status === 'granted') {
+      snapImage(setImage, config);
+      return;
+    }
+
+    Alert.alert(
+      'Allow Supfam to use your camera?',
+      'You can use the camera to send your fam photos.',
+      [
+        {
+          text: 'Not Now',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes!',
+          onPress: () => {
+            (async () => {
+              const { status } = await Permissions.askAsync(Permissions.CAMERA);
+
+              if (status === 'granted') {
+                snapImage(setImage, config);
+                return;
+              }
+
+              alert('Sorry, we need camera access to make this work!');
+            })();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 }
