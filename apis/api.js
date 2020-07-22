@@ -1,4 +1,4 @@
-import { configureAPI } from 'redux-rest-reducer';
+import configureApi from '~/apis/configureApi';
 import { API_URL } from '~/lib/constants';
 import AuthToken from '~/lib/AuthToken';
 import processMessage from '~/lib/processMessage';
@@ -10,7 +10,7 @@ const setAuthHeader = (headers) => {
   return { ...headers, Authorization: `${token}` };
 };
 
-const api = configureAPI(API_URL, { headerFunc: setAuthHeader });
+const api = configureApi(API_URL, { headerFunc: setAuthHeader });
 
 export const getFriends = (profileId) => {
   return api.fetchFromAPI(`friends/${profileId}`);

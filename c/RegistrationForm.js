@@ -5,6 +5,7 @@ import SfText from '~/c/SfText';
 import SfButton from '~/c/SfButton';
 import SfContainer from '~/c/SfContainer';
 import { useDispatch } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
 
 import { debounce } from 'lodash';
 
@@ -15,7 +16,7 @@ import AuthToken from '~/lib/AuthToken';
 import useApi from '~/h/useApi';
 import useConstCallback from 'use-const-callback';
 import { elementSizes, fontSizes } from '~/constants/Sizes';
-import { lightThemeForegrounds } from '~/constants/Colors';
+import { AWAY, lightThemeForegrounds } from '~/constants/Colors';
 
 const debounced = debounce(
   ({ name, setFetchingNameAvailable, getNameAvailable, setNameAvailable }) => {
@@ -72,7 +73,19 @@ const RegistrationForm = ({ token }) => {
   const [fetchingNameAvailable, setFetchingNameAvailable] = React.useState(
     false
   );
-  const PostRegister = useApi(postRegister);
+  const PostRegister = useApi(postRegister, {
+    onConfirm: (json) => {
+      AuthToken.set({ token: json.token });
+      dispatch(LOGIN(json));
+    },
+    onError: (error) => {
+      // TODO, we could do a lot better here
+      showMessage({
+        backgroundColor: AWAY,
+        message: JSON.stringify(error),
+      });
+    },
+  });
 
   const fetchNameAvailable = useFetchNameAvailable({
     setFetchingNameAvailable,
@@ -96,13 +109,7 @@ const RegistrationForm = ({ token }) => {
       return;
     }
 
-    PostRegister.call({ name, password, passwordConfirmation, token }).then(
-      (json) => {
-        console.log(json);
-        AuthToken.set({ token: json.token });
-        dispatch(LOGIN(json));
-      }
-    );
+    PostRegister.call({ name, password, passwordConfirmation, token });
   };
 
   return (
@@ -141,7 +148,7 @@ const RegistrationForm = ({ token }) => {
       <SfButton
         round
         title="Register"
-        disabled={!password || password !== passwordConfirmation}
+        disabled={!nameOk || !password || password !== passwordConfirmation}
         onPress={register}
         style={styles.button}
       />

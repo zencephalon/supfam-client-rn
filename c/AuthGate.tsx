@@ -3,6 +3,7 @@ import { StyleSheet, Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import FlashMessage from 'react-native-flash-message';
 
 import SfText from '~/c/SfText';
 import SfContainer from '~/c/SfContainer';
@@ -29,7 +30,7 @@ function Welcome(props) {
           source={require('../assets/images/homesplash.png')}
         />
       </View>
-      <SfText style={styles.welcomeText}>strictly for the fam</SfText>
+      <SfText style={styles.welcomeText}>simply for your fam</SfText>
       <SfButton
         round
         color={OPEN}
@@ -55,14 +56,6 @@ const AuthGate = function (props) {
     setSelection('default');
   }, [props.token]);
 
-  // const renders = {
-  //   default: <Welcome setSelection={setSelection} />,
-  //   login: <LoginForm />,
-  //   register: (
-
-  //   ),
-  // };
-
   if (props.token) {
     return props.children;
   }
@@ -78,7 +71,6 @@ const AuthGate = function (props) {
     color: foregrounds[0],
   };
 
-  // return <SfContainer darkBg>{renders[selection]}</SfContainer>;
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerStyle, headerTitleStyle }}>
@@ -101,6 +93,7 @@ const AuthGate = function (props) {
           )}
         </Stack.Screen>
       </Stack.Navigator>
+      <FlashMessage position="top" />
     </NavigationContainer>
   );
 };
@@ -114,10 +107,6 @@ const styles = StyleSheet.create({
     marginBottom: elementSizes[4],
     fontSize: fontSizes[4],
     textAlign: 'center',
-    // color: 'white',
-  },
-  welcomeCluster: {
-    // alignItems: 'center',
   },
   welcomeLogoContainer: {
     justifyContent: 'center',
