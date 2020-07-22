@@ -2,12 +2,13 @@ import * as React from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Updates from 'expo-updates';
 
-import SfButton from '~/c/SfButton';
-import SfTextButton from '~/c/SfTextButton';
-
 import statusColors from '~/constants/statusColors';
 
-export default function UpdateButton({ ButtonComponent, ...restProps }) {
+export default function UpdateButton({
+  ButtonComponent,
+  hideWhenNoUpdate,
+  ...restProps
+}) {
   const [checkingForUpdate, setCheckingForUpdate] = React.useState(true);
   const [updateAvailable, setUpdateAvailable] = React.useState(false);
   const [downloadingUpdate, setDownloadingUpdate] = React.useState(false);
@@ -37,6 +38,10 @@ export default function UpdateButton({ ButtonComponent, ...restProps }) {
   };
 
   const disabled = checkingForUpdate || !updateAvailable;
+
+  if (hideWhenNoUpdate && !updateAvailable && !checkingForUpdate) {
+    return null;
+  }
 
   return (
     <ButtonComponent

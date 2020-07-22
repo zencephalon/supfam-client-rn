@@ -45,7 +45,7 @@ function Welcome(props) {
         title="Register"
         onPress={() => props.navigation.navigate('Register')}
       />
-      <UpdateButton ButtonComponent={SfTextButton} />
+      <UpdateButton ButtonComponent={SfTextButton} hideWhenNoUpdate />
     </SfContainer>
   );
 }
