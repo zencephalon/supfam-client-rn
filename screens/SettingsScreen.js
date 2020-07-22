@@ -3,67 +3,18 @@ import AuthToken from '~/lib/AuthToken';
 import { LOGOUT } from '~/apis/auth/actions';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import SfButton from '~/c/SfButton';
 import SfText from '~/c/SfText';
 import SettingsTopBar from '~/c/SettingsTopBar';
+import UpdateButton from '~/c/UpdateButton';
 
 import Constants from 'expo-constants';
 import statusColors from '~/constants/statusColors';
 import { nord10 } from '~/constants/Colors';
 
 import * as Updates from 'expo-updates';
-
-function UpdateButton() {
-  const [checkingForUpdate, setCheckingForUpdate] = React.useState(true);
-  const [updateAvailable, setUpdateAvailable] = React.useState(false);
-  const [downloadingUpdate, setDownloadingUpdate] = React.useState(false);
-
-  useFocusEffect(() => {
-    const f = async () => {
-      try {
-        const update = await Updates.checkForUpdateAsync();
-
-        setCheckingForUpdate(false);
-
-        if (update.isAvailable) {
-          setUpdateAvailable(true);
-        }
-      } catch (e) {
-        setCheckingForUpdate(false);
-        return;
-      }
-    };
-    f();
-  }, []);
-
-  const downloadUpdate = async () => {
-    setDownloadingUpdate(true);
-    await Updates.fetchUpdateAsync();
-    Updates.reloadAsync();
-  };
-
-  const disabled = checkingForUpdate || !updateAvailable;
-
-  return (
-    <SfButton
-      title={
-        downloadingUpdate
-          ? 'Downloading update...'
-          : checkingForUpdate
-          ? 'Checking for update...'
-          : updateAvailable
-          ? 'Download update'
-          : 'No update'
-      }
-      onPress={disabled ? () => {} : downloadUpdate}
-      disabled={disabled}
-      color={statusColors[2]}
-    />
-  );
-}
 
 export default connect()(function LinksScreen(props) {
   return (
@@ -78,7 +29,7 @@ export default connect()(function LinksScreen(props) {
         color={statusColors[0]}
         style={{ marginTop: 16, marginBottom: 16 }}
       />
-      <UpdateButton />
+      <UpdateButton ButtonComponent={SfButton} />
       <View
         style={{
           marginTop: 48,

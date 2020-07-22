@@ -10,9 +10,11 @@ import SfContainer from '~/c/SfContainer';
 import RegistrationForm from '~/c/RegistrationForm';
 import LoginForm from '~/c/LoginForm';
 import SfButton from '~/c/SfButton';
+import SfTextButton from '~/c/SfTextButton';
 
 import CheckInviteFlow from '~/c/CheckInviteFlow';
 import VerifyCodeFlow from '~/c/VerifyCodeFlow';
+import UpdateButton from '~/c/UpdateButton';
 
 import { FREE, OPEN, nord13 } from '~/constants/Colors';
 import { fontSizes, elementSizes } from '~/constants/Sizes';
@@ -43,8 +45,7 @@ function Welcome(props) {
         title="Register"
         onPress={() => props.navigation.navigate('Register')}
       />
-      <SfText style={styles.subText}>download update</SfText>
-      {/* <SfButton round color={BRILLIANT_2} title="Download Update" onPress={downloadUpdate} /> */}
+      <UpdateButton ButtonComponent={SfTextButton} />
     </SfContainer>
   );
 }
