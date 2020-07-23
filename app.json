@@ -37,7 +37,16 @@
       "package": "com.mutualflourishing.supfam",
       "versionCode": 1,
       "googleServicesFile": "./google-services.json",
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "permissions": [
+        "CAMERA",
+        "READ_CONTACTS",
+        "com.sec.android.provider.badge.permission.READ",
+        "com.sec.android.provider.badge.permission.WRITE",
+        "READ_PHONE_STATE",
+        "READ_INTERNAL_STORAGE",
+        "VIBRATE"
+      ]
     },
     "description": "",
     "hooks": {
