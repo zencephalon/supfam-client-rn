@@ -3,11 +3,7 @@
     "name": "Supfam",
     "slug": "Supfam",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -21,9 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "notification": {
       "icon": "./assets/images/notification-icon.png",
       "color": "#ffffff",
@@ -32,7 +26,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mutualflourishing.supfam",
-      "buildNumber": "0.0.20"
+      "buildNumber": "0.0.20",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allowing Supfam to use your camera lets you send photos to your fam",
+        "NSContactsUsageDescription": "Allowing Supfam to use your contacts lets you find your fam more quickly",
+        "NSPhotoLibraryUsageDescription": "Allowing Supfam to use your camera roll lets you send saved photos to your fam"
+      }
     },
     "android": {
       "package": "com.mutualflourishing.supfam",
