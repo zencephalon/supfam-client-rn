@@ -23,11 +23,6 @@ export default function QuotedMessageText({
   const youAreQuoted = quotedProfileId == profileId;
   const { backgrounds, foregrounds } = useLight();
 
-  const truncatedQuoted =
-    quoted?.length > MAX_QUOTED_DISPLAY_LENGTH
-      ? quoted.substring(0, MAX_QUOTED_DISPLAY_LENGTH) + '...'
-      : quoted;
-
   return (
     <View style={{ alignItems: isOwnMessage ? 'flex-end' : 'flex-start' }}>
       {quotedProfileId && (
@@ -49,8 +44,9 @@ export default function QuotedMessageText({
             paddingBottom: 16,
             marginBottom: -8,
           }}
+          numberOfLines={3}
         >
-          {truncatedQuoted}
+          {quoted}
         </SfText>
       )}
       <MessageText text={text} links={links} isOwnMessage={isOwnMessage} />
