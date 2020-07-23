@@ -14,13 +14,19 @@ import SfLinkPreview from '~/c/SfLinkPreview';
 import MessageReactions from '~/c/MessageReactions';
 
 import useOpenMessageActionModal from '~/h/useOpenMessageActionModal';
+import useCachedMessage from '~/h/useCachedMessage';
 
 function Message(props) {
-  const { message, isOwnMessage, fromSameUser, breakAbove } = props;
+  const { messageId, isOwnMessage, fromSameUser, breakAbove } = props;
+  const message = useCachedMessage(messageId);
 
   const [showDate, setShowDate] = React.useState(false);
 
   const openMessageActionModal = useOpenMessageActionModal(message);
+
+  if (!message) {
+    return null;
+  }
 
   return (
     <View>
@@ -31,7 +37,7 @@ function Message(props) {
         style={{
           flexDirection: 'row',
           marginBottom: 4,
-          marginTop: fromSameUser && !message.breakAbove ? 0 : 12,
+          marginTop: fromSameUser && !breakAbove ? 0 : 12,
           alignItems: 'flex-start',
           justifyContent: isOwnMessage ? 'flex-end' : 'flex-start',
           marginLeft: 8,

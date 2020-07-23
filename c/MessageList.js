@@ -25,7 +25,7 @@ class MessageList extends React.Component {
 
     return (
       <Message
-        message={item}
+        messageId={item.id}
         isOwnMessage={item.profile_id === this.props.meProfileId}
         fromSameUser={item.profile_id === prevSentMessage?.profile_id}
         breakAbove={needsBreakAbove(item, prevSentMessage)}

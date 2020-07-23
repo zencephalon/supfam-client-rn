@@ -1,6 +1,7 @@
 import configureApi from '~/apis/configureApi';
 import { API_URL } from '~/lib/constants';
 import AuthToken from '~/lib/AuthToken';
+import { cacheMessage } from '~/lib/QueryCache';
 
 import EmojiHistory from '~/lib/EmojiHistory';
 
@@ -29,9 +30,12 @@ export const getProfilesMe = () => {
 
 export const getConversationMessages = (_key, { conversationId }, cursor) => {
   const cursorChunk = cursor ? `?cursor=${cursor}` : '';
-  return api.fetchFromAPI(
-    `conversations/${conversationId}/messages${cursorChunk}`
-  );
+  return api
+    .fetchFromAPI(`conversations/${conversationId}/messages${cursorChunk}`)
+    .then(({ messages, next_cursor }) => {
+      messages.forEach((message) => cacheMessage(message));
+      return { messages, next_cursor };
+    });
 };
 
 export const getProfileDmConversation = (_key, { profileId }) => {
