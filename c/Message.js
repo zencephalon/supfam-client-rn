@@ -77,11 +77,11 @@ function Message(props) {
                 links={message.links}
               />
             )}
-            {message.type === 1 && message.image && (
+            {message.type === 1 && message.data?.image && (
               <MessageImagePreview
-                uri={message.image.uri}
-                width={message.image.width}
-                height={message.image.height}
+                uri={message.data.image.uri}
+                width={message.data.image.width}
+                height={message.data.image.height}
               />
             )}
             {message.type === 2 && (

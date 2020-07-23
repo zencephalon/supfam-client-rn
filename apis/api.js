@@ -1,7 +1,6 @@
 import configureApi from '~/apis/configureApi';
 import { API_URL } from '~/lib/constants';
 import AuthToken from '~/lib/AuthToken';
-import processMessage from '~/lib/processMessage';
 
 import EmojiHistory from '~/lib/EmojiHistory';
 
@@ -29,15 +28,10 @@ export const getProfilesMe = () => {
 };
 
 export const getConversationMessages = (_key, { conversationId }, cursor) => {
-  const cursorChunk = cursor ? `\?cursor=${cursor}` : '';
-  return api
-    .fetchFromAPI(`conversations/${conversationId}/messages${cursorChunk}`)
-    .then(({ messages, next_cursor }) => {
-      return {
-        messages: messages.map(processMessage),
-        next_cursor,
-      };
-    });
+  const cursorChunk = cursor ? `?cursor=${cursor}` : '';
+  return api.fetchFromAPI(
+    `conversations/${conversationId}/messages${cursorChunk}`
+  );
 };
 
 export const getProfileDmConversation = (_key, { profileId }) => {

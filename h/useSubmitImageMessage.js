@@ -9,7 +9,9 @@ export default function useSubmitImageMessage(conversationId, meProfileId) {
         return;
       }
       UploadQueue.addImageUpload(meProfileId, conversationId, {
-        image,
+        data: {
+          image,
+        },
         type: 1,
       });
     },
