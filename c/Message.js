@@ -134,4 +134,4 @@ function Message(props) {
   );
 }
 
-export default Message;
+export default React.memo(Message);

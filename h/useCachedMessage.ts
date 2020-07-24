@@ -1,10 +1,7 @@
-import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
 export default function useCachedMessage(messageId: number) {
-	const { data: message } = useQuery(['message', messageId], () => {}, {
-		enabled: messageId,
-		manual: true,
-	});
+	const message = useSelector((state) => state.messageCache[messageId]);
 
 	return message;
 }
