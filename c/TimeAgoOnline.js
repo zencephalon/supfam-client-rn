@@ -83,4 +83,4 @@ const TimeAgo = ({ time }) => {
     </View>
   );
 };
-export default TimeAgo;
+export default React.memo(TimeAgo);
