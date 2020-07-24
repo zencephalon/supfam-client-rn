@@ -70,8 +70,6 @@ export default function useMessages(conversationId, meProfileId) {
 
   messages = uniqBy(messages.concat(receivedMessages || []), 'qid');
 
-  console.log('receivedMessages', receivedMessages);
-
   messages = uniqBy(
     messages.concat(head(message_groups)?.messages || []),
     'id'
