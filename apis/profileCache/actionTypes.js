@@ -1,0 +1,1 @@
+export const CACHE = 'PPROFILE_CACHE/CACHE';

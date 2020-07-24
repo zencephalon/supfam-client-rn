@@ -1,5 +1,6 @@
-import { useQuery, queryCache } from 'react-query';
+import { useQuery } from 'react-query';
 import { getFriends } from '~/apis/api';
+import { updateCachedProfile } from '~/lib/QueryCache';
 
 import useProfileId from '~/h/useProfileId';
 
@@ -10,8 +11,8 @@ export default function useFriends() {
     () => getFriends(profileId),
     {
       onSuccess: (friends) => {
-        friends.map((friend) => {
-          queryCache.setQueryData(['friend', friend.id], friend);
+        friends.forEach((friend) => {
+          updateCachedProfile(friend.id, () => friend);
         });
       },
       enabled: profileId,
