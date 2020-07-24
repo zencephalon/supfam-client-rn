@@ -20,7 +20,8 @@ import ProfileGate from '~/c/ProfileGate';
 import NotificationGate from '~/c/NotificationGate';
 import ThemeAwareStatusBar from '~/c/ThemeAwareStatusBar';
 
-import configureStore from '~/store/configureStore';
+import store from '~/store/store';
+import { LOGIN } from '~/apis/auth/actions';
 
 import CableContainer from '~/containers/Cable';
 
@@ -74,6 +75,7 @@ export default function App({
         });
         await AuthToken.init();
         EmojiHistory.init();
+        store.dispatch(LOGIN(AuthToken.get()));
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
@@ -94,7 +96,7 @@ export default function App({
         <ActionSheetProvider>
           <AppearanceProvider>
             <ThemeAwareStatusBar />
-            <Provider store={configureStore({ auth: AuthToken.get() })}>
+            <Provider store={store}>
               <AuthGate>
                 <ProfileGate>
                   <NotificationGate>
