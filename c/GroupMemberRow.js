@@ -25,6 +25,10 @@ export default function GroupMemberRow({ conversationId, profileId }) {
 
   const [removed, setRemoved] = React.useState(false);
 
+  if (!profile) {
+    return null;
+  }
+
   const remove = () => {
     Alert.alert(
       'Are you sure?',

@@ -1,6 +1,7 @@
-import { useQuery, queryCache } from 'react-query';
+import { useQuery } from 'react-query';
 import useProfileId from '~/h/useProfileId';
 import { getProfile } from '~/apis/api';
+import { updateCachedProfile } from '~/lib/QueryCache';
 
 export default function useProfileMe() {
   const profileId = useProfileId();
@@ -9,7 +10,7 @@ export default function useProfileMe() {
     getProfile,
     {
       onSuccess: (profile) => {
-        queryCache.setQueryData(['friend', profileId], profile);
+        updateCachedProfile(profileId, () => profile);
       },
       enabled: profileId,
     }

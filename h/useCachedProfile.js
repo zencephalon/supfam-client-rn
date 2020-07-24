@@ -12,7 +12,7 @@ export default function useCachedProfile(profileId) {
 			updateCachedProfile(profile.id, () => profile);
 		},
 	});
-	const profile = useSelector((state) => state.profileCache[profileId]);
+	const profile = useSelector((state) => state.profileCache?.[profileId]);
 
-	return profile;
+	return profile || _profile;
 }
