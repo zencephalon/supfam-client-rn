@@ -45,7 +45,7 @@ function Message(props) {
         }}
       >
         <View style={{ width: 40 }}>
-          {!isOwnMessage && !fromSameUser && (
+          {!isOwnMessage && (!fromSameUser || breakAbove) && (
             <ProfileIcon profileId={message.profile_id} size={32} />
           )}
           {message.queued && <ActivityIndicator size="small" />}
