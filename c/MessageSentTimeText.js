@@ -9,6 +9,11 @@ import SfText from '~/c/SfText';
 
 export default function MessageSentTimeText({ sentDate }) {
 	const { foregrounds } = useLight();
+
+	if (!sentDate) {
+		return null;
+	}
+
 	const _sentDate = new Date(sentDate);
 	const timeFlag = formatMessageTimeflag(_sentDate);
 
