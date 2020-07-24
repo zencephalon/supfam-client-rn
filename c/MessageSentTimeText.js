@@ -27,7 +27,7 @@ export default function MessageSentTimeText({ sentDate }) {
 		>
 			<SfText
 				style={{
-					color: foregrounds[2],
+					color: foregrounds[4],
 					fontSize: 16,
 				}}
 			>
