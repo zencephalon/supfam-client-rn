@@ -6,7 +6,6 @@ import { getProfile } from '~/apis/api';
 
 export default function useCachedProfile(profileId) {
 	const { data: _profile } = useQuery(['friend', profileId], getProfile, {
-		staleTime: Infinity,
 		enabled: profileId,
 		onSuccess: (profile) => {
 			updateCachedProfile(profile.id, () => profile);

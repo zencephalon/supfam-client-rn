@@ -8,7 +8,7 @@ export default function useCachedDmMembership(conversationId) {
     getMembership,
     {
       // staleTime: Infinity,
-      manual: true,
+      // manual: true,
       enabled: conversationId,
     }
   );
