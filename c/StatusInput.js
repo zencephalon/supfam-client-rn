@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableHighlight } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import SfTextInput from './SfTextInput';
 import SfText from './SfText';
@@ -87,6 +88,7 @@ export default function StatusInput({
   postMessage,
 }) {
   const { backgrounds } = useLight();
+  const navigation = useNavigation();
 
   return (
     <View
@@ -99,15 +101,18 @@ export default function StatusInput({
         alignItems: 'flex-end',
       }}
     >
-      <View
+      <TouchableHighlight
         style={{
           height: '100%',
           flexDirection: 'column-reverse',
           marginBottom: 4,
         }}
+        onPress={() => {
+          navigation.navigate('Profile Settings');
+        }}
       >
         <ProfileIconFromProfile profile={profile} size={48} />
-      </View>
+      </TouchableHighlight>
       <MagicInput
         value={message}
         onChangeText={setMessage}

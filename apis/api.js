@@ -260,6 +260,12 @@ export const postProfile = ({ name, avatar_key }) => {
   });
 };
 
+export const putProfile = ({ profile_id, name, avatar_key }) => {
+  return api.putToAPI(`profiles/${profile_id}`, {
+    body: JSON.stringify({ name, avatar_key }),
+  });
+};
+
 export const getPushToken = () => {
   return api.fetchFromAPI('push_token');
 };
