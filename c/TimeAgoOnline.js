@@ -24,16 +24,23 @@ const getInterval = (timeDisplay) => {
 };
 
 const TimeAgo = ({ time }) => {
+  const display = getDisplay(time);
   const [timeDisplay, setTimeDisplay] = useState(getDisplay(time));
 
   const interval = useMemo(() => getInterval(getDisplay(time)), [time]);
 
-  const { foregrounds } = useLight();
-  const textTertiary = foregrounds[3];
+  // Fix problem where sometimes the `time` changes but we didn't refresh the display
+  // until the interval kicked in.
+  React.useEffect(() => {
+    setTimeDisplay(getDisplay(time));
+  }, [time]);
 
   useInterval(() => {
     setTimeDisplay(getDisplay(time));
   }, interval);
+
+  const { foregrounds } = useLight();
+  const textTertiary = foregrounds[3];
 
   if (!time) {
     return (
@@ -58,10 +65,6 @@ const TimeAgo = ({ time }) => {
       />
     );
   }
-
-  const isNow = timeDisplay === 'now';
-  // const suffixEnding = isNow ? '' : ` ${suffix}`;
-  const suffixEnding = '';
 
   return (
     <View style={{ marginRight: 2, flexDirection: 'row' }}>
