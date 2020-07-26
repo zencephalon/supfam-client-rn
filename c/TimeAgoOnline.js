@@ -75,7 +75,7 @@ const TimeAgo = ({ time }) => {
           textAlignVertical: 'bottom',
         }}
       >
-        {timeDisplay + suffixEnding}
+        {timeDisplay}
       </Text>
       <MaterialCommunityIcons
         name="eye-off-outline"
