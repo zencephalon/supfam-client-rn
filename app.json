@@ -46,7 +46,11 @@
         "READ_PHONE_STATE",
         "READ_INTERNAL_STORAGE",
         "VIBRATE"
-      ]
+      ],
+      "adaptiveIcon": {
+        "backgroundColor": "#000000",
+        "foregroundImage": "./assets/images/icon-transp-128.png"
+      }
     },
     "description": "",
     "hooks": {
