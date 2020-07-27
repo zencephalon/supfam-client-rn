@@ -19,5 +19,12 @@ export default function GroupConversationPreview({ conversationId }) {
 		return null;
 	}
 
-	return <MessagePreview messageText={last_message?.message} messageType={last_message?.type} read={last_message_id === last_read_message_id} />;
+	return (
+		<MessagePreview
+			messageText={last_message?.message}
+			messageType={last_message?.type}
+			read={last_message_id === last_read_message_id}
+			profileId={last_message.profile_id}
+		/>
+	);
 }

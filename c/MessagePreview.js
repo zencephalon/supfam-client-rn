@@ -3,6 +3,8 @@ import { View } from 'react-native';
 
 import useLight from '~/h/useLight';
 
+import ProfileIcon from '~/c/ProfileIcon';
+
 import SfText from '~/c/SfText';
 
 import { nord8 } from '~/constants/Colors';
@@ -11,6 +13,7 @@ export default React.memo(function MessagePreview({
   messageText,
   messageType,
   read,
+  profileId,
 }) {
   const { backgrounds } = useLight();
 
@@ -56,6 +59,11 @@ export default React.memo(function MessagePreview({
           {preview}
         </SfText>
       </View>
+      {profileId && (
+        <View style={{ marginLeft: 4 }}>
+          <ProfileIcon profileId={profileId} size={16} />
+        </View>
+      )}
       {!read && (
         <View
           style={{
