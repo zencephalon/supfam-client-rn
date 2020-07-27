@@ -7,7 +7,11 @@ import SfText from '~/c/SfText';
 
 import { nord8 } from '~/constants/Colors';
 
-export default React.memo(function MessagePreview({ messageText, messageType, read }) {
+export default React.memo(function MessagePreview({
+  messageText,
+  messageType,
+  read,
+}) {
   const { backgrounds } = useLight();
 
   let preview = '';
@@ -16,7 +20,16 @@ export default React.memo(function MessagePreview({ messageText, messageType, re
     preview = 'Sent an image';
   }
   return (
-    <View style={{ alignSelf: 'flex-end', flexDirection: 'row', width: '100%', alignItems: 'center', paddingLeft: 4, paddingRight: 4}}>
+    <View
+      style={{
+        alignSelf: 'flex-end',
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'center',
+        paddingLeft: 4,
+        paddingRight: 4,
+      }}
+    >
       <View
         style={{
           flexDirection: 'column',
@@ -43,7 +56,17 @@ export default React.memo(function MessagePreview({ messageText, messageType, re
           {preview}
         </SfText>
       </View>
-      {!read && <View style={{ backgroundColor: nord8, borderRadius: '50%', width: 12, height: 12, marginLeft: 4 }} />}
+      {!read && (
+        <View
+          style={{
+            backgroundColor: nord8,
+            borderRadius: 6,
+            width: 12,
+            height: 12,
+            marginLeft: 4,
+          }}
+        />
+      )}
     </View>
   );
-})
+});
