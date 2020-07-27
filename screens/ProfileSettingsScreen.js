@@ -14,7 +14,7 @@ import useApi from '~/h/useApi';
 import useFriends from '~/h/useFriends';
 import { postBlockFriend } from '~/apis/api';
 
-import { AWAY } from '~/constants/Colors';
+import { FREE } from '~/constants/Colors';
 
 export default function ProfileSettingsScreen({ navigation }) {
   const profileId = useProfileId();
@@ -26,11 +26,9 @@ export default function ProfileSettingsScreen({ navigation }) {
 
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={96}>
-      
-      {
-        showEdit ?
-        <ProfileEdit setShowEdit={setShowEdit}/>
-        :
+      {showEdit ? (
+        <ProfileEdit setShowEdit={setShowEdit} />
+      ) : (
         <View
           style={{
             width: '100%',
@@ -51,22 +49,18 @@ export default function ProfileSettingsScreen({ navigation }) {
           >
             {profile?.name}
           </SfText>
-          <SfTextButton
+          <SfButton
             title={'✏️ edit profile'}
             onPress={() => setShowEdit(true)}
-            color={AWAY}
+            color={FREE}
             style={{
               marginTop: 16,
               paddingLeft: 48,
               paddingRight: 48,
             }}
-            buttonTextStyle={{
-              fontSize: 20,
-              textDecorationLine: 'underline'
-            }}
           />
         </View>
-      }
+      )}
     </SfKeyboardAvoidingView>
   );
 }

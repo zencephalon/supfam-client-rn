@@ -21,7 +21,9 @@ import useCachedProfile from '~/h/useCachedProfile';
 
 // Stubbed for editing
 
-function ProfileEdit({setShowEdit}: {
+function ProfileEdit({
+  setShowEdit,
+}: {
   setShowEdit: (value: boolean) => void;
 }) {
   const profile_id = useProfileId();
@@ -32,7 +34,7 @@ function ProfileEdit({setShowEdit}: {
 
   const PutProfile = useApi(putProfile, {
     onConfirm: () => {
-      queryCache.invalidateQueries('profilesMe');
+      queryCache.invalidateQueries('profileMe');
     },
   });
   const UploadImage = useApi(uploadImage);
@@ -54,7 +56,7 @@ function ProfileEdit({setShowEdit}: {
     }
 
     let avatar_key = undefined;
-    if(image) {
+    if (image) {
       const { key } = await UploadImage.call(image.uri);
       avatar_key = key;
     }
