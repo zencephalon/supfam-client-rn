@@ -60,8 +60,10 @@ export default function ProfileSettingsScreen({ navigation }) {
               paddingLeft: 48,
               paddingRight: 48,
             }}
-            buttonFontSize={20}
-            underline
+            buttonTextStyle={{
+              fontSize: 20,
+              textDecorationLine: 'underline'
+            }}
           />
         </View>
       }

@@ -6,7 +6,7 @@ import useLight from '~/h/useLight';
 // This button is designed to look like a text hyperlink.
 
 const SfTextButton = (props) => {
-  const { disabled, title, style, buttonFontSize, underline, ...rest } = props;
+  const { disabled, title, style, buttonTextStyle, ...rest } = props;
   const { foregrounds } = useLight();
 
   const textColor = foregrounds[0];
@@ -18,14 +18,12 @@ const SfTextButton = (props) => {
         style={[
           styles.buttonText,
           {
-            fontSize: buttonFontSize ? buttonFontSize : 24,
             color: textColor,
             marginTop: disabled ? 3 : 0,
             marginBottom: disabled ? 0 : 3,
             opacity: disabled ? 0.5 : 1,
-            textDecorationLine: underline ? 'underline' : 'none',
           },
-          props.buttonTextStyle,
+          buttonTextStyle,
         ]}
       >
         {title}
