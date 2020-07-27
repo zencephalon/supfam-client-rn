@@ -1,9 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { queryCache } from 'react-query';
-import { putStatusMe } from '~/apis/api';
-
 import StatusButton from '~/c/StatusButton';
 import StatusInput from '~/c/StatusInput';
 
@@ -12,20 +9,7 @@ import useProfileMe from '~/h/useProfileMe';
 import useLight from '~/h/useLight';
 import useSetColor from '~/h/useSetColor';
 
-function usePostMessage(message, profileId, setMessage) {
-  return React.useCallback(async () => {
-    try {
-      await putStatusMe({ profileId, message });
-      queryCache.invalidateQueries(['profileMe', profileId]);
-    } catch (e) {
-      console.log(e);
-    }
-    setMessage('');
-  }, [message, profileId, setMessage]);
-}
-
 const StatusCenter = () => {
-  const [message, setMessage] = React.useState('');
   const { backgrounds, light } = useLight();
 
   const profileId = useProfileId();
@@ -34,7 +18,6 @@ const StatusCenter = () => {
   const statusMe = profile?.status;
 
   const setColor = useSetColor(profileId);
-  const postMessage = usePostMessage(message, profileId, setMessage);
 
   return (
     <View
@@ -46,13 +29,7 @@ const StatusCenter = () => {
         shadowRadius: 1,
       }}
     >
-      <StatusInput
-        profile={profile}
-        statusMe={statusMe}
-        message={message}
-        setMessage={setMessage}
-        postMessage={postMessage}
-      />
+      {profile?.id && <StatusInput profile={profile} statusMe={statusMe} />}
       <View style={styles.tabBarInfoContainer}>
         {[0, 1, 2, 3].map((color) => {
           return (

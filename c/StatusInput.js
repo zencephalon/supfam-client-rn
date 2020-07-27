@@ -3,7 +3,6 @@ import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import SfTextInput from './SfTextInput';
-import SfText from './SfText';
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
@@ -12,23 +11,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { ProfileIconFromProfile } from '~/c/ProfileIcon';
 
-import useLight from '~/h/useLight';
+import { queryCache } from 'react-query';
+import { putStatusMe } from '~/apis/api';
 
 import { StatusMessageText } from '~/c/StatusMessageText';
 
-function MagicInput({
-  value,
-  onChangeText,
-  statusMessage,
-  postMessage,
-  statusColor,
-  updatedAt,
-}) {
+function MagicInput({ statusMessage, statusColor, updatedAt, profileId }) {
   const [focused, setFocused] = React.useState(false);
-  const { foregrounds, backgrounds } = useLight();
+  const [message, setMessage] = React.useState(statusMessage);
+
+  const postMessage = usePostMessage(message, profileId, setMessage);
 
   return (
-    <>
+    <View style={{ flexDirection: 'row', flex: 1 }}>
       {!focused && (
         <StatusMessageText
           updatedAt={updatedAt}
@@ -37,7 +32,13 @@ function MagicInput({
       )}
       {!focused && (
         <TouchableOpacity
-          onPress={() => setFocused(true)}
+          onPress={() => {
+            setMessage('');
+            setFocused(true);
+          }}
+          onLongPress={() => {
+            setFocused(true);
+          }}
           style={{
             justifyContent: 'flex-end',
             flexGrow: 1,
@@ -57,17 +58,18 @@ function MagicInput({
 
       {focused && (
         <SfTextInput
-          value={value}
+          value={message}
           autoFocus={true}
-          onChangeText={onChangeText}
+          onChangeText={setMessage}
           // onSubmitEditing={postMessage}
           textInputStyle={styles.statusInput}
           style={{ flexGrow: 1, flexShrink: 1 }}
           multiline={true}
           onBlur={() => setFocused(false)}
+          selectTextOnFocus={true}
         />
       )}
-      {focused && !!value && (
+      {focused && !!message && (
         <TouchableOpacity
           onPress={() => {
             postMessage();
@@ -87,18 +89,23 @@ function MagicInput({
           />
         </TouchableOpacity>
       )}
-    </>
+    </View>
   );
 }
 
-export default function StatusInput({
-  profile,
-  statusMe,
-  message,
-  setMessage,
-  postMessage,
-}) {
-  const { backgrounds } = useLight();
+function usePostMessage(message, profileId, setMessage) {
+  return React.useCallback(async () => {
+    try {
+      await putStatusMe({ profileId, message });
+      queryCache.invalidateQueries(['profileMe', profileId]);
+    } catch (e) {
+      console.log(e);
+    }
+    setMessage(message);
+  }, [message, profileId, setMessage]);
+}
+
+export default function StatusInput({ profile, statusMe }) {
   const navigation = useNavigation();
 
   return (
@@ -109,13 +116,13 @@ export default function StatusInput({
         paddingLeft: 8,
         paddingRight: 8,
         marginBottom: 8,
-        alignItems: 'flex-end',
+        alignItems: 'flex-start',
       }}
     >
       <TouchableHighlight
         style={{
           height: '100%',
-          flexDirection: 'column-reverse',
+          flexDirection: 'column',
           marginBottom: 4,
         }}
         onPress={() => {
@@ -125,12 +132,10 @@ export default function StatusInput({
         <ProfileIconFromProfile profile={profile} size={48} />
       </TouchableHighlight>
       <MagicInput
-        value={message}
-        onChangeText={setMessage}
         statusMessage={statusMe?.message}
-        postMessage={postMessage}
         statusColor={statusMe?.color}
         updatedAt={statusMe?.updated_at}
+        profileId={profile.id}
       />
     </View>
   );
