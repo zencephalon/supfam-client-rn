@@ -12,16 +12,16 @@ import useProfileMe from '~/h/useProfileMe';
 import useLight from '~/h/useLight';
 import useSetColor from '~/h/useSetColor';
 
-function usePostMessage(statusMe, message, profileId, setMessage) {
+function usePostMessage(message, profileId, setMessage) {
   return React.useCallback(async () => {
     try {
-      await putStatusMe({ profileId, color: statusMe?.color, message });
+      await putStatusMe({ profileId, message });
       queryCache.invalidateQueries(['profileMe', profileId]);
     } catch (e) {
       console.log(e);
     }
     setMessage('');
-  }, [statusMe, message, profileId, setMessage]);
+  }, [message, profileId, setMessage]);
 }
 
 const StatusCenter = () => {
@@ -34,7 +34,7 @@ const StatusCenter = () => {
   const statusMe = profile?.status;
 
   const setColor = useSetColor(profileId);
-  const postMessage = usePostMessage(statusMe, message, profileId, setMessage);
+  const postMessage = usePostMessage(message, profileId, setMessage);
 
   return (
     <View

@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import SfTextInput from './SfTextInput';
 import SfText from './SfText';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
@@ -13,12 +13,15 @@ import { ProfileIconFromProfile } from '~/c/ProfileIcon';
 
 import useLight from '~/h/useLight';
 
+import { StatusMessageText } from '~/c/StatusMessageText';
+
 function MagicInput({
   value,
   onChangeText,
   statusMessage,
   postMessage,
   statusColor,
+  updatedAt,
 }) {
   const [focused, setFocused] = React.useState(false);
   const { foregrounds, backgrounds } = useLight();
@@ -26,24 +29,31 @@ function MagicInput({
   return (
     <>
       {!focused && (
-        <View
+        <StatusMessageText
+          updatedAt={updatedAt}
+          statusMessage={statusMessage}
+        />
+      )}
+      {!focused && (
+        <TouchableOpacity
+          onPress={() => setFocused(true)}
           style={{
-            ...styles.statusInput,
+            justifyContent: 'flex-end',
             flexGrow: 1,
             flexShrink: 1,
-            backgroundColor: backgrounds[1],
-            borderRadius: 10,
+            flexWrap: 'wrap',
+            marginTop: 4,
+            flexDirection: 'row',
           }}
         >
-          <SfText
-            onPress={() => setFocused(true)}
-            // numberOfLines={1}
-            style={{ color: foregrounds[1], fontSize: 16 }}
-          >
-            {statusMessage || 'Loading...'}
-          </SfText>
-        </View>
+          <Entypo
+            name="new-message"
+            size={24}
+            color={statusColors[statusColor] || OPEN}
+          />
+        </TouchableOpacity>
       )}
+
       {focused && (
         <SfTextInput
           value={value}
@@ -56,7 +66,7 @@ function MagicInput({
           onBlur={() => setFocused(false)}
         />
       )}
-      {!!value && (
+      {focused && !!value && (
         <TouchableOpacity
           onPress={() => {
             postMessage();
@@ -64,6 +74,7 @@ function MagicInput({
           }}
           style={{
             marginLeft: 4,
+            marginBottom: 2,
             justifyContent: 'flex-end',
             flexGrow: 1,
           }}
@@ -114,6 +125,7 @@ export default function StatusInput({
         statusMessage={statusMe?.message}
         postMessage={postMessage}
         statusColor={statusMe?.color}
+        updatedAt={statusMe?.updated_at}
       />
     </View>
   );
@@ -121,7 +133,7 @@ export default function StatusInput({
 
 const styles = StyleSheet.create({
   statusInput: {
-    fontSize: 16,
+    fontSize: 24,
     borderRadius: 10,
     borderWidth: 0,
     paddingRight: 8,
