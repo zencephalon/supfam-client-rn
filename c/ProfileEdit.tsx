@@ -1,27 +1,36 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+
 import SfContainer from '~/c/SfContainer';
 import SfText from '~/c/SfText';
 import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
-import { BareProfileIcon } from '~/c/ProfileIcon';
+import { ProfileIconFromProfile } from '~/c/ProfileIcon';
 
 import { FREE } from '~/constants/Colors';
 
-import { uploadImage, postProfile } from '~/apis/api';
+import { uploadImage, putProfile } from '~/apis/api';
 
 import { queryCache } from 'react-query';
 
 import useApi from '~/h/useApi';
 import useSnapImage from '~/h/useSnapImage';
 import usePickImage from '~/h/usePickImage';
+import useProfileId from '~/h/useProfileId';
+import useCachedProfile from '~/h/useCachedProfile';
 
 // Stubbed for editing
 
-function ProfileCreate() {
-  const [name, setName] = React.useState('');
+function ProfileEdit({setShowEdit}: {
+  setShowEdit: (value: boolean) => void;
+}) {
+  const profile_id = useProfileId();
+  const profile = useCachedProfile(profile_id);
+
+  const [name, setName] = React.useState(profile.name);
   const [image, setImage] = React.useState(null);
-  const PostProfile = useApi(postProfile, {
+
+  const PutProfile = useApi(putProfile, {
     onConfirm: () => {
       queryCache.invalidateQueries('profilesMe');
     },
@@ -37,34 +46,37 @@ function ProfileCreate() {
     imageOptions: { allowsEditing: true, aspect: [1, 1] },
   });
 
-  const profileBusy = PostProfile.req.requested || UploadImage.req.requested;
-  const cantCreateProfile = !name || !image;
-  const createProfile = async () => {
+  const profileBusy = PutProfile.req.requested || UploadImage.req.requested;
+  const cantCreateProfile = !name;
+  const updateProfile = async () => {
     if (profileBusy || cantCreateProfile) {
       return;
     }
 
-    const { key: avatar_key } = await UploadImage.call(image.uri);
-    // await postProfile({ name, avatar_url });
-    return PostProfile.call({ name, avatar_key });
+    let avatar_key = undefined;
+    if(image) {
+      const { key } = await UploadImage.call(image.uri);
+      avatar_key = key;
+    }
+
+    await PutProfile.call({ profile_id, name, avatar_key });
+    setShowEdit(false);
   };
 
   return (
     <SfContainer>
-      <SfText style={styles.formLabel}>Almost there! 🎊 </SfText>
       <SfText style={styles.formLabel}>Enter your full name</SfText>
       <SfTextInput
         placeholder="Albus Dumbledore"
         value={name}
         onChangeText={setName}
-        ok={!!name}
         autoCapitalize="words"
       />
-      <SfText style={styles.formLabel}>Set profile photo from:</SfText>
+      <SfText style={styles.formLabel}>Set new profile photo from:</SfText>
       <SfButton round title="Camera" onPress={snapImage} color={FREE} />
       <SfButton round title="Camera roll" onPress={pickImage} color={FREE} />
       {!!image && (
-        <BareProfileIcon
+        <ProfileIconFromProfile
           uri={image.uri}
           size={100}
           style={{ alignSelf: 'center' }}
@@ -73,10 +85,10 @@ function ProfileCreate() {
       <SfButton
         round
         wide
-        title={profileBusy ? 'Creating profile...' : 'Create profile'}
+        title={profileBusy ? 'Updating profile...' : 'Update profile'}
         disabled={cantCreateProfile || profileBusy}
         style={{ marginTop: 16 }}
-        onPress={createProfile}
+        onPress={updateProfile}
       />
     </SfContainer>
   );
@@ -91,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileCreate;
+export default ProfileEdit;

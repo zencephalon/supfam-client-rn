@@ -6,6 +6,7 @@ import ConversationScreen from '~/screens/ConversationScreen';
 import InviteScreen from '~/screens/InviteScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 import FriendSettingsScreen from '~/screens/FriendSettingsScreen';
+import ProfileSettingsScreen from '~/screens/ProfileSettingsScreen';
 
 import ChatScreen from '~/screens/ChatScreen';
 import GroupBuilderScreen from '~/screens/GroupBuilderScreen';
@@ -66,6 +67,8 @@ function HomeStack() {
       />
 
       <Stack.Screen name="Friend Settings" component={FriendSettingsScreen} />
+
+      <Stack.Screen name="Profile Settings" component={ProfileSettingsScreen} />
 
       {/*Group chat screens*/}
       <Stack.Screen
