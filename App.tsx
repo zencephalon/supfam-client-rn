@@ -75,7 +75,10 @@ export default function App({
         });
         await AuthToken.init();
         EmojiHistory.init();
-        store.dispatch(LOGIN(AuthToken.get()));
+        const token = AuthToken.get();
+        if (token) {
+          store.dispatch(LOGIN(token));
+        }
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);

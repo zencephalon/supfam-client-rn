@@ -40,17 +40,6 @@ function ChatItem({ conversationId }) {
               alignItems: 'flex-start',
             }}
           >
-            <SfText
-              style={{
-                fontSize: 16,
-                flexGrow: 1,
-                flexShrink: 1,
-                marginLeft: 8,
-                overflow: 'hidden',
-              }}
-            >
-              <GroupMemberNameSummary conversationId={conversationId} />
-            </SfText>
             <GroupConversationPreview conversationId={conversationId} />
           </View>
         </View>

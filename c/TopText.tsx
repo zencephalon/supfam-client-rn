@@ -31,6 +31,7 @@ export default React.memo(function TopText({
             color: foregrounds[1],
             fontWeight: '500',
           }}
+          numberOfLines={1}
         >
           {title}
         </Text>

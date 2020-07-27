@@ -22,11 +22,12 @@ export default function DirectConversationPreview({
     return null;
   }
 
-  const last_message_id = dmMembership?.last_message?.id;
+  const last_message = dmMembership?.last_message;
+  const last_message_id = last_message?.id;
   const last_read_message_id = dmMembership?.last_read_message_id;
-  if (!last_message_id || last_message_id === last_read_message_id) {
+  if (!last_message_id) {
     return null;
   }
 
-  return <MessagePreview message={dmMembership?.last_message} />;
+  return <MessagePreview messageText={last_message?.message} messageType={last_message?.type} read={last_message_id === last_read_message_id} />;
 }

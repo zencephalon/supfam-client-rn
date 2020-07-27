@@ -30,6 +30,7 @@ export const StatusMessageText = React.memo(function StatusMessageText_({
 				overflow: 'hidden',
 				opacity: opacity,
 				fontWeight: recentUpdate ? 'bold' : 'normal',
+				marginBottom: 8,
 			}}
 		>
 			{statusMessage}

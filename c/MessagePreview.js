@@ -1,36 +1,49 @@
 import * as React from 'react';
+import { View } from 'react-native';
 
 import useLight from '~/h/useLight';
 
 import SfText from '~/c/SfText';
 
-export default function MessagePreview({ message }) {
+import { nord15 } from '~/constants/Colors';
+
+export default React.memo(function MessagePreview({ messageText, messageType, read }) {
   const { backgrounds } = useLight();
-  // TODO: handle non-text messages
+
   let preview = '';
-  preview = message?.message;
-  if (message?.type === 1) {
+  preview = messageText;
+  if (messageType === 1) {
     preview = 'Sent an image';
   }
   return (
-    <SfText
-      style={{
-        fontSize: 16,
-        backgroundColor: backgrounds[1],
-        borderRadius: 10,
-        paddingTop: 4,
-        paddingBottom: 4,
-        paddingRight: 8,
-        paddingLeft: 8,
-        marginTop: 8,
-        marginLeft: 8,
-        alignSelf: 'flex-end',
-        // apparently necessary for borderRadius to work
-        overflow: 'hidden',
-      }}
-      numberOfLines={1}
-    >
-      {preview}
-    </SfText>
+    <View style={{ alignSelf: 'flex-end', flexDirection: 'row', width: '100%', alignItems: 'center', paddingLeft: 4, paddingRight: 4}}>
+      <View
+        style={{
+          flexDirection: 'column',
+          flexGrow: 1,
+          width: 0, // hack to get text to wrap
+          alignItems: 'flex-start',
+        }}
+      >
+        <SfText
+          style={{
+            fontSize: 16,
+            backgroundColor: backgrounds[1],
+            borderRadius: 10,
+            paddingTop: 4,
+            paddingBottom: 4,
+            paddingRight: 8,
+            paddingLeft: 8,
+            alignSelf: 'flex-end',
+            // apparently necessary for borderRadius to work
+            overflow: 'hidden',
+          }}
+          numberOfLines={1}
+        >
+          {preview}
+        </SfText>
+      </View>
+      {!read && <View style={{ backgroundColor: nord15, borderRadius: '50%', width: 12, height: 12, marginLeft: 4 }} />}
+    </View>
   );
-}
+})

@@ -11,12 +11,13 @@ export default function GroupConversationPreview({ conversationId }) {
 		return null;
 	}
 
-	const last_message_id = membership?.last_message?.id;
+	const last_message = membership?.last_message;
+	const last_message_id = last_message?.id;
 	const last_read_message_id = membership?.last_read_message_id;
 
-	if (!last_message_id || last_message_id === last_read_message_id) {
+	if (!last_message_id) {
 		return null;
 	}
 
-	return <MessagePreview message={membership?.last_message} />;
+	return <MessagePreview messageText={last_message?.message} messageType={last_message?.type} read={last_message_id === last_read_message_id} />;
 }
