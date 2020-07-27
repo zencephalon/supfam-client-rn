@@ -5,7 +5,7 @@ import useLight from '~/h/useLight';
 
 import SfText from '~/c/SfText';
 
-import { nord15 } from '~/constants/Colors';
+import { nord8 } from '~/constants/Colors';
 
 export default React.memo(function MessagePreview({ messageText, messageType, read }) {
   const { backgrounds } = useLight();
@@ -43,7 +43,7 @@ export default React.memo(function MessagePreview({ messageText, messageType, re
           {preview}
         </SfText>
       </View>
-      {!read && <View style={{ backgroundColor: nord15, borderRadius: '50%', width: 12, height: 12, marginLeft: 4 }} />}
+      {!read && <View style={{ backgroundColor: nord8, borderRadius: '50%', width: 12, height: 12, marginLeft: 4 }} />}
     </View>
   );
 })

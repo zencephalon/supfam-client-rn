@@ -25,7 +25,7 @@ export default function DirectConversationPreview({
   const last_message = dmMembership?.last_message;
   const last_message_id = last_message?.id;
   const last_read_message_id = dmMembership?.last_read_message_id;
-  if (!last_message_id) {
+  if (!last_message_id || last_message_id === last_read_message_id) {
     return null;
   }
 
