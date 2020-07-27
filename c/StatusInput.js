@@ -33,10 +33,13 @@ function MagicInput({ statusMessage, statusColor, updatedAt, profileId }) {
       {!focused && (
         <TouchableOpacity
           onPress={() => {
-            setMessage('');
+            if (message === statusMessage) {
+              setMessage('');
+            }
             setFocused(true);
           }}
           onLongPress={() => {
+            setMessage(statusMessage);
             setFocused(true);
           }}
           style={{
