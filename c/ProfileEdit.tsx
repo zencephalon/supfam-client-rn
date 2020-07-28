@@ -58,8 +58,8 @@ function ProfileEdit({
     if (image) {
       const { uri } = await ImageManipulator.manipulateAsync(
         image.uri,
-        [{ resize: { width: 120, height: 120 } }],
-        { compress: 1, format: ImageManipulator.SaveFormat.PNG }
+        [{ resize: { width: 180, height: 180 } }],
+        { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
       );
       const { key } = await UploadImage.call(uri);
       avatar_key = key;
