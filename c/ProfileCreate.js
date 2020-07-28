@@ -5,7 +5,7 @@ import SfText from '~/c/SfText';
 import SfTextInput from '~/c/SfTextInput';
 import SfButton from '~/c/SfButton';
 
-import { uploadImage, postProfile } from '~/apis/api';
+import { postProfile } from '~/apis/api';
 
 import { queryCache } from 'react-query';
 
@@ -18,9 +18,8 @@ function ProfileCreate() {
       queryCache.invalidateQueries('profilesMe');
     },
   });
-  const UploadImage = useApi(uploadImage);
 
-  const profileBusy = PostProfile.req.requested || UploadImage.req.requested;
+  const profileBusy = PostProfile.req.requested;
   const cantCreateProfile = !name;
   const createProfile = async () => {
     if (profileBusy || cantCreateProfile) {

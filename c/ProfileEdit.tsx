@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 import SfContainer from '~/c/SfContainer';
 import SfText from '~/c/SfText';
@@ -18,8 +19,6 @@ import useSnapImage from '~/h/useSnapImage';
 import usePickImage from '~/h/usePickImage';
 import useProfileId from '~/h/useProfileId';
 import useCachedProfile from '~/h/useCachedProfile';
-
-// Stubbed for editing
 
 function ProfileEdit({
   setShowEdit,
@@ -57,7 +56,12 @@ function ProfileEdit({
 
     let avatar_key = undefined;
     if (image) {
-      const { key } = await UploadImage.call(image.uri);
+      const { uri } = await ImageManipulator.manipulateAsync(
+        image.uri,
+        [{ resize: { width: 120, height: 120 } }],
+        { compress: 1, format: ImageManipulator.SaveFormat.PNG }
+      );
+      const { key } = await UploadImage.call(uri);
       avatar_key = key;
     }
 
