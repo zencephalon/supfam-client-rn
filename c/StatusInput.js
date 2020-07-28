@@ -1,5 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableHighlight,
+  ActivityIndicator,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import SfTextInput from './SfTextInput';
@@ -15,6 +20,23 @@ import { queryCache } from 'react-query';
 import { putStatusMe } from '~/apis/api';
 
 import { StatusMessageText } from '~/c/StatusMessageText';
+import useApi from '~/h/useApi';
+
+function usePostMessage(message, profileId, setMessage) {
+  const PutStatusMe = useApi(putStatusMe);
+  return {
+    call: React.useCallback(async () => {
+      try {
+        await PutStatusMe.call({ profileId, message });
+        queryCache.invalidateQueries(['profileMe', profileId]);
+      } catch (e) {
+        console.log(e);
+      }
+      setMessage(message);
+    }, [message, profileId, setMessage, PutStatusMe]),
+    req: PutStatusMe.req,
+  };
+}
 
 function MagicInput({ statusMessage, statusColor, updatedAt, profileId }) {
   const [focused, setFocused] = React.useState(false);
@@ -30,7 +52,7 @@ function MagicInput({ statusMessage, statusColor, updatedAt, profileId }) {
           statusMessage={statusMessage}
         />
       )}
-      {!focused && (
+      {!focused && !postMessage.req.requested && (
         <TouchableOpacity
           onPress={() => {
             if (message === statusMessage) {
@@ -58,6 +80,7 @@ function MagicInput({ statusMessage, statusColor, updatedAt, profileId }) {
           />
         </TouchableOpacity>
       )}
+      {postMessage.req.requested && <ActivityIndicator size="small" />}
 
       {focused && (
         <SfTextInput
@@ -75,7 +98,7 @@ function MagicInput({ statusMessage, statusColor, updatedAt, profileId }) {
       {focused && !!message && (
         <TouchableOpacity
           onPress={() => {
-            postMessage();
+            postMessage.call();
             setFocused(false);
           }}
           style={{
@@ -94,18 +117,6 @@ function MagicInput({ statusMessage, statusColor, updatedAt, profileId }) {
       )}
     </View>
   );
-}
-
-function usePostMessage(message, profileId, setMessage) {
-  return React.useCallback(async () => {
-    try {
-      await putStatusMe({ profileId, message });
-      queryCache.invalidateQueries(['profileMe', profileId]);
-    } catch (e) {
-      console.log(e);
-    }
-    setMessage(message);
-  }, [message, profileId, setMessage]);
 }
 
 export default function StatusInput({ profile, statusMe }) {
