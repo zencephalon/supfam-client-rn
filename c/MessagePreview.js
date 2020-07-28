@@ -61,7 +61,7 @@ export default React.memo(function MessagePreview({
       </View>
       {profileId && (
         <View style={{ marginLeft: 4 }}>
-          <ProfileIcon profileId={profileId} size={16} />
+          <ProfileIcon profileId={profileId} size={16} noBadge />
         </View>
       )}
       {!read && (
