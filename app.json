@@ -3,11 +3,7 @@
     "name": "Supfam",
     "slug": "Supfam",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -21,9 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 30
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "notification": {
       "icon": "./assets/images/notification-icon.png",
       "color": "#ffffff",
@@ -31,7 +25,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mutualflourishing.supfam",
+      "bundleIdentifier": "ooo.blacklotus.supfam",
       "buildNumber": "0.0.21",
       "infoPlist": {
         "NSCameraUsageDescription": "Allowing Supfam to use your camera lets you send photos to your fam",
