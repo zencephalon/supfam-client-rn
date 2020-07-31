@@ -20,7 +20,6 @@ export default function SfTopBar(props) {
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: light ? 0.1 : 0.4,
         shadowRadius: 3,
-        zIndex: 2,
         ...(props.style || {}),
       }}
     >
