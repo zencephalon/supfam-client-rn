@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
   formLabel: {
     marginBottom: 8,
     marginTop: 8,
-    color: 'white',
     fontSize: 24,
   },
 });
