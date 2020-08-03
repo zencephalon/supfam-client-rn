@@ -73,6 +73,7 @@ function ProfileEdit({
     <SfContainer>
       <SfText style={styles.formLabel}>Enter your full name</SfText>
       <SfTextInput
+        autoCompleteType="name"
         placeholder="Albus Dumbledore"
         value={name}
         onChangeText={setName}
