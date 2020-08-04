@@ -3,18 +3,21 @@ import * as Contacts from 'expo-contacts';
 import _ from 'lodash';
 
 function getContactNumber(contact) {
-  let contactPhoneNumber;
+  let mobilePhoneNumber;
+  let otherPhoneNumber;
   contact.phoneNumbers?.forEach((phoneNumber) => {
     if (phoneNumber.label == 'mobile') {
-      if(phoneNumber.digits) {
-        contactPhoneNumber = phoneNumber.digits;
-      } else if(phoneNumber.number) {
-        contactPhoneNumber = phoneNumber.number;
-      }
+      mobilePhoneNumber = phoneNumber.digits
+        ? phoneNumber.digits
+        : phoneNumber.number;
+    } else {
+      otherPhoneNumber = phoneNumber.digits
+        ? phoneNumber.digits
+        : phoneNumber.number;
     }
   });
 
-  return contactPhoneNumber;
+  return mobilePhoneNumber || otherPhoneNumber;
 }
 
 export default function useContacts(allowed) {
