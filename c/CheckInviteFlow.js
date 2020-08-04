@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   explainerText: {
     marginTop: 8,
     fontSize: 16,
-    color: 'white',
   },
   phoneNumberPreview: {
     height: elementSizes[5],
