@@ -33,7 +33,7 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
             style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}
           >
             {conversation?.name || (
-              <GroupMemberNameSummary conversationId={conversation.id} />
+              <GroupMemberNameSummary conversationId={conversation?.id} />
             )}
           </SfText>
         }
@@ -42,7 +42,7 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
         style={{ padding: 4 }}
         onPress={() =>
           navigation.navigate('Group Settings', {
-            conversationId: conversation.id,
+            conversationId: conversation?.id,
           })
         }
       >
