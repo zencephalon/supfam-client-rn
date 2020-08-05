@@ -18,16 +18,16 @@ export default function HomeTopBar({ title }) {
   const { foregrounds } = useLight();
 
   const openAddActionSheet = () => {
-    const options = ['Invite Friend(s)', 'Create Group', 'Cancel'];
+    const options = ['Add Fam', 'Create Group', 'Cancel'];
     const cancelButtonIndex = 2;
-  
+
     showActionSheetWithOptions(
       {
         options,
         cancelButtonIndex,
       },
-      buttonIndex => {
-        switch(buttonIndex) {
+      (buttonIndex) => {
+        switch (buttonIndex) {
           case 0:
             navigation.navigate('Invite');
             break;
@@ -37,7 +37,7 @@ export default function HomeTopBar({ title }) {
           default:
             break;
         }
-      },
+      }
     );
   };
 
@@ -50,10 +50,7 @@ export default function HomeTopBar({ title }) {
         <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
       <SfText style={{ color: foregrounds[1] }}>{title}</SfText>
-      <TouchableOpacity
-        style={{ padding: 4 }}
-        onPress={openAddActionSheet}
-      >
+      <TouchableOpacity style={{ padding: 4 }} onPress={openAddActionSheet}>
         <MaterialIcons
           name="person-add"
           size={24}
