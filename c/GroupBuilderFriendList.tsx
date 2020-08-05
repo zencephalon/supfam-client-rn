@@ -64,19 +64,21 @@ function useSubmit(addingProfileIds: number[], conversationId: number) {
   const AddMembers = useApi(postConversationAddMembers);
   const { refetch: groupConvoRefetch } = useGroupConversations();
 
-  const [ submitting, setSubmitting ] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
 
   const submit = React.useCallback(() => {
-    if(submitting) { return } else { setSubmitting(true) }
+    if (submitting) {
+      return;
+    } else {
+      setSubmitting(true);
+    }
     (async () => {
       const profileIds = addingProfileIds;
       if (conversationId) {
         // Existing conversation, do add
         AddMembers.call({ conversationId, profileIds });
         groupConvoRefetch();
-        navigation.navigate('Conversation', {
-          conversationId,
-        });
+        linkTo(`/conversation/${conversationId}`);
       } else {
         // If there is only one profileId, just go to that DM
         if (profileIds.length == 1) {
@@ -98,7 +100,13 @@ function useSubmit(addingProfileIds: number[], conversationId: number) {
         }
       }
     })();
-  }, [submitting, addingProfileIds, conversationId, navigation.navigate, linkTo]);
+  }, [
+    submitting,
+    addingProfileIds,
+    conversationId,
+    navigation.navigate,
+    linkTo,
+  ]);
 
   return submit;
 }
