@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
   formLabel: {
     marginBottom: elementSizes[3],
     marginTop: elementSizes[3],
-    color: 'white',
   },
   formContainer: {
     marginLeft: elementSizes[3],
