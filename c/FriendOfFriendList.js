@@ -78,6 +78,7 @@ const FriendOfFriendList = () => {
         style={{ backgroundColor: backgrounds[0] }}
         renderItem={renderInviteRow}
         keyExtractor={(profile) => `${profile.type}${profile.id}`}
+        keyboardShouldPersistTaps={'handled'}
         refreshControl={
           <RefreshControl
             // TODO: this should use `isFetching` but that makes it spin forever for some reason

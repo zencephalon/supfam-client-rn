@@ -45,6 +45,7 @@ class MessageList extends React.Component {
           style={{ flex: 1 }}
           keyExtractor={(m) => `${m.id}`}
           inverted
+          keyboardShouldPersistTaps={'handled'}
         />
       </>
     );

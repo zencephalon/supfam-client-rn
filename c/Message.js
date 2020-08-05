@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  Keyboard,
+} from 'react-native';
 
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
@@ -56,7 +61,11 @@ function Message(props) {
             setShowDate(!showDate);
           }}
           onLongPress={() => {
-            message.i || openMessageActionModal();
+            if (message.i) {
+              return;
+            }
+            Keyboard.dismiss();
+            openMessageActionModal();
           }}
           style={{
             flexDirection: 'column',
