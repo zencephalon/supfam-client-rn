@@ -40,9 +40,6 @@ export function useFriendIds() {
 }
 
 export function useIsFriend(profileId) {
-  const { friends } = useFriends();
-
-  const friendIds = friends.map((f) => f.id);
-
+  const { friendIds } = useFriendIds();
   return friendIds.includes(profileId);
 }
