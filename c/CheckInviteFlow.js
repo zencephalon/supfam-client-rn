@@ -40,7 +40,13 @@ function CheckInviteFlow(props) {
         real person, and link your account to you.
       </SfText>
     
-      <IntlPhoneInput containerStyle={{ backgroundColor: backgrounds[1], marginTop: 8 }} dialCodeTextStyle={{ color: foregrounds[0], fontSize: 24 }} phoneInputStyle={{ color: foregrounds[0], backgroundColor: backgrounds[1], fontSize: 24 }} onChangeText={setPhone} defaultCountry="US"  />
+      <IntlPhoneInput
+        containerStyle={{ backgroundColor: backgrounds[1], marginTop: 8 }}
+        dialCodeTextStyle={{ color: foregrounds[0], fontSize: 24 }}
+        phoneInputStyle={{ color: foregrounds[0], backgroundColor: backgrounds[1], fontSize: 24 }}
+        onChangeText={setPhone}
+        defaultCountry="US"
+      />
 
       <SfButton
         round
