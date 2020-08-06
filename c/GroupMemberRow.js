@@ -66,11 +66,7 @@ export default function GroupMemberRow({ conversationId, profileId }) {
   return (
     <TouchableOpacity
       style={styles.addToGroupRow}
-      onPress={() => {
-        if (!removed) {
-          remove();
-        }
-      }}
+      onPress={() => navigation.navigate('Friend Settings', { profileId })}
     >
       <View style={{ flexGrow: 1 }}>
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>

@@ -3,7 +3,8 @@ import * as React from 'react';
 import ProfileIcon from './ProfileIcon';
 import TopText from './TopText';
 
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import SfInlineButton from '~/c/SfInlineButton';
 
@@ -20,6 +21,7 @@ export default function RespondToInviteRow({ invite }) {
 
   const Accept = useApi(postAcceptFriendInvite);
   const Decline = useApi(postDeclineFriendInvite);
+  const navigation = useNavigation();
   const profileId = useProfileId();
   const fromFriend = invite?.from_friend;
 
@@ -63,11 +65,11 @@ export default function RespondToInviteRow({ invite }) {
   }
 
   return (
-    <View
+    <TouchableOpacity
       style={{
         ...styles.inviteFriendRow,
       }}
-      onPress={() => {}}
+      onPress={() => navigation.navigate('Friend Settings', { profileId: fromFriend.id })}
     >
       <View style={{ flexGrow: 1 }}>
         <TopText title={`${fromFriend.name} invites you to chat on Supfam!`} />
@@ -111,7 +113,7 @@ export default function RespondToInviteRow({ invite }) {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import SfText from '~/c/SfText';
 import SfInlineButton from '~/c/SfInlineButton';
@@ -16,6 +17,7 @@ export default function InviteFriendRow({ profile }) {
   const Invite = useApi(postFriendInvite);
   const CancelInvite = useApi(postCancelFriendInvite);
   const profileId = useProfileId();
+  const navigation = useNavigation();
 
   const sendInvite = () => {
     Invite.call({ from_profile_id: profileId, to_profile_id: profile.id });
@@ -33,11 +35,7 @@ export default function InviteFriendRow({ profile }) {
   return (
     <TouchableOpacity
       style={styles.inviteFriendRow}
-      onPress={() => {
-        if (!inviteSent) {
-          sendInvite();
-        }
-      }}
+      onPress={() => navigation.navigate('Friend Settings', { profileId: profile.id })}
     >
       <View style={{ flexGrow: 1 }}>
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
