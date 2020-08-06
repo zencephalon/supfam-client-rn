@@ -16,7 +16,12 @@ import useLight from '~/h/useLight';
 
 import { elementSizes } from '~/constants/Sizes';
 
-const onChangeText = ({dialCode, unmaskedPhoneNumber, phoneNumber, isVerified}) => {
+const onChangeText = ({
+  dialCode,
+  unmaskedPhoneNumber,
+  phoneNumber,
+  isVerified,
+}) => {
   console.log(dialCode, unmaskedPhoneNumber, phoneNumber, isVerified);
 };
 
@@ -39,11 +44,15 @@ function CheckInviteFlow(props) {
         Please provide your phone number so that we can verify that you are a
         real person, and link your account to you.
       </SfText>
-    
+
       <IntlPhoneInput
         containerStyle={{ backgroundColor: backgrounds[1], marginTop: 8 }}
         dialCodeTextStyle={{ color: foregrounds[0], fontSize: 24 }}
-        phoneInputStyle={{ color: foregrounds[0], backgroundColor: backgrounds[1], fontSize: 24 }}
+        phoneInputStyle={{
+          color: foregrounds[0],
+          backgroundColor: backgrounds[1],
+          fontSize: 24,
+        }}
         onChangeText={setPhone}
         defaultCountry="US"
       />
@@ -57,7 +66,9 @@ function CheckInviteFlow(props) {
           checkDisabled
             ? () => {}
             : () => {
-                checkInvite({ phone: `${phone.dialCode}${phone.unmaskedPhoneNumber}` });
+                checkInvite({
+                  phone: `${phone.dialCode}${phone.unmaskedPhoneNumber}`,
+                });
               }
         }
       />
