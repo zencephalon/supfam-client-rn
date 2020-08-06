@@ -9,7 +9,7 @@ import ProfileIcon from '~/c/ProfileIcon';
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
 import useApi from '~/h/useApi';
-import useFriends from '~/h/useFriends';
+import useFriends, { useIsFriend } from '~/h/useFriends';
 import { postBlockFriend } from '~/apis/api';
 
 import { AWAY } from '~/constants/Colors';
@@ -18,6 +18,7 @@ export default function FriendSettingsScreen({ navigation, route }) {
   const userProfileId = useProfileId();
   const { profileId } = route.params;
   const profile = useCachedProfile(profileId);
+  const isFriend = useIsFriend(profileId);
 
   const BlockFriend = useApi(postBlockFriend);
 
@@ -70,18 +71,21 @@ export default function FriendSettingsScreen({ navigation, route }) {
         >
           {profile?.name}
         </SfText>
-        <SfButton
-          en
-          round
-          title={`Block & Unfriend`}
-          onPress={block}
-          color={AWAY}
-          style={{
-            marginTop: 16,
-            paddingLeft: 48,
-            paddingRight: 48,
-          }}
-        />
+        {
+          isFriend ?
+          <SfButton
+            en
+            round
+            title={`Block & Unfriend`}
+            onPress={block}
+            color={AWAY}
+            style={{
+              marginTop: 16,
+              paddingLeft: 48,
+              paddingRight: 48,
+            }}
+          /> : null
+        }
       </View>
     </SfKeyboardAvoidingView>
   );

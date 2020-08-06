@@ -38,3 +38,11 @@ export function useFriendIds() {
     refetch,
   };
 }
+
+export function useIsFriend(profileId) {
+  const { friends } = useFriends();
+
+  const friendIds = friends.map((f) => f.id);
+
+  return friendIds.includes(profileId);
+}
