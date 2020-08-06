@@ -14,7 +14,12 @@ export default function useConversationSelect(conversationId) {
       const notifs = await Notifications.getPresentedNotificationsAsync();
       notifs.forEach((notification) => {
         const data = notification.request.content.data;
-        const message = data.message || data.body.message;
+        const message = data.message || data.body?.message;
+
+        if (!message) {
+          return;
+        }
+
         const conversation_id = message?.conversation_id;
         if (conversation_id == conversationId) {
           Notifications.dismissNotificationAsync(

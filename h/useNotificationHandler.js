@@ -16,7 +16,12 @@ export default function useNotificationHandler(containerRef) {
     const subscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
         const data = response.notification.request.content.data;
-        const message = data.message || data.body.message;
+        const message = data.message || data.body?.message;
+
+        if (!message) {
+          return;
+        }
+
         const isDm = data.isDm || data.body.isDm;
 
         if (isDm) {
