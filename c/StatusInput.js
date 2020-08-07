@@ -157,7 +157,7 @@ export default function StatusInput({ profile, statusMe }) {
 
 const styles = StyleSheet.create({
   statusInput: {
-    fontSize: 24,
+    fontSize: 16,
     borderRadius: 10,
     borderWidth: 0,
     paddingRight: 8,
