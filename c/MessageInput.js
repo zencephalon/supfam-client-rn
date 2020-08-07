@@ -60,7 +60,7 @@ function _ProfilesHereDisplay({ profileIds }) {
 const ProfilesHereDisplay = React.memo(_ProfilesHereDisplay);
 
 function MessageInput({ conversationId }) {
-  const { backgrounds } = useLight();
+  const { foregrounds, backgrounds } = useLight();
   const { profile } = useProfileMe();
   const statusMe = profile?.status;
 
@@ -115,13 +115,25 @@ function MessageInput({ conversationId }) {
 
       <View style={styles.container}>
         {!focused && (
-          <TouchableOpacity onPress={snapImage} style={styles.cameraButton}>
-            <Ionicons name="md-camera" size={32} color={backgrounds[3]} />
+          <TouchableOpacity onPress={snapImage} style={styles.snapButton}>
+            <Ionicons name="md-camera" size={32} color={foregrounds[3]} />
           </TouchableOpacity>
         )}
         {!focused && (
-          <TouchableOpacity onPress={pickImage} style={styles.cameraButton}>
-            <Ionicons name="md-photos" size={32} color={backgrounds[3]} />
+          <TouchableOpacity onPress={pickImage} style={styles.pickButton}>
+            <Ionicons name="md-photos" size={32} color={foregrounds[3]} />
+          </TouchableOpacity>
+        )}
+        {focused && (
+          <TouchableOpacity
+            onPress={setFocusedFalse}
+            style={styles.unfocusButton}
+          >
+            <Ionicons
+              name="ios-arrow-forward"
+              size={32}
+              color={foregrounds[3]}
+            />
           </TouchableOpacity>
         )}
         <SfTextInput
@@ -163,9 +175,20 @@ function MessageInput({ conversationId }) {
 export default React.memo(MessageInput);
 
 const styles = StyleSheet.create({
-  cameraButton: {
-    alignSelf: 'flex-start',
+  snapButton: {
     paddingRight: 8,
+    paddingLeft: 4,
+    marginBottom: -4,
+  },
+  pickButton: {
+    paddingRight: 16,
+    paddingLeft: 8,
+    marginBottom: -4,
+  },
+  unfocusButton: {
+    paddingRight: 16,
+    paddingLeft: 8,
+    marginBottom: -4,
   },
   sendButton: {
     alignSelf: 'flex-start',
