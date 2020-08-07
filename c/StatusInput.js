@@ -101,12 +101,7 @@ function MagicInput({ statusMessage, statusColor, updatedAt, profileId }) {
             postMessage.call();
             setFocused(false);
           }}
-          style={{
-            marginLeft: 4,
-            marginBottom: 2,
-            justifyContent: 'flex-end',
-            flexGrow: 1,
-          }}
+          style={styles.sendButton}
         >
           <MaterialCommunityIcons
             name="send"
@@ -156,6 +151,12 @@ export default function StatusInput({ profile, statusMe }) {
 }
 
 const styles = StyleSheet.create({
+  sendButton: {
+    marginLeft: 4,
+    marginBottom: 2,
+    justifyContent: 'flex-end',
+    flexGrow: 1,
+  },
   statusInput: {
     fontSize: 16,
     borderRadius: 10,
