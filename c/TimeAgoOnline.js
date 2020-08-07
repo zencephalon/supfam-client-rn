@@ -73,6 +73,7 @@ const TimeAgo = ({ time }) => {
           textAlign: 'left',
           color: textTertiary,
           textAlignVertical: 'bottom',
+          marginRight: 1,
         }}
       >
         {timeDisplay}
