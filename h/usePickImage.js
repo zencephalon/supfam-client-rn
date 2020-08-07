@@ -1,3 +1,4 @@
+import React from 'react';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -20,7 +21,7 @@ async function pickImage(setImage, imageOptions) {
 }
 
 export default function usePickImage({ setImage, config }) {
-  return async () => {
+  return React.useCallback(async () => {
     if (!Constants.platform.ios) {
       pickImage(setImage, config);
       return;
@@ -69,5 +70,5 @@ export default function usePickImage({ setImage, config }) {
       ],
       { cancelable: false }
     );
-  };
+  }, [setImage, config]);
 }

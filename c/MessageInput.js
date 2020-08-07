@@ -22,20 +22,22 @@ import useSubmitImageMessage from '~/h/useSubmitImageMessage';
 import useConversationPresence from '~/h/useConversationPresence';
 
 const getProfilesHere = (presence, meProfileId) => {
-  const profilesHere = [];
-  _.each(presence, (lastHeartBeat, profileId) => {
-    // Yikes, profileId is a string, meProfileId is an int, should probably get typescript going at some point soon
-    if (profileId == meProfileId) {
-      return;
-    }
-    if (lastHeartBeat + 5000 > Date.now()) {
-      profilesHere.push(profileId);
-    }
-  });
-  return profilesHere;
+  return React.useMemo(() => {
+    const profilesHere = [];
+    _.each(presence, (lastHeartBeat, profileId) => {
+      // Yikes, profileId is a string, meProfileId is an int, should probably get typescript going at some point soon
+      if (profileId == meProfileId) {
+        return;
+      }
+      if (lastHeartBeat + 5000 > Date.now()) {
+        profilesHere.push(profileId);
+      }
+    });
+    return profilesHere;
+  }, [presence, meProfileId]);
 };
 
-function ProfilesHereDisplay({ profileIds }) {
+function _ProfilesHereDisplay({ profileIds }) {
   return (
     <View
       style={{
@@ -45,18 +47,19 @@ function ProfilesHereDisplay({ profileIds }) {
       }}
     >
       {profileIds.length === 0 ? null : (
-        <>
+        <React.Fragment>
           {profileIds.map((profileId) => (
             <ProfileIcon key={profileId} profileId={profileId} size={16} />
           ))}
           <SfText style={{ fontSize: 12 }}>⚡</SfText>
-        </>
+        </React.Fragment>
       )}
     </View>
   );
 }
+const ProfilesHereDisplay = React.memo(_ProfilesHereDisplay);
 
-export default function MessageInput({ conversationId }) {
+function MessageInput({ conversationId }) {
   const { backgrounds } = useLight();
   const { profile } = useProfileMe();
   const statusMe = profile?.status;
@@ -76,6 +79,13 @@ export default function MessageInput({ conversationId }) {
   const { presence } = useConversationPresence(conversationId, profile?.id);
   const profilesHere = getProfilesHere(presence, profile?.id);
   const anyoneHere = profilesHere.length > 0;
+
+  const setFocusedTrue = React.useCallback(() => setFocused(true), [
+    setFocused,
+  ]);
+  const setFocusedFalse = React.useCallback(() => setFocused(false), [
+    setFocused,
+  ]);
 
   const setMessage = React.useCallback(
     (text) => {
@@ -103,30 +113,14 @@ export default function MessageInput({ conversationId }) {
     >
       <ProfilesHereDisplay profileIds={profilesHere} />
 
-      <View
-        style={{
-          ...styles.container,
-        }}
-      >
+      <View style={styles.container}>
         {!focused && (
-          <TouchableOpacity
-            onPress={snapImage}
-            style={{
-              alignSelf: 'flex-start',
-              paddingRight: 8,
-            }}
-          >
+          <TouchableOpacity onPress={snapImage} style={styles.cameraButton}>
             <Ionicons name="md-camera" size={32} color={backgrounds[3]} />
           </TouchableOpacity>
         )}
         {!focused && (
-          <TouchableOpacity
-            onPress={pickImage}
-            style={{
-              alignSelf: 'flex-start',
-              paddingRight: 8,
-            }}
-          >
+          <TouchableOpacity onPress={pickImage} style={styles.cameraButton}>
             <Ionicons name="md-photos" size={32} color={backgrounds[3]} />
           </TouchableOpacity>
         )}
@@ -135,11 +129,11 @@ export default function MessageInput({ conversationId }) {
           value={text}
           onChangeText={setMessage}
           textInputStyle={styles.statusInput}
-          style={{ flexGrow: 1, flexShrink: 1 }}
+          style={styles.statusInputContainer}
           multiline={true}
           blurOnSubmit={false}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={setFocusedTrue}
+          onBlur={setFocusedFalse}
         />
         {!!text && (
           <TouchableOpacity
@@ -152,10 +146,7 @@ export default function MessageInput({ conversationId }) {
               });
               setQid(Math.random());
             }}
-            style={{
-              alignSelf: 'flex-start',
-              paddingLeft: 4,
-            }}
+            style={styles.sendButton}
           >
             <MaterialCommunityIcons
               name="send"
@@ -169,7 +160,21 @@ export default function MessageInput({ conversationId }) {
   );
 }
 
+export default React.memo(MessageInput);
+
 const styles = StyleSheet.create({
+  cameraButton: {
+    alignSelf: 'flex-start',
+    paddingRight: 8,
+  },
+  sendButton: {
+    alignSelf: 'flex-start',
+    paddingLeft: 4,
+  },
+  statusInputContainer: {
+    flexGrow: 1,
+    flexShrink: 1,
+  },
   statusInput: {
     padding: 12,
     fontSize: 16,

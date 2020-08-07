@@ -1,3 +1,4 @@
+import React from 'react';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -20,7 +21,7 @@ async function snapImage(setImage, config) {
 }
 
 export default function useSnapImage({ setImage, config }) {
-  return async () => {
+  return React.useCallback(async () => {
     if (!Constants.platform.ios) {
       snapImage(setImage, config);
       return;
@@ -67,5 +68,5 @@ export default function useSnapImage({ setImage, config }) {
       ],
       { cancelable: false }
     );
-  };
+  }, [setImage, config]);
 }
