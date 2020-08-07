@@ -108,6 +108,7 @@ const RenderInner = ({
 						postAddMessageReactions({ profileId, messageId, emoji });
 						snapTo(2);
 					}}
+					showSearchBar={true}
 				/>
 			) : (
 				<React.Fragment>

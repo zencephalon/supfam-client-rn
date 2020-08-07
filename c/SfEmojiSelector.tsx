@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import BottomSheetButton from '~/c/BottomSheetButton';
 import emoji from 'emoji-datasource';
+import _ from 'lodash';
 
 export const Categories = {
   all: {
@@ -152,9 +153,9 @@ export default class EmojiSelector extends Component {
     this.props.onEmojiSelected(charFromEmojiObject(emoji));
   };
 
-  handleSearch = (searchQuery) => {
+  handleSearch = _.throttle((searchQuery) => {
     this.setState({ searchQuery });
-  };
+  }, 50);
 
   addToHistoryAsync = async (emoji) => {
     let history = await AsyncStorage.getItem(storage_key);
@@ -393,7 +394,6 @@ const styles = StyleSheet.create({
         height: 36,
         paddingLeft: 8,
         borderRadius: 10,
-        backgroundColor: '#E5E8E9',
       },
     }),
     margin: 8,
