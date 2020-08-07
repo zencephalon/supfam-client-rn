@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Alert } from 'react-native';
+import { View, Alert, StyleSheet } from 'react-native';
 
 import SfKeyboardAvoidingView from '~/c/SfKeyboardAvoidingView';
 import SfText from '~/c/SfText';
@@ -8,20 +8,49 @@ import ProfileIcon from '~/c/ProfileIcon';
 
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
+import { useAcceptInvite, useDeclineInvite } from '~/h/useRespondToInvite';
 import useApi from '~/h/useApi';
-import useFriends from '~/h/useFriends';
-import { postBlockFriend } from '~/apis/api';
+import useFriends, { useIsFriend } from '~/h/useFriends';
+import { useFriendInvitesTo, useHasInvitedFriend, useHasInviteFromFriend } from '~h/useFriendInvites';
+import { postBlockFriend, postFriendInvite, postCancelFriendInvite } from '~/apis/api';
 
-import { AWAY } from '~/constants/Colors';
+import { AWAY, OPEN } from '~/constants/Colors';
 
 export default function FriendSettingsScreen({ navigation, route }) {
   const userProfileId = useProfileId();
   const { profileId } = route.params;
   const profile = useCachedProfile(profileId);
+  const isFriend = useIsFriend(profileId);
+  const hasInvitedFriend = useHasInvitedFriend(profileId);
+  const hasInviteFromFriend = useHasInviteFromFriend(profileId);
 
+  const [ inviteSent, setInviteSent ] = React.useState(hasInvitedFriend);
+  const [ inviteFromFriend, setInviteFromFriend ] = React.useState(hasInviteFromFriend);
+
+  const Invite = useApi(postFriendInvite);
+  const CancelInvite = useApi(postCancelFriendInvite);
   const BlockFriend = useApi(postBlockFriend);
 
   const { refetch } = useFriends();
+  const { refetch: refetchInvites } = useFriendInvitesTo();
+
+  const sendInvite = () => {
+    Invite.call({ from_profile_id: userProfileId, to_profile_id: profileId });
+    setInviteSent(true);
+  };
+
+  const cancelInvite = () => {
+    CancelInvite.call({ from_profile_id: userProfileId, to_profile_id: profileId });
+    setInviteSent(false);
+  };
+
+  const acceptInvite = useAcceptInvite(profileId, () => {
+    // Note: not sure if the useFriends refetch here is working.
+    refetch();
+    refetchInvites();
+    navigation.navigate('Home');
+  });
+  const declineInvite = useDeclineInvite(profile, () => setInviteFromFriend(false));
 
   const block = () => {
     Alert.alert(
@@ -48,6 +77,64 @@ export default function FriendSettingsScreen({ navigation, route }) {
     );
   };
 
+  const renderButtons = () => {
+    if(isFriend) {
+      return (
+        <SfButton
+          en
+          round
+          title={`Block & Unfriend`}
+          onPress={block}
+          color={AWAY}
+          style={styles.button}
+        />
+      );
+    } else if (inviteFromFriend) {
+      return (
+        <>
+        <SfButton
+          en
+          round
+          title={`Accept Invitation`}
+          onPress={acceptInvite}
+          color={OPEN}
+          style={styles.button}
+        />
+        <SfButton
+          en
+          round
+          title={`Decline Invitation`}
+          onPress={declineInvite}
+          color={AWAY}
+          style={styles.button}
+        />
+        </>
+      );
+    } else if (inviteSent) {
+      return (
+        <SfButton
+          en
+          round
+          title={`Cancel Invitation`}
+          onPress={cancelInvite}
+          color={AWAY}
+          style={styles.button}
+        />
+      );
+    } else {
+      return (
+        <SfButton
+          en
+          round
+          title={`Invite Friend`}
+          onPress={sendInvite}
+          color={OPEN}
+          style={styles.button}
+        />
+      );
+    }
+  }
+
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={96}>
       <View
@@ -70,19 +157,16 @@ export default function FriendSettingsScreen({ navigation, route }) {
         >
           {profile?.name}
         </SfText>
-        <SfButton
-          en
-          round
-          title={`Block & Unfriend`}
-          onPress={block}
-          color={AWAY}
-          style={{
-            marginTop: 16,
-            paddingLeft: 48,
-            paddingRight: 48,
-          }}
-        />
+        { renderButtons() }
       </View>
     </SfKeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    marginTop: 16,
+    paddingLeft: 48,
+    paddingRight: 48,
+  },
+});

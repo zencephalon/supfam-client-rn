@@ -38,3 +38,8 @@ export function useFriendIds() {
     refetch,
   };
 }
+
+export function useIsFriend(profileId) {
+  const { friendIds } = useFriendIds();
+  return friendIds.includes(profileId);
+}

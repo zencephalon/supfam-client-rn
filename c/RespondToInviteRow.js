@@ -3,71 +3,38 @@ import * as React from 'react';
 import ProfileIcon from './ProfileIcon';
 import TopText from './TopText';
 
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import SfInlineButton from '~/c/SfInlineButton';
 
-import useProfileId from '~/h/useProfileId';
-import useApi from '~/h/useApi';
-import { postAcceptFriendInvite, postDeclineFriendInvite } from '~/apis/api';
+import { useAcceptInvite, useDeclineInvite } from '~/h/useRespondToInvite';
 
 import { AWAY } from '~/constants/Colors';
-
-import { queryCache } from 'react-query';
 
 export default function RespondToInviteRow({ invite }) {
   const [showRow, setShowRow] = React.useState(true);
 
-  const Accept = useApi(postAcceptFriendInvite);
-  const Decline = useApi(postDeclineFriendInvite);
-  const profileId = useProfileId();
+  const navigation = useNavigation();
   const fromFriend = invite?.from_friend;
 
   if (!fromFriend) {
     return null;
   }
 
-  const acceptInvite = () => {
-    Accept.call({ from_profile_id: fromFriend.id, to_profile_id: profileId });
-    queryCache.invalidateQueries(['friends']);
-    queryCache.invalidateQueries(['friendInvitesTo', profileId]);
-    setShowRow(false);
-  };
-
-  const declineInvite = () => {
-    Alert.alert(
-      'Are you sure?',
-      `If you decline ${fromFriend.name}'s invitation, you won't be able to be friends with them on Supfam.`,
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Decline',
-          onPress: () => {
-            Decline.call({
-              from_profile_id: fromFriend.id,
-              to_profile_id: profileId,
-            });
-            setShowRow(false);
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  };
+  const acceptInvite = useAcceptInvite(fromFriend.id, () => setShowRow(false));
+  const declineInvite = useDeclineInvite(fromFriend, () => setShowRow(false));
 
   if (!showRow) {
     return null;
   }
 
   return (
-    <View
+    <TouchableOpacity
       style={{
         ...styles.inviteFriendRow,
       }}
-      onPress={() => {}}
+      onPress={() => navigation.navigate('Friend Settings', { profileId: fromFriend.id })}
     >
       <View style={{ flexGrow: 1 }}>
         <TopText title={`${fromFriend.name} invites you to chat on Supfam!`} />
@@ -111,7 +78,7 @@ export default function RespondToInviteRow({ invite }) {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

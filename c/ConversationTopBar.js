@@ -25,12 +25,13 @@ export default function ConversationTopBar({
       >
         <Ionicons name="ios-arrow-back" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
-      <View
+      <TouchableOpacity
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
           maxWidth: '60%',
         }}
+        onPress={() => navigation.navigate('Friend Settings', { profileId })}
       >
         <ProfileIcon profileId={profileId} />
         <View>
@@ -51,7 +52,7 @@ export default function ConversationTopBar({
             {statusMessage}
           </SfText>
         </View>
-      </View>
+      </TouchableOpacity>
       <TouchableOpacity
         style={{ padding: 4 }}
         onPress={() => navigation.navigate('Friend Settings', { profileId })}
