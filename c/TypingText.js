@@ -3,15 +3,16 @@ import React, { useState } from 'react';
 import useInterval from '@use-it/interval';
 
 const getDisplay = (time) => {
-	return new Date() - time > 1500 ? '...paused' : '';
+	return (new Date() - time > 1500) ? '...paused' : 'typing...';
 };
 
 const TypingText = ({ time }) => {
 	const [timeDisplay, setTimeDisplay] = useState(getDisplay(time));
 
 	useInterval(() => {
-		setTimeDisplay(getDisplay(time));
-	}, 500);
+		const display = getDisplay(time);
+		setTimeDisplay(display);
+	}, 1000);
 
 	return <React.Fragment>{timeDisplay}</React.Fragment>;
 };
