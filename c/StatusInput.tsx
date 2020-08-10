@@ -1,34 +1,22 @@
 import React from 'react';
-import { View, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ProfileIconFromProfile } from '~/c/ProfileIcon';
-
 import MagicInput from '~/c/MagicInput';
 
 export default function StatusInput({ profile, statusMe }) {
   const navigation = useNavigation();
 
+  const goProfileSettings = React.useCallback(() => {
+    navigation.navigate('Profile Settings');
+  }, [navigation]);
+
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        paddingTop: 8,
-        paddingLeft: 8,
-        paddingRight: 8,
-        marginBottom: 8,
-        alignItems: 'flex-start',
-      }}
-    >
+    <View style={styles.inputContainer}>
       <TouchableHighlight
-        style={{
-          height: '100%',
-          flexDirection: 'column',
-          marginBottom: 4,
-        }}
-        onPress={() => {
-          navigation.navigate('Profile Settings');
-        }}
+        style={styles.profileIconContainer}
+        onPress={goProfileSettings}
       >
         <ProfileIconFromProfile profile={profile} size={48} />
       </TouchableHighlight>
@@ -41,3 +29,19 @@ export default function StatusInput({ profile, statusMe }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  profileIconContainer: {
+    height: '100%',
+    flexDirection: 'column',
+    marginBottom: 4,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    paddingTop: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginBottom: 8,
+    alignItems: 'flex-start',
+  },
+});
