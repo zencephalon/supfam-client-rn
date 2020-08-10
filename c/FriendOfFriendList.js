@@ -55,7 +55,7 @@ const FriendOfFriendList = () => {
   } = useInvitableFriends();
   const contacts = useContacts(allowed);
 
-  if (!showAllFOF && !searchQuery) {
+  if (!showAllFOF && !searchQuery && invitableFriends.length > 5) {
     // Limit number of friends of friends shown to 4.
     invitableFriends = invitableFriends.slice(0, 5);
     invitableFriends = [...invitableFriends, {type: 'fof_label'}];
