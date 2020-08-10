@@ -7,18 +7,28 @@ import org.unimodules.core.interfaces.Package;
 public class BasePackageList {
   public List<Package> getPackageList() {
     return Arrays.<Package>asList(
+        new expo.modules.application.ApplicationPackage(),
+        new expo.modules.battery.BatteryPackage(),
+        new expo.modules.cellular.CellularPackage(),
         new expo.modules.constants.ConstantsPackage(),
+        new expo.modules.contacts.ContactsPackage(),
+        new expo.modules.device.DevicePackage(),
         new expo.modules.errorrecovery.ErrorRecoveryPackage(),
         new expo.modules.filesystem.FileSystemPackage(),
         new expo.modules.font.FontLoaderPackage(),
         new expo.modules.imageloader.ImageLoaderPackage(),
+        new expo.modules.imagemanipulator.ImageManipulatorPackage(),
+        new expo.modules.imagepicker.ImagePickerPackage(),
         new expo.modules.keepawake.KeepAwakePackage(),
         new expo.modules.lineargradient.LinearGradientPackage(),
         new expo.modules.location.LocationPackage(),
+        new expo.modules.notifications.NotificationsPackage(),
         new expo.modules.permissions.PermissionsPackage(),
+        new expo.modules.sms.SMSPackage(),
         new expo.modules.splashscreen.SplashScreenPackage(),
         new expo.modules.sqlite.SQLitePackage(),
-        new expo.modules.updates.UpdatesPackage()
+        new expo.modules.updates.UpdatesPackage(),
+        new expo.modules.webbrowser.WebBrowserPackage()
     );
   }
 }
