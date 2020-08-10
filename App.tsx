@@ -52,7 +52,7 @@ Sentry.init({
   enableInExpoDevelopment: true,
   debug: true,
 });
-if (Constants.manifest.revisionId) {
+if (Constants?.manifest?.revisionId) {
   Sentry.setRelease(Constants.manifest.revisionId);
 }
 

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "24857377119",
+    "firebase_url": "https://supfam-38e8a.firebaseio.com",
+    "project_id": "supfam-38e8a",
+    "storage_bucket": "supfam-38e8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24857377119:android:0700dcda2e126dce101eea",
+        "android_client_info": {
+          "package_name": "com.mutualflourishing.supfam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24857377119-nkudlpc3mo4bq63svb1r0gmbfmeqek66.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mutualflourishing.supfam",
+            "certificate_hash": "bb37089797166dcbfe173d8b7785ddfbc76b641d"
+          }
+        },
+        {
+          "client_id": "24857377119-9fp8rtpm3938vfgm6mknhu0693brjon9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEOkClnZLpS_YTBF59VmnWjWa0gHbNqHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24857377119-9fp8rtpm3938vfgm6mknhu0693brjon9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
