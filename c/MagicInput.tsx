@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   statusInput: {
-    fontSize: 16,
+    fontSize: 24,
     borderRadius: 10,
     borderWidth: 0,
     paddingRight: 8,

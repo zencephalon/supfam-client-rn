@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Text } from 'react-native';
+import { View, FlatList, StyleSheet, Text, Platform } from 'react-native';
 
 import Message from '~/c/Message';
 import SfText from '~/c/SfText';
@@ -46,6 +46,7 @@ class MessageList extends React.Component {
           keyExtractor={(m) => `${m.id}`}
           inverted
           keyboardShouldPersistTaps={'handled'}
+          keyboardDismissMode={'on-drag'}
         />
       </>
     );
