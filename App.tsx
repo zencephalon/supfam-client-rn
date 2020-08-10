@@ -67,7 +67,7 @@ export default function App({
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        SplashScreen.preventAutoHide();
+        SplashScreen.preventAutoHideAsync();
 
         // Load fonts
         await Font.loadAsync({
@@ -84,7 +84,7 @@ export default function App({
         console.warn(e);
       } finally {
         setLoadingComplete(true);
-        SplashScreen.hide();
+        SplashScreen.hideAsync();
       }
     }
 

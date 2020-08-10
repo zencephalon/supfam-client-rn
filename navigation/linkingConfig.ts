@@ -1,7 +1,7 @@
 import * as Linking from 'expo-linking';
 
 const config = {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: ['supfam/'],
   config: {
     screens: {
       Root: {
