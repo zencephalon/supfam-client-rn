@@ -46,7 +46,9 @@ const FriendOfFriendList = () => {
   const [showAllFOF, setShowAllFOF] = React.useState(false);
   const { allowed, requestPermission } = useContactsPermission();
 
-  const renderInviteRow = useRenderInviteRow(requestPermission, () => setShowAllFOF(true));
+  const renderInviteRow = useRenderInviteRow(requestPermission, () =>
+    setShowAllFOF(true)
+  );
 
   let {
     friends: invitableFriends,
@@ -57,8 +59,7 @@ const FriendOfFriendList = () => {
 
   if (!showAllFOF && !searchQuery && invitableFriends.length > 5) {
     // Limit number of friends of friends shown to 4.
-    invitableFriends = invitableFriends.slice(0, 5);
-    invitableFriends = [...invitableFriends, {type: 'fof_label'}];
+    invitableFriends = [...invitableFriends.slice(0, 4), { type: 'fof_label' }];
   }
 
   invitableFriends = [...invitableFriends, ...contacts];

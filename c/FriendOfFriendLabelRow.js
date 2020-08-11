@@ -10,39 +10,34 @@ export default function FriendOfFriendLabelRow({ showAll }) {
         <View style={{ flexDirection: 'row', marginTop: 8, flex: 1 }}>
           <View
             style={{
-              flexDirection: 'column',
+              flexDirection: 'row',
               flexGrow: 1,
-              width: 0, // hack to get text to wrap
-              alignItems: 'flex-start',
+              alignItems: 'flex-end',
+              justifyContent: 'space-between',
             }}
           >
             <SfText
               style={{
-                fontSize: 16,
+                fontSize: 24,
                 flexGrow: 1,
                 flexShrink: 1,
-                marginLeft: 8,
                 overflow: 'hidden',
+                marginBottom: 10,
               }}
             >
-              Friends of Friends
+              Your fam's fam
             </SfText>
-            <View
-              style={{
-                position: 'absolute',
-                left: 130,
-                top: -12,
+            <SfTextButton
+              title="(View More)"
+              onPress={showAll}
+              style={{ marginRight: 4 }}
+              buttonTextStyle={{
+                fontSize: 16,
+                textDecorationLine: 'underline',
+                paddingTop: 0,
+                paddingBottom: 0,
               }}
-            >
-              <SfTextButton
-                title="(View More)"
-                onPress={showAll}
-                buttonTextStyle={{
-                  fontSize: 16,
-                  textDecorationLine: 'underline',
-                }}
-              />
-            </View>
+            />
           </View>
         </View>
       </View>
