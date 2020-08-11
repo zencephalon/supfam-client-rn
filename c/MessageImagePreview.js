@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dimensions, Image } from 'react-native';
+import { Dimensions } from 'react-native';
+import Image from 'react-native-fast-image';
 
 export default React.memo(function MessageImagePreview({
   uri,

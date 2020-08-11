@@ -1,6 +1,7 @@
 import React from 'react';
 import { getLinkPreview } from 'link-preview-js';
-import { Linking, TouchableOpacity, View, Image, Share } from 'react-native';
+import { Linking, TouchableOpacity, View, Share } from 'react-native';
+import Image from 'react-native-fast-image';
 
 import SfText from '~/c/SfText';
 import useLight from '~/h/useLight';

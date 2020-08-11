@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import FlashMessage from 'react-native-flash-message';
+import Image from 'react-native-fast-image';
 
 import SfText from '~/c/SfText';
 import SfContainer from '~/c/SfContainer';

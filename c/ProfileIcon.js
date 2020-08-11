@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
+import Image from 'react-native-fast-image';
 
 import useCachedProfile from '~/h/useCachedProfile';
 
