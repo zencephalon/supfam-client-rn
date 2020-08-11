@@ -6,6 +6,7 @@ import InviteFriendRow from '~/c/InviteFriendRow';
 import RespondToInviteRow from '~/c/RespondToInviteRow';
 import ContactsPromptRow from '~/c/ContactsPromptRow';
 import InviteContactRow from '~/c/InviteContactRow';
+import FriendOfFriendLabelRow from '~/c/FriendOfFriendLabelRow';
 import FriendSearchBar from '~/c/FriendSearchBar';
 
 import useLight from '~/h/useLight';
@@ -15,7 +16,7 @@ import useContactsPermission from '~/h/useContactsPermission';
 import useContacts from '~/h/useContacts';
 import useInvitableFriends from '~/h/useInvitableFriends';
 
-const useRenderInviteRow = (requestPermission) => {
+const useRenderInviteRow = (requestPermission, showAll) => {
   return React.useCallback(
     ({ item: profileOrInvite }) => {
       if (profileOrInvite.type == 'invite') {
@@ -29,6 +30,8 @@ const useRenderInviteRow = (requestPermission) => {
             prompt={profileOrInvite}
           />
         );
+      } else if (profileOrInvite.type == 'fof_label') {
+        return <FriendOfFriendLabelRow showAll={showAll} />;
       } else {
         return <InviteContactRow contact={profileOrInvite} />;
       }
@@ -40,9 +43,12 @@ const useRenderInviteRow = (requestPermission) => {
 const FriendOfFriendList = () => {
   const { backgrounds } = useLight();
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [showAllFOF, setShowAllFOF] = React.useState(false);
   const { allowed, requestPermission } = useContactsPermission();
 
-  const renderInviteRow = useRenderInviteRow(requestPermission);
+  const renderInviteRow = useRenderInviteRow(requestPermission, () =>
+    setShowAllFOF(true)
+  );
 
   let {
     friends: invitableFriends,
@@ -50,6 +56,11 @@ const FriendOfFriendList = () => {
     refetch,
   } = useInvitableFriends();
   const contacts = useContacts(allowed);
+
+  if (!showAllFOF && !searchQuery && invitableFriends.length > 5) {
+    // Limit number of friends of friends shown to 4.
+    invitableFriends = [...invitableFriends.slice(0, 4), { type: 'fof_label' }];
+  }
 
   invitableFriends = [...invitableFriends, ...contacts];
 
