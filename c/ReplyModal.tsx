@@ -38,7 +38,7 @@ export default function ReplyStatusModal({ navigation, route }) {
       data: { quoted, profile_id: profileId, quote_type: quoteType },
       type: 2,
     });
-    navigation.pop();
+    navigation.goBack();
   };
 
   let truncatedQuoted = quoted;

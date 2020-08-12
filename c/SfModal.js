@@ -21,7 +21,7 @@ export default function SfModal({ children }) {
     <TouchableOpacity
       style={styles.modalBackground}
       activeOpacity={1}
-      onPressOut={() => navigation.pop()}
+      onPressOut={() => navigation.goBack()}
     >
       <View style={styles.centeredView}>
         <TouchableWithoutFeedback>

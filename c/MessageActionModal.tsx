@@ -192,17 +192,16 @@ export default function MessageActionModal({ navigation, route }) {
 					snapTo={bottomSheet.current?.snapTo}
 					copyMessage={copyMessage}
 					openReplyModal={() => {
-						navigation.pop();
+						navigation.goBack();
 						openReplyModal();
 					}}
-					pop={() => navigation.pop()}
 					messageId={message.id}
 					messageType={message.type}
 				/>
 			)}
 			renderHeader={() => <RenderHeader />}
 			onCloseEnd={() => {
-				navigation.pop();
+				navigation.goBack();
 			}}
 			enabledContentTapInteraction={true}
 			enabledInnerScrolling={false}
