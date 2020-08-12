@@ -51,7 +51,7 @@
 	<key>NSContactsUsageDescription</key>
 	<string>Allowing Supfam to use your contacts lets you find your fam more quickly</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Allowing Supfam to use your location lets you locate your fam on a map</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allowing Supfam to use your camera roll lets you send saved photos to your fam</string>
 	<key>UILaunchStoryboardName</key>
