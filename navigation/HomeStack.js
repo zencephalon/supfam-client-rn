@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import HomeScreen from '~/screens/HomeScreen';
 import ConversationScreen from '~/screens/ConversationScreen';
 import InviteScreen from '~/screens/InviteScreen';
 import SettingsScreen from '~/screens/SettingsScreen';
 import FriendSettingsScreen from '~/screens/FriendSettingsScreen';
 import ProfileSettingsScreen from '~/screens/ProfileSettingsScreen';
+import GalleryScreen from '~/screens/GalleryScreen';
 
 import ChatScreen from '~/screens/ChatScreen';
 import GroupBuilderScreen from '~/screens/GroupBuilderScreen';
@@ -69,6 +71,12 @@ function HomeStack() {
       <Stack.Screen name="Friend Settings" component={FriendSettingsScreen} />
 
       <Stack.Screen name="Profile Settings" component={ProfileSettingsScreen} />
+
+      <Stack.Screen
+        name="Gallery"
+        component={GalleryScreen}
+        options={{ headerShown: false }}
+      />
 
       {/*Group chat screens*/}
       <Stack.Screen

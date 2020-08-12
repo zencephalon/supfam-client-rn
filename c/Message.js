@@ -19,15 +19,21 @@ import SfLinkPreview from '~/c/SfLinkPreview';
 import MessageReactions from '~/c/MessageReactions';
 
 import useOpenMessageActionModal from '~/h/useOpenMessageActionModal';
+import useGoGallery from '~/h/useGoGallery';
 import useCachedMessage from '~/h/useCachedMessage';
 
+import { useNavigation } from '@react-navigation/native';
+
 function Message(props) {
+  const navigation = useNavigation();
+
   const { messageId, isOwnMessage, fromSameUser, breakAbove } = props;
   const message = useCachedMessage(messageId);
 
   const [showDate, setShowDate] = React.useState(false);
 
   const openMessageActionModal = useOpenMessageActionModal(message);
+  const goGallery = useGoGallery(message);
 
   if (!message) {
     return null;
@@ -59,6 +65,9 @@ function Message(props) {
           activeOpacity={0.8}
           onPress={() => {
             setShowDate(!showDate);
+            if (message.type === 1) {
+              goGallery();
+            }
           }}
           onLongPress={() => {
             if (message.i) {

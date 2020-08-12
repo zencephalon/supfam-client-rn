@@ -18,6 +18,9 @@ const config = {
               conversationId: Number,
             },
           },
+          Gallery: {
+            path: 'gallery',
+          },
           Settings: 'settings',
         },
       },
