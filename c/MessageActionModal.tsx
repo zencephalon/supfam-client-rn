@@ -1,19 +1,10 @@
 import * as React from 'react';
 
-import {
-	View,
-	Clipboard,
-	Text,
-	StyleSheet,
-	TouchableOpacity,
-	Image,
-} from 'react-native';
+import { View, Clipboard, StyleSheet } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
-import SfText from '~/c/SfText';
 import EmojiSelector from '~/c/SfEmojiSelector';
 import SfSheetButton from '~/c/SfSheetButton';
-import BottomSheetButton from '~/c/BottomSheetButton';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 
@@ -25,60 +16,7 @@ import { postAddMessageReactions } from '~/apis/api';
 
 import EmojiHistory from '~/lib/EmojiHistory';
 
-import MoreEmojiIcon from '~/assets/images/more-emoji-icon.png';
-
-const EmojiButton = ({
-	emoji,
-	profileId,
-	messageId,
-	snapTo,
-}: {
-	snapTo: () => void;
-	emoji: string;
-	profileId: number;
-	messageId: number;
-}) => {
-	return (
-		<BottomSheetButton
-			style={{ padding: 10 }}
-			onPress={() => {
-				snapTo(2);
-				postAddMessageReactions({ profileId, messageId, emoji });
-			}}
-		>
-			<Text style={{ fontSize: 24 }}>{emoji}</Text>
-		</BottomSheetButton>
-	);
-};
-
-const MoreEmojiButton = ({
-	snapTo,
-	setShowEmojiSelector,
-}: {
-	snapTo: () => void;
-	setShowEmojiSelector: () => void;
-}) => {
-	return (
-		<BottomSheetButton
-			style={{ padding: 10 }}
-			onPress={() => {
-				snapTo(1);
-				setShowEmojiSelector(true);
-			}}
-		>
-			<Image
-				source={MoreEmojiIcon}
-				style={{
-					margin: 2,
-					width: 24,
-					height: 24,
-					marginBottom: 4,
-					resizeMode: 'stretch',
-				}}
-			/>
-		</BottomSheetButton>
-	);
-};
+import { EmojiButton, MoreEmojiButton } from '~/c/EmojiButton';
 
 const RenderInner = ({
 	showEmojiSelector,
