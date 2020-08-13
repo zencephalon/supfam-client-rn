@@ -30,7 +30,7 @@ const RenderInner = ({
 	showEmojiSelector: boolean;
 	copyMessage: () => void;
 	openReplyModal: () => void;
-	setShowEmojiSelector: () => void;
+	setShowEmojiSelector: (arg0: boolean) => void;
 	snapTo: () => void;
 	messageId: number;
 	messageType: number;
@@ -38,19 +38,21 @@ const RenderInner = ({
 	const { modal, backgrounds, light } = useLight();
 	const profileId = useProfileId();
 
+	const onEmojiSelected = React.useCallback(
+		(emoji: string): void => {
+			postAddMessageReactions({ profileId, messageId, emoji });
+			snapTo(2);
+		},
+		[postAddMessageReactions, profileId, messageId, snapTo]
+	);
+
 	return (
 		<View style={[styles.panel, { backgroundColor: backgrounds[0] }]}>
 			{showEmojiSelector ? (
-				<EmojiSelector
-					onEmojiSelected={(emoji) => {
-						postAddMessageReactions({ profileId, messageId, emoji });
-						snapTo(2);
-					}}
-					showSearchBar={true}
-				/>
+				<EmojiSelector onEmojiSelected={onEmojiSelected} showSearchBar={true} />
 			) : (
 				<React.Fragment>
-					<View style={{ flexDirection: 'row', flexWrap: 'wrap', padding: 16 }}>
+					<View style={styles.mostUsed}>
 						{EmojiHistory.mostUsed().map(([emoji]: [string]) => (
 							<EmojiButton
 								key={emoji}
@@ -104,20 +106,25 @@ export default function MessageActionModal({ navigation, route }) {
 
 	const bottomSheet = React.useRef();
 
-	const copyMessage = () => {
+	const copyMessage = React.useCallback(() => {
 		Clipboard.setString(message.message);
 		showMessage({
 			message: 'Copied to clipboard!',
 			type: 'info',
 		});
 		bottomSheet.current.snapTo(2);
-	};
-	const openReplyModal = useOpenReplyModal(
+	}, [message.message, bottomSheet.current]);
+
+	const _openReplyModal = useOpenReplyModal(
 		message.profile_id,
 		message.message,
 		'message',
 		message.conversation_id
 	);
+	const openReplyModal = React.useCallback(() => {
+		navigation.goBack();
+		_openReplyModal();
+	}, [_openReplyModal, navigation]);
 
 	return (
 		<BottomSheet
@@ -129,18 +136,13 @@ export default function MessageActionModal({ navigation, route }) {
 					setShowEmojiSelector={setShowEmojiSelector}
 					snapTo={bottomSheet.current?.snapTo}
 					copyMessage={copyMessage}
-					openReplyModal={() => {
-						navigation.goBack();
-						openReplyModal();
-					}}
+					openReplyModal={openReplyModal}
 					messageId={message.id}
 					messageType={message.type}
 				/>
 			)}
 			renderHeader={() => <RenderHeader />}
-			onCloseEnd={() => {
-				navigation.goBack();
-			}}
+			onCloseEnd={navigation.goBack}
 			enabledContentTapInteraction={true}
 			enabledInnerScrolling={false}
 			enabledContentGestureInteraction={false}
@@ -174,5 +176,10 @@ const styles = StyleSheet.create({
 		borderRadius: 4,
 		backgroundColor: '#666666',
 		marginBottom: 10,
+	},
+	mostUsed: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		padding: 16,
 	},
 });
