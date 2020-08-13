@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 
 import { MaterialIcons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 
 import SfText from '~/c/SfText';
 import SfTopBar from '~/c/SfTopBar';
@@ -44,13 +44,13 @@ export default function HomeTopBar({ title }) {
   return (
     <SfTopBar style={{ paddingBottom: 6 }}>
       <TouchableOpacity
-        style={{ padding: 4 }}
+        style={style.settingsButton}
         onPress={() => navigation.navigate('Settings')}
       >
         <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
       <SfText style={{ color: foregrounds[1] }}>{title}</SfText>
-      <TouchableOpacity style={{ padding: 4 }} onPress={openAddActionSheet}>
+      <TouchableOpacity style={style.addButton} onPress={openAddActionSheet}>
         <MaterialIcons
           name="person-add"
           size={24}
@@ -60,3 +60,16 @@ export default function HomeTopBar({ title }) {
     </SfTopBar>
   );
 }
+
+const style = StyleSheet.create({
+  settingsButton: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingRight: 24,
+  },
+  addButton: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: 24,
+  },
+});

@@ -20,7 +20,7 @@ export default function SettingsTopBar({ title }) {
         <MaterialIcons
           name="settings"
           size={24}
-          style={{ color: backgrounds[0] }}
+          style={{ color: backgrounds[0], paddingLeft: 24 }}
         />
       </TouchableOpacity>
     </SfTopBar>
