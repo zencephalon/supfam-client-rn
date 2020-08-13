@@ -4,9 +4,17 @@
 
 `yarn install`
 
-`yarn start`
+`sudo gem install cocoapods`
 
-To use local Rails set `API_URL` in `lib/constants.js` to `https://localhost:3000` or whichever port U use.
+`cd ios/`
+
+`pod install`
+
+`cd ..`
+
+`yarn ios`
+
+`yarn android`
 
 ## eslint settings
 
