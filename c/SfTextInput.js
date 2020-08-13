@@ -1,11 +1,11 @@
 import React from 'react';
-import { TextInput, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, TextInput, View, ActivityIndicator } from 'react-native';
 
 import useLight from '~/h/useLight';
 
 import * as Colors from '~/constants/Colors';
 
-import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SfTextInput = (props) => {
   const { foregrounds, backgrounds } = useLight();
@@ -22,7 +22,7 @@ const SfTextInput = (props) => {
     backgroundColor,
     color,
     borderColor,
-    ...SfTextInputStyle,
+    ...styles.textInputStyle,
     ...props.textInputStyle,
   };
   return (
@@ -36,37 +36,20 @@ const SfTextInput = (props) => {
         <ActivityIndicator
           size="small"
           color={Colors.OPEN}
-          style={{
-            position: 'absolute',
-            left: '90%',
-            top: '50%',
-            marginTop: -12,
-          }}
+          style={styles.workingIcon}
         />
       )}
       {!!props.ok && (
         <MaterialCommunityIcons
           name="check-circle"
-          style={{
-            position: 'absolute',
-            left: '90%',
-            top: '50%',
-            marginTop: -12,
-            color: Colors.FREE,
-          }}
+          style={styles.okIcon}
           size={24}
         />
       )}
       {!!props.bad && (
-        <Feather
-          name="x-circle"
-          style={{
-            position: 'absolute',
-            left: '90%',
-            top: '50%',
-            marginTop: -12,
-            color: Colors.AWAY,
-          }}
+        <MaterialCommunityIcons
+          name="close-circle"
+          style={styles.badIcon}
           size={24}
         />
       )}
@@ -74,12 +57,31 @@ const SfTextInput = (props) => {
   );
 };
 
-const SfTextInputStyle = {
-  alignSelf: 'stretch',
-  borderWidth: 1,
-  borderRadius: 10,
-  padding: 12,
-  fontSize: 28,
+const iconStyle = {
+  position: 'absolute',
+  left: '90%',
+  top: '50%',
+  marginTop: -12,
 };
+const styles = StyleSheet.create({
+  textInputStyle: {
+    alignSelf: 'stretch',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 12,
+    fontSize: 28,
+  },
+  badIcon: {
+    ...iconStyle,
+    color: Colors.AWAY,
+  },
+  okIcon: {
+    ...iconStyle,
+    color: Colors.FREE,
+  },
+  workingIcon: {
+    ...iconStyle,
+  },
+});
 
 export default SfTextInput;

@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { queryCache } from 'react-query';
 import { putStatusMe } from '~/apis/api';
 
-import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
@@ -79,8 +79,8 @@ function MagicInput({
             flexDirection: 'row',
           }}
         >
-          <Entypo
-            name="new-message"
+          <MaterialIcons
+            name="edit"
             size={24}
             color={statusColors[statusColor] || OPEN}
           />
@@ -109,7 +109,7 @@ function MagicInput({
           }}
           style={styles.sendButton}
         >
-          <MaterialCommunityIcons
+          <MaterialIcons
             name="send"
             size={24}
             color={statusColors[statusColor] || OPEN}

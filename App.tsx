@@ -3,7 +3,7 @@ import { StyleSheet, AppState } from 'react-native';
 import { ReactQueryConfigProvider, setFocusHandler } from 'react-query';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
@@ -71,7 +71,8 @@ export default function App({
       try {
         // Load fonts
         await Font.loadAsync({
-          ...Ionicons.font,
+          ...MaterialIcons.font,
+          ...MaterialCommunityIcons.font,
         });
         await AuthToken.init();
         EmojiHistory.init();

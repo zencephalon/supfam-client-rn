@@ -2,11 +2,12 @@ import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 
 import SfText from '~/c/SfText';
 import SfTopBar from '~/c/SfTopBar';
+import TopBarBackButton from '~/c/TopBarBackButton';
 
 import useLight from '~/h/useLight';
 
@@ -16,15 +17,10 @@ export default function ChatsTopBar({ title }) {
   const { foregrounds } = useLight();
   return (
     <SfTopBar style={{ paddingBottom: 6 }}>
-      <TouchableOpacity
-        style={{ padding: 4 }}
-        onPress={() => navigation.navigate('Home')}
-      >
-        <Ionicons name="ios-arrow-back" size={24} color={foregrounds[1]} />
-      </TouchableOpacity>
+      <TopBarBackButton />
       <SfText style={{ color: foregrounds[1] }}>{title}</SfText>
       <TouchableOpacity
-        style={{ padding: 4 }}
+        style={styles.addButton}
         onPress={() =>
           navigation.navigate('New Group', { conversationId: null })
         }
@@ -38,3 +34,10 @@ export default function ChatsTopBar({ title }) {
     </SfTopBar>
   );
 }
+
+const styles = StyleSheet.create({
+  addButton: {
+    padding: 4,
+    paddingLeft: 24,
+  },
+});

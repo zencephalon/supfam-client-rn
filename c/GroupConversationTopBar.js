@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { View, TouchableOpacity } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 import SfText from '~/c/SfText';
 import SfTopBar from '~/c/SfTopBar';
 import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
+import TopBarBackButton from '~/c/TopBarBackButton';
 
 import useLight from '~/h/useLight';
 
@@ -13,12 +14,7 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
   const { foregrounds } = useLight();
   return (
     <SfTopBar style={{ justifyContent: 'space-between' }}>
-      <TouchableOpacity
-        style={{ paddingTop: 4, paddingBottom: 4, paddingRight: 24 }}
-        onPress={() => navigation.navigate('Home')}
-      >
-        <Ionicons name="ios-arrow-back" size={24} color={foregrounds[1]} />
-      </TouchableOpacity>
+      <TopBarBackButton />
       <View
         style={{
           flexDirection: 'row',
@@ -39,7 +35,7 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
         }
       </View>
       <TouchableOpacity
-        style={{ padding: 4 }}
+        style={styles.settingsButton}
         onPress={() =>
           navigation.navigate('Group Settings', {
             conversationId: conversation?.id,
@@ -51,3 +47,10 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
     </SfTopBar>
   );
 }
+
+const styles = StyleSheet.create({
+  settingsButton: {
+    padding: 4,
+    paddingLeft: 24,
+  },
+});

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 import SfText from '~/c/SfText';
@@ -11,6 +11,7 @@ import useGoHome from '~/h/useGoHome';
 import useGoFriendSettings from '~/h/useGoFriendSettings';
 
 import ProfileIcon from '~/c/ProfileIcon';
+import TopBarBackButton from '~/c/TopBarBackButton';
 
 function ConversationTopBar({
   profileId,
@@ -23,7 +24,6 @@ function ConversationTopBar({
 }) {
   const { foregrounds } = useLight();
 
-  const goHome = useGoHome();
   const goToProfile = useGoFriendSettings(profileId);
 
   const statusStyle = React.useMemo(
@@ -46,9 +46,7 @@ function ConversationTopBar({
 
   return (
     <SfTopBar style={{ justifyContent: 'space-between' }}>
-      <TouchableOpacity style={styles.backButton} onPress={goHome}>
-        <Ionicons name="ios-arrow-back" size={24} color={foregrounds[1]} />
-      </TouchableOpacity>
+      <TopBarBackButton />
       <TouchableOpacity style={styles.statusContainer} onPress={goToProfile}>
         <ProfileIcon profileId={profileId} />
         <View>
@@ -73,11 +71,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     maxWidth: '60%',
-  },
-  backButton: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    paddingRight: 24,
   },
 });
 

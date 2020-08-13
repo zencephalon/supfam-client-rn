@@ -6,7 +6,7 @@ import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
 
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
@@ -116,12 +116,20 @@ function MessageInput({ conversationId }) {
       <View style={styles.container}>
         {!focused && (
           <TouchableOpacity onPress={snapImage} style={styles.snapButton}>
-            <Ionicons name="md-camera" size={32} color={foregrounds[3]} />
+            <MaterialIcons
+              name="photo-camera"
+              size={32}
+              color={foregrounds[3]}
+            />
           </TouchableOpacity>
         )}
         {!focused && (
           <TouchableOpacity onPress={pickImage} style={styles.pickButton}>
-            <Ionicons name="md-photos" size={32} color={foregrounds[3]} />
+            <MaterialIcons
+              name="photo-library"
+              size={32}
+              color={foregrounds[3]}
+            />
           </TouchableOpacity>
         )}
         {focused && (
@@ -129,8 +137,8 @@ function MessageInput({ conversationId }) {
             onPress={setFocusedFalse}
             style={styles.unfocusButton}
           >
-            <Ionicons
-              name="ios-arrow-forward"
+            <MaterialIcons
+              name="keyboard-arrow-right"
               size={32}
               color={foregrounds[3]}
             />
@@ -160,7 +168,7 @@ function MessageInput({ conversationId }) {
             }}
             style={styles.sendButton}
           >
-            <MaterialCommunityIcons
+            <MaterialIcons
               name="send"
               size={24}
               color={statusColors[statusMe?.color] || OPEN}

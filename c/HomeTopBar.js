@@ -17,7 +17,7 @@ export default function HomeTopBar({ title }) {
 
   const { foregrounds } = useLight();
 
-  const openAddActionSheet = () => {
+  const openAddActionSheet = React.useCallback(() => {
     const options = ['Add Fam', 'Create Group', 'Cancel'];
     const cancelButtonIndex = 2;
 
@@ -39,7 +39,7 @@ export default function HomeTopBar({ title }) {
         }
       }
     );
-  };
+  }, [showActionSheetWithOptions]);
 
   return (
     <SfTopBar style={{ paddingBottom: 6 }}>
