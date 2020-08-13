@@ -5,6 +5,10 @@ export default function useGoBack() {
 	const navigation = useNavigation();
 
 	return React.useCallback(() => {
-		navigation.goBack();
+		if (navigation.canGoBack()) {
+			navigation.goBack();
+		} else {
+			navigation.navigate('Home')
+		}
 	}, [navigation])
 }
