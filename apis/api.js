@@ -68,6 +68,10 @@ export const postRemoveMessageReactions = ({ profileId, messageId, emoji }) => {
   });
 };
 
+export const postFlagMessage = ({ messageId }) => {
+  return api.postToAPI(`message/${messageId}/flag`, {});
+};
+
 export const getConversationMemberships = (_key) => {
   return api.fetchFromAPI(`conversation_memberships/me`);
 };

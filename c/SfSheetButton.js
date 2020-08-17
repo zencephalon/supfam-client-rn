@@ -6,15 +6,12 @@ import * as Colors from '~/constants/Colors';
 import useLight from '~/h/useLight';
 
 const SfSheetButton = (props) => {
-  const { disabled, title, style, color, ...rest } = props;
+  const { title, style, color, buttonTextStyle, ...rest } = props;
   const { light, foregrounds } = useLight();
 
   const textColor = foregrounds[0];
 
-  const mergedStyle = [
-    styles.sheetButton,
-    style,
-  ];
+  const mergedStyle = [styles.sheetButton, style];
   return (
     <BottomSheetButton {...rest} style={mergedStyle}>
       <Text
@@ -23,7 +20,7 @@ const SfSheetButton = (props) => {
           {
             color: textColor,
           },
-          props.buttonTextStyle,
+          buttonTextStyle,
         ]}
       >
         {title}

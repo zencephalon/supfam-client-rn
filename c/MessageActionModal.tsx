@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { View, Clipboard, StyleSheet } from 'react-native';
+import { Alert, View, Clipboard, StyleSheet } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import EmojiSelector from '~/c/SfEmojiSelector';
@@ -16,7 +16,12 @@ import { postAddMessageReactions } from '~/apis/api';
 
 import EmojiHistory from '~/lib/EmojiHistory';
 
+import { removeMessage } from '~/lib/QueryCache';
+import { postFlagMessage } from '~/apis/api';
+
 import { EmojiButton, MoreEmojiButton } from '~/c/EmojiButton';
+
+import { AWAY } from '~/constants/Colors';
 
 const RenderInner = ({
 	showEmojiSelector,
@@ -46,6 +51,27 @@ const RenderInner = ({
 		[postAddMessageReactions, profileId, messageId, snapTo]
 	);
 
+	const onFlagSelected = React.useCallback(() => {
+		Alert.alert(
+			'Are you sure?',
+			'This message will be removed from view and our staff will review the content. The sender may lose access to Supfam.',
+			[
+				{
+					text: 'Cancel',
+					style: 'cancel',
+				},
+				{
+					text: 'Flag Content',
+					onPress: () => {
+						removeMessage(messageId);
+						snapTo(2);
+						postFlagMessage({ messageId });
+					},
+				},
+			]
+		);
+	}, [messageId, snapTo]);
+
 	return (
 		<View style={[styles.panel, { backgroundColor: backgrounds[0] }]}>
 			{showEmojiSelector ? (
@@ -67,6 +93,11 @@ const RenderInner = ({
 							setShowEmojiSelector={setShowEmojiSelector}
 						/>
 					</View>
+					<SfSheetButton
+						title="Flag content"
+						onPress={onFlagSelected}
+						buttonTextStyle={styles.dangerButton}
+					/>
 					{messageType !== 1 && (
 						<SfSheetButton title="Reply" onPress={openReplyModal} />
 					)}
@@ -181,5 +212,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		padding: 16,
+	},
+	dangerButton: {
+		color: AWAY,
 	},
 });
