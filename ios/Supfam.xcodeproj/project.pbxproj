@@ -283,7 +283,7 @@
 				CODE_SIGN_ENTITLEMENTS = Supfam/supfamDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.25;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BJ8K3TD955;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -318,7 +318,7 @@
 				CODE_SIGN_ENTITLEMENTS = Supfam/supfam.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 0.0.25;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BJ8K3TD955;
 				INFOPLIST_FILE = Supfam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
