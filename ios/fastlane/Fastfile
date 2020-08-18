@@ -39,6 +39,6 @@ platform :ios do
     push_to_git_remote
 
     build_app(workspace: "Supfam.xcworkspace", scheme: "Supfam", export_xcargs: "-allowProvisioningUpdates") 
-    upload_to_testflight
+    upload_to_testflight(skip_waiting_for_build_processing: true)
   end
 end
