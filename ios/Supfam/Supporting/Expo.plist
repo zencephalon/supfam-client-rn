@@ -13,6 +13,6 @@
 	<key>EXUpdatesURL</key>
 	<string>https://exp.host/@zencephalon/Supfam</string>
 	<key>EXUpdatesReleaseChannel</key>
-	<string>iOS-v1</string>
+	<string>iOS-v0</string>
 </dict>
 </plist>
