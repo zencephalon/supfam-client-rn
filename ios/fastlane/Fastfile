@@ -26,7 +26,7 @@ def upgrade_ios_release
 	releaseObject["ios"] += 1
 	releaseNumber = releaseObject["ios"]
 	fileContents = File.read(plistLocation)
-	newContents = fileContents.gsub(/iOS-v\d+/, "iOS-v#{releaseNumber}")
+	newContents = fileContents.gsub(/ios-v\d+/, "ios-v#{releaseNumber}")
 	File.write(plistLocation, newContents)
 	File.write(releaseLocation, releaseObject.to_json)
 end
