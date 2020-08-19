@@ -152,6 +152,7 @@ function MessageInput({ conversationId }) {
           style={styles.statusInputContainer}
           multiline={true}
           blurOnSubmit={false}
+          maxHeight={128}
           onFocus={setFocusedTrue}
           onBlur={setFocusedFalse}
         />
