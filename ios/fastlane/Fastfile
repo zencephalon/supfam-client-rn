@@ -45,7 +45,7 @@ platform :ios do
     upgrade_ios_release
 
     # Commit the version bump
-    commit_version_bump(xcodeproj: "Supfam.xcodeproj")
+    commit_version_bump(xcodeproj: "Supfam.xcodeproj", force: true)
 
     # Add a git tag for this build. This will automatically
     # use an appropriate git tag name
