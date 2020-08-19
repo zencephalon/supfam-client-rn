@@ -64,7 +64,7 @@ platform :ios do
       releaseObject = JSON.parse(File.read('./EXPO_RELEASE.json'))
       releaseNumber = releaseObject['ios']
 
-      system("expo publish --release-channel ios-v#{releaseNumber}", out: $stdout)
+      system("expo publish --release-channel ios-v#{releaseNumber} --target bare", out: $stdout)
       system("git checkout -- android/app/src/main/AndroidManifest.xml", out: $stdout)
     end
   end
