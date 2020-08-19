@@ -1,0 +1,12 @@
+Imagine if you and your closest friends & family had your own dedicated app to chat on. Now open your eyes and stop imagining because Supfam is that app! We built Supfam from the ground up to be strictly for the fam. It includes features other chat apps won’t build because they don’t make sense for your entire social network, features that create transparency and deep connections when kept in the family. 
+
+At the core - we want to help you become closer to those closest to you on a real-time basis. We allow you to share your current status by posting a message or setting your availability to one of four distinct colors which control what you’ll be notified about and signal to your fam if they can expect to hear back from you:
+
+Away - All notifications are off. Friends won’t expect you to see their messages until you come back to the app.
+Busy - Only DM notifications are sent. Friends know you might not be around to talk.
+Free - DM + Group notifications are sent. Friends will see that this could be a good time for you to talk.
+Open - All notifications are sent (including updates on friend’s statuses). Friends see that you are online and actively looking to have conversations.
+
+We invented this system to create an alternative to the dreaded “green bubble”. We believe that just showing someone as active or not doesn’t tell the whole story. Supfam empowers you to broadcast your exact level of availability.
+
+When it comes to the chat experience, Supfam takes a bold step that you’ll notice as soon as you and a friend are actively viewing the same conversation: lightning chat. Lightning chat shows what your friend is typing *as they type it*. It allows information to be communicated faster and more conversationally. This might seem a bit revealing, but try it out with your BFFs and you’ll see why we built it strictly for the fam.
