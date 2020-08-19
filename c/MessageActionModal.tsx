@@ -160,7 +160,7 @@ export default function MessageActionModal({ navigation, route }) {
 	return (
 		<BottomSheet
 			ref={bottomSheet}
-			snapPoints={[420, 500, 0]}
+			snapPoints={[500, 500, 0]}
 			renderContent={() => (
 				<RenderInner
 					showEmojiSelector={showEmojiSelector}
