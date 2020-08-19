@@ -57,7 +57,7 @@ platform :ios do
     upload_to_testflight(skip_waiting_for_build_processing: true)
   end
 
-  lane :release_channel do
+  lane :expo_publish do
     ensure_git_status_clean
 
     Dir.chdir("../..") do

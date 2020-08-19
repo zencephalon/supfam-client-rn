@@ -21,9 +21,9 @@ or alternatively using `brew install fastlane`
 fastlane ios beta
 ```
 Push a new beta build to TestFlight
-### ios release_channel
+### ios publish_expo
 ```
-fastlane ios release_channel
+fastlane ios publish_expo
 ```
 
 
