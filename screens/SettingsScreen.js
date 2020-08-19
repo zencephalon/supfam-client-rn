@@ -57,6 +57,16 @@ export default connect()(function LinksScreen(props) {
         >
           Update id {Updates.updateId}
         </SfText>
+        <SfText
+          style={{
+            fontSize: 16,
+            textAlign: 'center',
+            width: '80%',
+            color: nord10,
+          }}
+        >
+          ILUVU
+        </SfText>
       </View>
     </SfKeyboardAvoidingView>
   );
