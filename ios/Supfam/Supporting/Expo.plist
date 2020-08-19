@@ -9,7 +9,7 @@
 	<key>EXUpdatesLaunchWaitMs</key>
 	<integer>30</integer>
 	<key>EXUpdatesReleaseChannel</key>
-	<string>ios-v0</string>
+	<string>ios-v1</string>
 	<key>EXUpdatesSDKVersion</key>
 	<string>38.0.0</string>
 	<key>EXUpdatesURL</key>
