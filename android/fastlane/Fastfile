@@ -15,6 +15,20 @@
 
 default_platform(:android)
 
+manifestLocation = "../app/src/main/AndroidManifest.xml"
+releaseLocation = "../../EXPO_RELEASE.json"
+
+def upgrade_android_release
+  releaseObject = JSON.parse(File.read(releaseLocation))
+  releaseObject["android"] += 1
+  releaseNumber = releaseObject["android"]
+  fileContents = File.read(manifestLocation)
+  newContents = fileContents.gsub(/android-v\d+/, "android-v#{releaseNumber}")
+  File.write(manifestLocation, newContents)
+  File.write(releaseLocation, releaseObject.to_json)
+end
+
+
 platform :android do
   desc "Runs all the tests"
   lane :test do
@@ -32,6 +46,8 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
+    ensure_git_status_clean
+
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
