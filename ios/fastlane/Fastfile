@@ -65,6 +65,7 @@ platform :ios do
       releaseNumber = releaseObject['ios']
 
       system("expo publish --release-channel ios-v#{releaseNumber}", out: $stdout)
+      system("g checkout -- android/app/src/main/AndroidManifest.xml", out: $stdout)
     end
   end
 end
