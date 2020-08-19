@@ -18,10 +18,11 @@ require 'json'
 
 default_platform(:ios)
 
-plistLocation = "../Supfam/Supporting/Expo.plist"
-releaseLocation = "../../EXPO_RELEASE.json"
 
 def upgrade_ios_release
+  plistLocation = "../Supfam/Supporting/Expo.plist"
+  releaseLocation = "../../EXPO_RELEASE.json"
+
 	releaseObject = JSON.parse(File.read(releaseLocation))
 	releaseObject["ios"] += 1
 	releaseNumber = releaseObject["ios"]
