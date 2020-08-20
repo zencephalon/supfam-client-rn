@@ -30,6 +30,7 @@ def upgrade_ios_release
 	newContents = fileContents.gsub(/ios-v\d+/, "ios-v#{releaseNumber}")
 	File.write(plistLocation, newContents)
 	File.write(releaseLocation, releaseObject.to_json)
+  system("git commit -am 'Update to release channel ios-v#{releaseNumber}'")
 end
 
 platform :ios do
@@ -42,10 +43,11 @@ platform :ios do
     # Providing the xcodeproj is optional
     version = Semantic::Version.new latest_testflight_build_number
     increment_build_number(xcodeproj: "Supfam.xcodeproj", build_number: version.patch!.to_s)
-    upgrade_ios_release
 
     # Commit the version bump
     commit_version_bump(xcodeproj: "Supfam.xcodeproj", force: true)
+
+    upgrade_ios_release
 
     # Add a git tag for this build. This will automatically
     # use an appropriate git tag name
