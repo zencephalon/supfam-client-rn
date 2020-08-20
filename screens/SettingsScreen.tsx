@@ -31,7 +31,7 @@ export default function LinksScreen() {
         title="Log out"
         onPress={logout}
         color={AWAY}
-        style={{ marginTop: 16, marginBottom: 16 }}
+        style={styles.logoutButton}
       />
       <UpdateButton ButtonComponent={SfButton} hideWhenNoUpdate={false} />
       <View style={styles.appDataContainer}>
@@ -47,6 +47,10 @@ export default function LinksScreen() {
 }
 
 const styles = StyleSheet.create({
+  logoutButton: {
+    marginTop: 16,
+    marginBottom: 16,
+  },
   appDataContainer: {
     marginTop: 48,
     width: '100%',
