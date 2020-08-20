@@ -47,8 +47,6 @@ const queryConfig = {
   },
 };
 
-// SplashScreen.preventAutoHideAsync();
-
 Sentry.init({
   dsn: 'https://5798596b010948678b643700db20d942@sentry.io/5178537',
   enableInExpoDevelopment: true,
@@ -84,7 +82,7 @@ export default function App({
         // We might want to provide this error information to an error reporting service
         console.warn(e);
       } finally {
-        // SplashScreen.hideAsync();
+        SplashScreen.hideAsync();
         setLoadingComplete(true);
       }
     }
