@@ -1,14 +1,11 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { useLinkTo } from '@react-navigation/native';
 
 import useConversationId from '~/h/useConversationId';
 
-import _ from 'lodash';
-
 import * as Notifications from 'expo-notifications';
 
-export default function useNotificationHandler(containerRef) {
+export default function useNotificationHandler(): void {
   const conversationId = useConversationId();
   const linkTo = useLinkTo();
 

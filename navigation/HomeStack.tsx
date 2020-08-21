@@ -20,7 +20,7 @@ import useLight from '~/h/useLight';
 
 const Stack = createStackNavigator();
 
-function HomeStack() {
+const HomeStack: React.FunctionComponent = () => {
   const { foregrounds, backgrounds } = useLight();
   useNotificationHandler();
 
@@ -91,6 +91,6 @@ function HomeStack() {
       <Stack.Screen name="Group Settings" component={GroupSettingsScreen} />
     </Stack.Navigator>
   );
-}
+};
 
 export default HomeStack;

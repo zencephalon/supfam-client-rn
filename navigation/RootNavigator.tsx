@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -10,7 +10,7 @@ import HomeStack from '~/navigation/HomeStack';
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator();
 
-export default function RootNavigator() {
+const RootNavigator: FunctionComponent = () => {
 	return (
 		<Stack.Navigator screenOptions={{ headerShown: false }} mode="modal">
 			<Stack.Screen name="Root" component={HomeStack} />
@@ -42,4 +42,6 @@ export default function RootNavigator() {
 			/>*/}
 		</Stack.Navigator>
 	);
-}
+};
+
+export default RootNavigator;

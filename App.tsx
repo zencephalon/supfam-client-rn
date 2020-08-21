@@ -27,7 +27,6 @@ import CableContainer from '~/containers/Cable';
 
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
-import { nord10 } from '~/constants/Colors';
 
 setFocusHandler((handleFocus: () => void) => {
   const handle = (nextAppState: string) => {
