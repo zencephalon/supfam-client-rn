@@ -65,4 +65,16 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+
+  lane :expo_publish do
+    ensure_git_status_clean
+
+    Dir.chdir("../..") do
+      releaseObject = JSON.parse(File.read('./EXPO_RELEASE.json'))
+      releaseNumber = releaseObject['android']
+
+      system("expo publish --release-channel android-v#{releaseNumber} --target bare", out: $stdout)
+      # system("git checkout -- android/app/src/main/AndroidManifest.xml", out: $stdout)
+    end
+  end
 end
