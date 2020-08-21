@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { useQuery } from 'react-query';
 import { getProfilesMe } from '~/apis/api';
 import FullScreenLoader from '~/c/FullScreenLoader';
@@ -7,7 +7,7 @@ import AuthToken from '~/lib/AuthToken';
 
 import useProfileSelect from '~/h/useProfileSelect';
 
-const ProfileGate = (props) => {
+const ProfileGate: FunctionComponent = ({ children }) => {
   const profileSelect = useProfileSelect();
   const { data: profiles, status } = useQuery('profilesMe', getProfilesMe);
 
@@ -33,7 +33,7 @@ const ProfileGate = (props) => {
     AuthToken.remove();
   }
 
-  return props.children;
+  return children;
 };
 
 export default ProfileGate;
