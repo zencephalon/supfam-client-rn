@@ -74,7 +74,7 @@ platform :android do
       releaseNumber = releaseObject['android']
 
       system("expo publish --release-channel android-v#{releaseNumber} --target bare", out: $stdout)
-      # system("git checkout -- android/app/src/main/AndroidManifest.xml", out: $stdout)
+      system("git checkout -- ios/Supfam/Supporting/Expo.plist", out: $stdout)
     end
   end
 end
