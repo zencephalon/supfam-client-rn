@@ -32,6 +32,18 @@ def upgrade_android_release
   # system("git commit -am 'Update to release channel android-v#{releaseNumber}'")
 end
 
+VERSION_CODE_REGEX = /versionCode (\d+)/
+BUILD_GRADLE_LOCATION = "../app/build.gradle"
+
+def upgrade_gradle_codes
+  buildContents = File.read(BUILD_GRADLE_LOCATION)
+  versionCode = buildContents.match(VERSION_CODE_REGEX)[1]
+  versionCode += 1
+  buildContents.gsub!(VERSION_CODE_REGEX, "versionCode #{versionCode}")
+
+  File.write(BUILD_GRADLE_LOCATION, buildContents)
+end
+
 
 platform :android do
   desc "Runs all the tests"
@@ -49,8 +61,9 @@ platform :android do
   end
 
   lane :update_version do
-    ensure_git_status_clean
-    upgrade_android_release
+    # ensure_git_status_clean
+    # upgrade_android_release
+    upgrade_gradle_codes
   end
 
   desc "Deploy a new version to the Google Play"
