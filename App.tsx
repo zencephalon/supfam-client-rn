@@ -55,11 +55,11 @@ if (Constants?.manifest?.revisionId) {
   Sentry.setRelease(Constants.manifest.revisionId);
 }
 
-export default function App({
-  skipLoadingScreen,
-}: {
+type AppProps = {
   skipLoadingScreen: boolean;
-}) {
+};
+
+const App: React.FunctionComponent<AppProps> = ({ skipLoadingScreen }) => {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
 
   // Load any resources or data that we need prior to rendering the app
@@ -115,4 +115,6 @@ export default function App({
       </ReactQueryConfigProvider>
     );
   }
-}
+};
+
+export default App;
