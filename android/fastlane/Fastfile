@@ -59,8 +59,8 @@ platform :android do
   lane :deploy do
     ensure_git_status_clean
 
-    # upgrade_gradle_codes
-    # upgrade_android_release
+    upgrade_gradle_codes
+    upgrade_android_release
 
     gradle(task: "clean assembleRelease")
     upload_to_play_store
