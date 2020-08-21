@@ -18,17 +18,17 @@ require 'json'
 
 default_platform(:android)
 
-manifestLocation = "../app/src/main/AndroidManifest.xml"
-releaseLocation = "../../EXPO_RELEASE.json"
+MANIFEST_LOCATION = "../app/src/main/AndroidManifest.xml"
+RELEASE_LOCATION = "../../EXPO_RELEASE.json"
 
 def upgrade_android_release
-  releaseObject = JSON.parse(File.read(releaseLocation))
+  releaseObject = JSON.parse(File.read(RELEASE_LOCATION))
   releaseObject["android"] += 1
   releaseNumber = releaseObject["android"]
-  fileContents = File.read(manifestLocation)
+  fileContents = File.read(MANIFEST_LOCATION)
   newContents = fileContents.gsub(/android-v\d+/, "android-v#{releaseNumber}")
-  File.write(manifestLocation, newContents)
-  File.write(releaseLocation, releaseObject.to_json)
+  File.write(MANIFEST_LOCATION, newContents)
+  File.write(RELEASE_LOCATION, releaseObject.to_json)
   # system("git commit -am 'Update to release channel android-v#{releaseNumber}'")
 end
 

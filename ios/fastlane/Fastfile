@@ -18,18 +18,17 @@ require 'json'
 
 default_platform(:ios)
 
+PLIST_LOCATION = "../Supfam/Supporting/Expo.plist"
+RELEASE_LOCATION = "../../EXPO_RELEASE.json"
 
 def upgrade_ios_release
-  plistLocation = "../Supfam/Supporting/Expo.plist"
-  releaseLocation = "../../EXPO_RELEASE.json"
-
-	releaseObject = JSON.parse(File.read(releaseLocation))
+	releaseObject = JSON.parse(File.read(RELEASE_LOCATION))
 	releaseObject["ios"] += 1
 	releaseNumber = releaseObject["ios"]
-	fileContents = File.read(plistLocation)
+	fileContents = File.read(PLIST_LOCATION)
 	newContents = fileContents.gsub(/ios-v\d+/, "ios-v#{releaseNumber}")
-	File.write(plistLocation, newContents)
-	File.write(releaseLocation, releaseObject.to_json)
+	File.write(PLIST_LOCATION, newContents)
+	File.write(RELEASE_LOCATION, releaseObject.to_json)
   system("git commit -am 'Update to release channel ios-v#{releaseNumber}'")
 end
 
