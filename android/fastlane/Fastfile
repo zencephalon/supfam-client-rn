@@ -29,7 +29,7 @@ def upgrade_android_release
   newContents = fileContents.gsub(/android-v\d+/, "android-v#{releaseNumber}")
   File.write(MANIFEST_LOCATION, newContents)
   File.write(RELEASE_LOCATION, releaseObject.to_json)
-  # system("git commit -am 'Update to release channel android-v#{releaseNumber}'")
+  system("git commit -am 'Update to release channel android-v#{releaseNumber}'")
 end
 
 VERSION_CODE_REGEX = /versionCode (\d+)/
@@ -49,31 +49,18 @@ def upgrade_gradle_codes
   File.write(BUILD_GRADLE_LOCATION, buildContents)
 end
 
-
 platform :android do
   desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
-
-  lane :update_version do
-    # ensure_git_status_clean
-    # upgrade_android_release
-    upgrade_gradle_codes
-  end
-
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     ensure_git_status_clean
+
+    upgrade_gradle_codes
+    upgrade_android_release
 
     gradle(task: "clean assembleRelease")
     upload_to_play_store
