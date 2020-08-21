@@ -33,13 +33,18 @@ def upgrade_android_release
 end
 
 VERSION_CODE_REGEX = /versionCode (\d+)/
+VERSION_NAME_REGEX = /versionName "(.*)"/
 BUILD_GRADLE_LOCATION = "../app/build.gradle"
 
 def upgrade_gradle_codes
   buildContents = File.read(BUILD_GRADLE_LOCATION)
-  versionCode = buildContents.match(VERSION_CODE_REGEX)[1]
+  versionCode = buildContents.match(VERSION_CODE_REGEX)[1].to_i
   versionCode += 1
+  versionName = Semantic::Version.new buildContents.match(VERSION_NAME_REGEX)[1]
+  versionName = versionName.patch!
+
   buildContents.gsub!(VERSION_CODE_REGEX, "versionCode #{versionCode}")
+  buildContents.gsub!(VERSION_NAME_REGEX, "versionName \"#{versionName}\"")
 
   File.write(BUILD_GRADLE_LOCATION, buildContents)
 end
