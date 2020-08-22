@@ -7,14 +7,14 @@ import SfContainer from '~/c/SfContainer';
 import { OPEN, OPEN_LIGHT } from '~/constants/Colors';
 import { elementSizes, fontSizes } from '~/constants/Sizes';
 
-import { postVerify, postResendCode } from '~/apis/api';
+import { postVerifyReset, postResendResetCode } from '~/apis/api';
 import useApi from '~/h/useApi';
 
-const VerifyCodeFlow = (props) => {
+function VerifyResetCodeFlow(props) {
   const { token } = props;
   const [code, setCode] = React.useState('');
-  const Verify = useApi(postVerify);
-  const Resend = useApi(postResendCode);
+  const Verify = useApi(postVerifyReset);
+  const Resend = useApi(postResendResetCode);
 
   if (Verify.req.confirmed) {
     return props.render({ token });
@@ -29,7 +29,7 @@ const VerifyCodeFlow = (props) => {
 
   return (
     <SfContainer>
-      <SfText style={styles.formLabel}>Enter your verification code:</SfText>
+      <SfText style={styles.formLabel}>Enter your password reset code:</SfText>
       <SfTextInput
         value={code}
         onChangeText={onChangeText}
@@ -55,7 +55,7 @@ const VerifyCodeFlow = (props) => {
       {Verify.req.failed && <SfText>Verification failed.</SfText>}
     </SfContainer>
   );
-};
+}
 
 const styles = StyleSheet.create({
   formLabel: {
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VerifyCodeFlow;
+export default VerifyResetCodeFlow;

@@ -215,6 +215,12 @@ export const postResetPassword = ({ token, password }) => {
   });
 };
 
+export const postResendResetCode = ({ token }) => {
+  return api.postToAPI('resend_reset_code', {
+    body: JSON.stringify({ token }),
+  });
+};
+
 export const getNameAvailable = ({ name }) => {
   return api.fetchFromAPI(`username/available?name=${encodeURI(name)}`);
 };

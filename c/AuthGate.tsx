@@ -15,6 +15,7 @@ import SfTextButton from '~/c/SfTextButton';
 import CheckInviteFlow from '~/c/CheckInviteFlow';
 import VerifyCodeFlow from '~/c/VerifyCodeFlow';
 import UpdateButton from '~/c/UpdateButton';
+import ResetFlow from '~/c/ResetFlow';
 
 import { FREE, OPEN, nord13 } from '~/constants/Colors';
 import { fontSizes, elementSizes } from '~/constants/Sizes';
@@ -93,6 +94,7 @@ const AuthGate = function (props) {
             />
           )}
         </Stack.Screen>
+        <Stack.Screen name="Reset" component={ResetFlow} />
       </Stack.Navigator>
       <FlashMessage position="top" />
     </NavigationContainer>
