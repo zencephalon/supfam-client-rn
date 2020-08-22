@@ -129,12 +129,6 @@ export const putStatusMe = (data) => {
   });
 };
 
-export const postCheckInvite = ({ phone }) => {
-  return api.postToAPI(`check_invite`, {
-    body: JSON.stringify({ phone }),
-  });
-};
-
 export const postInvitation = ({ from_profile_id, phone }) => {
   return api.postToAPI(`invitations/create`, {
     body: JSON.stringify({ from_profile_id, phone }),
@@ -185,6 +179,12 @@ export const postBlockFriend = ({ from_profile_id, to_profile_id }) => {
   });
 };
 
+export const postCheckInvite = ({ phone }) => {
+  return api.postToAPI(`check_invite`, {
+    body: JSON.stringify({ phone }),
+  });
+};
+
 export const postVerify = ({ token, code }) => {
   return api.postToAPI('verify', {
     body: JSON.stringify({ token, code }),
@@ -194,6 +194,24 @@ export const postVerify = ({ token, code }) => {
 export const postResendCode = ({ token }) => {
   return api.postToAPI('resend_code', {
     body: JSON.stringify({ token }),
+  });
+};
+
+export const postStartReset = ({ username }) => {
+  return api.postToAPI('start_reset', {
+    body: JSON.stringify({ username }),
+  });
+};
+
+export const postVerifyReset = ({ token, code }) => {
+  return api.postToAPI('verify_reset', {
+    body: JSON.stringify({ token, code }),
+  });
+};
+
+export const postResetPassword = ({ token, password }) => {
+  return api.postToAPI('reset_password', {
+    body: JSON.stringify({ token, password }),
   });
 };
 

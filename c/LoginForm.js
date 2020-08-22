@@ -12,7 +12,7 @@ import AuthToken from '~/lib/AuthToken';
 import useApi from '~/h/useApi';
 import { postLogin } from '~/apis/api';
 
-import { OPEN } from '~/constants/Colors';
+import { OPEN, FREE } from '~/constants/Colors';
 import { elementSizes } from '~/constants/Sizes';
 
 const LoginForm = () => {
@@ -66,6 +66,19 @@ const LoginForm = () => {
         style={styles.button}
         color={OPEN}
       />
+      {PostLogin.req.failed && (
+        <SfButton
+          wide
+          round
+          title={
+            PostLogin.req.requested ? 'Requesting reset...' : 'Forgot Password'
+          }
+          disabled={!password || !name || PostLogin.req.requested}
+          onPress={login}
+          style={styles.button}
+          color={FREE}
+        />
+      )}
     </SfContainer>
   );
 };
@@ -75,11 +88,11 @@ const styles = StyleSheet.create({
     marginTop: elementSizes[8],
   },
   textInput: {
-    marginTop: 12,
-    marginBottom: 12,
+    marginTop: 8,
+    marginBottom: 8,
   },
   button: {
-    marginTop: 24,
+    marginTop: 12,
   },
 });
 
