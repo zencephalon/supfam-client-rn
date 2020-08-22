@@ -23,7 +23,14 @@ const LoginForm = () => {
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const PostLogin = useApi(postLogin);
-  const PostStartReset = useApi(postStartReset);
+  const PostStartReset = useApi(postStartReset, {
+    onError: (e) => {
+      showMessage({
+        message: 'User name not found, please check your user name',
+        backgroundColor: AWAY,
+      });
+    },
+  });
   const navigation = useNavigation();
 
   const login = React.useCallback(() => {
@@ -47,19 +54,14 @@ const LoginForm = () => {
     if (!name) {
       return;
     }
+    console.log('Hello');
 
-    PostStartReset.call({ username: name })
-      .then((json) => {
-        if (!json.error) {
-          navigation.navigate('Reset', { token: json.token });
-        }
-      })
-      .catch((e) => {
-        showMessage({
-          message: 'User name not found, please check your user name',
-          BACKGROUND_COLOR: AWAY,
-        });
-      });
+    PostStartReset.call({ username: name }).then((json) => {
+      console.log(json, 'hello');
+      if (!json.error) {
+        navigation.navigate('Reset', { token: json.token });
+      }
+    });
   }, [name, PostStartReset.call, navigation.navigate, showMessage]);
 
   return (
