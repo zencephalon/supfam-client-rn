@@ -23,7 +23,7 @@ export default function GroupConversationPreview({ conversationId }) {
 		<MessagePreview
 			messageText={last_message?.message}
 			messageType={last_message?.type}
-			read={last_message_id === last_read_message_id}
+			read={last_read_message_id >= last_message_id}
 			profileId={last_message.profile_id}
 		/>
 	);
