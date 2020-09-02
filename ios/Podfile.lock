@@ -139,6 +139,9 @@ PODS:
   - libwebp/mux (1.1.0):
     - libwebp/demux
   - libwebp/webp (1.1.0)
+  - MMKV (1.2.2):
+    - MMKVCore (~> 1.2.2)
+  - MMKVCore (1.2.2)
   - OpenSSL-Universal (1.0.2.19):
     - OpenSSL-Universal/Static (= 1.0.2.19)
   - OpenSSL-Universal/Static (1.0.2.19)
@@ -309,6 +312,9 @@ PODS:
     - React
   - react-native-maps (0.27.1):
     - React
+  - react-native-mmkv-storage (0.3.7):
+    - MMKV (= 1.2.2)
+    - React
   - react-native-netinfo (5.9.2):
     - React
   - react-native-safe-area-context (3.0.7):
@@ -471,6 +477,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-appearance (from `../node_modules/react-native-appearance`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-mmkv-storage (from `../node_modules/react-native-mmkv-storage`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -517,6 +524,8 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - libwebp
+    - MMKV
+    - MMKVCore
     - OpenSSL-Universal
     - SDWebImage
     - SDWebImageWebPCoder
@@ -599,6 +608,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-appearance"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-mmkv-storage:
+    :path: "../node_modules/react-native-mmkv-storage"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
@@ -701,6 +712,8 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  MMKV: b14909757d8b70e2aa89ff1c6d56a7b239e10a29
+  MMKVCore: 6225324fe5006026bc86ef8641d567e00c6582f3
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
   RCTRequired: cec6a34b3ac8a9915c37e7e4ad3aa74726ce4035
   RCTTypeSafety: 93006131180074cffa227a1075802c89a49dd4ce
@@ -713,6 +726,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
   react-native-appearance: 0f0e5fc2fcef70e03d48c8fe6b00b9158c2ba8aa
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
+  react-native-mmkv-storage: 023a9c501f7430319138a94889fc53691b93d73d
   react-native-netinfo: cb74e17062b2af5a16a4b137f32495f241df1a8e
   react-native-safe-area-context: ef6f16c66b0797ecae1bf86c103dfb3dc16fc33d
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
