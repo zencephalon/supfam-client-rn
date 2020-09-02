@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Text, Platform } from 'react-native';
+import { FlatList } from 'react-native';
 
 import Message from '~/c/Message';
-import SfText from '~/c/SfText';
-import EmojiSelector from '~/c/SfEmojiSelector';
 
 const ONE_HOUR = 60 * 60 * 1000;
 

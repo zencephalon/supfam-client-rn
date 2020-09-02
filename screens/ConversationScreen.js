@@ -12,6 +12,7 @@ import useMessages from '~/h/useMessages';
 import useProfileDmConversation from '~/h/useProfileDmConversation';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
 import useConversationSelect from '~/h/useConversationSelect';
+import useConversation from '~/h/useConversation';
 
 export default function ConversationScreen({ navigation, route }) {
   const { profileId } = route.params;
@@ -28,6 +29,7 @@ export default function ConversationScreen({ navigation, route }) {
     conversationId,
     meProfileId
   );
+  useConversation(conversationId, meProfileId);
 
   useMarkConversationRead(conversationId, messages[0]?.id);
 
