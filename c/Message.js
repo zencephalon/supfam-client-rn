@@ -20,7 +20,7 @@ import MessageReactions from '~/c/MessageReactions';
 
 import useOpenMessageActionModal from '~/h/useOpenMessageActionModal';
 import useGoGallery from '~/h/useGoGallery';
-import useCachedMessage from '~/h/useCachedMessage';
+import useStoredMessage from '~/h/useStoredMessage';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -28,7 +28,7 @@ function Message(props) {
   const navigation = useNavigation();
 
   const { messageId, isOwnMessage, fromSameUser, breakAbove } = props;
-  const message = useCachedMessage(messageId);
+  const message = useStoredMessage(messageId);
 
   const [showDate, setShowDate] = React.useState(false);
 
