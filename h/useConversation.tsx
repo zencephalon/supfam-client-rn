@@ -3,6 +3,7 @@ import Message from '~/t/Message';
 import { useQuery } from 'react-query';
 import { clearReceivedMessages } from '~/lib/QueryCache';
 import Cable from '~/lib/Cable';
+import MessageQueue from '~/lib/MessageQueue';
 
 import { last, sortBy, values } from 'lodash';
 
@@ -180,6 +181,20 @@ function useInstantMessages(conversationId: number, meProfileId: number) {
 	);
 }
 
+function useQueuedMessages(conversationId: number) {
+	const { data: queuedMessages } = useQuery(
+		['queued_messages', { conversationId }],
+		() => {},
+		{
+			manual: true,
+			initialData: MessageQueue.getQueued(conversationId),
+			enabled: conversationId,
+		}
+	);
+
+	return queuedMessages;
+}
+
 export default function useConversation(
 	conversationId: number,
 	meProfileId: number
@@ -226,9 +241,13 @@ export default function useConversation(
 	React.useEffect(sync, [loadedFromStore]);
 
 	const instantMessages = useInstantMessages(conversationId, meProfileId);
+	const queuedMessages = useQueuedMessages(conversationId);
 
 	return {
-		messages: instantMessages.concat(conversationState.messages),
+		messages: instantMessages.concat(
+			queuedMessages,
+			conversationState.messages
+		),
 		// messages: conversationState.messages,
 		fetchMore,
 		canFetchMore,
