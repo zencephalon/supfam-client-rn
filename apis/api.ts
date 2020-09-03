@@ -1,3 +1,5 @@
+import Message from '~/t/Message';
+
 import configureApi from '~/apis/configureApi';
 import { API_URL } from '~/lib/constants';
 import AuthToken from '~/lib/AuthToken';
@@ -38,13 +40,16 @@ export const getConversationMessages = (_key, { conversationId }, cursor) => {
     });
 };
 
-export const getConversationMessagesSync = (conversationId, cursor) => {
+export const getConversationMessagesSync = (
+  conversationId: number,
+  cursor?: number
+) => {
   const cursorChunk = cursor ? `?cursor=${cursor}` : '';
   return api
     .fetchFromAPI(`conversations/${conversationId}/sync_messages${cursorChunk}`)
-    .then(({ messages, next_cursor }) => {
+    .then(({ messages }: { messages: Message[] }) => {
       messages.forEach((message) => cacheMessage(message));
-      return { messages, next_cursor };
+      return { messages };
     });
 };
 

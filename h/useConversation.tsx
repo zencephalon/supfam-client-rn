@@ -1,3 +1,5 @@
+import Message from '~/t/Message';
+
 import React from 'react';
 import { storeConversation, getConversation } from '~/lib/ConversationStore';
 import { getConversationMessagesSync } from '~/apis/api';
@@ -34,6 +36,8 @@ export default function useConversation(
 		getConversationMessagesSync(
 			conversationId,
 			conversationState.latestSyncMessageId
-		).then((messages) => {});
+		).then((messages: Message[]) => {
+			// merge into messages
+		});
 	}, [conversationId, conversationState.latestSyncMessageId]);
 }
