@@ -2,7 +2,9 @@ import Message from '~/t/Message';
 
 import { useQuery } from 'react-query';
 import { clearReceivedMessages } from '~/lib/QueryCache';
-import { last } from 'lodash';
+import Cable from '~/lib/Cable';
+
+import { last, sortBy, values } from 'lodash';
 
 import React from 'react';
 import { storeConversation, getConversation } from '~/lib/ConversationStore';
@@ -124,7 +126,7 @@ function useIncorporateReceivedMessages(
 				...conversationState,
 				messages: mergeSortedIds(conversationState.messages, receivedMessages),
 			};
-			storeConversation(state);
+			storeConversation(conversationId, state);
 			return state;
 		});
 
@@ -159,11 +161,36 @@ function useFetchMore(
 	}, [conversationId, earliestMessageId, setConversationState]);
 }
 
+function useInstantMessages(conversationId: number, meProfileId: number) {
+	const { data: instantMessages } = useQuery(
+		['instantMessages', conversationId],
+		() => {},
+		{
+			manual: true,
+			enabled: conversationId,
+			initialData: {},
+		}
+	);
+
+	return sortBy(
+		values(instantMessages).filter(
+			(msg: Message) => msg.profile_id !== meProfileId
+		),
+		'profile_id'
+	);
+}
+
 export default function useConversation(
 	conversationId: number,
 	meProfileId: number
 ) {
 	// subscribe to conversation
+	React.useEffect(() => {
+		Cable.subscribeConversation(conversationId, meProfileId);
+		return () => {
+			Cable.unsubscribeConversation(conversationId);
+		};
+	}, [conversationId]);
 
 	const [canFetchMore, setCanFetchMore] = React.useState(true);
 	const [loadedFromStore, setLoadedFromStore] = React.useState(false);
@@ -176,6 +203,7 @@ export default function useConversation(
 	useStateFromStore(conversationId, setConversationState, setLoadedFromStore);
 	useStoreState(conversationId, loadedFromStore, conversationState);
 	const receivedMessages = useReceivedMessages(conversationId);
+	console.log({ receivedMessages });
 	useIncorporateReceivedMessages(
 		conversationId,
 		receivedMessages || [],
@@ -197,8 +225,11 @@ export default function useConversation(
 
 	React.useEffect(sync, [loadedFromStore]);
 
+	const instantMessages = useInstantMessages(conversationId, meProfileId);
+
 	return {
-		messages: conversationState.messages,
+		messages: instantMessages.concat(conversationState.messages),
+		// messages: conversationState.messages,
 		fetchMore,
 		canFetchMore,
 	};
