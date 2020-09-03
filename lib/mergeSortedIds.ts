@@ -2,11 +2,14 @@ interface Idable {
 	id: number;
 }
 
-export default function mergeSortedIds(a: Idable[], b: Idable[]): Idable[] {
-	if (a.length === 0) {
+export default function mergeSortedIds<T extends Idable>(a: T[], b: T[]) {
+	if (!a && !b) {
+		return [];
+	}
+	if (!a || a.length === 0) {
 		return b;
 	}
-	if (b.length === 0) {
+	if (!b || b.length === 0) {
 		return a;
 	}
 

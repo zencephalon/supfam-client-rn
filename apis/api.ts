@@ -46,10 +46,13 @@ export const getConversationMessagesSync = (
 ) => {
   const cursorChunk = cursor ? `?cursor=${cursor}` : '';
   return api
-    .fetchFromAPI(`conversations/${conversationId}/sync_messages${cursorChunk}`)
+    .fetchFromAPI(`conversations/${conversationId}/sync${cursorChunk}`)
     .then(({ messages }: { messages: Message[] }) => {
-      messages.forEach((message) => cacheMessage(message));
-      return { messages };
+      console.log({ messages });
+      if (messages) {
+        messages.forEach((message) => cacheMessage(message));
+      }
+      return messages;
     });
 };
 

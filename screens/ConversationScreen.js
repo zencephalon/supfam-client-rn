@@ -25,11 +25,8 @@ export default function ConversationScreen({ navigation, route }) {
   const conversationId = conversation?.id;
   useConversationSelect(conversationId);
 
-  const { fetchMore, canFetchMore, messages } = useMessages(
-    conversationId,
-    meProfileId
-  );
-  useConversation(conversationId, meProfileId);
+  const { fetchMore, canFetchMore } = useMessages(conversationId, meProfileId);
+  const { messages } = useConversation(conversationId, meProfileId);
 
   useMarkConversationRead(conversationId, messages[0]?.id);
 

@@ -1,4 +1,6 @@
+import Message from '~/t/Message';
+
 export default interface ConversationState {
-	messages: Record<string, unknown>[];
+	messages: Message[];
 	latestSyncMessageId?: number;
 }
