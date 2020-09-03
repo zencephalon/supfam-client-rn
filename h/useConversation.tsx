@@ -22,7 +22,7 @@ export default function useConversation(
 		DEFAULT_CONVERSATION_STATE
 	);
 
-	console.log({ conversationId });
+	console.log({ conversationId, loadedFromStore });
 
 	React.useEffect(() => {
 		if (!conversationId) {
@@ -31,9 +31,9 @@ export default function useConversation(
 
 		getConversation(conversationId)
 			.then((conversationState) => {
-				setLoadedFromStore(true);
-
+				console.log('loadedState', conversationState);
 				setConversationState(conversationState);
+				setLoadedFromStore(true);
 			})
 			.catch(() => {
 				setLoadedFromStore(true);
@@ -48,7 +48,7 @@ export default function useConversation(
 	}, [conversationState]);
 
 	const sync = React.useCallback(() => {
-		if (!conversationId) {
+		if (!conversationId || !loadedFromStore) {
 			return;
 		}
 		// make API call to get message previous to now, merge into messages
@@ -68,6 +68,7 @@ export default function useConversation(
 			});
 		});
 	}, [
+		loadedFromStore,
 		conversationId,
 		conversationState.latestSyncMessageId,
 		setConversationState,
