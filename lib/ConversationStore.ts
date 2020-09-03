@@ -1,4 +1,5 @@
 import MmkvStorage from 'react-native-mmkv-storage';
+import ConversationState from '~/t/ConversationState';
 
 const store = new MmkvStorage.Loader()
 	.withInstanceID('conversations')
@@ -6,12 +7,12 @@ const store = new MmkvStorage.Loader()
 
 export const storeConversation = (
 	conversationId: number,
-	conversationState
-) => {
+	conversationState: ConversationState
+): Promise<{}> => {
 	// TODO only store the last 50 message
 	return store.setMapAsync(`${conversationId}`, conversationState);
 };
 
 export const getConversation = (conversationId: number) => {
-	return store.getMapAsync(`${conversationId}`);
+	return store.getMapAsync(`${conversationId}`) as Promise<ConversationState>;
 };

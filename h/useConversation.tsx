@@ -1,9 +1,11 @@
 import React from 'react';
 import { storeConversation, getConversation } from '~/lib/ConversationStore';
+import { getConversationMessagesSync } from '~/apis/api';
+import ConversationState from '~/t/ConversationState';
 
-const DEFAULT_CONVERSATION_STATE = {
+const DEFAULT_CONVERSATION_STATE: ConversationState = {
 	messages: [],
-	latestSyncMessageId: null,
+	latestSyncMessageId: undefined,
 };
 
 export default function useConversation(
@@ -11,7 +13,9 @@ export default function useConversation(
 	meProfileId: number
 ) {
 	const [loadedFromStore, setLoadedFromStore] = React.useState(false);
-	const [conversationState, setConversationState] = React.useState(null);
+	const [conversationState, setConversationState] = React.useState(
+		DEFAULT_CONVERSATION_STATE
+	);
 
 	React.useEffect(() => {
 		getConversation(conversationId)
@@ -22,12 +26,14 @@ export default function useConversation(
 			})
 			.catch(() => {
 				setLoadedFromStore(true);
-
-				setConversationState(DEFAULT_CONVERSATION_STATE);
 			});
 	}, []);
 
 	const sync = React.useCallback(() => {
 		// make API call to get message previous to now, merge into messages
-	}, []);
+		getConversationMessagesSync(
+			conversationId,
+			conversationState.latestSyncMessageId
+		).then((messages) => {});
+	}, [conversationId, conversationState.latestSyncMessageId]);
 }

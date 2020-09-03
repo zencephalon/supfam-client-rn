@@ -38,6 +38,16 @@ export const getConversationMessages = (_key, { conversationId }, cursor) => {
     });
 };
 
+export const getConversationMessagesSync = (conversationId, cursor) => {
+  const cursorChunk = cursor ? `?cursor=${cursor}` : '';
+  return api
+    .fetchFromAPI(`conversations/${conversationId}/sync_messages${cursorChunk}`)
+    .then(({ messages, next_cursor }) => {
+      messages.forEach((message) => cacheMessage(message));
+      return { messages, next_cursor };
+    });
+};
+
 export const getProfileDmConversation = (_key, { profileId }) => {
   return api.fetchFromAPI(`conversations/profile/${profileId}`);
 };
