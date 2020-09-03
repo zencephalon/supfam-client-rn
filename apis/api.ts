@@ -30,7 +30,10 @@ export const getProfilesMe = () => {
   return api.fetchFromAPI('profiles/me');
 };
 
-export const getConversationMessages = (_key, { conversationId }, cursor) => {
+export const getConversationMessages = (
+  conversationId: number,
+  cursor: number
+) => {
   const cursorChunk = cursor ? `?cursor=${cursor}` : '';
   return api
     .fetchFromAPI(`conversations/${conversationId}/messages${cursorChunk}`)

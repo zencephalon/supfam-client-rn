@@ -2,10 +2,14 @@ import Message from '~/t/Message';
 
 import { useQuery } from 'react-query';
 import { clearReceivedMessages } from '~/lib/QueryCache';
+import { last } from 'lodash';
 
 import React from 'react';
 import { storeConversation, getConversation } from '~/lib/ConversationStore';
-import { getConversationMessagesSync } from '~/apis/api';
+import {
+	getConversationMessagesSync,
+	getConversationMessages,
+} from '~/apis/api';
 import ConversationState from '~/t/ConversationState';
 import mergeSortedIds from '~/lib/mergeSortedIds';
 
@@ -14,10 +18,16 @@ const DEFAULT_CONVERSATION_STATE: ConversationState = {
 	latestSyncMessageId: undefined,
 };
 
+type SetConversationState = React.Dispatch<
+	React.SetStateAction<ConversationState>
+>;
+
+type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
+
 function useStateFromStore(
 	conversationId: number,
-	setConversationState: React.Dispatch<ConversationState>,
-	setLoadedFromStore: React.Dispatch<boolean>
+	setConversationState: SetConversationState,
+	setLoadedFromStore: SetBooleanState
 ) {
 	React.useEffect(() => {
 		if (!conversationId) {
@@ -52,8 +62,8 @@ function useStoreState(
 function useSync(
 	conversationId: number,
 	loadedFromStore: boolean,
-	latestSyncMessageId: number,
-	setConversationState: React.Dispatch<React.SetStateAction<ConversationState>>
+	latestSyncMessageId: number | undefined,
+	setConversationState: SetConversationState
 ) {
 	return React.useCallback((): void => {
 		if (!conversationId || !loadedFromStore) {
@@ -101,8 +111,8 @@ function useReceivedMessages(conversationId) {
 
 function useIncorporateReceivedMessages(
 	conversationId: number,
-	receivedMessages,
-	setConversationState
+	receivedMessages: Message[],
+	setConversationState: SetConversationState
 ) {
 	React.useEffect(() => {
 		if (receivedMessages.length === 0) {
@@ -122,12 +132,40 @@ function useIncorporateReceivedMessages(
 	}, [receivedMessages.length]);
 }
 
+function useFetchMore(
+	conversationId: number,
+	earliestMessageId: number,
+	setConversationState: SetConversationState,
+	setCanFetchMore: SetBooleanState
+) {
+	return React.useCallback(() => {
+		getConversationMessages(conversationId, earliestMessageId).then(
+			({ messages }: { messages: Message[] }) => {
+				if (messages.length === 0) {
+					console.log('Disabling FETCH MORE');
+					setCanFetchMore(false);
+					return;
+				}
+				setConversationState((conversationState) => {
+					const state = {
+						...conversationState,
+						messages: mergeSortedIds(conversationState.messages, messages),
+					};
+					storeConversation(conversationId, state);
+					return state;
+				});
+			}
+		);
+	}, [conversationId, earliestMessageId, setConversationState]);
+}
+
 export default function useConversation(
 	conversationId: number,
 	meProfileId: number
 ) {
 	// subscribe to conversation
 
+	const [canFetchMore, setCanFetchMore] = React.useState(true);
 	const [loadedFromStore, setLoadedFromStore] = React.useState(false);
 	const [conversationState, setConversationState] = React.useState(
 		DEFAULT_CONVERSATION_STATE
@@ -140,7 +178,7 @@ export default function useConversation(
 	const receivedMessages = useReceivedMessages(conversationId);
 	useIncorporateReceivedMessages(
 		conversationId,
-		receivedMessages,
+		receivedMessages || [],
 		setConversationState
 	);
 
@@ -150,8 +188,18 @@ export default function useConversation(
 		conversationState.latestSyncMessageId,
 		setConversationState
 	);
+	const fetchMore = useFetchMore(
+		conversationId,
+		last(conversationState.messages)?.id,
+		setConversationState,
+		setCanFetchMore
+	);
 
 	React.useEffect(sync, [loadedFromStore]);
 
-	return { messages: conversationState.messages };
+	return {
+		messages: conversationState.messages,
+		fetchMore,
+		canFetchMore,
+	};
 }

@@ -9,8 +9,10 @@ export const storeConversation = (
 	conversationId: number,
 	conversationState: ConversationState
 ): Promise<{}> => {
-	// TODO only store the last 50 message
-	return store.setMapAsync(`${conversationId}`, conversationState);
+	return store.setMapAsync(`${conversationId}`, {
+		...conversationState,
+		messages: conversationState.messages.slice(0, 50),
+	});
 };
 
 export const getConversation = (conversationId: number) => {
