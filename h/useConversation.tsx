@@ -1,7 +1,7 @@
 import Message from '~/t/Message';
 
 import { useQuery } from 'react-query';
-import { clearReceivedMessages, removeQueuedMessage } from '~/lib/QueryCache';
+import { clearReceivedMessages, removeQueuedMessages } from '~/lib/QueryCache';
 import Cable from '~/lib/Cable';
 import MessageQueue from '~/lib/MessageQueue';
 
@@ -131,8 +131,13 @@ function useIncorporateReceivedMessages(
 			return state;
 		});
 
+		// removeQueuedMessages(
+		// 	conversationId,
+		// 	receivedMessages.map((m) => m.qid)
+		// );
+
 		clearReceivedMessages(conversationId);
-	}, [receivedMessages.length]);
+	}, [receivedMessages]);
 }
 
 function useFetchMore(
@@ -244,20 +249,15 @@ export default function useConversation(
 	console.log({ queuedMessages, receivedMessages });
 
 	const messages = React.useMemo(() => {
-		let messages = instantMessages.concat(queuedMessages, receivedMessages);
-		messages = uniqBy(messages, 'qid');
+		let messages = instantMessages.concat(queuedMessages);
+		// messages = uniqBy(messages, 'qid');
 		messages = uniqBy(
 			messages.concat(conversationState.messages.slice(0, 5)),
-			'id'
+			'qid'
 		);
 
 		return messages.concat(conversationState.messages.slice(5));
-	}, [
-		instantMessages,
-		queuedMessages,
-		receivedMessages,
-		conversationState.messages,
-	]);
+	}, [instantMessages, queuedMessages, conversationState.messages]);
 
 	return {
 		messages,
