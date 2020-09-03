@@ -10,5 +10,6 @@ export default interface Message {
 	message: string;
 	qid: number;
 	links?: Link[];
+	// TODO: better define this
 	data?: Record<string, unknown>;
 }
