@@ -3,7 +3,7 @@ import Message from '~/t/Message';
 import configureApi from '~/apis/configureApi';
 import { API_URL } from '~/lib/constants';
 import AuthToken from '~/lib/AuthToken';
-import { cacheMessage } from '~/lib/QueryCache';
+import { storeMessage } from '~/lib/QueryCache';
 
 import EmojiHistory from '~/lib/EmojiHistory';
 
@@ -38,7 +38,7 @@ export const getConversationMessages = (
   return api
     .fetchFromAPI(`conversations/${conversationId}/messages${cursorChunk}`)
     .then(({ messages, next_cursor }) => {
-      messages.forEach((message) => cacheMessage(message));
+      messages.forEach((message) => storeMessage(message));
       return { messages, next_cursor };
     });
 };
@@ -54,7 +54,7 @@ export const getConversationMessagesSync = (
     .then(({ messages }: { messages: Message[] }) => {
       // console.log({ messages });
       if (messages) {
-        messages.forEach((message) => cacheMessage(message));
+        messages.forEach((message) => storeMessage(message));
       }
       return messages;
     });
