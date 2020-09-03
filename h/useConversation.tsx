@@ -1,5 +1,8 @@
 import Message from '~/t/Message';
 
+import { useQuery } from 'react-query';
+import { clearReceivedMessages } from '~/lib/QueryCache';
+
 import React from 'react';
 import { storeConversation, getConversation } from '~/lib/ConversationStore';
 import { getConversationMessagesSync } from '~/apis/api';
@@ -82,6 +85,43 @@ function useSync(
 	]);
 }
 
+function useReceivedMessages(conversationId) {
+	const { data: receivedMessages } = useQuery(
+		['received_messages', { conversationId }],
+		() => {},
+		{
+			manual: true,
+			initialData: [],
+			enabled: conversationId,
+		}
+	);
+
+	return receivedMessages;
+}
+
+function useIncorporateReceivedMessages(
+	conversationId: number,
+	receivedMessages,
+	setConversationState
+) {
+	React.useEffect(() => {
+		if (receivedMessages.length === 0) {
+			return;
+		}
+
+		setConversationState((conversationState) => {
+			const state = {
+				...conversationState,
+				messages: mergeSortedIds(conversationState.messages, receivedMessages),
+			};
+			storeConversation(state);
+			return state;
+		});
+
+		clearReceivedMessages(conversationId);
+	}, [receivedMessages.length]);
+}
+
 export default function useConversation(
 	conversationId: number,
 	meProfileId: number
@@ -97,6 +137,12 @@ export default function useConversation(
 
 	useStateFromStore(conversationId, setConversationState, setLoadedFromStore);
 	useStoreState(conversationId, loadedFromStore, conversationState);
+	const receivedMessages = useReceivedMessages(conversationId);
+	useIncorporateReceivedMessages(
+		conversationId,
+		receivedMessages,
+		setConversationState
+	);
 
 	const sync = useSync(
 		conversationId,
