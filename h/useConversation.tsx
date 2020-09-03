@@ -1,11 +1,11 @@
 import Message from '~/t/Message';
 
 import { useQuery } from 'react-query';
-import { clearReceivedMessages } from '~/lib/QueryCache';
+import { clearReceivedMessages, removeQueuedMessage } from '~/lib/QueryCache';
 import Cable from '~/lib/Cable';
 import MessageQueue from '~/lib/MessageQueue';
 
-import { last, sortBy, values } from 'lodash';
+import { uniqBy, last, sortBy, values } from 'lodash';
 
 import React from 'react';
 import { storeConversation, getConversation } from '~/lib/ConversationStore';
@@ -98,7 +98,7 @@ function useSync(
 	]);
 }
 
-function useReceivedMessages(conversationId) {
+function useReceivedMessages(conversationId: number) {
 	const { data: receivedMessages } = useQuery(
 		['received_messages', { conversationId }],
 		() => {},
@@ -217,8 +217,9 @@ export default function useConversation(
 
 	useStateFromStore(conversationId, setConversationState, setLoadedFromStore);
 	useStoreState(conversationId, loadedFromStore, conversationState);
+	const instantMessages = useInstantMessages(conversationId, meProfileId);
+	const queuedMessages = useQueuedMessages(conversationId);
 	const receivedMessages = useReceivedMessages(conversationId);
-	console.log({ receivedMessages });
 	useIncorporateReceivedMessages(
 		conversationId,
 		receivedMessages || [],
@@ -240,14 +241,26 @@ export default function useConversation(
 
 	React.useEffect(sync, [loadedFromStore]);
 
-	const instantMessages = useInstantMessages(conversationId, meProfileId);
-	const queuedMessages = useQueuedMessages(conversationId);
+	console.log({ queuedMessages, receivedMessages });
+
+	const messages = React.useMemo(() => {
+		let messages = instantMessages.concat(queuedMessages, receivedMessages);
+		messages = uniqBy(messages, 'qid');
+		messages = uniqBy(
+			messages.concat(conversationState.messages.slice(0, 5)),
+			'id'
+		);
+
+		return messages.concat(conversationState.messages.slice(5));
+	}, [
+		instantMessages,
+		queuedMessages,
+		receivedMessages,
+		conversationState.messages,
+	]);
 
 	return {
-		messages: instantMessages.concat(
-			queuedMessages,
-			conversationState.messages
-		),
+		messages,
 		// messages: conversationState.messages,
 		fetchMore,
 		canFetchMore,
