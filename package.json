@@ -4,14 +4,11 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
-    "test": "jest --watchAll",
+    "test": "jest",
     "start-dev": "API_URL=http://localhost:5000/ expo start -c",
     "start-ngrok": "API_URL=http://supfam.ngrok.io/ expo start -c",
     "start-prod": "API_URL=https://supfam-api.herokuapp.com/ expo start -c",
     "start-ngrok-esc": "API_URL=http://0b30fba8a646.ngrok.io/ expo start -c"
-  },
-  "jest": {
-    "preset": "jest-expo"
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.8.0",
@@ -90,7 +87,7 @@
     "babel-preset-expo": "^8.2.3",
     "eslint": "^7.4.0",
     "eslint-plugin-react": "^7.20.3",
-    "jest": "~25.2.6",
+    "jest": "^26.4.2",
     "jest-expo": "^38.0.0",
     "react-test-renderer": "~16.11.0",
     "typescript": "^3.9.6"
