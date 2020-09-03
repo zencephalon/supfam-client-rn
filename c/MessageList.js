@@ -21,6 +21,10 @@ class MessageList extends React.Component {
   renderMessage = ({ item, index }) => {
     const prevSentMessage = this.props.messages[index + 1];
 
+    if (!item) {
+      return null;
+    }
+
     return (
       <Message
         isLocal={item.queued || item.i}
@@ -42,7 +46,7 @@ class MessageList extends React.Component {
           data={messages}
           renderItem={this.renderMessage}
           style={{ flex: 1 }}
-          keyExtractor={(m) => `${m.id}`}
+          keyExtractor={(m) => `${m?.id}`}
           inverted
           keyboardShouldPersistTaps={'handled'}
           keyboardDismissMode={'on-drag'}

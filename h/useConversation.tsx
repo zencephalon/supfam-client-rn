@@ -39,7 +39,6 @@ function useStateFromStore(
 
 		getConversation(conversationId)
 			.then((conversationState) => {
-				console.log('loadedState', conversationState);
 				setConversationState(conversationState);
 				setLoadedFromStore(true);
 			})
@@ -150,7 +149,6 @@ function useFetchMore(
 		getConversationMessages(conversationId, earliestMessageId).then(
 			({ messages }: { messages: Message[] }) => {
 				if (messages.length === 0) {
-					console.log('Disabling FETCH MORE');
 					setCanFetchMore(false);
 					return;
 				}
@@ -218,8 +216,6 @@ export default function useConversation(
 		DEFAULT_CONVERSATION_STATE
 	);
 
-	console.log({ conversationId, loadedFromStore });
-
 	useStateFromStore(conversationId, setConversationState, setLoadedFromStore);
 	useStoreState(conversationId, loadedFromStore, conversationState);
 	const instantMessages = useInstantMessages(conversationId, meProfileId);
@@ -246,22 +242,18 @@ export default function useConversation(
 
 	React.useEffect(sync, [loadedFromStore]);
 
-	console.log({ queuedMessages, receivedMessages });
-
 	const messages = React.useMemo(() => {
-		let messages = instantMessages.concat(queuedMessages);
-		// messages = uniqBy(messages, 'qid');
-		messages = uniqBy(
-			messages.concat(conversationState.messages.slice(0, 5)),
-			'qid'
-		);
-
-		return messages.concat(conversationState.messages.slice(5));
+		return instantMessages.concat(queuedMessages, conversationState.messages);
 	}, [instantMessages, queuedMessages, conversationState.messages]);
+
+	// console.log({
+	// 	queuedMessages,
+	// 	receivedMessages,
+	// 	messages: messages.slice(0, 3),
+	// });
 
 	return {
 		messages,
-		// messages: conversationState.messages,
 		fetchMore,
 		canFetchMore,
 	};

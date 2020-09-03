@@ -10,7 +10,9 @@ export default function useCachedMessage(messageId: number, isLocal: boolean) {
 	const [message, setMessage] = React.useState(null);
 	// const message = useSelector((state) => state.messageCache[messageId]);
 	React.useEffect(() => {
-		getMessage(messageId).then((message) => setMessage(message));
+		getMessage(messageId)
+			.then((message) => setMessage(message))
+			.catch(() => {});
 	}, []);
 
 	return message;
