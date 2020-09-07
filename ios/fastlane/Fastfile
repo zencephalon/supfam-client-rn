@@ -22,42 +22,53 @@ PLIST_LOCATION = "../Supfam/Supporting/Expo.plist"
 RELEASE_LOCATION = "../../EXPO_RELEASE.json"
 
 def upgrade_ios_release
-	releaseObject = JSON.parse(File.read(RELEASE_LOCATION))
-	releaseObject["ios"] += 1
-	releaseNumber = releaseObject["ios"]
-	fileContents = File.read(PLIST_LOCATION)
-	newContents = fileContents.gsub(/ios-v\d+/, "ios-v#{releaseNumber}")
-	File.write(PLIST_LOCATION, newContents)
-	File.write(RELEASE_LOCATION, releaseObject.to_json)
+  releaseObject = JSON.parse(File.read(RELEASE_LOCATION))
+  releaseObject["ios"] += 1
+  releaseNumber = releaseObject["ios"]
+  fileContents = File.read(PLIST_LOCATION)
+  newContents = fileContents.gsub(/ios-v\d+/, "ios-v#{releaseNumber}")
+  File.write(PLIST_LOCATION, newContents)
+  File.write(RELEASE_LOCATION, releaseObject.to_json)
   system("git commit -am 'Update to release channel ios-v#{releaseNumber}'")
 end
 
-platform :ios do
-  desc "Push a new beta build to TestFlight"
-  lane :beta do
-    # Ensure that your git status is not dirty
-    ensure_git_status_clean
+def beta(do_increment)
+  # Ensure that your git status is not dirty
+  ensure_git_status_clean
 
-    # Increment the build number (not the version number)
-    # Providing the xcodeproj is optional
-    version = Semantic::Version.new latest_testflight_build_number
-    increment_build_number(xcodeproj: "Supfam.xcodeproj", build_number: version.patch!.to_s)
+  # Increment the build number (not the version number)
+  # Providing the xcodeproj is optional
+  version = Semantic::Version.new latest_testflight_build_number
+  increment_build_number(xcodeproj: "Supfam.xcodeproj", build_number: version.patch!.to_s)
+
+  if do_increment
     increment_version_number
 
     # Commit the version bump
     commit_version_bump(xcodeproj: "Supfam.xcodeproj", force: true)
 
     upgrade_ios_release
+  end
 
-    # Add a git tag for this build. This will automatically
-    # use an appropriate git tag name
-    add_git_tag
+  # Add a git tag for this build. This will automatically
+  # use an appropriate git tag name
+  add_git_tag
 
-    # Push the new commit and tag back to your git remote
-    push_to_git_remote
+  # Push the new commit and tag back to your git remote
+  push_to_git_remote
 
-    build_app(workspace: "Supfam.xcworkspace", scheme: "Supfam", export_xcargs: "-allowProvisioningUpdates") 
-    upload_to_testflight(skip_waiting_for_build_processing: true)
+  build_app(workspace: "Supfam.xcworkspace", scheme: "Supfam", export_xcargs: "-allowProvisioningUpdates") 
+  upload_to_testflight(skip_waiting_for_build_processing: true)
+end
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    beta(true)
+  end
+
+  lane :beta_update do
+    beta(false)
   end
 
   lane :expo_publish do
