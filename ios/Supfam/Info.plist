@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>1.0.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -52,10 +52,10 @@
 	<string>Allowing Supfam to use your contacts lets you find your fam more quickly</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allowing Supfam to use your location lets you locate your fam on a map</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allowing Supfam to use your camera roll lets you send saved photos to your fam</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allowing Supfam to use your microphone lets you record video with sound</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allowing Supfam to use your camera roll lets you send saved photos to your fam</string>
 	<key>UILaunchStoryboardName</key>
 	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
