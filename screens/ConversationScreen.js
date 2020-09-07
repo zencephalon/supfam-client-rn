@@ -8,7 +8,6 @@ import EmptyListPlaceholder from '~/c/EmptyListPlaceholder';
 
 import useCachedProfile from '~/h/useCachedProfile';
 import useProfileId from '~/h/useProfileId';
-import useMessages from '~/h/useMessages';
 import useProfileDmConversation from '~/h/useProfileDmConversation';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
 import useConversationSelect from '~/h/useConversationSelect';
@@ -25,8 +24,7 @@ export default function ConversationScreen({ navigation, route }) {
   const conversationId = conversation?.id;
   useConversationSelect(conversationId);
 
-  // const { fetchMore, canFetchMore } = useMessages(conversationId, meProfileId);
-  const { messages, fetchMore, canFetchMore } = useConversation(
+  const { messages, fetchMore, canFetchMore, loading } = useConversation(
     conversationId,
     meProfileId
   );
@@ -40,7 +38,7 @@ export default function ConversationScreen({ navigation, route }) {
         name={profile?.name}
         statusMessage={profile?.status?.message}
       />
-      {messages.length == 0 && (
+      {!loading && messages.length == 0 && (
         <EmptyListPlaceholder text="No messages have been sent yet. Start the conversation!" />
       )}
       <MessageList
@@ -48,6 +46,7 @@ export default function ConversationScreen({ navigation, route }) {
         meProfileId={meProfileId}
         fetchMore={fetchMore}
         canFetchMore={canFetchMore}
+        loading={loading}
       />
       <MessageInput conversationId={conversationId} />
     </SfKeyboardAvoidingView>

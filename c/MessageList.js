@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 
 import Message from '~/c/Message';
 
@@ -37,7 +37,7 @@ class MessageList extends React.Component {
   };
 
   render() {
-    const { fetchMore, canFetchMore, messages } = this.props;
+    const { fetchMore, canFetchMore, messages, loading } = this.props;
     return (
       <>
         <FlatList
@@ -50,6 +50,7 @@ class MessageList extends React.Component {
           inverted
           keyboardShouldPersistTaps={'handled'}
           keyboardDismissMode={'on-drag'}
+          refreshControl={<RefreshControl refreshing={loading} />}
         />
       </>
     );

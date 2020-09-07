@@ -1,13 +1,18 @@
+import React from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { uniqBy, last, sortBy, values } from 'lodash';
+
 import Message from '~/t/Message';
 
 import { useQuery } from 'react-query';
-import { clearReceivedMessages, removeQueuedMessages } from '~/lib/QueryCache';
+import {
+	cacheMessage,
+	clearReceivedMessages,
+	removeQueuedMessages,
+} from '~/lib/QueryCache';
 import Cable from '~/lib/Cable';
 import MessageQueue from '~/lib/MessageQueue';
 
-import { uniqBy, last, sortBy, values } from 'lodash';
-
-import React from 'react';
 import { storeConversation, getConversation } from '~/lib/ConversationStore';
 import {
 	getConversationMessagesSync,
@@ -30,7 +35,7 @@ type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
 function useStateFromStore(
 	conversationId: number,
 	setConversationState: SetConversationState,
-	setLoadedFromStore: SetBooleanState
+	setloadingFromStore: SetBooleanState
 ) {
 	React.useEffect(() => {
 		if (!conversationId) {
@@ -40,21 +45,24 @@ function useStateFromStore(
 		getConversation(conversationId)
 			.then((conversationState) => {
 				setConversationState(conversationState);
-				setLoadedFromStore(true);
+				conversationState.messages.forEach((message) => {
+					cacheMessage(message);
+				});
+				setloadingFromStore(false);
 			})
 			.catch(() => {
-				setLoadedFromStore(true);
+				setloadingFromStore(false);
 			});
 	}, [conversationId]);
 }
 
 function useStoreState(
 	conversationId: number,
-	loadedFromStore: boolean,
+	loadingFromStore: boolean,
 	conversationState: ConversationState
 ) {
 	React.useEffect(() => {
-		if (!conversationId || !loadedFromStore) {
+		if (!conversationId || loadingFromStore) {
 			return;
 		}
 		storeConversation(conversationId, conversationState);
@@ -63,14 +71,16 @@ function useStoreState(
 
 function useSync(
 	conversationId: number,
-	loadedFromStore: boolean,
+	loadingFromStore: boolean,
 	latestSyncMessageId: number | undefined,
-	setConversationState: SetConversationState
+	setConversationState: SetConversationState,
+	setSyncing: SetBooleanState
 ) {
 	return React.useCallback((): void => {
-		if (!conversationId || !loadedFromStore) {
+		if (!conversationId || loadingFromStore) {
 			return;
 		}
+		setSyncing(true);
 		// make API call to get message previous to now, merge into messages
 		getConversationMessagesSync(conversationId, latestSyncMessageId).then(
 			(_messages: Message[]) => {
@@ -87,10 +97,11 @@ function useSync(
 					};
 					return state;
 				});
+				setSyncing(false);
 			}
 		);
 	}, [
-		loadedFromStore,
+		loadingFromStore,
 		conversationId,
 		latestSyncMessageId,
 		setConversationState,
@@ -211,13 +222,14 @@ export default function useConversation(
 	}, [conversationId]);
 
 	const [canFetchMore, setCanFetchMore] = React.useState(true);
-	const [loadedFromStore, setLoadedFromStore] = React.useState(false);
+	const [syncing, setSyncing] = React.useState(true);
+	const [loadingFromStore, setloadingFromStore] = React.useState(true);
 	const [conversationState, setConversationState] = React.useState(
 		DEFAULT_CONVERSATION_STATE
 	);
 
-	useStateFromStore(conversationId, setConversationState, setLoadedFromStore);
-	useStoreState(conversationId, loadedFromStore, conversationState);
+	useStateFromStore(conversationId, setConversationState, setloadingFromStore);
+	useStoreState(conversationId, loadingFromStore, conversationState);
 	const instantMessages = useInstantMessages(conversationId, meProfileId);
 	const queuedMessages = useQueuedMessages(conversationId);
 	const receivedMessages = useReceivedMessages(conversationId);
@@ -229,9 +241,10 @@ export default function useConversation(
 
 	const sync = useSync(
 		conversationId,
-		loadedFromStore,
+		loadingFromStore,
 		conversationState.latestSyncMessageId,
-		setConversationState
+		setConversationState,
+		setSyncing
 	);
 	const fetchMore = useFetchMore(
 		conversationId,
@@ -240,21 +253,17 @@ export default function useConversation(
 		setCanFetchMore
 	);
 
-	React.useEffect(sync, [loadedFromStore]);
+	React.useEffect(sync, [loadingFromStore]);
+	useFocusEffect(sync);
 
 	const messages = React.useMemo(() => {
 		return instantMessages.concat(queuedMessages, conversationState.messages);
 	}, [instantMessages, queuedMessages, conversationState.messages]);
 
-	// console.log({
-	// 	queuedMessages,
-	// 	receivedMessages,
-	// 	messages: messages.slice(0, 3),
-	// });
-
 	return {
 		messages,
 		fetchMore,
 		canFetchMore,
+		loading: loadingFromStore || syncing,
 	};
 }

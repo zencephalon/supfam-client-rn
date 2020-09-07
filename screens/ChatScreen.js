@@ -11,6 +11,7 @@ import useMessages from '~/h/useMessages';
 import useMarkConversationRead from '~/h/useMarkConversationRead';
 import useCachedConversation from '~/h/useCachedConversation';
 import useConversationSelect from '~/h/useConversationSelect';
+import useConversation from '~/h/useConversation';
 
 export default function ChatScreen({ navigation, route }) {
   const { conversationId } = route.params;
@@ -20,7 +21,7 @@ export default function ChatScreen({ navigation, route }) {
 
   const conversation = useCachedConversation(conversationId);
 
-  const { fetchMore, canFetchMore, messages } = useMessages(
+  const { messages, fetchMore, canFetchMore, loading } = useConversation(
     conversationId,
     meProfileId
   );
@@ -33,7 +34,7 @@ export default function ChatScreen({ navigation, route }) {
         conversation={conversation}
         navigation={navigation}
       />
-      {messages.length == 0 && (
+      {!loading && messages.length == 0 && (
         <EmptyListPlaceholder text="No messages have been sent in this group yet. Be the first!" />
       )}
       <MessageList
@@ -41,6 +42,7 @@ export default function ChatScreen({ navigation, route }) {
         meProfileId={meProfileId}
         fetchMore={fetchMore}
         canFetchMore={canFetchMore}
+        loading={loading}
       />
       <MessageInput conversationId={conversationId} />
     </SfKeyboardAvoidingView>
