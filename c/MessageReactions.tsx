@@ -44,18 +44,9 @@ function ReactionChip({
 			onPress={() => apiCall({ emoji, profileId, messageId })}
 		>
 			<SfText style={{ fontSize: 16 }}>{emoji}</SfText>
-			{profileIds.length < 3 ? (
-				profileIds.map((profileId) => (
-					<ProfileIcon
-						key={profileId}
-						profileId={profileId}
-						size={16}
-						noBadge
-					/>
-				))
-			) : (
-				<SfText style={{ fontSize: 16 }}>{profileIds.length}</SfText>
-			)}
+			{profileIds.map((profileId) => (
+				<ProfileIcon key={profileId} profileId={profileId} size={16} noBadge />
+			))}
 		</TouchableOpacity>
 	);
 }
