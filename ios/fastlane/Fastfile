@@ -50,13 +50,6 @@ def beta(do_increment)
     upgrade_ios_release
   end
 
-  # Add a git tag for this build. This will automatically
-  # use an appropriate git tag name
-  add_git_tag
-
-  # Push the new commit and tag back to your git remote
-  push_to_git_remote
-
   build_app(workspace: "Supfam.xcworkspace", scheme: "Supfam", export_xcargs: "-allowProvisioningUpdates") 
   upload_to_testflight(skip_waiting_for_build_processing: true)
 end
