@@ -7,8 +7,9 @@ import SfText from '~/c/SfText';
 import SfTopBar from '~/c/SfTopBar';
 
 import useLight from '~/h/useLight';
-import useGoHome from '~/h/useGoHome';
 import useGoFriendSettings from '~/h/useGoFriendSettings';
+import useCachedProfile from '~/h/useCachedProfile';
+import callPhone from '~/lib/callPhone';
 
 import ProfileIcon from '~/c/ProfileIcon';
 import TopBarBackButton from '~/c/TopBarBackButton';
@@ -25,6 +26,7 @@ function ConversationTopBar({
   const { foregrounds } = useLight();
 
   const goToProfile = useGoFriendSettings(profileId);
+  const profile = useCachedProfile(profileId);
 
   const statusStyle = React.useMemo(
     () => ({
@@ -56,8 +58,11 @@ function ConversationTopBar({
           </SfText>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.settings} onPress={goToProfile}>
-        <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
+      <TouchableOpacity
+        style={styles.settings}
+        onPress={() => callPhone(profile.phone)}
+      >
+        <MaterialIcons name="phone" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
     </SfTopBar>
   );
