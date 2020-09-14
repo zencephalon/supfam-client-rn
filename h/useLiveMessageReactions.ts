@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 
 const noop = () => {};
 
-export default function useCachedConversation(messageId: number) {
+export default function useLiveMessageReactions(messageId: number) {
 	const { data: reactions } = useQuery(['messageReactions', messageId], noop, {
 		manual: true,
 	});
