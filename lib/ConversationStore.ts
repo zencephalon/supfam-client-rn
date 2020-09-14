@@ -9,7 +9,6 @@ export const storeConversation = (
 	conversationId: number,
 	conversationState: ConversationState
 ): Promise<{}> => {
-	console.log('wtf', conversationState);
 	return store.setMapAsync(`${conversationId}`, {
 		...conversationState,
 		messages: conversationState.messages.slice(0, 50),
