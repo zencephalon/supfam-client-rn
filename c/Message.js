@@ -24,10 +24,8 @@ import useGoGallery from '~/h/useGoGallery';
 import useCachedMessage from '~/h/useCachedMessage';
 
 function Message(props) {
-  const { messageId, isOwnMessage, fromSameUser, breakAbove, isLocal } = props;
-  // const storedMessage = useStoredMessage(messageId, isLocal);
+  const { messageId, isOwnMessage, fromSameUser, breakAbove } = props;
   const message = useCachedMessage(messageId);
-  // const message = isLocal ? cachedMessage : storedMessage;
 
   const [showDate, setShowDate] = React.useState(false);
 

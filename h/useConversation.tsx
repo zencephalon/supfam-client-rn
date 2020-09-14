@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { useSelector } from 'react-redux';
 import { useFocusEffect } from '@react-navigation/native';
 import { uniqBy, last, sortBy, values } from 'lodash';
 
@@ -65,6 +67,7 @@ function useStoreState(
 		if (!conversationId || loadingFromStore) {
 			return;
 		}
+		console.log('convoState', conversationState);
 		storeConversation(conversationId, conversationState);
 	}, [conversationState]);
 }
@@ -137,7 +140,6 @@ function useIncorporateReceivedMessages(
 				...conversationState,
 				messages: mergeSortedIds(conversationState.messages, receivedMessages),
 			};
-			storeConversation(conversationId, state);
 			return state;
 		});
 
@@ -168,7 +170,6 @@ function useFetchMore(
 						...conversationState,
 						messages: mergeSortedIds(conversationState.messages, messages),
 					};
-					storeConversation(conversationId, state);
 					return state;
 				});
 			}
@@ -177,14 +178,8 @@ function useFetchMore(
 }
 
 function useInstantMessages(conversationId: number, meProfileId: number) {
-	const { data: instantMessages } = useQuery(
-		['instantMessages', conversationId],
-		() => {},
-		{
-			manual: true,
-			enabled: conversationId,
-			initialData: {},
-		}
+	const instantMessages = useSelector(
+		(state) => state.instantMessages[conversationId]
 	);
 
 	return sortBy(
@@ -257,6 +252,7 @@ export default function useConversation(
 	useFocusEffect(sync);
 
 	const messages = React.useMemo(() => {
+		console.log('having to recompute messages');
 		return instantMessages.concat(queuedMessages, conversationState.messages);
 	}, [instantMessages, queuedMessages, conversationState.messages]);
 
