@@ -2,7 +2,7 @@ import MmkvStorage from 'react-native-mmkv-storage';
 import ConversationState from '~/t/ConversationState';
 import MessageQueue from '~/lib/MessageQueue';
 
-const store = new MmkvStorage.Loader()
+export const store = new MmkvStorage.Loader()
 	.withInstanceID('conversations')
 	.initialize();
 

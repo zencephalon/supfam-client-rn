@@ -12,9 +12,11 @@ import SettingsTopBar from '~/c/SettingsTopBar';
 import UpdateButton from '~/c/UpdateButton';
 
 import Constants from 'expo-constants';
-import { nord10, AWAY } from '~/constants/Colors';
+import { nord10, AWAY, BUSY } from '~/constants/Colors';
 
 import * as Updates from 'expo-updates';
+
+import { store } from '~/lib/ConversationStore';
 
 export default function LinksScreen() {
   const dispatch = useDispatch();
@@ -23,6 +25,10 @@ export default function LinksScreen() {
     AuthToken.remove();
     dispatch(LOGOUT());
   }, [dispatch]);
+
+  const clearStorage = React.useCallback(() => {
+    store.clearStore();
+  }, []);
 
   return (
     <SfKeyboardAvoidingView>
@@ -33,7 +39,17 @@ export default function LinksScreen() {
         color={AWAY}
         style={styles.logoutButton}
       />
-      <UpdateButton ButtonComponent={SfButton} hideWhenNoUpdate={false} />
+      <SfButton
+        title="Clear Storage"
+        onPress={clearStorage}
+        color={BUSY}
+        style={styles.logoutButton}
+      />
+      <UpdateButton
+        ButtonComponent={SfButton}
+        hideWhenNoUpdate={false}
+        style={styles.logoutButton}
+      />
       <View style={styles.appDataContainer}>
         <SfText style={styles.versionText}>
           App version {Constants.nativeAppVersion}
@@ -49,7 +65,6 @@ export default function LinksScreen() {
 const styles = StyleSheet.create({
   logoutButton: {
     marginTop: 16,
-    marginBottom: 16,
   },
   appDataContainer: {
     marginTop: 48,
