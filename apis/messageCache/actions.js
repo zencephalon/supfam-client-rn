@@ -5,3 +5,8 @@ export const CACHE = (messageId, message) => ({
 	messageId,
 	message,
 });
+
+export const MULTI_CACHE = (messages) => ({
+	type: t.MULTI_CACHE,
+	messages,
+});

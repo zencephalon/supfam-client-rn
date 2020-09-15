@@ -10,7 +10,7 @@ import { uniqBy, last, sortBy, values, merge } from 'lodash';
 import Message from '~/t/Message';
 
 import { useQuery } from 'react-query';
-import { cacheMessage } from '~/lib/QueryCache';
+import { cacheMessages } from '~/lib/QueryCache';
 import Cable from '~/lib/Cable';
 import MessageQueue from '~/lib/MessageQueue';
 
@@ -44,9 +44,7 @@ function useStateFromStore(
 		getConversation(conversationId)
 			.then((conversationState) => {
 				store.dispatch(SET_INITIAL(conversationId, conversationState));
-				conversationState.messages.forEach((message) => {
-					cacheMessage(message);
-				});
+				cacheMessages(conversationState.messages);
 				setloadingFromStore(false);
 			})
 			.catch(() => {

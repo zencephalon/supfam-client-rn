@@ -1,1 +1,2 @@
 export const CACHE = 'MESSAGE_CACHE/CACHE';
+export const MULTI_CACHE = 'MESSAGE_CACHE/MULTI_CACHE';
