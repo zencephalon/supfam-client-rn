@@ -24,3 +24,9 @@ export const RECEIVE_MESSAGES = (
 	conversationId,
 	messages,
 });
+
+export const QUEUE_MESSAGE = (conversationId: number, message: Message) => ({
+	type: t.QUEUE_MESSAGE,
+	conversationId,
+	message,
+});

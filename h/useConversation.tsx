@@ -14,18 +14,17 @@ import { cacheMessage, removeQueuedMessages } from '~/lib/QueryCache';
 import Cable from '~/lib/Cable';
 import MessageQueue from '~/lib/MessageQueue';
 
-import { storeConversation, getConversation } from '~/lib/ConversationStore';
+import {
+	storeConversation,
+	getConversation,
+	DEFAULT_CONVERSATION_STATE,
+} from '~/lib/ConversationStore';
 import {
 	getConversationMessagesSync,
 	getConversationMessages,
 } from '~/apis/api';
 import ConversationState from '~/t/ConversationState';
 import mergeSortedIds from '~/lib/mergeSortedIds';
-
-const DEFAULT_CONVERSATION_STATE: ConversationState = {
-	messages: [],
-	latestSyncMessageId: undefined,
-};
 
 type SetConversationState = React.Dispatch<
 	React.SetStateAction<ConversationState>
@@ -44,12 +43,7 @@ function useStateFromStore(
 
 		getConversation(conversationId)
 			.then((conversationState) => {
-				store.dispatch(
-					SET_INITIAL(conversationId, {
-						...DEFAULT_CONVERSATION_STATE,
-						...conversationState,
-					})
-				);
+				store.dispatch(SET_INITIAL(conversationId, conversationState));
 				conversationState.messages.forEach((message) => {
 					cacheMessage(message);
 				});
@@ -84,12 +78,10 @@ function useSync(
 		if (!conversationId || loadingFromStore) {
 			return;
 		}
-		console.log('SYNCING');
 		setSyncing(true);
 		// make API call to get message previous to now, merge into messages
 		getConversationMessagesSync(conversationId, latestSyncMessageId).then(
 			(_messages: Message[]) => {
-				console.log('synced messages', _messages);
 				store.dispatch(RECEIVE_MESSAGES(conversationId, _messages));
 				setSyncing(false);
 			}
@@ -173,7 +165,7 @@ export default function useConversation(
 	useStateFromStore(conversationId, setloadingFromStore);
 	useStoreState(conversationId, loadingFromStore, conversationState);
 	const instantMessages = useInstantMessages(conversationId, meProfileId);
-	const queuedMessages = useQueuedMessages(conversationId) || [];
+	const queuedMessages = conversationState.queuedMessages;
 
 	const sync = useSync(
 		conversationId,

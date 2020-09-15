@@ -1,5 +1,6 @@
 import MmkvStorage from 'react-native-mmkv-storage';
 import ConversationState from '~/t/ConversationState';
+import MessageQueue from '~/lib/MessageQueue';
 
 const store = new MmkvStorage.Loader()
 	.withInstanceID('conversations')
@@ -7,6 +8,7 @@ const store = new MmkvStorage.Loader()
 
 export const DEFAULT_CONVERSATION_STATE: ConversationState = {
 	messages: [],
+	queuedMessages: [],
 	latestSyncMessageId: undefined,
 };
 
@@ -21,11 +23,16 @@ export const storeConversation = (
 };
 
 export const getConversation = (conversationId: number) => {
+	const queuedMessages = MessageQueue.getQueued(conversationId);
 	const promise = store.getMapAsync(`${conversationId}`) as Promise<
 		ConversationState
 	>;
 
 	return promise.then((conversationState: ConversationState) => {
-		return { ...DEFAULT_CONVERSATION_STATE, ...conversationState };
+		return {
+			...DEFAULT_CONVERSATION_STATE,
+			...conversationState,
+			queuedMessages,
+		};
 	});
 };
