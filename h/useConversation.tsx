@@ -10,7 +10,7 @@ import { uniqBy, last, sortBy, values, merge } from 'lodash';
 import Message from '~/t/Message';
 
 import { useQuery } from 'react-query';
-import { cacheMessage, removeQueuedMessages } from '~/lib/QueryCache';
+import { cacheMessage } from '~/lib/QueryCache';
 import Cable from '~/lib/Cable';
 import MessageQueue from '~/lib/MessageQueue';
 
@@ -120,20 +120,6 @@ function useInstantMessages(conversationId: number, meProfileId: number) {
 	);
 }
 
-function useQueuedMessages(conversationId: number) {
-	const { data: queuedMessages } = useQuery(
-		['queued_messages', { conversationId }],
-		() => {},
-		{
-			manual: true,
-			initialData: MessageQueue.getQueued(conversationId),
-			enabled: conversationId,
-		}
-	);
-
-	return queuedMessages;
-}
-
 function dedupeMessages(messages: Message[], queuedMessages: Message[]) {
 	if (last(queuedMessages)?.qid === messages[0]?.qid) {
 		return queuedMessages.slice(0, -1).concat(messages);
@@ -157,13 +143,13 @@ export default function useConversation(
 	const [canFetchMore, setCanFetchMore] = React.useState(true);
 	const [syncing, setSyncing] = React.useState(true);
 	const [loadingFromStore, setloadingFromStore] = React.useState(true);
-	const _conversationState = useSelector(
-		(state) => state.conversation.conversations[conversationId]
-	);
-	const conversationState = _conversationState || DEFAULT_CONVERSATION_STATE;
 
 	useStateFromStore(conversationId, setloadingFromStore);
+	const conversationState =
+		useSelector((state) => state.conversation.conversations[conversationId]) ||
+		DEFAULT_CONVERSATION_STATE;
 	useStoreState(conversationId, loadingFromStore, conversationState);
+
 	const instantMessages = useInstantMessages(conversationId, meProfileId);
 	const queuedMessages = conversationState.queuedMessages;
 
@@ -182,18 +168,9 @@ export default function useConversation(
 	React.useEffect(sync, [loadingFromStore]);
 	useFocusEffect(sync);
 
-	const dedupedMessages = React.useMemo(() => {
-		console.log(
-			'deduping messages',
-			conversationState.messages.length,
-			queuedMessages.length
-		);
-		return dedupeMessages(conversationState.messages, queuedMessages);
-	}, [queuedMessages, conversationState.messages]);
-
 	const messages = React.useMemo(() => {
-		return instantMessages.concat(dedupedMessages);
-	}, [instantMessages, dedupedMessages]);
+		return instantMessages.concat(queuedMessages, conversationState.messages);
+	}, [instantMessages, queuedMessages, conversationState.messages]);
 
 	return {
 		messages,
