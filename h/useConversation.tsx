@@ -5,7 +5,7 @@ import { SET_INITIAL, RECEIVE_MESSAGES } from '~/apis/conversation/actions';
 import store from '~/store/store';
 
 import { useFocusEffect } from '@react-navigation/native';
-import { uniqBy, last, sortBy, values } from 'lodash';
+import { uniqBy, last, sortBy, values, merge } from 'lodash';
 
 import Message from '~/t/Message';
 
@@ -44,7 +44,12 @@ function useStateFromStore(
 
 		getConversation(conversationId)
 			.then((conversationState) => {
-				store.dispatch(SET_INITIAL(conversationId, conversationState));
+				store.dispatch(
+					SET_INITIAL(conversationId, {
+						...DEFAULT_CONVERSATION_STATE,
+						...conversationState,
+					})
+				);
 				conversationState.messages.forEach((message) => {
 					cacheMessage(message);
 				});
@@ -79,10 +84,12 @@ function useSync(
 		if (!conversationId || loadingFromStore) {
 			return;
 		}
+		console.log('SYNCING');
 		setSyncing(true);
 		// make API call to get message previous to now, merge into messages
 		getConversationMessagesSync(conversationId, latestSyncMessageId).then(
 			(_messages: Message[]) => {
+				console.log('synced messages', _messages);
 				store.dispatch(RECEIVE_MESSAGES(conversationId, _messages));
 				setSyncing(false);
 			}
@@ -135,6 +142,14 @@ function useQueuedMessages(conversationId: number) {
 	return queuedMessages;
 }
 
+function dedupeMessages(messages: Message[], queuedMessages: Message[]) {
+	if (last(queuedMessages)?.qid === messages[0]?.qid) {
+		return queuedMessages.slice(0, -1).concat(messages);
+	} else {
+		return queuedMessages.concat(messages);
+	}
+}
+
 export default function useConversation(
 	conversationId: number,
 	meProfileId: number
@@ -158,7 +173,7 @@ export default function useConversation(
 	useStateFromStore(conversationId, setloadingFromStore);
 	useStoreState(conversationId, loadingFromStore, conversationState);
 	const instantMessages = useInstantMessages(conversationId, meProfileId);
-	const queuedMessages = useQueuedMessages(conversationId);
+	const queuedMessages = useQueuedMessages(conversationId) || [];
 
 	const sync = useSync(
 		conversationId,
@@ -175,11 +190,18 @@ export default function useConversation(
 	React.useEffect(sync, [loadingFromStore]);
 	useFocusEffect(sync);
 
+	const dedupedMessages = React.useMemo(() => {
+		console.log(
+			'deduping messages',
+			conversationState.messages.length,
+			queuedMessages.length
+		);
+		return dedupeMessages(conversationState.messages, queuedMessages);
+	}, [queuedMessages, conversationState.messages]);
+
 	const messages = React.useMemo(() => {
-		console.log('having to recompute messages');
-		const dedupedMessages = uniqBy(queuedMessages || [], 'qid');
-		return instantMessages.concat(dedupedMessages, conversationState.messages);
-	}, [instantMessages, queuedMessages, conversationState.messages]);
+		return instantMessages.concat(dedupedMessages);
+	}, [instantMessages, dedupedMessages]);
 
 	return {
 		messages,

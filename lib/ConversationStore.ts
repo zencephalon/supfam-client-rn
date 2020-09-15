@@ -5,10 +5,15 @@ const store = new MmkvStorage.Loader()
 	.withInstanceID('conversations')
 	.initialize();
 
+export const DEFAULT_CONVERSATION_STATE: ConversationState = {
+	messages: [],
+	latestSyncMessageId: undefined,
+};
+
 export const storeConversation = (
 	conversationId: number,
 	conversationState: ConversationState
-): Promise<{}> => {
+): Promise<boolean> => {
 	return store.setMapAsync(`${conversationId}`, {
 		...conversationState,
 		messages: conversationState.messages.slice(0, 50),
@@ -16,5 +21,11 @@ export const storeConversation = (
 };
 
 export const getConversation = (conversationId: number) => {
-	return store.getMapAsync(`${conversationId}`) as Promise<ConversationState>;
+	const promise = store.getMapAsync(`${conversationId}`) as Promise<
+		ConversationState
+	>;
+
+	return promise.then((conversationState: ConversationState) => {
+		return { ...DEFAULT_CONVERSATION_STATE, ...conversationState };
+	});
 };
