@@ -112,20 +112,7 @@ function useInstantMessages(conversationId: number, meProfileId: number) {
 		(state) => state.instantMessages[conversationId]
 	);
 
-	return sortBy(
-		values(instantMessages).filter(
-			(msg: Message) => msg.profile_id !== meProfileId
-		),
-		'profile_id'
-	);
-}
-
-function dedupeMessages(messages: Message[], queuedMessages: Message[]) {
-	if (last(queuedMessages)?.qid === messages[0]?.qid) {
-		return queuedMessages.slice(0, -1).concat(messages);
-	} else {
-		return queuedMessages.concat(messages);
-	}
+	return sortBy(values(instantMessages), 'profile_id');
 }
 
 export default function useConversation(
@@ -171,6 +158,8 @@ export default function useConversation(
 	const messages = React.useMemo(() => {
 		return instantMessages.concat(queuedMessages, conversationState.messages);
 	}, [instantMessages, queuedMessages, conversationState.messages]);
+
+	console.log(messages, conversationState);
 
 	return {
 		messages,
