@@ -24,15 +24,25 @@ export const storeConversation = (
 
 export const getConversation = (conversationId: number) => {
 	const queuedMessages = MessageQueue.getQueued(conversationId);
+	console.log('loading conversation');
 	const promise = store.getMapAsync(`${conversationId}`) as Promise<
 		ConversationState
 	>;
 
-	return promise.then((conversationState: ConversationState) => {
-		return {
-			...DEFAULT_CONVERSATION_STATE,
-			...conversationState,
-			queuedMessages,
-		};
-	});
+	return promise
+		.then((conversationState: ConversationState) => {
+			console.log('loaded', conversationState);
+			return {
+				...DEFAULT_CONVERSATION_STATE,
+				...conversationState,
+				queuedMessages,
+			};
+		})
+		.catch((error) => {
+			console.log('recovered from missing');
+			return {
+				...DEFAULT_CONVERSATION_STATE,
+				queuedMessages,
+			};
+		});
 };

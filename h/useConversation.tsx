@@ -159,8 +159,6 @@ export default function useConversation(
 		return instantMessages.concat(queuedMessages, conversationState.messages);
 	}, [instantMessages, queuedMessages, conversationState.messages]);
 
-	console.log(messages, conversationState);
-
 	return {
 		messages,
 		fetchMore,
