@@ -7,7 +7,7 @@ import SfText from '~/c/SfText';
 import SfTopBar from '~/c/SfTopBar';
 import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
 import TopBarBackButton from '~/c/TopBarBackButton';
-import useGoGroupSettings from '~/c/useGoGroupSettings';
+import useGoGroupSettings from '~/h/useGoGroupSettings';
 
 import useLight from '~/h/useLight';
 
