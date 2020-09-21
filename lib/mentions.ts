@@ -34,7 +34,7 @@ export function getMentionSelectionText(text: string, selection: Selection) {
 	const afterMatch = matchAfter(after) || '';
 
 	return {
-		match: `${beforeMatch.slice(1)}${afterMatch}`,
+		match: `${beforeMatch.slice(1)}${afterMatch}`.toLowerCase(),
 		start: selection.start - beforeMatch.length,
 		end: selection.start + afterMatch.length,
 	};

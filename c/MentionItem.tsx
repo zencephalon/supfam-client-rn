@@ -11,12 +11,19 @@ type Props = {
 	profileId: number;
 	profileName: string;
 	userName: string;
+	onChangeText: React.Dispatch<React.SetStateAction<string>>;
+	mentionMatch: {
+		match: string;
+		start: number;
+		end: number;
+	} | null;
 };
 
 const MentionItem: React.FunctionComponent<Props> = ({
 	profileId,
 	profileName,
 	userName,
+	onChangeText,
 }) => {
 	const { backgrounds } = useLight();
 	return (
