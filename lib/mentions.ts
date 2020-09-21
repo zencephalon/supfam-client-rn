@@ -23,7 +23,6 @@ export function getMentionSelectionText(text: string, selection: Selection) {
 	}
 
 	const before = text.slice(0, selection.start);
-	const after = text.slice(selection.start);
 
 	const beforeMatch = matchBefore(before);
 
@@ -31,6 +30,7 @@ export function getMentionSelectionText(text: string, selection: Selection) {
 		return null;
 	}
 
+	const after = text.slice(selection.start);
 	const afterMatch = matchAfter(after) || '';
 
 	return {

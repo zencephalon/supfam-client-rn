@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
+
+import MentionMatch from '~/t/MentionMatch';
 
 import SfText from '~/c/SfText';
 
@@ -11,30 +13,29 @@ type Props = {
 	profileId: number;
 	profileName: string;
 	userName: string;
-	onChangeText: React.Dispatch<React.SetStateAction<string>>;
-	mentionMatch: {
-		match: string;
-		start: number;
-		end: number;
-	} | null;
+	fillMention: (username: string) => void;
+	mentionMatch: MentionMatch;
 };
 
 const MentionItem: React.FunctionComponent<Props> = ({
 	profileId,
 	profileName,
 	userName,
-	onChangeText,
+	fillMention,
 }) => {
 	const { backgrounds } = useLight();
 	return (
-		<View
+		<TouchableOpacity
 			style={{
 				backgroundColor: backgrounds[1],
-				padding: 4,
-				paddingTop: 8,
+				marginBottom: 4,
+				marginTop: 4,
+				paddingRight: 8,
+				paddingLeft: 8,
 				flexDirection: 'row',
 				width: '100%',
 			}}
+			onPress={() => fillMention(userName)}
 		>
 			<ProfileIcon noBadge profileId={profileId} size={24} />
 			<SfText
@@ -43,7 +44,7 @@ const MentionItem: React.FunctionComponent<Props> = ({
 			<SfText
 				style={{ fontSize: 16, marginLeft: 18 }}
 			>{`${profileName}`}</SfText>
-		</View>
+		</TouchableOpacity>
 	);
 };
 
