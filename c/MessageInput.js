@@ -143,8 +143,8 @@ function MessageInput({ conversationId }) {
           placeholder="New message..."
           text={text}
           onChangeText={setMessage}
-          textInputStyle={styles.statusInput}
-          style={styles.statusInputContainer}
+          textInputStyle={styles.messageInput}
+          style={styles.messageInputContainer}
           multiline={true}
           blurOnSubmit={false}
           maxHeight={128}
@@ -207,11 +207,11 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     paddingLeft: 4,
   },
-  statusInputContainer: {
+  messageInputContainer: {
     flexGrow: 1,
     flexShrink: 1,
   },
-  statusInput: {
+  messageInput: {
     padding: 12,
     fontSize: 16,
     borderRadius: 10,

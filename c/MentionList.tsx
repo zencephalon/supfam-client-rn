@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import SfText from '~/c/SfText';
+import MentionItem from '~/c/MentionItem';
 
 import useConversationMentionsSummary from '~/h/useConversationMentionsSummary';
 
 const styles = StyleSheet.create({
 	mentionList: {
 		position: 'absolute',
-		bottom: 0,
+		bottom: 30,
+		width: '100%',
 	},
 });
 
@@ -22,7 +23,12 @@ const MentionList: React.FunctionComponent<Props> = ({ conversationId }) => {
 	return (
 		<View style={styles.mentionList}>
 			{summary.map(([profileId, profileName, userName]) => (
-				<SfText key={profileId}>{userName}</SfText>
+				<MentionItem
+					key={profileId}
+					profileId={profileId}
+					userName={userName}
+					profileName={profileName}
+				/>
 			))}
 		</View>
 	);
