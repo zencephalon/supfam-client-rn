@@ -21,11 +21,19 @@ const MentionInput: React.FunctionComponent<Props> = ({
 	conversationId,
 	...rest
 }) => {
+	const [selection, setSelection] = React.useState({ start: 0, end: 0 });
+
 	return (
 		<View style={style}>
 			<MentionList conversationId={conversationId} />
 			<SfTextInput
-				onChangeText={onChangeText}
+				onSelectionChange={(event) => {
+					setSelection(event.nativeEvent.selection);
+				}}
+				onChangeText={(newText: string) => {
+					// check @mention logic
+					onChangeText(newText);
+				}}
 				value={text}
 				textInputStyle={textInputStyle}
 				{...rest}
