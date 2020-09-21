@@ -8,12 +8,14 @@ import SfTopBar from '~/c/SfTopBar';
 import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
 import TopBarBackButton from '~/c/TopBarBackButton';
 import useGoGroupSettings from '~/h/useGoGroupSettings';
+import useCachedConversation from '~/h/useCachedConversation';
 
 import useLight from '~/h/useLight';
 
-export default function GroupConversationTopBar({ conversation }) {
+export default function GroupConversationTopBar({ conversationId }) {
   const { foregrounds } = useLight();
-  const goGroupSettings = useGoGroupSettings(conversation?.id);
+  const goGroupSettings = useGoGroupSettings(conversationId);
+  const conversation = useCachedConversation(conversationId);
 
   return (
     <SfTopBar style={{ justifyContent: 'space-between' }}>
@@ -32,7 +34,7 @@ export default function GroupConversationTopBar({ conversation }) {
             style={{ fontSize: 16, marginLeft: 8, color: foregrounds[1] }}
           >
             {conversation?.name || (
-              <GroupMemberNameSummary conversationId={conversation?.id} />
+              <GroupMemberNameSummary conversationId={conversationId} />
             )}
           </SfText>
         }
