@@ -5,8 +5,9 @@ import _ from 'lodash';
 import SfTextInput from '~/c/SfTextInput';
 import SfText from '~/c/SfText';
 import ProfileIcon from '~/c/ProfileIcon';
+import MentionInput from '~/c/MentionInput';
 
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { OPEN } from '~/constants/Colors';
 import statusColors from '~/constants/statusColors';
 
@@ -39,19 +40,13 @@ const getProfilesHere = (presence, meProfileId) => {
 
 function _ProfilesHereDisplay({ profileIds }) {
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        marginLeft: 8,
-        alignSelf: 'flex-start',
-      }}
-    >
+    <View style={styles.profilesHereContainer}>
       {profileIds.length === 0 ? null : (
         <React.Fragment>
           {profileIds.map((profileId) => (
             <ProfileIcon key={profileId} profileId={profileId} size={16} />
           ))}
-          <SfText style={{ fontSize: 12 }}>⚡</SfText>
+          <SfText style={styles.lightningText}>⚡</SfText>
         </React.Fragment>
       )}
     </View>
@@ -184,6 +179,14 @@ function MessageInput({ conversationId }) {
 export default React.memo(MessageInput);
 
 const styles = StyleSheet.create({
+  lightningText: {
+    fontSize: 12,
+  },
+  profileHereContainer: {
+    flexDirection: 'row',
+    marginLeft: 8,
+    alignSelf: 'flex-start',
+  },
   snapButton: {
     paddingRight: 8,
     paddingLeft: 4,
