@@ -137,6 +137,10 @@ export const postConversationRemoveMembers = ({
   });
 };
 
+export const getConversationMentionsSummary = (_key, conversationId) => {
+  return api.fetchFromAPI(`conversations/${conversationId}/mentions_summary`);
+};
+
 export const putConversationName = ({ conversationId, name }) => {
   return api.putToAPI(`conversations/${conversationId}/name`, {
     body: JSON.stringify({ name }),

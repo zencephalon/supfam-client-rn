@@ -139,9 +139,9 @@ function MessageInput({ conversationId }) {
             />
           </TouchableOpacity>
         )}
-        <SfTextInput
+        <MentionInput
           placeholder="New message..."
-          value={text}
+          text={text}
           onChangeText={setMessage}
           textInputStyle={styles.statusInput}
           style={styles.statusInputContainer}
@@ -150,6 +150,7 @@ function MessageInput({ conversationId }) {
           maxHeight={128}
           onFocus={setFocusedTrue}
           onBlur={setFocusedFalse}
+          conversationId={conversationId}
         />
         {!!text && (
           <TouchableOpacity
