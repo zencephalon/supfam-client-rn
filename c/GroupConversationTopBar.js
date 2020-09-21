@@ -7,11 +7,14 @@ import SfText from '~/c/SfText';
 import SfTopBar from '~/c/SfTopBar';
 import GroupMemberNameSummary from '~/c/GroupMemberNameSummary';
 import TopBarBackButton from '~/c/TopBarBackButton';
+import useGoGroupSettings from '~/c/useGoGroupSettings';
 
 import useLight from '~/h/useLight';
 
-export default function GroupConversationTopBar({ conversation, navigation }) {
+export default function GroupConversationTopBar({ conversation }) {
   const { foregrounds } = useLight();
+  const goGroupSettings = useGoGroupSettings(conversation?.id);
+
   return (
     <SfTopBar style={{ justifyContent: 'space-between' }}>
       <TopBarBackButton />
@@ -34,14 +37,7 @@ export default function GroupConversationTopBar({ conversation, navigation }) {
           </SfText>
         }
       </View>
-      <TouchableOpacity
-        style={styles.settingsButton}
-        onPress={() =>
-          navigation.navigate('Group Settings', {
-            conversationId: conversation?.id,
-          })
-        }
-      >
+      <TouchableOpacity style={styles.settingsButton} onPress={goGroupSettings}>
         <MaterialIcons name="settings" size={24} color={foregrounds[1]} />
       </TouchableOpacity>
     </SfTopBar>

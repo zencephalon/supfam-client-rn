@@ -15,7 +15,6 @@ import useConversation from '~/h/useConversation';
 
 export default function ChatScreen({ navigation, route }) {
   const { conversationId } = route.params;
-  useConversationSelect(conversationId);
 
   const meProfileId = useProfileId();
 
@@ -25,15 +24,13 @@ export default function ChatScreen({ navigation, route }) {
     conversationId,
     meProfileId
   );
+  useConversationSelect(conversationId);
 
   useMarkConversationRead(conversationId, messages[0]?.id);
 
   return (
     <SfKeyboardAvoidingView keyboardVerticalOffset={-4}>
-      <GroupConversationTopBar
-        conversation={conversation}
-        navigation={navigation}
-      />
+      <GroupConversationTopBar conversation={conversation} />
       {!loading && messages.length == 0 && (
         <EmptyListPlaceholder text="No messages have been sent in this group yet. Be the first!" />
       )}
