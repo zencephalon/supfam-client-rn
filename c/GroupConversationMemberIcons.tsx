@@ -16,9 +16,10 @@ export default function GroupConversationMemberIcons({
 		return null;
 	}
 
-	const otherProfileIds = conversation.member_profile_ids.filter(
-		(pId: number) => pId !== userProfileId
-	);
+	const otherProfileIds =
+		conversation.member_profile_ids?.filter(
+			(pId: number) => pId !== userProfileId
+		) || [];
 
 	const gridSize = Math.ceil(Math.sqrt(otherProfileIds.length));
 
