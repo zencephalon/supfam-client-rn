@@ -15,10 +15,22 @@ const styles = StyleSheet.create({
 
 type Props = {
 	conversationId: number;
+	mentionMatch: {
+		match: string;
+		start: number;
+		end: number;
+	} | null;
 };
 
-const MentionList: React.FunctionComponent<Props> = ({ conversationId }) => {
+const MentionList: React.FunctionComponent<Props> = ({
+	conversationId,
+	mentionMatch,
+}) => {
 	const { summary } = useConversationMentionsSummary(conversationId);
+
+	if (!mentionMatch) {
+		return null;
+	}
 
 	return (
 		<View style={styles.mentionList}>

@@ -4,6 +4,8 @@ import { View, StyleSheet } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 import MentionList from '~/c/MentionList';
 
+import { getMentionSelectionText } from '~/lib/mentions';
+
 type Props = {
 	onChangeText: React.Dispatch<React.SetStateAction<string>>;
 	text: string;
@@ -23,15 +25,20 @@ const MentionInput: React.FunctionComponent<Props> = ({
 }) => {
 	const [selection, setSelection] = React.useState({ start: 0, end: 0 });
 
+	const mentionMatch = getMentionSelectionText(text, selection);
+
 	return (
 		<View style={style}>
-			<MentionList conversationId={conversationId} />
+			<MentionList
+				conversationId={conversationId}
+				mentionMatch={mentionMatch}
+			/>
 			<SfTextInput
 				onSelectionChange={(event) => {
+					console.log(event.nativeEvent.selection);
 					setSelection(event.nativeEvent.selection);
 				}}
 				onChangeText={(newText: string) => {
-					// check @mention logic
 					onChangeText(newText);
 				}}
 				value={text}
