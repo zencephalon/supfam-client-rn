@@ -2,9 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import SfTextInput from '~/c/SfTextInput';
-import SfText from '~/c/SfText';
-
-import useConversationMentionsSummary from '~/h/useConversationMentionsSummary';
+import MentionList from '~/c/MentionList';
 
 type Props = {
 	onChangeText: React.Dispatch<React.SetStateAction<string>>;
@@ -13,18 +11,6 @@ type Props = {
 	style: React.CSSProperties;
 	conversationId: number;
 	[x: string]: any;
-};
-
-const MentionList: React.FunctionComponent = ({ conversationId }) => {
-	const { summary } = useConversationMentionsSummary(conversationId);
-
-	return (
-		<View style={styles.mentionList}>
-			{summary.map(([profileId, profileName, userName]) => (
-				<SfText key={profileId}>{userName}</SfText>
-			))}
-		</View>
-	);
 };
 
 const MentionInput: React.FunctionComponent<Props> = ({
@@ -47,12 +33,5 @@ const MentionInput: React.FunctionComponent<Props> = ({
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	mentionList: {
-		position: 'absolute',
-		bottom: 0,
-	},
-});
 
 export default MentionInput;
