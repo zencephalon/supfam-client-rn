@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 import MentionMatch from '~/t/MentionMatch';
 
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.2,
 		shadowRadius: 3,
 		zIndex: 8,
+		maxHeight: '600%',
 	},
 });
 
@@ -39,7 +40,10 @@ const MentionList: React.FunctionComponent<Props> = ({
 	}
 
 	return (
-		<View style={[styles.mentionList, { backgroundColor: backgrounds[1] }]}>
+		<ScrollView
+			style={[styles.mentionList, { backgroundColor: backgrounds[1] }]}
+			keyboardShouldPersistTaps={'always'}
+		>
 			{summary.map(({ profileId, profileName, userName }) => (
 				<MentionItem
 					key={profileId}
@@ -50,7 +54,7 @@ const MentionList: React.FunctionComponent<Props> = ({
 					fillMention={fillMention}
 				/>
 			))}
-		</View>
+		</ScrollView>
 	);
 };
 

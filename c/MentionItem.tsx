@@ -33,17 +33,18 @@ const MentionItem: React.FunctionComponent<Props> = ({
 				paddingRight: 8,
 				paddingLeft: 8,
 				flexDirection: 'row',
-				width: '100%',
 				zIndex: 99,
+				overflow: 'hidden',
+				width: '100%',
 			}}
 			onPress={() => fillMention(userName)}
 		>
-			<ProfileIcon noBadge profileId={profileId} size={24} />
+			<ProfileIcon noBadge profileId={profileId} size={16} />
 			<SfText
-				style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 3 }}
+				style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 2 }}
 			>{`@${userName}`}</SfText>
 			<SfText
-				style={{ fontSize: 16, marginLeft: 18, overflow: 'hidden' }}
+				style={{ fontSize: 16, overflow: 'hidden' }}
 			>{`${profileName}`}</SfText>
 		</TouchableOpacity>
 	);
