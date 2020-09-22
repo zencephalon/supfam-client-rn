@@ -48,7 +48,6 @@ const MentionInput: React.FunctionComponent<Props> = ({
 
 	const fillMention = React.useCallback(
 		(username, onspace = false) => {
-			console.log({ username, mentionMatch });
 			if (!mentionMatch) {
 				return;
 			}
