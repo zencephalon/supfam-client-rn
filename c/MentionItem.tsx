@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import MentionMatch from '~/t/MentionMatch';
 
@@ -28,12 +28,13 @@ const MentionItem: React.FunctionComponent<Props> = ({
 		<TouchableOpacity
 			style={{
 				backgroundColor: backgrounds[1],
-				marginBottom: 4,
-				marginTop: 4,
+				marginBottom: 8,
+				marginTop: 8,
 				paddingRight: 8,
 				paddingLeft: 8,
 				flexDirection: 'row',
 				width: '100%',
+				zIndex: 99,
 			}}
 			onPress={() => fillMention(userName)}
 		>
@@ -42,7 +43,7 @@ const MentionItem: React.FunctionComponent<Props> = ({
 				style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 3 }}
 			>{`@${userName}`}</SfText>
 			<SfText
-				style={{ fontSize: 16, marginLeft: 18 }}
+				style={{ fontSize: 16, marginLeft: 18, overflow: 'hidden' }}
 			>{`${profileName}`}</SfText>
 		</TouchableOpacity>
 	);

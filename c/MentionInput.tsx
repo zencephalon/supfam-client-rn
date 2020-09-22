@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Platform } from 'react-native';
 import SfTextInput from '~/c/SfTextInput';
 
 import MentionList from '~/c/MentionList';
@@ -69,7 +69,7 @@ const MentionInput: React.FunctionComponent<Props> = ({
 				newText[newText.length - 1] === ' ' &&
 				filteredSummary.length === 1
 			) {
-				fillMention(filteredSummary[0].userName, true);
+				fillMention(filteredSummary[0].userName, Platform.OS === 'ios');
 			} else {
 				onChangeText(newText);
 			}
