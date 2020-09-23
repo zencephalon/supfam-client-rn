@@ -40,11 +40,11 @@ function ProfileEdit({
 
   const snapImage = useSnapImage({
     setImage,
-    config: { allowsEditing: true, aspect: [1, 1] },
+    config: { cropping: true, width: 180, height: 180 },
   });
   const pickImage = usePickImage({
     setImage,
-    imageOptions: { allowsEditing: true, aspect: [1, 1] },
+    config: { cropping: true, width: 180, height: 180 },
   });
 
   const profileBusy = PutProfile.req.requested || UploadImage.req.requested;
@@ -56,12 +56,8 @@ function ProfileEdit({
 
     let avatar_key = undefined;
     if (image) {
-      const { uri } = await ImageManipulator.manipulateAsync(
-        image.uri,
-        [{ resize: { width: 180, height: 180 } }],
-        { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
-      );
-      const { key } = await UploadImage.call(uri);
+      console.log({ image });
+      const { key } = await UploadImage.call(image.path);
       avatar_key = key;
     }
 
@@ -84,7 +80,7 @@ function ProfileEdit({
       <SfButton round title="Camera roll" onPress={pickImage} color={FREE} />
       {!!image && (
         <ProfileIconFromProfile
-          uri={image.uri}
+          uri={image.path}
           size={100}
           style={{ alignSelf: 'center' }}
         />

@@ -1,19 +1,20 @@
 import React from 'react';
 import * as Permissions from 'expo-permissions';
-import * as ImagePicker from 'expo-image-picker';
+// import * as ImagePicker from 'expo-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import Constants from 'expo-constants';
 
 import { Alert } from 'react-native';
 
 async function snapImage(setImage, config) {
   try {
-    let image = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
+    let image = await ImagePicker.openCamera({
+      mediaTypes: 'photo',
       ...config,
     });
+    console.log('here', { image });
     if (!image.cancelled) {
-      setImage(image);
+      setImage({ ...image, uri: image.path });
     }
   } catch (e) {
     console.log(e);

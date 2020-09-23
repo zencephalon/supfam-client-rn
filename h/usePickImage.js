@@ -1,19 +1,18 @@
 import React from 'react';
 import * as Permissions from 'expo-permissions';
-import * as ImagePicker from 'expo-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import Constants from 'expo-constants';
 
 import { Alert } from 'react-native';
 
-async function pickImage(setImage, imageOptions) {
+async function pickImage(setImage, config) {
   try {
-    let image = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
-      ...imageOptions,
+    let image = await ImagePicker.openPicker({
+      mediaTypes: 'photo',
+      ...config,
     });
     if (!image.cancelled) {
-      setImage(image);
+      setImage({ ...image, uri: image.path });
     }
   } catch (e) {
     console.log(e);
