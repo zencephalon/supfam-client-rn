@@ -12,7 +12,6 @@ async function snapImage(setImage, config) {
       mediaTypes: 'photo',
       ...config,
     });
-    console.log('here', { image });
     if (!image.cancelled) {
       setImage({ ...image, uri: image.path });
     }

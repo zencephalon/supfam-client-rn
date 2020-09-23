@@ -4,7 +4,6 @@ import { postConversationRead } from '~/apis/api';
 import { markConversationRead } from '~/lib/QueryCache';
 
 function markRead(conversationId, messageId) {
-	console.log('marking', messageId);
 	if (!conversationId || !/^\d+$/.test(messageId)) {
 		return;
 	}

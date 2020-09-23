@@ -56,7 +56,6 @@ function ProfileEdit({
 
     let avatar_key = undefined;
     if (image) {
-      console.log({ image });
       const { key } = await UploadImage.call(image.path);
       avatar_key = key;
     }
