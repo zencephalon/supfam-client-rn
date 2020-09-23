@@ -55,6 +55,7 @@
     "react-native-fast-image": "^8.3.2",
     "react-native-flash-message": "^0.1.15",
     "react-native-gesture-handler": "~1.6.0",
+    "react-native-image-crop-picker": "^0.35.0",
     "react-native-intl-phone-input": "^1.2.26",
     "react-native-maps": "0.27.1",
     "react-native-mmkv-storage": "^0.3.7",
