@@ -14,7 +14,6 @@ function CableContainer(): null {
   const { conversationMemberships } = useConversationMemberships();
 
   const friendIds = (friends || []).map((f) => f.id).sort();
-  console.log({ conversationMemberships });
   const conversationIds = (conversationMemberships || [])
     .map((cm) => cm.conversation_id)
     .sort();
