@@ -5,8 +5,8 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '10.0'
 
 target 'Supfam' do
-  config = use_unimodules!
-  use_native_modules!(:path => config["reactNativePath"])
+  config = use_native_modules!
+  use_react_native!(:path => config["reactNativePath"])
 
   # Enables Flipper.
   #
@@ -16,6 +16,7 @@ target 'Supfam' do
 
   # Our own added pods
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
+  use_unimodules!
 
   post_install do |installer|
     flipper_post_install(installer)
